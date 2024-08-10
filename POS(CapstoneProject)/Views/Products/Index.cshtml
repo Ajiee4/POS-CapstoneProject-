@@ -47,7 +47,14 @@
                 @Html.DisplayFor(modelItem => item.IsArchive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageData)
+                    @if (item.ImageData != null)
+                    {
+                        <img width="50px" src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" />
+                    }
+                    else
+                    {
+                        <p>No image found.</p>
+                    }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |

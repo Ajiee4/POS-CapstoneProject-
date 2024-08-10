@@ -57,15 +57,21 @@ namespace POS_CapstoneProject_.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name,ProdCategoryId,Price,IsArchive,ImageData")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,Name,ProdCategoryId,Price,IsArchive,ImageData")] Product product, IFormFile file)
         {
-            if (ModelState.IsValid)
+            if (product != null)
             {
+               
+                    using (var ms = new MemoryStream())
+                    {
+                        await file.CopyToAsync(ms);
+                        product.ImageData = ms.ToArray();
+                    }
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProdCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", product.ProdCategoryId);
+               ViewData["ProdCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", product.ProdCategoryId);
             return View(product);
         }
 
