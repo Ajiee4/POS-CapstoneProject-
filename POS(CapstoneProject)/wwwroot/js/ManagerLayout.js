@@ -1,6 +1,7 @@
 ﻿function toggleSideBar() {
     let toggler = document.querySelector('.sidebar-toggler');
     let sidebar = document.querySelector('.sidebar');
+
     let sidebarName = document.querySelectorAll('.sidebar-link-name');
 
     toggler.addEventListener('click', () => {
@@ -16,7 +17,7 @@
         }
         else {
             sidebar.style.width = "65px"
-          
+          alert('s')
             sidebarName.forEach((link) => {
                 link.style.display = "none";
             });
