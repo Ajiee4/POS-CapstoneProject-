@@ -3,52 +3,75 @@
     Layout =  "/Views/Shared/_AuthLayout.cshtml";
 }
 
+
 <div class="wrapper">
+
     <div class="login-wrapper">
-
-
 
         <div class="form-content">
             <h1 class="login-text-header">LOGIN</h1>
 
-            <form class="form">
-
-                
-               
+            <form asp-action="Login" method="post" class="form">
+            
                 <div class="username-wrapper">
                     <label asp-for="Username">Username:</label><br />
-                    <input asp-for="Username" type="text"  />
+                    <input asp-for="Username" type="text" required/>
                 </div>
-                
-                
-                
+                              
                 <div class="password-wrapper">
                     <label asp-for="Password">Password:</label><br />
-                    <input asp-for="Password" type="password" /><br />
+                    <input asp-for="Password" type="password" required/><br />
                 </div>
 
                 <button type="submit">LOGIN</button>
                 
             </form>
+
         </div>
-        
-            
-       
-        
+              
     </div>
 
     <div class="image-carousel-wrapper">
-        <img src="~/images/sample.jpg" />
+        <img src="~/images/sample.jpg"  />
     </div>
 </div>
- 
 
 
 
 
 
 
+@if (TempData["ErrorMessage"] != null)
+{
 
+    <script>
+        swal({
+            title: "Username does not exis",
+            text: "",
+            icon: "error",
+            button: "Okay",
+        });
+        @* .then(function () {
+            window.location.href = '@Url.Action("Blank", "Authentication")';
+        }); *@
+    </script>
+}
+
+@if (TempData["Success"] != null)
+{
+   <script>
+       swal({
+           title: "Successfully logged in!",
+           text: "",
+           icon: "success",
+           button: "Okay",
+       });
+       @*  .then(function () {
+            window.location.href = '@Url.Action("Blank", "Authentication")';
+        }); *@
+   </script>
+
+}
 
 
 

@@ -5,8 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<POS_CapstoneProject_Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("POS_CapstoneProject_Context") ?? throw new InvalidOperationException("Connection string 'POS_CapstoneProject_Context' not found.")));
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(option =>
+{
+    option.Cookie.Name = "POS(CapstoneProject).Session";
+    option.Cookie.IsEssential = true;
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
@@ -24,6 +31,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
