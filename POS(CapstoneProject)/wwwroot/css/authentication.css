@@ -1,0 +1,208 @@
+*, *::after, *::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+body {
+   
+    
+}
+.wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #D5AB82;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+   
+}
+
+
+.wrapper .image-carousel-wrapper {
+    background-color: black;
+    display: none;
+    height: 100%;
+    width: 100%;
+   
+}
+
+.image-carousel-wrapper img{
+    object-fit: contain;
+     width: 100%;
+     height: 100%
+}
+
+
+.wrapper .login-wrapper {
+    background-color: #D5AB82;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    
+}
+.form-content {
+    background-color: #9B5734;
+    margin: 0 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    min-height: 350px;
+    transition: width 0.5s;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.6);
+}
+.form {
+    margin-top: 30px;
+    background-color: transparent;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+   
+  
+}
+
+.login-text-header {
+    color: white;
+    letter-spacing: 2px;
+    font-size: 2rem;
+    margin-top: 10px;
+     
+  
+  
+    
+}
+
+.form .username-wrapper, .form .password-wrapper {
+    width: 80%;
+   margin-bottom:5px;
+    
+  
+} 
+.form .username-wrapper input, .form .password-wrapper input {
+    padding: 5px;
+    border-radius: 20px;
+    outline: none;
+    background-color: #ECECEC;
+    border: none;
+    gap: 5px;
+    width: 100%;
+   /* font-size: 0.7rem;*/
+    font-weight: lighter;
+    padding-left: 20px;
+}
+
+.form label{
+    font-size: 0.8rem;
+    font-weight: bolder;
+    color: black;
+    margin-left: 5px;
+}
+button[type="submit"] {
+    padding: 5px;
+    margin-top: 40px;
+    width: 80%;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid #693D29;
+    background-color: #693D29;
+    color: white;
+    font-weight: bolder;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.7);
+    letter-spacing: 2px;
+    transition: background-color 0.4s;
+}
+button[type="submit"]:hover{
+    background-color: black;
+}
+
+
+@media (min-width: 370px) {
+    .form-content {
+       margin: 0 40px;
+       
+        
+    }
+}
+@media (min-width: 420px) {
+    .form-content {
+        margin: 0 60px;
+      
+    }
+}
+@media (min-width: 538px) {
+    .form-content {
+        margin: 0 100px;
+    }
+
+}
+
+@media (min-width: 588px) {
+    .form-content {
+        margin: 0 130px;
+    }
+}
+@media (min-width: 767px) {
+    .wrapper{
+        display: flex;
+        flex-direction: row !important;
+    }
+    .image-carousel-wrapper{
+        display: block !important;
+        flex: 3;
+    }
+    .login-wrapper{
+        flex: 2;
+    }
+    .form-content {
+        margin: 0 15px;
+    }
+}
+
+@media (min-width: 820px) {
+    .form-content {
+        margin: 0 65px;
+    }
+    /* ... other media query styles ... */
+}
+
+
+@media (min-width: 1029px){
+    
+}
+
+@media (min-width: 1229px) {
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.carousel {
+    width: 600px;*/ /* Adjust the width as needed */
+    /*background-color: red;
+}
+.carousel-item img {
+    width: 100%;*/ /* Or a specific width like 400px */
+    /*height: auto;*/ /* Maintain aspect ratio */
+/*}*/

@@ -15,7 +15,7 @@ namespace POS_CapstoneProject_.Models
         [ForeignKey("ProdCategoryId")]
         public Category? Category { get; set; }
         [Required]
-        public double Price {  get; set; }
+        public decimal Price {  get; set; }
         [Required]
         public bool IsArchive { get; set; } = false;
         public byte[]? ImageData { get; set; }
