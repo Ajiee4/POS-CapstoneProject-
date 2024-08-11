@@ -9,6 +9,7 @@
 
         if (sidebar.classList.contains('open')) {
             sidebar.style.width = "180px"
+            toggler.style.transform = "rotate(0deg)"
             sidebarName.forEach((link) => {
                 link.style.display = "block";
             });
@@ -17,7 +18,7 @@
         }
         else {
             sidebar.style.width = "65px"
-          alert('s')
+            toggler.style.transform = "rotate(180deg)"
             sidebarName.forEach((link) => {
                 link.style.display = "none";
             });

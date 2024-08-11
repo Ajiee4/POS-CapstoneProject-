@@ -100,6 +100,7 @@ header .header-links .button-logout-text {
     background-color: #B5875D;
     border-radius: 50%;
     transform: translateY(-50%);
+    transition: transform 0.5s;
 }
 
 .sidebar ul {
