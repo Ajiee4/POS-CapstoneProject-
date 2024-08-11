@@ -30,3 +30,16 @@
 }
 
 toggleSideBar();
+
+
+
+const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
+
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', function () {
+     
+        sidebarLinks.forEach(link => link.classList.remove('activeLink'));      
+        this.classList.add('activeLink');
+             
+    });
+});

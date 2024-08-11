@@ -1,0 +1,141 @@
+﻿*, *::after,*::before{
+    box-sizing:border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+
+}
+.category-wrapper{
+    position: relative;
+  
+}
+.category{
+    color: red;
+    background-color: black;
+}
+.category-table{
+    width: 100%;
+    border-collapse:collapse;
+    height: 30px !important;
+    border: none;
+    overflow: scroll;
+}
+
+.category-table tr,th,td{
+    border: 1px solid black;
+}
+
+.category-table  {
+    
+}
+
+.category-table th {
+    padding: 5px;
+    color: white;
+       
+    text-align: left !important;
+    background-color: #693D29;
+}
+
+.category-table tbody {
+    background-color: #F7F7F7;
+    color: black;
+}
+.category-table td {
+    text-align: left !important;
+}
+.addCategoryBtn {
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    padding: 10px 15px;
+    background-color: #693D29;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none;
+    
+}
+.updateCategoryBtn {
+    background-color: #F39B37;
+    color: white;
+}
+.dt-search label{
+    color: black;
+    font-weight: lighter;
+}
+.dt-search .dt-input {
+    border: 1px solid black !important;
+}
+.dt-length, .dt-info{
+    display: none;
+}
+
+
+#addCategoryModal .modal-content {
+    background-color: #C5AC94 !important;
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px black;
+}
+#addCategoryModal .modal-header {
+    border: none;
+}
+
+#addCategoryModal .modal-header .modal-title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+#addCategoryModal label {
+    font-weight: bold
+}
+#addCategoryModal .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    outline: none;
+    transition: 0.5s;
+}
+#addCategoryModal .close:hover {
+    transform: scale(1.2);
+}
+
+
+
+
+#updateCategoryModal .modal-content {
+    background-color: #C5AC94 !important;
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px black;
+}
+
+#updateCategoryModal .modal-header {
+    border: none;
+}
+
+#updateCategoryModal .modal-header .modal-title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+#updateCategoryModal label {
+    font-weight: bold
+}
+
+#updateCategoryModal .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    outline: none;
+    transition: 0.5s;
+}
+
+    #updateCategoryModal .close:hover {
+        transform: scale(1.2);
+    }

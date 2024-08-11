@@ -20,4 +20,16 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utility\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Admin\source\repos\POS%28CapstoneProject%29\POS%28CapstoneProject%29\Controllers\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Admin\source\repos\POS(CapstoneProject)\POS(CapstoneProject)\Controllers\.editorconfig" />
+  </ItemGroup>
+
 </Project>

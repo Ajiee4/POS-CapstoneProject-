@@ -4,6 +4,12 @@
     box-sizing: border-box;
     font-family: Arial;
 }
+body {
+    padding-top: 90px;
+    padding-left: 200px;
+    padding-right: 20px;
+    background-color: #C5AC94;
+}
 
 
 
@@ -17,6 +23,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 999;
 }
 /*
 header .brand {
@@ -89,9 +96,9 @@ header .header-links .button-logout-text {
     top: 70px;
     left: 0;
     height: 100%;
-    transition: width 0.8s;
+    transition: width 0.3s;
 }
-.sidebar-toggler {
+.sidebar .sidebar-toggler {
     position: absolute;
     width: 20px;
     height: 20px;
@@ -139,15 +146,7 @@ header .header-links .button-logout-text {
     width: 100%;
 }
 
-/*.sidebar ul li a .caret {
-  
-    position: absolute;
-    top: 15%;
-    right: 10px;
-    transform: translateY((-50%));
-   
 
-}*/
 
 .sidebar ul li a:hover {
     background-color: #C6976C;
@@ -167,4 +166,7 @@ header .header-links .button-logout-text {
     font-size: 0.6rem;
     padding-left: 40px;
     font-weight: lighter;
+}
+.activeLink {
+    background: #C6976C !important;
 }

@@ -1,0 +1,166 @@
+﻿@model POS_CapstoneProject_.Models.Category
+@{
+    Layout = "/Views/Shared/_ManagerLayout.cshtml";
+
+}
+
+
+<div class="category-wrapper">
+    <button type="button" class="addCategoryBtn" data-toggle="modal" data-target="#addCategoryModal" >Add Category</button>
+
+    <table class="category-table">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category Type</th>
+                <th>Category Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in ViewData["CategoryList"] as List<Category>)
+            {
+                <tr>
+                    <td>@item.CategoryId</td>
+                    <td>@item.CategoryType</td>
+                    <td>@item.CategoryName</td>
+                    <td>
+                        <button class="btn updateCategoryBtn d-block mx-auto" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName','@item.CategoryType')" type="button">Update</button>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+
+<!--Add New Category-->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="AddCategory" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="CategoryName" class="control-label">Category Name</label>
+                        <input asp-for="CategoryName" class="form-control" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryType" class="control-label">Category Type</label>
+                        <select asp-for="CategoryType" class="form-control selectCategory">
+                            <option value="Ingredient">Ingredients</option>
+                            <option value="Product">Product</option>
+                        </select>
+                    </div>
+                  
+                   
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary d-block mx-auto" />Submit</button>
+                    </div>
+                </form>
+            </div>
+          
+        </div>
+    </div>
+</div>
+
+<!--Update Category-->
+ <div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="UpdateCategory" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="CategoryId" class="form-control input-id" hidden/>
+                    <div class="form-group">
+                        <label asp-for="CategoryName" class="control-label">Category Name</label>
+                        <input asp-for="CategoryName"  class="form-control input-name" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryType" class="control-label">Category Type</label>
+                        <select asp-for="CategoryType" class="form-control selectCategory">
+                            <option value="Ingredient">Ingredient</option>
+                            <option value="Product">Product</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary d-block mx-auto" />Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+ 
+<!--Pop Up Error Message if Category Exist-->
+@if (TempData["Exist"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "Category already exists",
+            icon: "error",
+            button: "Okay",
+        });
+       
+    </script>
+
+}
+
+<!--Pop up message when new category has been added-->
+@if (TempData["AddedCategory"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "New category added!",
+            icon: "success",
+            button: "Okay",
+        });
+
+    </script>
+
+}
+<!--Pop up message when category has been update-->
+@if (TempData["UpdatedCategory"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "Category updated!",
+            icon: "success",
+            button: "Okay",
+        });
+
+    </script>
+
+}
+
+
+
+
+
+                    

@@ -27,7 +27,7 @@ namespace POS_CapstoneProject_.Controllers
         {
             if (ModelState.IsValid)
             {
-                var checkUser = _context.User.Where(s => s.Username == user.Username).FirstOrDefault();
+                var checkUser = await _context.User.Where(s => s.Username == user.Username).FirstOrDefaultAsync();
 
                 if (checkUser == null)
                 {
