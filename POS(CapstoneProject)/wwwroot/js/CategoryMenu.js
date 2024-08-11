@@ -8,9 +8,6 @@ $(document).ready(function () {
         "pageLength": 5
        
     });
-
-   /* $('.dt-length, .dt-info').hide();*/
-
    
 });
 
@@ -23,7 +20,4 @@ function updateCategory(id, name, type) {
 }
 
 
-//$('.addCategoryBtn').click(function () {
-//    $('#addCategoryModal').show();
-//})
 

@@ -33,13 +33,25 @@ toggleSideBar();
 
 
 
+
 const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
+
+
+const activeLink = localStorage.getItem('activeLink');
+
+if (activeLink) {
+   
+    const linkToActivate = document.querySelector(`.sidebar ul li a[href="${activeLink}"]`);
+    if (linkToActivate) {
+        linkToActivate.style.background = "#C6976C";
+    }
+}
 
 sidebarLinks.forEach(link => {
     link.addEventListener('click', function () {
-     
-        sidebarLinks.forEach(link => link.classList.remove('activeLink'));      
-        this.classList.add('activeLink');
-             
+        
+        localStorage.setItem('activeLink', this.getAttribute('href'));
+
+        
     });
 });

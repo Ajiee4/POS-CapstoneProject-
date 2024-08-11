@@ -51,9 +51,7 @@
             icon: "error",
             button: "Okay",
         });
-        @* .then(function () {
-            window.location.href = '@Url.Action("Blank", "Authentication")';
-        }); *@
+      
     </script>
 }
 
@@ -65,10 +63,10 @@
            text: "",
            icon: "success",
            button: "Okay",
+       }).then(function(){
+           window.location.href = '@Url.Action("Index","DashboardMenu")'
        });
-       @*  .then(function () {
-            window.location.href = '@Url.Action("Blank", "Authentication")';
-        }); *@
+      
    </script>
 
 }

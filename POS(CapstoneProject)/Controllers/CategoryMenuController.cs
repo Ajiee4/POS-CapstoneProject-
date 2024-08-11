@@ -71,9 +71,6 @@ namespace POS_CapstoneProject_.Controllers
                     //if the data already exist, send an error message
                     TempData["Exist"] = "";
                 }
-               
-           
-
 
             }
 
