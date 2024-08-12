@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using POS_CapstoneProject_.Data;
 
 namespace POS_CapstoneProject_.Controllers
@@ -11,10 +12,12 @@ namespace POS_CapstoneProject_.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var getCategoryProduct = _context.Category.Where(s => s.CategoryType == "Product").ToList();
+            var productList = await _context.Product.Include(s => s.Category).ToListAsync();
+            var getCategoryProduct = await _context.Category.Where(s => s.CategoryType == "Product").ToListAsync();
             ViewData["productCategory"] = getCategoryProduct;
+            ViewData["productList"] = productList;
             return View();
         }
     }

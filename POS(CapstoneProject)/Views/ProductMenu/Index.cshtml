@@ -14,11 +14,48 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>Status</th>
-                <th>Actios</th>
+                <th>Actions</th>
 
             </tr>
-        </thead>
 
+           
+        </thead>
+        <tbody>
+            @foreach (var item in ViewData["productList"] as List<Product>)
+            {
+                <tr>
+                    <td>@item.ProductId</td>
+                    <td>@item.Name</td>
+                    <td>@item.Category.CategoryName</td>
+                    <td>@item.Price</td>
+
+                    @if (@item.IsArchive)
+                    {
+                        <td>Unavailable</td>
+                    }
+                    else
+                    {
+                        <td>Available</td>
+                    }
+
+                    @if (@item.IsArchive)
+                    {
+                        <td>
+                            <button class="btn">Unarchive</button>
+                            <button class="btn">Update</button>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <button class="btn">Archive</button>
+                            <button class="btn">Update</button>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
        
 
     </table>
@@ -44,13 +81,33 @@
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
-                   @*  <div class="form-group">
-                        <label asp-for="CategoryType" class="control-label">Category Type</label>
-                        <select asp-for="CategoryType" class="form-control selectCategory">
-                            <option value="Ingredient">Ingredients</option>
-                            <option value="Product">Product</option>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label">Price</label>
+                        <input asp-for="Price" type="number" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label">Price</label>
+                        <input asp-for="Price" type="file" accept="image/*" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                   
+
+                     <div class="form-group">
+                        <label asp-for="ProdCategoryId" class="control-label">Category Type</label>
+                        <select asp-for="ProdCategoryId" class="form-control selectCategory">
+
+                            @foreach (var item in ViewData["productCategory"] as List<Category>)
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                           
                         </select>
-                    </div> *@
+                    </div> 
 
 
                     <div class="form-group">
