@@ -10,10 +10,10 @@ body {
     position: relative;
   
 }
-.category{
+/*.category{
     color: red;
     background-color: black;
-}
+}*/
 .category-table{
     width: 100%;
     border-collapse:collapse;

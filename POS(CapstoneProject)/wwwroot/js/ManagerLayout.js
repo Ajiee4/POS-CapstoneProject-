@@ -1,4 +1,9 @@
-﻿function toggleSideBar() {
+﻿
+
+
+
+
+function toggleSideBar() {
     let toggler = document.querySelector('.sidebar-toggler');
     let sidebar = document.querySelector('.sidebar');
 
@@ -32,25 +37,30 @@
 toggleSideBar();
 
 
+//let activeLink = localStorage.setItem('activeLink', "/DashboardMenu/Index");
+//const linkToActivate = document.querySelector(`.sidebar ul li a[href="${activeLink}"]`);
+//linkToActivate.style.backgroundColor = "#C6976C";
+
+//const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
 
 
-const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
+//const activeLink = localStorage.getItem('activeLink');
 
+//console.log(activeLink)
 
-const activeLink = localStorage.getItem('activeLink');
-
-if (activeLink) {
+//if (activeLink) {
    
-    const linkToActivate = document.querySelector(`.sidebar ul li a[href="${activeLink}"]`);
-    if (linkToActivate) {
-        linkToActivate.style.background = "#C6976C";
-    }
-}
+//    const linkToActivate = document.querySelector(`.sidebar ul li a[href="${activeLink}"]`);
+//    if (linkToActivate) {
+//        linkToActivate.style.background = "#C6976C";
+//    }
+//}
 
 sidebarLinks.forEach(link => {
     link.addEventListener('click', function () {
         
-        localStorage.setItem('activeLink', this.getAttribute('href'));
+        //localStorage.setItem('activeLink', this.getAttribute('href'));
+      
 
         
     });

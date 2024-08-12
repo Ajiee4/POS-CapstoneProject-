@@ -2,4 +2,63 @@
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
 }
-<h1>PRODUCT</h1>
+<div class="product-wrapper">
+    <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+
+    <table class="product-table">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actios</th>
+
+            </tr>
+        </thead>
+
+       
+
+    </table>
+</div>
+
+<!--Add New Product-->
+<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="AddCategory" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Product Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                   @*  <div class="form-group">
+                        <label asp-for="CategoryType" class="control-label">Category Type</label>
+                        <select asp-for="CategoryType" class="form-control selectCategory">
+                            <option value="Ingredient">Ingredients</option>
+                            <option value="Product">Product</option>
+                        </select>
+                    </div> *@
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary d-block mx-auto" />Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

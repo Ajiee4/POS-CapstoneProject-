@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\ProductMenu.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="C:\Users\Admin\source\repos\POS(CapstoneProject)\POS(CapstoneProject)\Controllers\.editorconfig" />
   </ItemGroup>
 
