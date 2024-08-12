@@ -1,10 +1,11 @@
 ﻿@model POS_CapstoneProject_.Models.Product
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
+    var productList = ViewData["productList"] as List<Product>;
 }
 <div class="product-wrapper">
     <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">Add Product</button>
-
+   
     <table class="product-table">
 
         <thead>
@@ -14,6 +15,7 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>Status</th>
+                <th>Image</th>
                 <th>Actions</th>
 
             </tr>
@@ -21,44 +23,74 @@
            
         </thead>
         <tbody>
-            @foreach (var item in ViewData["productList"] as List<Product>)
+          
+            @if(productList != null && productList.Any())
             {
-                <tr>
-                    <td>@item.ProductId</td>
-                    <td>@item.Name</td>
-                    <td>@item.Category.CategoryName</td>
-                    <td>@item.Price</td>
+                @foreach (var item in productList)
+                {
+                    <tr>
+                        <td>@item.ProductId</td>
+                        <td>@item.Name</td>
+                        <td>@item.Category.CategoryName</td>
+                        <td>@item.Price</td>
 
-                    @if (@item.IsArchive)
-                    {
-                        <td>Unavailable</td>
-                    }
-                    else
-                    {
-                        <td>Available</td>
-                    }
+                        @if (@item.IsArchive)
+                        {
+                            <td>Unavailable</td>
+                        }
+                        else
+                        {
+                            <td>Available</td>
+                        }
 
-                    @if (@item.IsArchive)
-                    {
-                        <td>
-                            <button class="btn">Unarchive</button>
-                            <button class="btn">Update</button>
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            <button class="btn">Archive</button>
-                            <button class="btn">Update</button>
-                        </td>
-                    }
+                        @if(item.ImageData == null)
+                        {
+                            <td>
+                               No Image
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto d-block mx-auto" alt="Image" />
+                            </td>
+                        }
 
-                </tr>
+                        @if (@item.IsArchive)
+                        {
+                            <td>
+                                <div class="action-wrapper">
+                                    <form class="unarchiveForm" asp-action="UnarchiveProduct">
+                                        <input asp-for="ProductId" value="@item.ProductId" class="unarchiveInput" hidden />
+                                    </form>
+                                    <button class="btn unarchiveBtn">Unarchive</button>
+                                    <button class="btn updateProductBtn">Update</button>
+                                </div>                              
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="action-wrapper">
+                                    <form class="archiveForm" asp-action="ArchiveProduct">
+                                        <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden/>
+                                    </form>
+                                    <button class="btn archiveBtn">Archive</button>
+                                    <button class="btn updateProductBtn">Update</button>
+                                </div>                     
+                            </td>
+                        }
+
+                    </tr>
+                }
             }
+           
         </tbody>
        
 
     </table>
+
+    
 </div>
 
 <!--Add New Product-->
@@ -72,28 +104,34 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="AddProduct" asp-controller="ProductMenu" method="post">
+                 
+                <form asp-action="AddProduct" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group">
+                      
+                        <div class="photo-wrapper d-block mx-auto">
+                            <img src="~/images/noimage.jpg" />
+                        </div>
 
+                        <input  hidden class="inputPhoto" type="file" name="file" accept="image/*" class="form-control" />      
+                        <br />
+                        <button type="button" class="btn uploadPhoto d-block mx-auto">Upload Photo</button>
+                    </div>
+                   
                     <div class="form-group">
                         <label asp-for="Name" class="control-label">Product Name</label>
-                        <input asp-for="Name" class="form-control" />
+                        <input asp-for="Name" class="form-control" required />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
                      <div class="form-group">
                         <label asp-for="Price" class="control-label">Price</label>
-                        <input asp-for="Price" type="number" class="form-control" />
+                        <input asp-for="Price" type="number" class="form-control" required />
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
  
-
-
-                 
-
-                   
-
-                      <div class="form-group">
+                     <div class="form-group">
                         <label asp-for="ProdCategoryId" class="control-label">Category Type</label>
                         <select asp-for="ProdCategoryId" class="form-control">
 
@@ -103,11 +141,12 @@
                             }
                            
                         </select>
-                    </div> 
+                     </div> 
+
 
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary d-block mx-auto" />Submit</button>
+                        <button type="submit" class="btn btn-primary d-block mx-auto submitFormBtn" />Submit</button>
                     </div>
                 </form>
             </div>
@@ -115,3 +154,45 @@
         </div>
     </div>
 </div>
+
+
+@if (TempData["ErrorArchive"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "does not exist!",
+            icon: "error",
+            button: "Okay",
+        });
+
+    </script>
+
+}
+
+@if (TempData["SuccessArchived"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "Product archived!",
+            icon: "success",
+            button: "Okay",
+        });
+
+    </script>
+
+}
+@if (TempData["SuccessUnarchived"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "Product unarchived!",
+            icon: "success",
+            button: "Okay",
+        });
+
+    </script>
+
+}

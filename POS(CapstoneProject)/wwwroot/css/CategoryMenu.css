@@ -57,11 +57,20 @@ body {
     font-size: 0.8rem;
     font-weight: bold;
     border-radius: 20px;
-    border: none;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none;
     
 }
+.submitFormBtn {
+    background-color: #693D29;
+    border-radius: 20px;
+    padding: 10px 30px;
+    border: none;
+    color: white;
+}
 .updateCategoryBtn {
-    background-color: #F39B37;
+    background-color: #1964C5;
     color: white;
 }
 .dt-search label{
@@ -77,7 +86,7 @@ body {
 
 
 #addCategoryModal .modal-content {
-    background-color: #C5AC94 !important;
+    background-color: rgba(197, 172, 148,0.9) !important;
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
 }
@@ -109,7 +118,7 @@ body {
 
 
 #updateCategoryModal .modal-content {
-    background-color: #C5AC94 !important;
+    background-color: rgba(197, 172, 148,0.9) !important;
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
 }

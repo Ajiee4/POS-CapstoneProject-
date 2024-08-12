@@ -13,11 +13,12 @@ function toggleSideBar() {
         sidebar.classList.toggle('open');
 
         if (sidebar.classList.contains('open')) {
-            sidebar.style.width = "180px"
-            toggler.style.transform = "rotate(0deg)"
-            sidebarName.forEach((link) => {
+                sidebar.style.width = "180px"
+                toggler.style.transform = "rotate(0deg)"
+                sidebarName.forEach((link) => {
+
                 link.style.display = "block";
-            });
+                 });
 
            
         }
@@ -35,6 +36,8 @@ function toggleSideBar() {
 }
 
 toggleSideBar();
+
+
 
 
 //let activeLink = localStorage.setItem('activeLink', "/DashboardMenu/Index");

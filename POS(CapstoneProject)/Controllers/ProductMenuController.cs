@@ -23,13 +23,80 @@ namespace POS_CapstoneProject_.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddProduct(Product prod)
+        public async Task<IActionResult> AddProduct(Product prod,IFormFile file)
         {
-            if (ModelState.IsValid)
+           
+            if(file == null)
             {
+                
                 _context.Add(prod);
                 await _context.SaveChangesAsync();
             }
+            else
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    prod.ImageData = ms.ToArray();
+                }
+                _context.Add(prod);
+                await _context.SaveChangesAsync();
+            }
+                
+            
+            
+               
+            
+                
+            
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArchiveProduct(Product product)
+        {
+           
+            var checkProduct = await _context.Product.Where(s => s.ProductId == product.ProductId).FirstOrDefaultAsync();
+            if (checkProduct == null)
+            {
+                TempData["Error"] = " ";
+            }
+            else
+            {
+                TempData["SuccessArchived"] = " ";
+
+                checkProduct.IsArchive = true;
+                _context.Update(checkProduct);
+                await _context.SaveChangesAsync();
+
+              
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UnarchiveProduct(Product product)
+        {
+
+            var checkProduct = await _context.Product.Where(s => s.ProductId == product.ProductId).FirstOrDefaultAsync();
+            if (checkProduct == null)
+            {
+                TempData["Error"] = " ";
+            }
+            else
+            {
+                TempData["SuccessUnarchived"] = " ";
+
+                checkProduct.IsArchive = false;
+                _context.Update(checkProduct);
+                await _context.SaveChangesAsync();
+
+
+            }
+
             return RedirectToAction("Index");
         }
     }

@@ -30,27 +30,27 @@
     overflow: scroll;
 }
 
-    .product-table tr, th, td {
-        border: 1px solid black;
-    }
+.product-table tr, th, td {
+    border: 1px solid black;
+}
 
 
 
-    .product-table th {
-        padding: 5px;
-        color: white;
-        text-align: left !important;
-        background-color: #693D29;
-    }
+.product-table th {
+    padding: 5px;
+    color: white;
+    text-align: left !important;
+    background-color: #693D29;
+}
 
-    .product-table tbody {
-        background-color: #F7F7F7;
-        color: black;
-    }
+.product-table tbody {
+    background-color: #F7F7F7;
+    color: black;
+}
 
-    .product-table td {
-        text-align: left !important;
-    }
+.product-table td {
+    text-align: left !important;
+}
 
 .dt-search label {
     color: black;
@@ -69,7 +69,7 @@
 /*Modal Add Product*/
 
 #addProductModal .modal-content {
-    background-color: #C5AC94 !important;
+    background-color: rgba(197, 172, 148,0.9) !important;
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
 }
@@ -78,11 +78,11 @@
     border: none;
 }
 
-    #addProductModal .modal-header .modal-title {
-        width: 100%;
-        text-align: center;
-        font-weight: bold;
-    }
+#addProductModal .modal-header .modal-title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
 
 #addProductModal label {
     font-weight: bold
@@ -96,6 +96,39 @@
     transition: 0.5s;
 }
 
-    #addProductModal .close:hover {
-        transform: scale(1.2);
-    }
+#addProductModal .close:hover {
+    transform: scale(1.2);
+}
+
+.photo-wrapper{
+    width: 100px;
+    height: 80px;
+    border: 1px solid black;
+    background-color: transparent;
+}
+.photo-wrapper img {
+    object-fit: cover;
+    width: 100px;
+    height: 80px;
+}
+
+.productPhoto{
+    width: 30px;
+    height: 30px;
+}
+.updateProductBtn {
+    background-color: #1964C5;
+    color: white;
+}
+.archiveBtn, .unarchiveBtn {
+    background-color: #F71F1F;
+    color: white;
+}
+.action-wrapper{
+   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+    
