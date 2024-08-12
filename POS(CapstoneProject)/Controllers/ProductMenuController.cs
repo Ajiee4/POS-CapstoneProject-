@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using POS_CapstoneProject_.Data;
+using POS_CapstoneProject_.Models;
 
 namespace POS_CapstoneProject_.Controllers
 {
@@ -19,6 +20,17 @@ namespace POS_CapstoneProject_.Controllers
             ViewData["productCategory"] = getCategoryProduct;
             ViewData["productList"] = productList;
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddProduct(Product prod)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(prod);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
         }
     }
 }

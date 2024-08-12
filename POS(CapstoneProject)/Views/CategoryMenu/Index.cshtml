@@ -20,6 +20,7 @@
         </thead>
 
         <tbody>
+            
             @foreach (var item in ViewData["CategoryList"] as List<Category>)
             {
                 <tr>
@@ -50,7 +51,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="AddCategory" method="post">
+                <form asp-action="AddCategory" asp-controller="CategoryMenu" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
