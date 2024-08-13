@@ -68,27 +68,27 @@
 
 /*Modal Add Product*/
 
-#addProductModal .modal-content {
+#addProductModal .modal-content, #updateProductModal .modal-content {
     background-color: rgba(197, 172, 148,0.9) !important;
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
 }
 
-#addProductModal .modal-header {
+#addProductModal .modal-header, #updateProductModal .modal-header {
     border: none;
 }
 
-#addProductModal .modal-header .modal-title {
+#addProductModal .modal-title, #updateProductModal .modal-title {
     width: 100%;
     text-align: center;
     font-weight: bold;
 }
 
-#addProductModal label {
+#addProductModal label, #updateProductModal label {
     font-weight: bold
 }
 
-#addProductModal .close {
+#addProductModal .close, #updateProductModal .close {
     position: absolute;
     top: 6px;
     right: 10px;
@@ -96,9 +96,9 @@
     transition: 0.5s;
 }
 
-#addProductModal .close:hover {
-    transform: scale(1.2);
-}
+    #addProductModal .close:hover, #updateProductModal .close:hover {
+        transform: scale(1.2);
+    }
 
 .photo-wrapper{
     width: 100px;
@@ -113,8 +113,8 @@
 }
 
 .productPhoto{
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 }
 .updateProductBtn {
     background-color: #1964C5;
@@ -132,3 +132,4 @@
 }
 
     
+

@@ -23,7 +23,7 @@ namespace POS_CapstoneProject_.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddProduct(Product prod,IFormFile file)
+        public async Task<IActionResult> AddProduct(Product prod, IFormFile file)
         {
            
             if(file == null)
@@ -49,6 +49,39 @@ namespace POS_CapstoneProject_.Controllers
             
                 
             
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProduct(Product prod, IFormFile file)
+        {
+          
+          
+            if (file == null)
+            {
+                _context.Update(prod);
+                await _context.SaveChangesAsync();
+
+            }
+            else
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    prod.ImageData = ms.ToArray();
+                }
+                _context.Update(prod);
+                await _context.SaveChangesAsync();
+            }
+
+
+
+
+
+
+
 
             return RedirectToAction("Index");
         }
