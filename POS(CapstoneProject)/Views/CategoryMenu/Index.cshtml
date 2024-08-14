@@ -120,15 +120,16 @@
     </div>
 </div>
  
-<!--Pop Up Error Message if Category Exist-->
-@if (TempData["Exist"] != null)
+<!--Pop Up Error Message if Category already exist-->
+@if (TempData["CategoryExist"] != null)
 {
     <script>
         swal({
             title: "",
             text: "Category already exists",
             icon: "error",
-            button: "Okay",
+            button: false,
+            timer: 3000
         });
        
     </script>
@@ -141,9 +142,10 @@
     <script>
         swal({
             title: "",
-            text: "New category added!",
+            text: "New category added",
             icon: "success",
-            button: "Okay",
+            button: false,
+            timer: 3000
         });
 
     </script>
@@ -155,9 +157,10 @@
     <script>
         swal({
             title: "",
-            text: "Category updated!",
+            text: "Category updated",
             icon: "success",
-            button: "Okay",
+            button: false,
+            timer: 3000
         });
 
     </script>

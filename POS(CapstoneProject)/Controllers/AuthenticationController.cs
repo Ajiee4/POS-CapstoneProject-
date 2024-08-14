@@ -23,32 +23,37 @@ namespace POS_CapstoneProject_.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(string Username, string Password)
         {
             if (ModelState.IsValid)
             {
-                var checkUser = await _context.User.Where(s => s.Username == user.Username).FirstOrDefaultAsync();
+                //return a record based on a condition
+                var checkUsername = await _context.User.Where(s => s.Username == Username).FirstOrDefaultAsync();
 
-                if (checkUser == null)
+                //checks the record if it is null
+                if (checkUsername == null)
                 {
-                    TempData["ErrorMessage"] = "Username does not exist";
-                    ModelState.Clear();
-                    user = new User(); // Clear the form fields by returning a new/empty model
-
-                    // Return the same view with an empty model to clear the inputs
-                    return View(user);
-
+                    //send a message to the view
+                    TempData["NotExist"] = "Username does not exist";                
                 }
-                else
+                else //if there's a record
                 {
-                    TempData["Success"] = "Username does not exist";
-                    ModelState.Clear();
-                    user = new User(); // Clear the form fields by returning a new/empty model
-
-                    // Return the same view with an empty model to clear the inputs
-                    return View(user);
+                    //check if password is correct
+                    if(checkUsername.Password == Password)
+                    {
+                        //send a message to the view
+                        TempData["Success"] = "Success"; 
+                    }
+                    else //if password does not match
+                    {
+                        TempData["IncorrectPassword"] = "Incorrect password";
+                    }           
+                  
                 }
+
+                
             }
+
             return View();
         }
     }

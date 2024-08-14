@@ -18,7 +18,8 @@ namespace POS_CapstoneProject_.Controllers
         {
             //create a list of categories
             var categoryList = await _context.Category.ToListAsync();
-            ViewData["CategoryList"] = categoryList; //store the list in the viewdata to pass display on the view
+            ViewData["CategoryList"] = categoryList; //store the list in the viewdata to display on the view
+
             return View();
         }
 
@@ -35,13 +36,14 @@ namespace POS_CapstoneProject_.Controllers
                    
                     _context.Add(category);
                     await _context.SaveChangesAsync();
+
                     TempData["AddedCategory"] = "";
 
                 }
                 else
                 {
                     //if the data already exist, send an error message
-                    TempData["Exist"] = "";
+                    TempData["CategoryExist"] = "";
                 }
 
                 

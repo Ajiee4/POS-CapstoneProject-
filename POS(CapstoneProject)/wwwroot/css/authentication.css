@@ -4,10 +4,7 @@
     box-sizing: border-box;
     font-family: Arial;
 }
-body {
-   
-    
-}
+
 .wrapper {
     position: absolute;
     top: 0;
@@ -74,16 +71,12 @@ body {
     color: white;
     letter-spacing: 2px;
     font-size: 2rem;
-    margin-top: 10px;
-     
-  
-  
-    
+    margin-top: 10px;   
 }
 
 .form .username-wrapper, .form .password-wrapper {
     width: 80%;
-   margin-bottom:5px;
+    margin-bottom:5px;
     
   
 } 
@@ -95,7 +88,6 @@ body {
     border: none;
     gap: 5px;
     width: 100%;
-   /* font-size: 0.7rem;*/
     font-weight: lighter;
     padding-left: 20px;
 }
@@ -128,8 +120,7 @@ button[type="submit"]:hover{
 @media (min-width: 370px) {
     .form-content {
        margin: 0 40px;
-       
-        
+              
     }
 }
 @media (min-width: 420px) {

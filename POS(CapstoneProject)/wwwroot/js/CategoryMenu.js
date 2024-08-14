@@ -1,4 +1,6 @@
-﻿//Setting up the Data Table
+﻿
+
+//Setting up the Data Table
 $(document).ready(function () {
     $('.category-table').DataTable({
         "paging": true,
@@ -23,14 +25,6 @@ function resetAddModal() {
 
 resetAddModal();
 
-
-//function resetUpdateModal() {
-//    $('#updateCategoryModal').on('hidden.bs.modal', function () {
-//        // Clear input fields
-//        $('.updateInputName').val('');
-//        $('.addSelectCategory').val('Product'); // Set default value for select
-//    });
-//}
 //update button was clicked
 function updateCategory(id, name, type) {
   

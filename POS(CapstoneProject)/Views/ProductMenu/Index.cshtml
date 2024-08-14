@@ -45,7 +45,7 @@
                         @if(item.ImageData == null)
                         {
                             <td>
-                               No Image
+                              <div class="text-center">No Image</div>
                             </td>
                         }
                         else
@@ -218,14 +218,45 @@
 </div>
 
 
-@if (TempData["ErrorArchive"] != null)
+@if (TempData["ProductAdded"] != null)
 {
     <script>
         swal({
             title: "",
-            text: "does not exist!",
+            text: "New product added",
+            icon: "success",
+            button: false,
+            timer: 3000
+        });
+
+    </script>
+
+}
+
+@if (TempData["ProductUpdated"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "Product updated",
+            icon: "success",
+            button: false,
+            timer: 3000
+        });
+
+    </script>
+
+}
+
+@if (TempData["ProductExist"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "Product already exist",
             icon: "error",
-            button: "Okay",
+            button: false,
+            timer: 3000
         });
 
     </script>
@@ -237,9 +268,10 @@
     <script>
         swal({
             title: "",
-            text: "Product archived!",
+            text: "Product archived",
             icon: "success",
-            button: "Okay",
+            button: false,
+            timer: 3000
         });
 
     </script>
@@ -250,9 +282,10 @@
     <script>
         swal({
             title: "",
-            text: "Product unarchived!",
+            text: "Product unarchived",
             icon: "success",
-            button: "Okay",
+            button: false,
+            timer: 3000
         });
 
     </script>

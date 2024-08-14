@@ -14,43 +14,66 @@ namespace POS_CapstoneProject_.Controllers
             _context = context;
         }
         public async Task<IActionResult> Index()
-        {
+        {   
+            //create a variable to store a list of products including
             var productList = await _context.Product.Include(s => s.Category).ToListAsync();
+            //create a variable to store a list of category that has a type of Product
             var getCategoryProduct = await _context.Category.Where(s => s.CategoryType == "Product").ToListAsync();
+            //store in ViewData to pass it to the View
             ViewData["productCategory"] = getCategoryProduct;
             ViewData["productList"] = productList;
+
             return View();
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct(Product prod, IFormFile file)
         {
-           
-            if(file == null)
+            var checkExisting = await _context.Product.Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId).FirstOrDefaultAsync();
+
+            //check if the image is null
+            if (file == null)
             {
-                
-                _context.Add(prod);
-                await _context.SaveChangesAsync();
+               
+                if(checkExisting == null)
+                {
+                    //save to database
+                    _context.Add(prod);
+                    await _context.SaveChangesAsync();
+
+                    TempData["ProductAdded"] = "Added new product";
+                }
+                else
+                {
+                    TempData["ProductExist"] = "Product already exist";
+                }
+               
             }
             else
             {
-                using (var ms = new MemoryStream())
+                if(checkExisting == null)
                 {
-                    await file.CopyToAsync(ms);
-                    prod.ImageData = ms.ToArray();
+                    using (var ms = new MemoryStream())
+                    {
+                        await file.CopyToAsync(ms);
+                        prod.ImageData = ms.ToArray();
+                    }
+                    _context.Add(prod);
+                    await _context.SaveChangesAsync();
+
+                    TempData["ProductAdded"] = "Added new product";
                 }
-                _context.Add(prod);
-                await _context.SaveChangesAsync();
+                else
+                {
+                    TempData["ProductExist"] = "Product already exist";
+                }
+              
             }
-                
-            
-            
-               
-            
-                
-            
+                         
 
             return RedirectToAction("Index");
+
         }
 
         [HttpPost]
@@ -58,11 +81,14 @@ namespace POS_CapstoneProject_.Controllers
         public async Task<IActionResult> UpdateProduct(Product prod, IFormFile file)
         {
           
-          
+            //check if the 
             if (file == null)
             {
+              
                 _context.Update(prod);
                 await _context.SaveChangesAsync();
+
+                TempData["ProductUpdated"] = "Product updated";
 
             }
             else
@@ -74,16 +100,13 @@ namespace POS_CapstoneProject_.Controllers
                 }
                 _context.Update(prod);
                 await _context.SaveChangesAsync();
+
+                TempData["ProductUpdated"] = "Product updated";
             }
 
 
-
-
-
-
-
-
             return RedirectToAction("Index");
+
         }
 
         [HttpPost]
@@ -98,13 +121,15 @@ namespace POS_CapstoneProject_.Controllers
             }
             else
             {
-                TempData["SuccessArchived"] = " ";
+               
 
                 checkProduct.IsArchive = true;
                 _context.Update(checkProduct);
                 await _context.SaveChangesAsync();
 
-              
+                TempData["SuccessArchived"] = " ";
+
+
             }
 
             return RedirectToAction("Index");
@@ -121,11 +146,13 @@ namespace POS_CapstoneProject_.Controllers
             }
             else
             {
-                TempData["SuccessUnarchived"] = " ";
+                
 
                 checkProduct.IsArchive = false;
                 _context.Update(checkProduct);
                 await _context.SaveChangesAsync();
+
+                TempData["SuccessUnarchived"] = " ";
 
 
             }
