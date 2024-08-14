@@ -22,11 +22,12 @@ namespace POS_CapstoneProject_.Controllers
 
             return View();
         }
-
+        //receive the http request from the view when the form wis submitted
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddCategory(Category category)
         {
+            
             if (ModelState.IsValid)
             {   
                 //check if the submitted data already exist in the database
@@ -34,26 +35,26 @@ namespace POS_CapstoneProject_.Controllers
                 if (categoryNames == null) //if the name does not exist then save it to the database
                 {
                    
+                    //save to db
                     _context.Add(category);
                     await _context.SaveChangesAsync();
 
+                    //pass message to the view
                     TempData["AddedCategory"] = "";
 
                 }
                 else
                 {
-                    //if the data already exist, send an error message
+                    //pass message to the view
                     TempData["CategoryExist"] = "";
-                }
-
-                
+                }              
 
             }
 
             return RedirectToAction("Index");
         }
 
-
+        //receive the http request from the view when the form wis submitted
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateCategory(Category category)

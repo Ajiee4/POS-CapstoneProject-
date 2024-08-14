@@ -1,19 +1,22 @@
 ﻿*, *::after, *::before {
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial;
+
 }
 body {
+
     padding-top: 90px;
     padding-left: 200px;
     padding-right: 20px;
     background-color: #C5AC94;
+
 }
 
-
-
 header {
+
     background-color: #923312;
     position: fixed;
     top: 0;
@@ -24,6 +27,7 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 999;
+
 }
 /*
 header .brand {
@@ -90,6 +94,7 @@ header .header-links .button-logout-text {
 }*/
 
 .sidebar {
+
     background-color: #9E7148;
     width: 180px;
     position: fixed;
@@ -97,8 +102,11 @@ header .header-links .button-logout-text {
     left: 0;
     height: 100%;
     transition: width 0.3s;
+
 }
+
 .sidebar .sidebar-toggler {
+
     position: absolute;
     width: 20px;
     height: 20px;
@@ -108,22 +116,28 @@ header .header-links .button-logout-text {
     border-radius: 50%;
     transform: translateY(-50%);
     transition: transform 0.5s;
+
 }
 
 .sidebar ul {
+
     height: 100%;
     list-style: none;
+
 }
 
 .sidebar ul li {
+
     padding: 5px 15px;
     
 }
 
 .sidebar ul li a .sidebar-link-img {
+
     width: 15px;
     height: 15px;
     margin-left: 5px;
+
 }
 
 .sidebar ul li a .sidebar-link-name {
@@ -134,6 +148,7 @@ header .header-links .button-logout-text {
 }
 
 .sidebar ul li a {
+
     position: relative;
     text-decoration: none;
     color: white;
@@ -144,38 +159,42 @@ header .header-links .button-logout-text {
     align-items: center;
     background-color: #A37D5A;
     width: 100%;
+
 }
 
-
-
 .sidebar ul li a:hover {
+
     background-color: #C6976C;
+
 }
 
 .sidebar ul ul {
+
     display: none;
     position: static;
     margin-top: 5px;
+
 }
 
- 
-
 .sidebar ul ul li a {
+
     font-size: 0.6rem;
     display: block;
     text-align: center;
     font-weight: lighter;
     text-wrap: nowrap;
+
 }
 
 .sidebarlink-inventory-toggler {
+
     position: absolute;
     width: 15px;
     height: 15px;
     top: 35%;
-    right: 5px;
-   
+    right: 5px;  
     transform: rotate(270deg);
     transition: 0.5s;
+
 }
 

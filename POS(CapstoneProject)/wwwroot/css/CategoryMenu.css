@@ -1,51 +1,13 @@
 ﻿*, *::after,*::before{
+
     box-sizing:border-box;
     padding: 0;
     margin: 0;
-}
-body {
 
 }
-.category-wrapper{
-    position: relative;
-  
-}
-/*.category{
-    color: red;
-    background-color: black;
-}*/
-.category-table{
-    width: 100%;
-    border-collapse:collapse;
-    height: 30px !important;
-    border: none;
-    overflow: scroll;
-}
-
-.category-table tr,th,td{
-    border: 1px solid black;
-}
-
-.category-table  {
-    
-}
-
-.category-table th {
-    padding: 5px;
-    color: white;
-       
-    text-align: left !important;
-    background-color: #693D29;
-}
-
-.category-table tbody {
-    background-color: #F7F7F7;
-    color: black;
-}
-.category-table td {
-    text-align: left !important;
-}
+/*Buttons*/
 .addCategoryBtn {
+
     position: absolute;
     cursor: pointer;
     z-index: 100;
@@ -60,95 +22,145 @@ body {
     border: none !important;
     outline: none !important;
     box-shadow: none;
-    
+
 }
-.submitFormBtn {
+
+.updateCategoryBtn {
+
+    background-color: #1964C5;
+    color: white;
+
+}
+
+/*Wrapper*/
+.category-wrapper{
+
+    position: relative;
+  
+}
+
+/*table*/
+.category-table{
+
+    width: 100%;
+    border-collapse:collapse;
+    height: 30px !important;
+    border: none;
+    overflow: scroll;
+
+}
+
+.category-table tr,th,td{
+
+    border: 1px solid black;
+
+}
+
+.category-table th{
+
+    padding: 5px;
+    color: white;      
+    text-align: left !important;
+    background-color: #693D29;
+
+}
+
+.category-table tbody {
+
+    background-color: #F7F7F7;
+    color: black;
+
+}
+
+.category-table td {
+
+    text-align: left !important;
+
+}
+
+/*Add and Update Modals*/
+#addCategoryModal .submitFormBtn, #updateCategoryModal .submitFormBtn {
+
     background-color: #693D29;
     border-radius: 20px;
     padding: 10px 30px;
     border: none;
     color: white;
+
 }
-.submitFormBtn:hover{
+#addCategoryModal .submitFormBtn:hover {
+
     background-color: black;
     color: white;
+
 }
-.updateCategoryBtn {
-    background-color: #1964C5;
+
+#updateCategoryModal .submitFormBtn:hover {
+
+    background-color: black;
     color: white;
+
 }
-.dt-search label{
+
+
+
+#addCategoryModal .modal-content, #updateCategoryModal .modal-content {
+
+    background-color: rgba(197, 172, 148,0.9) !important;
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px black;
+
+}
+#addCategoryModal .modal-header, #updateCategoryModal .modal-header {
+
+    border: none;
+
+}
+
+#addCategoryModal .modal-title, #updateCategoryModal .modal-title {
+
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+#addCategoryModal label, #updateCategoryModal label {
+
+    font-weight: bold;
+
+}
+#addCategoryModal .close, #updateCategoryModal .close {
+
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    outline: none;
+    transition: 0.5s;
+
+}
+#addCategoryModal .close:hover, #updateCategoryModal .close:hover {
+
+    transform: scale(1.2);
+
+}
+
+/*Data Table*/
+.dt-search label {
+
     color: black;
     font-weight: lighter;
+
 }
+
 .dt-search .dt-input {
+
     border: 1px solid black !important;
+
 }
-.dt-length, .dt-info{
+
+.dt-length, .dt-info {
+
     display: none;
+
 }
-
-
-#addCategoryModal .modal-content {
-    background-color: rgba(197, 172, 148,0.9) !important;
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px black;
-}
-#addCategoryModal .modal-header {
-    border: none;
-}
-
-#addCategoryModal .modal-header .modal-title {
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#addCategoryModal label {
-    font-weight: bold
-}
-#addCategoryModal .close {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    outline: none;
-    transition: 0.5s;
-}
-#addCategoryModal .close:hover {
-    transform: scale(1.2);
-}
-
-
-
-
-#updateCategoryModal .modal-content {
-    background-color: rgba(197, 172, 148,0.9) !important;
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px black;
-}
-
-#updateCategoryModal .modal-header {
-    border: none;
-}
-
-#updateCategoryModal .modal-header .modal-title {
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#updateCategoryModal label {
-    font-weight: bold
-}
-
-#updateCategoryModal .close {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    outline: none;
-    transition: 0.5s;
-}
-
-    #updateCategoryModal .close:hover {
-        transform: scale(1.2);
-    }
