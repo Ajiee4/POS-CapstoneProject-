@@ -17,26 +17,11 @@
 </head>
 <body>
     <header>
-       @*  <div class="brand">
-            <img src="/image/OIP.jpg" class="brand-logo" alt="">
-            <span class="brand-name">Don <br>Macchiatos</span>
-        </div>
-
-        <div class="header-links">
-            <div class="profile">
-                <img src="/image/avatar.png" class="profile-icon" alt="">
-            </div>
-
-
-            <button type="button" class="logout">
-                <img src="/image/logout.png" alt="" class="button-logout-icon">
-                <span class="button-logout-text">Logout</span>
-            </button>
-        </div> *@
+      
 
     </header>
 
-    <div class="sidebar open">
+    <div class="sidebar openSidebar">
 
         <img src="~/images/back.png" class="sidebar-toggler" />
         <ul>
@@ -67,16 +52,16 @@
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "InventoryMenu")" class="sidebar-link">
+                <a class="sidebar-link text-white inventoryMenu">
                     <img src="~/images/Inventory.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Inventory</span>
 
-                   
+                    <img src="~/images/back.png" class="sidebarlink-inventory-toggler" />
                    @*  <i class="fa-solid fa-caret-down caret" style="color: #ffffff"></i> *@
                 </a>
-                <ul>
-                    <li><a href="">Inventory List</a></li>
-                    <li><a href="">Stock Movement</a></li>
+                <ul class="inventorySubmenu">
+                    <li><a href="" >Inventory List</a></li>
+                    <li><a href="" >Stock Movement</a></li>
                 </ul>
             </li>
 

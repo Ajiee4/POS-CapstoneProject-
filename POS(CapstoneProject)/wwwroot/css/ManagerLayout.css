@@ -158,13 +158,24 @@ header .header-links .button-logout-text {
     margin-top: 5px;
 }
 
-.sidebar ul ul li {
-  
-}
+ 
 
 .sidebar ul ul li a {
     font-size: 0.6rem;
-    padding-left: 40px;
+    display: block;
+    text-align: center;
     font-weight: lighter;
+    text-wrap: nowrap;
 }
-/
+
+.sidebarlink-inventory-toggler {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 35%;
+    right: 5px;
+   
+    transform: rotate(270deg);
+    transition: 0.5s;
+}
+

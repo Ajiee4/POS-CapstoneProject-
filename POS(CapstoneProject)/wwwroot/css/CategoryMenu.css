@@ -69,6 +69,10 @@ body {
     border: none;
     color: white;
 }
+.submitFormBtn:hover{
+    background-color: black;
+    color: white;
+}
 .updateCategoryBtn {
     background-color: #1964C5;
     color: white;

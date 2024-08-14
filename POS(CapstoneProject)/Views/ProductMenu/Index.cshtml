@@ -22,15 +22,17 @@
 
            
         </thead>
+
         <tbody>
-          
-           
+                
+            @if(productList != null)
+            {
                 @foreach (var item in productList)
                 {
                     <tr>
                         <td>@item.ProductId</td>
                         <td>@item.Name</td>
-                        <td>@item.Category.CategoryName</td>
+                        <td>@item.Category?.CategoryName</td>
                         <td>@item.Price</td>
 
                         @if (@item.IsArchive)
@@ -42,10 +44,10 @@
                             <td>Available</td>
                         }
 
-                        @if(item.ImageData == null)
+                        @if (item.ImageData == null)
                         {
                             <td>
-                              <div class="text-center">No Image</div>
+                                <div class="text-center">No Image</div>
                             </td>
                         }
                         else
@@ -63,8 +65,8 @@
                                         <input asp-for="ProductId" value="@item.ProductId" class="unarchiveInput" hidden />
                                     </form>
                                     <button class="btn unarchiveBtn">Unarchive</button>
-                                <button class="btn updateProductBtn" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">Update</button>
-                                </div>                              
+                                    <button class="btn updateProductBtn" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">Update</button>
+                                </div>
                             </td>
                         }
                         else
@@ -72,16 +74,22 @@
                             <td>
                                 <div class="action-wrapper">
                                     <form class="archiveForm" asp-action="ArchiveProduct">
-                                        <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden/>
+                                        <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden />
                                     </form>
                                     <button class="btn archiveBtn">Archive</button>
-                                <button class="btn updateProductBtn" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">Update</button>
-                                </div>                     
+                                    <button class="btn updateProductBtn" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">Update</button>
+                                </div>
                             </td>
                         }
-                         
+
                     </tr>
                 }
+            }
+            else
+            {
+                <div>No Data</div>
+            }
+          
             
            
         </tbody>
@@ -92,12 +100,17 @@
     
 </div>
 
+
+
+
+
 <!--Update New Product-->
 <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Add Product</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -105,33 +118,36 @@
             <div class="modal-body">
                  
                 <form asp-action="UpdateProduct" method="post" enctype="multipart/form-data">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                   
                     <input asp-for="ProductId" class="productId" hidden />
+
                     <div class="form-group">
                       
                         <div class="photo-wrapper d-block mx-auto">
                             <img src="~/images/noimage.jpg" />
                         </div>
 
-                       <input asp-for="ImageData" hidden class="inputPhoto form-control" type="file" name="file" accept="image/*"  /> 
-                        <br />
+                        <input asp-for="ImageData" hidden class="inputPhoto form-control" type="file" name="file" accept="image/*" />   <br />
+                      
                         <button type="button" class="btn uploadPhoto d-block mx-auto">Upload Photo</button>
+
                     </div>
                    
                     <div class="form-group">
                         <label asp-for="Name" class="control-label">Product Name</label>
                         <input asp-for="Name" class="form-control productInputName" required />
-                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
-                     <div class="form-group">
+                    <div class="form-group">
+
                         <label asp-for="Price" class="control-label">Price</label>
                         <input asp-for="Price" type="number" class="form-control productInputPrice" required />
-                        <span asp-validation-for="Price" class="text-danger"></span>
+
                     </div>
  
-                     <div class="form-group">
+                    <div class="form-group">
                         <label asp-for="ProdCategoryId" class="control-label">Category Name</label>
+
                         <select asp-for="ProdCategoryId" class="form-control selectProductCategory">
 
                             @foreach (var item in ViewData["productCategory"] as List<Category>)
@@ -140,12 +156,12 @@
                             }
                            
                         </select>
+
                      </div> 
 
-
-
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary d-block mx-auto submitFormBtn">Submit </button>
+
+                        <button type="submit" class="d-block mx-auto submitFormBtn">Submit </button>   
                         
                     </div>
                 </form>
@@ -208,7 +224,7 @@
 
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary d-block mx-auto submitFormBtn" />Submit</button>
+                        <button type="submit" class="d-block mx-auto submitFormBtn" />Submit</button>
                     </div>
                 </form>
             </div>
@@ -248,20 +264,6 @@
 
 }
 
-@if (TempData["ProductExist"] != null)
-{
-    <script>
-        swal({
-            title: "",
-            text: "Product already exist",
-            icon: "error",
-            button: false,
-            timer: 3000
-        });
-
-    </script>
-
-}
 
 @if (TempData["SuccessArchived"] != null)
 {
@@ -284,6 +286,21 @@
             title: "",
             text: "Product unarchived",
             icon: "success",
+            button: false,
+            timer: 3000
+        });
+
+    </script>
+
+}
+
+@if (TempData["ProductExist"] != null)
+{
+    <script>
+        swal({
+            title: "",
+            text: "Product already exist",
+            icon: "error",
             button: false,
             timer: 3000
         });

@@ -100,6 +100,18 @@
         transform: scale(1.2);
     }
 
+.submitFormBtn {
+    background-color: #693D29;
+    border-radius: 20px;
+    padding: 10px 30px;
+    border: none;
+    color: white;
+}
+
+.submitFormBtn:hover {
+    background-color: black;
+    color: white;
+}
 .photo-wrapper{
     width: 100px;
     height: 80px;

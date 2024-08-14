@@ -1,41 +1,97 @@
 ﻿
+SidebarToggle();
+SubmenuToggler();
 
+function openSidebar() {
+    let inventorySubmenuToggler = document.querySelector('.sidebarlink-inventory-toggler');
+    let sidebar = document.querySelector('.sidebar'); //sidebar
+    let toggler = document.querySelector('.sidebar-toggler'); //sidebar toggler
+    let sidebarName = document.querySelectorAll('.sidebar-link-name'); //sidebar link name
 
+    sidebar.style.width = "180px"
+    toggler.style.transform = "rotate(0deg)"
+    sidebarName.forEach((link) => {
 
+        link.style.display = "block";
 
-function toggleSideBar() {
-    let toggler = document.querySelector('.sidebar-toggler');
-    let sidebar = document.querySelector('.sidebar');
+    });
+    inventorySubmenuToggler.style.display = "block";
 
-    let sidebarName = document.querySelectorAll('.sidebar-link-name');
+   
+}
+function closeSidebar() {
+    let inventorySubmenuToggler = document.querySelector('.sidebarlink-inventory-toggler');
+    let sidebar = document.querySelector('.sidebar'); //sidebar
+    let toggler = document.querySelector('.sidebar-toggler'); //sidebar toggler
+    let sidebarName = document.querySelectorAll('.sidebar-link-name'); //sidebar link name
+    let inventorySubmenu = document.querySelector('.inventorySubmenu');
+    sidebar.style.width = "65px"
+    toggler.style.transform = "rotate(180deg)"
+    sidebarName.forEach((link) => {
+        link.style.display = "none";
+    });
+    inventorySubmenuToggler.style.display = "none";
+    inventorySubmenu.style.display = "none";
+}
+function SidebarToggle() {
+    let sidebar = document.querySelector('.sidebar'); //sidebar
+    let toggler = document.querySelector('.sidebar-toggler'); //sidebar toggler
+    toggler.addEventListener('click', function () {
 
-    toggler.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
+        sidebar.classList.toggle('openSidebar')
 
-        if (sidebar.classList.contains('open')) {
-                sidebar.style.width = "180px"
-                toggler.style.transform = "rotate(0deg)"
-                sidebarName.forEach((link) => {
-
-                link.style.display = "block";
-                 });
+        if (sidebar.classList.contains('openSidebar')) {
 
            
+            openSidebar();
+
         }
         else {
-            sidebar.style.width = "65px"
-            toggler.style.transform = "rotate(180deg)"
-            sidebarName.forEach((link) => {
-                link.style.display = "none";
-            });
+           
+            
+            closeSidebar();
+
         }
-       
-       
-       
-    })
+    });
 }
 
-toggleSideBar();
+function SubmenuToggler() {
+    $('.inventoryMenu').click(() => {
+
+        var sidebar = document.querySelector('.sidebar')
+
+        if (sidebar.offsetWidth < 80) {
+            alert('hi')
+            sidebar.classList.add('openSidebar');
+
+            openSidebar();
+            let inventorySubmenu = document.querySelector('.inventorySubmenu');
+            inventorySubmenu.style.display = "block";
+        }
+        else {
+
+            let submenuToggler = document.querySelector('.sidebarlink-inventory-toggler');
+            let inventoryMenu = document.querySelector('.inventoryMenu')
+            inventoryMenu.classList.toggle('open')
+            $('.inventorySubmenu').slideToggle(500);
+
+
+            if (inventoryMenu.classList.contains('open')) {
+
+                submenuToggler.style.transform = "rotate(90deg)"
+            }
+            else {
+                submenuToggler.style.transform = "rotate(270deg)"
+            }
+        }
+    });
+}
+
+
+
+
+
+
 
 
 
@@ -59,12 +115,12 @@ toggleSideBar();
 //    }
 //}
 
-sidebarLinks.forEach(link => {
-    link.addEventListener('click', function () {
+//sidebarLinks.forEach(link => {
+//    link.addEventListener('click', function () {
         
-        //localStorage.setItem('activeLink', this.getAttribute('href'));
+//        //localStorage.setItem('activeLink', this.getAttribute('href'));
       
 
         
-    });
-});
+//    });
+//});

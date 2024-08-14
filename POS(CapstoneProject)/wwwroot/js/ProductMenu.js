@@ -31,14 +31,12 @@ $('#addProductModal .inputPhoto').change(function (e) {
 
 //when modal is close, it will clear the value
 $('#addProductModal').on('hidden.bs.modal', function () {
+    //set the defaul value when modal is hidden
     $('#addProductModal .productInputName').val('');
     $('#addProductModal .productInputPrice').val('');
     $('#addProductModal .photo-wrapper img').attr('src', '/images/noimage.jpg');
     $('#addProductModal .inputPhoto').val('');
 });
-//$('#addProductBtn').click(function () {
-//    $('.photo-wrapper img').attr('src', '/images/noimage.jpg');
-//});
 
 
 //when the archive button is click, the form will be submitted
