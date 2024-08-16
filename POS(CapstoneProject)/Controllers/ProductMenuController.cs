@@ -80,30 +80,42 @@ namespace POS_CapstoneProject_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProduct(Product prod, IFormFile file)
         {
-          
-            //check if the 
-            if (file == null)
+            var checkProduct = await _context.Product.Where(s => s.ProductId == prod.ProductId).FirstOrDefaultAsync();
+            if(checkProduct == null)
             {
-              
-                _context.Update(prod);
-                await _context.SaveChangesAsync();
-
-                TempData["ProductUpdated"] = "Product updated";
 
             }
             else
             {
-                using (var ms = new MemoryStream())
+                if(file == null)
                 {
-                    await file.CopyToAsync(ms);
-                    prod.ImageData = ms.ToArray();
+                    checkProduct.Name = prod.Name;
+                    checkProduct.Price = prod.Price;
+                    checkProduct.ProdCategoryId = prod.ProdCategoryId;
+                    _context.Update(checkProduct);
+                    await _context.SaveChangesAsync();
+
+                    TempData["ProductUpdated"] = "Product updated";
                 }
-                _context.Update(prod);
-                await _context.SaveChangesAsync();
 
-                TempData["ProductUpdated"] = "Product updated";
+                else
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await file.CopyToAsync(ms);
+                        checkProduct.ImageData = ms.ToArray();
+                    }
+                    checkProduct.Name = prod.Name;
+                    checkProduct.Price = prod.Price;
+                    checkProduct.ProdCategoryId = prod.ProdCategoryId;
+                    _context.Update(checkProduct);
+                    await _context.SaveChangesAsync();
+
+                    TempData["ProductUpdated"] = "Product updated";
+                }
+               
             }
-
+                
 
             return RedirectToAction("Index");
 

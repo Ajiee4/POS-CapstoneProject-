@@ -35,6 +35,7 @@ function closeSidebar() {
     });
     inventorySubmenuToggler.style.display = "none";
     inventorySubmenu.style.display = "none";
+
 }
 
 //funcion for toggling the sidebar (closing/opening)
