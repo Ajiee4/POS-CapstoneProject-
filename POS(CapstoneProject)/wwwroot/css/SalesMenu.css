@@ -45,6 +45,10 @@
 .checkout-table {
     width: 100%
 }
+.checkout-table tbody tr:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
 .checkout-footer {
     padding: 10px 5px;
     flex-grow: 1;
@@ -52,6 +56,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .checkout-table tbody tr td{
     font-size: 0.8rem;
 }
@@ -80,9 +85,60 @@
 .delete-checkout-img {
     width: 12px;
     height: 12px;
+    transition: 0.4s;
+}
+.delete-checkout-img:hover {
+    animation: shake 0.5s ease-in-out infinite;
+    transform: scale(1.2);
 }
 
-.table-header-name{
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(-1px);
+    }
+
+    20% {
+        transform: translateX(1px);
+    }
+
+    30% {
+        transform: translateX(-1px);
+    }
+
+    40% {
+        transform: translateX(1px);
+    }
+
+    50% {
+        transform: translateX(-1px);
+    }
+
+    60% {
+        transform: translateX(1px);
+    }
+
+    70% {
+        transform: translateX(-1px);
+    }
+
+    80% {
+        transform: translateX(1px);
+    }
+
+    90% {
+        transform: translateX(-1px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.table-header-name {
     text-align: left;
 }
 .table-header-price{
@@ -173,18 +229,25 @@
     gap: 20px 40px;
  
 }
-      
+
 .product-item {
-    border: 1px solid transparent;  
+    border: 1px solid transparent;
     min-height: 180px;
-   
+    transition: 0.5s;
+    cursor: pointer;
 }
-.product-item-img{
-    width: 100%;
-    border: 1px solid grey;
-    background-color: black;
-    height: 90%;
-}
+    .product-item:hover{
+       
+        transform: scale(1.02);
+
+    }
+
+    .product-item-img {
+        width: 100%;
+        border: 1px solid grey;
+        background-color: black;
+        height: 90%;
+    }
 
 .product-catalog .product-item .product-item-img img {
     object-fit:cover;
@@ -202,6 +265,9 @@
     white-space: nowrap;
    
 }
+
+
+
 .product-item-name span {
     background-color: transparent !important;
 }
