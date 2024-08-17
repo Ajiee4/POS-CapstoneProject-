@@ -54,7 +54,7 @@ namespace POS_CapstoneProject_.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,CategoryType,CategoryName")] Category category)
+        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace POS_CapstoneProject_.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryType,CategoryName")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName")] Category category)
         {
             if (id != category.CategoryId)
             {

@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "/Views/Shared/_AuthLayout.cshtml";
 }
 
 <h1>Index</h1>
@@ -14,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryType)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CategoryName)
             </th>
             <th></th>
@@ -25,9 +21,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryType)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>

@@ -3,7 +3,7 @@
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
     var productList = ViewData["productList"] as List<Product>;
 }
-<div class="product-wrapper">
+ <div class="product-wrapper">
     <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">Add Product</button>
    
     <table class="product-table">
@@ -14,7 +14,7 @@
                 <th>Product Name</th>
                 <th>Category</th>
                 <th>Price</th>
-                <th>Status</th>
+               
                 <th>Image</th>
                 <th>Actions</th>
 
@@ -34,15 +34,6 @@
                         <td>@item.Name</td>
                         <td>@item.Category?.CategoryName</td>
                         <td>@item.Price</td>
-
-                        @if (@item.IsArchive)
-                        {
-                            <td>Unavailable</td>
-                        }
-                        else
-                        {
-                            <td>Available</td>
-                        }
 
                         @if (item.ImageData == null)
                         {
@@ -307,4 +298,4 @@
 
     </script>
 
-}
+} 

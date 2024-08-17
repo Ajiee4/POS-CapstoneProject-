@@ -36,6 +36,6 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=DashboardMenu}/{action=Index}/{id?}");
+    pattern: "{controller=SalesMenu}/{action=Index}/{id?}");
 
 app.Run();

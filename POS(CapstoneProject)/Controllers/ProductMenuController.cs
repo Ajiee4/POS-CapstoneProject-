@@ -14,11 +14,11 @@ namespace POS_CapstoneProject_.Controllers
             _context = context;
         }
         public async Task<IActionResult> Index()
-        {   
+        {
             //create a variable to store a list of products including
             var productList = await _context.Product.Include(s => s.Category).ToListAsync();
             //create a variable to store a list of category that has a type of Product
-            var getCategoryProduct = await _context.Category.Where(s => s.CategoryType == "Product").ToListAsync();
+            var getCategoryProduct = await _context.Category.ToListAsync();
             //store in ViewData to pass it to the View
             ViewData["productCategory"] = getCategoryProduct;
             ViewData["productList"] = productList;
@@ -35,8 +35,8 @@ namespace POS_CapstoneProject_.Controllers
             //check if the image is null
             if (file == null)
             {
-               
-                if(checkExisting == null)
+
+                if (checkExisting == null)
                 {
                     //save to database
                     _context.Add(prod);
@@ -48,11 +48,11 @@ namespace POS_CapstoneProject_.Controllers
                 {
                     TempData["ProductExist"] = "Product already exist";
                 }
-               
+
             }
             else
             {
-                if(checkExisting == null)
+                if (checkExisting == null)
                 {
                     using (var ms = new MemoryStream())
                     {
@@ -68,9 +68,9 @@ namespace POS_CapstoneProject_.Controllers
                 {
                     TempData["ProductExist"] = "Product already exist";
                 }
-              
+
             }
-                         
+
 
             return RedirectToAction("Index");
 
@@ -81,13 +81,13 @@ namespace POS_CapstoneProject_.Controllers
         public async Task<IActionResult> UpdateProduct(Product prod, IFormFile file)
         {
             var checkProduct = await _context.Product.Where(s => s.ProductId == prod.ProductId).FirstOrDefaultAsync();
-            if(checkProduct == null)
+            if (checkProduct == null)
             {
 
             }
             else
             {
-                if(file == null)
+                if (file == null)
                 {
                     checkProduct.Name = prod.Name;
                     checkProduct.Price = prod.Price;
@@ -113,9 +113,9 @@ namespace POS_CapstoneProject_.Controllers
 
                     TempData["ProductUpdated"] = "Product updated";
                 }
-               
+
             }
-                
+
 
             return RedirectToAction("Index");
 
@@ -125,7 +125,7 @@ namespace POS_CapstoneProject_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArchiveProduct(Product product)
         {
-           
+
             var checkProduct = await _context.Product.Where(s => s.ProductId == product.ProductId).FirstOrDefaultAsync();
             if (checkProduct == null)
             {
@@ -133,7 +133,7 @@ namespace POS_CapstoneProject_.Controllers
             }
             else
             {
-               
+
 
                 checkProduct.IsArchive = true;
                 _context.Update(checkProduct);
@@ -158,7 +158,7 @@ namespace POS_CapstoneProject_.Controllers
             }
             else
             {
-                
+
 
                 checkProduct.IsArchive = false;
                 _context.Update(checkProduct);

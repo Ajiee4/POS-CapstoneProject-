@@ -19,17 +19,17 @@ function resetAddModal() {
     $('#addCategoryModal').on('hidden.bs.modal', function () {
         // Clear input fields
         $('.addInputName').val('');
-        $('.addSelectCategory').val('Product'); // Set default value for select
+      
     });
 }
 
 resetAddModal();
 
 //update button was clicked
-function updateCategory(id, name, type) {
+function updateCategory(id, name) {
   
     $('.updateInputName').val(name);
-    $('.updateSelectCategory').val(type); 
+  
     $('.input-id').val(id);
   
 }

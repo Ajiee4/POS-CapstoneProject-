@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "/Views/Shared/_AuthLayout.cshtml";
 }
 
 <h1>Edit</h1>
@@ -14,11 +13,6 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CategoryId" />
-            <div class="form-group">
-                <label asp-for="CategoryType" class="control-label"></label>
-                <input asp-for="CategoryType" class="form-control" />
-                <span asp-validation-for="CategoryType" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="CategoryName" class="control-label"></label>
                 <input asp-for="CategoryName" class="form-control" />

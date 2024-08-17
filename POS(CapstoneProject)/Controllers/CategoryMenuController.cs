@@ -16,7 +16,7 @@ namespace POS_CapstoneProject_.Controllers
         }
         public async Task<IActionResult>Index()
         {
-            //create a list of categories
+            ////create a list of categories
             var categoryList = await _context.Category.ToListAsync();
             ViewData["CategoryList"] = categoryList; //store the list in the viewdata to display on the view
 
@@ -29,12 +29,12 @@ namespace POS_CapstoneProject_.Controllers
         {
             
             if (ModelState.IsValid)
-            {   
+            {
                 //check if the submitted data already exist in the database
-                var categoryNames =  _context.Category.Where(s => s.CategoryName == category.CategoryName && s.CategoryType == category.CategoryType).FirstOrDefault();
+                var categoryNames = _context.Category.Where(s => s.CategoryName == category.CategoryName).FirstOrDefault();
                 if (categoryNames == null) //if the name does not exist then save it to the database
                 {
-                   
+
                     //save to db
                     _context.Add(category);
                     await _context.SaveChangesAsync();
@@ -47,7 +47,7 @@ namespace POS_CapstoneProject_.Controllers
                 {
                     //pass message to the view
                     TempData["CategoryExist"] = "";
-                }              
+                }
 
             }
 
@@ -62,7 +62,7 @@ namespace POS_CapstoneProject_.Controllers
             if (ModelState.IsValid)
             {
                 //check if the submitted data already exist in the database
-                var categoryNames = _context.Category.Where(s => s.CategoryName == category.CategoryName && s.CategoryType == category.CategoryType).FirstOrDefault();
+                var categoryNames = _context.Category.Where(s => s.CategoryName == category.CategoryName).FirstOrDefault();
                 if (categoryNames == null)
                 {
                     _context.Update(category);
