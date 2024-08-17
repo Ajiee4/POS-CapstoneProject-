@@ -64,15 +64,20 @@ function SidebarToggle() {
 //funcion for toggling the Inventory sugbmenu (closing/opening)
 function SubmenuToggler() {
     $('.inventoryMenu').click(() => {
-
-        var sidebar = document.querySelector('.sidebar')
-
+        
+      
+        let sidebar = document.querySelector('.sidebar')
+      
         if (sidebar.offsetWidth < 80) {
-           
+            let submenuToggler = document.querySelector('.sidebarlink-inventory-toggler');
+            let inventoryMenu = document.querySelector('.inventoryMenu')
+            let inventorySubmenu = document.querySelector('.inventorySubmenu');
+            inventoryMenu.classList.add('open');
             sidebar.classList.add('openSidebar');
+            submenuToggler.style.transform = "rotate(90deg)"
 
             openSidebar();
-            let inventorySubmenu = document.querySelector('.inventorySubmenu');
+           
             inventorySubmenu.style.display = "block";
         }
         else {

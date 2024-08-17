@@ -67,8 +67,8 @@ function DisplayCheckOut() {
     let tablebody = document.querySelector('.checkout-table tbody');
     checkOutList.forEach((item) => {
         let longName = item.prodName;
-        if (item.prodName.length > 10) {
-            longName = longName.substring(0, 10) + '...';
+        if (item.prodName.length > 8) {
+            longName = longName.substring(0, 8) + '...';
         }
             result +=
                 `
@@ -107,38 +107,25 @@ function DisplayCheckOut() {
     tablebody.innerHTML = result;
 }
 function incrementQty(id) {
-    for (let i = 0; i < checkOutList.length; i++) {
-        if (checkOutList[i].prodID === id) {
-            checkOutList[i].prodQty += 1;
-           
-            break;
-        }
-    }
+    let getindex = checkOutList.find((item) => item.prodID == id);
+    checkOutList[getindex].prodQty += 1;
+    
     DisplayCheckOut();
 }
 function decrementQty(id) {
-    for (let i = 0; i < checkOutList.length; i++) {
-        if (checkOutList[i].prodID === id) {
+    let getindex = checkOutList.find((item) => item.prodID == id);
 
-            if (checkOutList[i].prodQty > 1) {
-                checkOutList[i].prodQty -= 1;
-                break;
-            }
-          
-           
-           
-        }
-    }
+    if (checkOutList[getindex].prodQty > 1) {
+        checkOutList[getindex].prodQty -= 1;
+        
+    }      
+   
     DisplayCheckOut();
 }
 
 function deleteItem(id) {
-    let product = checkOutList.find(item => item.prodID === id);
-    for (let i = 0; i < checkOutList.length; i++) {
-        if (checkOutList[i].prodID === id) {
-            checkOutList.splice(i, 1);
-            break;
-        }
-    }
+    let getindex = checkOutList.find((item) => item.prodID == id);
+    checkOutList.splice(getindex, 1);
+
     DisplayCheckOut();
 }

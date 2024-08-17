@@ -151,7 +151,7 @@
     background-color: #693D29;
     color: white;
     border: 2px solid transparent;
-    transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in;
     padding: 5px;
     outline: none;
 }
