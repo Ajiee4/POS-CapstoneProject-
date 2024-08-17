@@ -40,14 +40,6 @@ function FilterProduct(category) {
 
 
 
-//let increment = document.querySelector('.incrementBtn');
-//let decrement = document.querySelector('.decrementBtn');
-//let quantity = Number(document.querySelector('.quantity-table-data .quantity').textContent)
-//increment.addEventListener('click', function () {
-//    quantity += 1;
-//  console.log(quantity)
-
-//});
 
 function checkoutProduct(id, name, quantity, price) {
 
@@ -86,13 +78,13 @@ function DisplayCheckOut() {
                     </td>
                     <td class="table-data-quantity">
                         <div class="quantity-table-data">
-                            <span class="button decrementBtn">
+                            <span class="button decrementBtn" onclick="decrementQty(${item.prodID})">
                                 <img src="/images/minus-sign.png" />
                             </span>
 
                             <span class="quantity">${item.prodQty}</span>
 
-                            <span class="button incrementBtn">
+                            <span class="button incrementBtn" onclick="incrementQty(${item.prodID})">
                                 <img src="/images/plus.png" />
                            </span>
                         </div>
@@ -109,5 +101,30 @@ function DisplayCheckOut() {
     });
    
     tablebody.innerHTML = result;
+}
+function incrementQty(id) {
+    for (let i = 0; i < checkOutList.length; i++) {
+        if (checkOutList[i].prodID === id) {
+            checkOutList[i].prodQty += 1;
+            console.log(checkOutList)
+            break;
+        }
+    }
+    DisplayCheckOut();
+}
+function decrementQty(id) {
+    for (let i = 0; i < checkOutList.length; i++) {
+        if (checkOutList[i].prodID === id) {
+
+            if (checkOutList[i].prodQty > 1) {
+                checkOutList[i].prodQty -= 1;
+                break;
+            }
+            console.log(checkOutList)
+           
+           
+        }
+    }
+    DisplayCheckOut();
 }
 
