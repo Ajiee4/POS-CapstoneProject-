@@ -74,7 +74,7 @@ function DisplayCheckOut() {
                 `
              <tr >
                     <td style="padding: 10px">
-                            <img src="/images/delete-black.png" class="delete-checkout-img d-block mx-auto" />
+                            <img src="/images/delete-black.png" class="delete-checkout-img d-block mx-auto" onclick="deleteItem(${item.prodID})"/>
                     </td>
                     <td class="table-data-name">
                         ${longName}
@@ -132,3 +132,13 @@ function decrementQty(id) {
     DisplayCheckOut();
 }
 
+function deleteItem(id) {
+    let product = checkOutList.find(item => item.prodID === id);
+    for (let i = 0; i < checkOutList.length; i++) {
+        if (checkOutList[i].prodID === id) {
+            checkOutList.splice(i, 1);
+            break;
+        }
+    }
+    DisplayCheckOut();
+}
