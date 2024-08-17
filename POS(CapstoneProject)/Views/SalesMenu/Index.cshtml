@@ -18,31 +18,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr >
-                    <td style="padding: 10px">
-                        
-                            <img src="~/images/delete-black.png" class="delete-checkout-img d-block mx-auto" />
-                        
+               @*  <tr >
+                    <td style="padding: 10px">                      
+                            <img src="~/images/delete-black.png" class="delete-checkout-img d-block mx-auto" />                       
                     </td>
                     <td class="table-data-name">
                         Banana
                     </td>
                     <td class="table-data-quantity">
-                       
-
                         <div class="quantity-table-data">
-                          <span class="button">
+                            <span class="button decrementBtn">
                                 <img src="~/images/minus-sign.png" />
-                          </span>
-                            <span>0</span>
-                            <span class="button">
+                            </span>
+
+                            <span class="quantity">0</span>
+
+                            <span class="button incrementBtn">
                                 <img src="~/images/plus.png" />
                            </span>
                         </div>
                        
                     </td>
+
                     <td class="table-data-price">₱39</td>
-                </tr>
+                </tr> *@
                
             </tbody>
 
@@ -58,8 +57,16 @@
 
 <div class="product-list-wrapper">
        <div class="search-wrapper">
-           <input type="text"/>
+             
+            <input type="search" placeholder="Search...">
+            <button type="button">
+               Search
+            </button>
+           
+        
        </div>
+
+
 
        <div class="category-list-wrapper">
             <button class="category-item active" onclick="FilterProduct('All')">
@@ -77,28 +84,28 @@
        <div class="product-catalog">
             @foreach(var prod in ViewData["ProductList"] as List<Product>)
             {
-            <div class="product-item" data-category="@prod.Category.CategoryName">
-                    <div class="product-item-img">
-                        @if(prod.ImageData != null)
-                        {
-                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
-                        }
-                        else
-                        {
-                           <span>No Image</span>
-                        }
+                <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category.CategoryName">
+                        <div class="product-item-img">
+                            @if(prod.ImageData != null)
+                            {
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
+                            }
+                            else
+                            {
+                               <span>No Image</span>
+                            }
 
-                    </div>
+                        </div>
 
-                    <div class="product-item-name" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
-                        <span>@prod.Name</span>
-                    </div>
+                        <div class="product-item-name" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
+                            <span>@prod.Name</span>
+                        </div>
                      
 
-                 @*    <div class="product-item-price">
-                        <span>₱@prod.Price</span>
-                    </div> *@
-                </div>
+                     @*    <div class="product-item-price">
+                            <span>₱@prod.Price</span>
+                        </div> *@
+                 </div>
             }
         
        </div>
