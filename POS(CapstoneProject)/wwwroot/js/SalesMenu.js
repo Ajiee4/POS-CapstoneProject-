@@ -36,7 +36,7 @@ function FilterProduct(category) {
     });
 }
 
-//Checkout
+
 
 
 
@@ -57,8 +57,7 @@ function checkoutProduct(id, name, quantity, price) {
             prodPrice: price
         });
     }
-    alert('hi')
-    console.log(checkOutList);
+   
 
     DisplayCheckOut();
 }
@@ -67,14 +66,18 @@ function DisplayCheckOut() {
     let result = ''
     let tablebody = document.querySelector('.checkout-table tbody');
     checkOutList.forEach((item) => {
-        result +=
-            `
+        let longName = item.prodName;
+        if (item.prodName.length > 10) {
+            longName = longName.substring(0, 10) + '...';
+        }
+            result +=
+                `
              <tr >
                     <td style="padding: 10px">
                             <img src="/images/delete-black.png" class="delete-checkout-img d-block mx-auto" />
                     </td>
                     <td class="table-data-name">
-                        ${item.prodName}
+                        ${longName}
                     </td>
                     <td class="table-data-quantity">
                         <div class="quantity-table-data">
@@ -91,12 +94,13 @@ function DisplayCheckOut() {
 
                     </td>
 
-                    <td class="table-data-price">₱${item.prodPrice}</td>
+                    <td class="table-data-price">₱${item.prodPrice} &nbsp;</td>
                 </tr>
                       
             
             `
 
+       
         
     });
    
@@ -106,7 +110,7 @@ function incrementQty(id) {
     for (let i = 0; i < checkOutList.length; i++) {
         if (checkOutList[i].prodID === id) {
             checkOutList[i].prodQty += 1;
-            console.log(checkOutList)
+           
             break;
         }
     }
@@ -120,7 +124,7 @@ function decrementQty(id) {
                 checkOutList[i].prodQty -= 1;
                 break;
             }
-            console.log(checkOutList)
+          
            
            
         }

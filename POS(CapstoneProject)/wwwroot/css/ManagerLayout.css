@@ -189,9 +189,9 @@ header .header-links .button-logout-text {
 .sidebarlink-inventory-toggler {
 
     position: absolute;
-    width: 15px;
-    height: 15px;
-    top: 35%;
+    width: 10px;
+    height: 10px;
+    top: 37%;
     right: 5px;  
     transform: rotate(270deg);
     transition: 0.5s;
