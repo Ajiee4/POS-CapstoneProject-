@@ -27,22 +27,26 @@
   
 
     <div class="checkout-footer">
-        <div class="discount">
-            <label for="inputDiscount">Discount(%) %:</label>
+        <div class="discount-wrapper">
+            <label for="inputDiscount">Discount (%)</label>
             <input id="inputDiscount" value="0" maxlength="2" onchange="ApplyDiscount()" oninput="validateInput(this)" />
         </div>
 
-        <div class="subtotal">
-            <span class="subTotalText">Subtotal: </span>
-            <span class="subTotalValue">0.00</span>
-
-           
+        <div class="subtotal-wrapper">          
+            <span class="subTotalText">Sub Total </span>
+            <span class="subTotalValue">₱0.00</span>
         </div>
 
-        <div class="buttons">
-            <span class="TotalAmount">0.00</span>
+        <div class="totalamount-wrapper">
+            <span class="TotalAmountText">Total</span>
+            <span class="TotalAmount">₱0.00</span>
+        </div>
+        
+
+        <div class="checkout-btn">
+            
             <button class="cancelBtn">Cancel</button>
-            <button class="payBtn">Pay</button>
+            <button class="payBtn">Pay (₱0.00)</button>
         </div>
        
     </div>

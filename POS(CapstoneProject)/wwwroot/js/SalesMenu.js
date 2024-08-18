@@ -73,10 +73,11 @@ function DisplayCheckOut() {
 
     tableBody.innerHTML = html;
 
-    let subTotalText = document.querySelector('.subtotal .subTotalValue');
+    let subTotalText = document.querySelector('.subTotalValue');
     let totalAmountText = document.querySelector('.TotalAmount');
-    subTotalText.innerHTML = CalculateSubtotal();
-    totalAmountText.innerHTML = CalculateTotalAmount();
+    $('.payBtn').text(`(₱${CalculateTotalAmount()})`)
+    subTotalText.innerHTML = `₱${CalculateSubtotal()}`;
+    totalAmountText.innerHTML = `Pay (₱${CalculateTotalAmount()})`;
 
 }
 
@@ -160,8 +161,8 @@ function CalculateTotalAmount() {
 function ApplyDiscount() {
     let totalAmountText = document.querySelector('.TotalAmount');
     CalculateTotalAmount();  
-
-    totalAmountText.innerHTML = CalculateTotalAmount();
+    $('.payBtn').text(`Pay (₱${CalculateTotalAmount()})`)
+    totalAmountText.innerHTML = `₱${CalculateTotalAmount() }`;
 }
 
 //only number can be entered
@@ -180,3 +181,11 @@ document.querySelector('#inputDiscount').addEventListener('change', function () 
     }
 });
 
+$('.payBtn').click(function () {
+    if (checkOutList.length === 0) {
+        alert('The array is empty.');
+    } else {
+        // Proceed with payment processing
+        // ...
+    }
+});

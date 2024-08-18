@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: Arial;
 }
 
 .checkout-wrapper {
@@ -34,58 +35,94 @@
 }
 .checkout-table-wrapper {
     flex-grow: 1;
-    flex-basis: 250px;
+    flex-basis: 290px;
    /* border: 1px solid red;*/
     overflow-y: auto;
     
 }
 
 .checkout-footer {
-    padding: 10px 5px;
+    /*padding: 10px 5px;*/
     flex-grow: 1;
+    background-color: rgba(0,0,0,0.1);
+   
+    padding-top: 10px;
+}
+.discount-wrapper {
+    width: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+   
+    padding: 5px 5px;
+}
+.discount-wrapper input {
+    width: 35px;
+    height: 20px;
+}
+
+.subtotal-wrapper {
+    padding: 5px 5px;
+    width: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row
+}
+
+.totalamount-wrapper {
+    width: 100%;
+  /*  background-color: #F1DCC8;*/
+    font-weight: bolder;
+    padding: 10px 5px;
+    margin: 0;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row
+}
+
+.checkout-footer .checkout-btn {
+   
+    background-color: #F1DCC8;
+    padding: 10px 5px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid aqua;
-    flex-direction: column
+    flex-direction: row;
+    gap: 5px;
+    
+   
+}
+.checkout-footer .checkout-btn > button {
+    padding: 10px;
+    background-color: #693D29;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    border-radius: 2px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+.checkout-footer .checkout-btn .payBtn {
+    flex: 1;
+    
+   
+}   
+
+.checkout-footer .checkout-btn .cancelBtn {
+      
 }
 
-    .checkout-footer .discount {
-        border: 1px solid black;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid aqua;
-        flex-direction: row
+    #inputDiscount {
+        text-align: center;
     }
-    .checkout-footer .discount input {
-        width: 50px;
-    }
-       
-    .checkout-footer .subtotal {
-        border: 1px solid red;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
-        flex-direction: row
-    }
-    .checkout-footer .buttons {
-        border: 1px solid aqua;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row
-    }
-
-
-
-#inputDiscount{
-    text-align: center;
-}
 
 
 
