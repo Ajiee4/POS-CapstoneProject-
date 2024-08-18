@@ -65,12 +65,61 @@ body {
 }
 .header .right-section .checkout-icon {
     margin-right: 30px;
+    transition: 0.5s;
+}
+.header .right-section .checkout-icon:hover {
+    transform: scale(1.2);
+    animation: shake 0.8s ease-in-out infinite
+}
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(-1px);
+    }
+
+    20% {
+        transform: translateX(1px);
+    }
+
+    30% {
+        transform: translateX(-1px);
+    }
+
+    40% {
+        transform: translateX(1px);
+    }
+
+    50% {
+        transform: translateX(-1px);
+    }
+
+    60% {
+        transform: translateX(1px);
+    }
+
+    70% {
+        transform: translateX(-1px);
+    }
+
+    80% {
+        transform: translateX(1px);
+    }
+
+    90% {
+        transform: translateX(-1px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
 }
 .header .right-section .checkout-icon img {
     width: 25px;
     height: 25px;
 }
-
 
 .header .right-section .user {
   
