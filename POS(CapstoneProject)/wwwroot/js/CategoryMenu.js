@@ -7,7 +7,8 @@ $(document).ready(function () {
         "scrollY": true,
         "searching": true,
         "ordering": true,
-        "pageLength": 5
+        "pageLength": 5,
+       
        
     });
    

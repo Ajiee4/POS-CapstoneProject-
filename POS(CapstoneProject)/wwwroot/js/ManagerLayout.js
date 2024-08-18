@@ -5,6 +5,7 @@ SubmenuToggler();
 
 //function for opening the sidebar
 function openSidebar() {
+   
     let inventorySubmenuToggler = document.querySelector('.sidebarlink-inventory-toggler'); //inventory menu toggler for submenu
     let sidebar = document.querySelector('.sidebar'); //sidebar
     let toggler = document.querySelector('.sidebar-toggler'); //sidebar toggler
@@ -13,12 +14,19 @@ function openSidebar() {
     sidebar.style.width = "180px"
     toggler.style.transform = "rotate(0deg)"
     sidebarName.forEach((link) => {
+        setTimeout(() => {
+            link.style.display = "block"; //hide each sidebar name
 
-        link.style.display = "block"; //hide each sidebar name
-
+        },200)
+       
     });
     inventorySubmenuToggler.style.display = "block";
+    $('body').css({
+        'padding-left': '200px',
+       
 
+
+    });
    
 }
 //function for closing the sidebar
@@ -30,11 +38,24 @@ function closeSidebar() {
     let inventorySubmenu = document.querySelector('.inventorySubmenu');
     sidebar.style.width = "65px"
     toggler.style.transform = "rotate(180deg)"
+
+
     sidebarName.forEach((link) => {
-        link.style.display = "none";
+        setTimeout(() => {
+            link.style.display = "none";
+        },200)
+      
     });
     inventorySubmenuToggler.style.display = "none";
     inventorySubmenu.style.display = "none";
+
+   
+    $('body').css({
+        'padding-left': '85px',
+       
+
+
+    });
 
 }
 

@@ -12,22 +12,83 @@ body {
     padding-left: 200px;
     padding-right: 20px;
     background-color: #C5AC94;
+    transition: 0.8s;
 
 }
 
-header {
-
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
     background-color: #923312;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     min-height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     z-index: 999;
+    padding: 0px 10px;
+}
+.header .left-section{
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 
+}
+.header .left-section .brand-logo {
+}
+.header .left-section .brand-logo img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.header .left-section .brand-name{
+    color: white;
+    margin-left: 5px;
+    font-weight: bolder;
+    text-wrap: wrap;
+    line-height: 19px;
+}
+
+
+.right-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+   
+    gap: 10px;
+    margin-right: 10px;
+}
+.header .right-section .checkout-icon {
+    margin-right: 30px;
+}
+.header .right-section .checkout-icon img {
+    width: 25px;
+    height: 25px;
+}
+
+
+.header .right-section .user {
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+.header .right-section .user .name-user{
+    color: white;
+    font-weight: lighter;
+}
+.header .right-section .user .user-icon img {
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    border-radius: 50%;
 }
 /*
 header .brand {
@@ -92,17 +153,14 @@ header .header-links .button-logout-text {
     font-size: 0.5rem;
     margin-left: 3px;
 }*/
-
 .sidebar {
-
     background-color: #9E7148;
     width: 180px;
     position: fixed;
     top: 70px;
     left: 0;
     height: 100%;
-    transition: width 0.3s;
-
+    transition: 0.8s;
 }
 
 .sidebar .sidebar-toggler {
@@ -115,7 +173,7 @@ header .header-links .button-logout-text {
     background-color: #B5875D;
     border-radius: 50%;
     transform: translateY(-50%);
-    transition: transform 0.5s;
+    transition: 0.8s;
 
 }
 

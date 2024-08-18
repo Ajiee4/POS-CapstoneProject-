@@ -2,10 +2,6 @@
 const checkOutList = [];
 let products = [];
 
-
-
-
-
 let productElements = $('.product-item');
 productElements.each(function () {
         let name = $(this).find('.product-item-name span').text();
@@ -75,9 +71,9 @@ function DisplayCheckOut() {
 
     let subTotalText = document.querySelector('.subTotalValue');
     let totalAmountText = document.querySelector('.TotalAmount');
-    $('.payBtn').text(`(₱${CalculateTotalAmount()})`)
+    $('.payBtn').text(`Pay (₱${CalculateTotalAmount()})`)
     subTotalText.innerHTML = `₱${CalculateSubtotal()}`;
-    totalAmountText.innerHTML = `Pay (₱${CalculateTotalAmount()})`;
+    totalAmountText.innerHTML = `₱${CalculateTotalAmount()}`;
 
 }
 
@@ -181,11 +177,23 @@ document.querySelector('#inputDiscount').addEventListener('change', function () 
     }
 });
 
-$('.payBtn').click(function () {
-    if (checkOutList.length === 0) {
-        alert('The array is empty.');
-    } else {
-        // Proceed with payment processing
-        // ...
-    }
-});
+$('.checkout-icon').click(function () {
+
+    $('.checkout-wrapper').slideToggle(1000 ,function () {
+       
+        const checkoutWrapper = $('.checkout-wrapper');
+        checkoutWrapper.toggleClass('checkHide');
+
+        if (checkoutWrapper.hasClass('checkHide')) {
+            $('.product-list-wrapper').css({
+                'width': '100%'
+            })
+        }
+        else {
+            $('.product-list-wrapper').css({
+                'width': '68%'
+            })
+        }         
+    });
+        
+})

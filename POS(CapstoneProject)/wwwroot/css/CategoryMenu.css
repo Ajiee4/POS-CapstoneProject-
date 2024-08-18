@@ -35,19 +35,14 @@
 /*Wrapper*/
 .category-wrapper{
 
-    position: relative;
+    position: relative;  
   
 }
 
-/*table*/
-.category-table{
-
-    width: 100%;
-    border-collapse:collapse;
-    height: 30px !important;
+.category-table {
+    width: 100% !important;
     border: none;
     overflow: scroll;
-
 }
 
 .category-table tr,th,td{
@@ -56,13 +51,15 @@
 
 }
 
-.category-table th{
-
-    padding: 5px;
-    color: white;      
+.category-table th {
+        
+    color: white;
     text-align: left !important;
     background-color: #693D29;
+}
 
+.category-table thead {
+    /*   width: 100%;*/
 }
 
 .category-table tbody {
