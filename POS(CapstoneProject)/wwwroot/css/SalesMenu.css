@@ -35,11 +35,71 @@
 .checkout-table-wrapper {
     flex-grow: 1;
     flex-basis: 250px;
-   
-   
-  
+   /* border: 1px solid red;*/
+    overflow-y: auto;
+    
 }
-.checkout-table th{
+
+.checkout-footer {
+    padding: 10px 5px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid aqua;
+    flex-direction: column
+}
+
+    .checkout-footer .discount {
+        border: 1px solid black;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid aqua;
+        flex-direction: row
+    }
+    .checkout-footer .discount input {
+        width: 50px;
+    }
+       
+    .checkout-footer .subtotal {
+        border: 1px solid red;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        flex-direction: row
+    }
+    .checkout-footer .buttons {
+        border: 1px solid aqua;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row
+    }
+
+
+
+#inputDiscount{
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.checkout-table th {
     border: none !important;
 }
 .checkout-table {
@@ -49,13 +109,7 @@
     background-color: rgba(0,0,0,0.1);
 }
 
-.checkout-footer {
-    padding: 10px 5px;
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .checkout-table tbody tr td{
     font-size: 0.8rem;
@@ -77,7 +131,7 @@
   
 }
 .checkout-table td{
-    padding: 5px 0px ;
+    padding: 10px 0px ;
 }
 
 

@@ -11,7 +11,7 @@
         <table class="checkout-table">
             <thead>
                 <tr>
-                    <th style="color: transparent">Aaa</th>
+                    <th style="color: transparent">A</th>
                     <th class="table-header-name">Name</th>
                     <th class="table-header-quantity">Qty</th>
                     <th class="table-header-price">Price &nbsp;</th>
@@ -27,8 +27,24 @@
   
 
     <div class="checkout-footer">
-        <button>Cancel</button>
-        <button>Buy</button>
+        <div class="discount">
+            <label for="inputDiscount">Discount(%) %:</label>
+            <input id="inputDiscount" value="0" maxlength="2" onchange="ApplyDiscount()" oninput="validateInput(this)" />
+        </div>
+
+        <div class="subtotal">
+            <span class="subTotalText">Subtotal: </span>
+            <span class="subTotalValue">0.00</span>
+
+           
+        </div>
+
+        <div class="buttons">
+            <span class="TotalAmount">0.00</span>
+            <button class="cancelBtn">Cancel</button>
+            <button class="payBtn">Pay</button>
+        </div>
+       
     </div>
 </div> 
 
@@ -60,7 +76,7 @@
        <div class="product-catalog">
             @foreach(var prod in ViewData["ProductList"] as List<Product>)
             {
-                <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category.CategoryName">
+            <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
                         <div class="product-item-img">
                             @if(prod.ImageData != null)
                             {
@@ -72,7 +88,7 @@
                             }
                         </div>
 
-                        <div class="product-item-name" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
+                        <div class="product-item-name" >
                             <span>@prod.Name</span>
                         </div>
                  </div>
