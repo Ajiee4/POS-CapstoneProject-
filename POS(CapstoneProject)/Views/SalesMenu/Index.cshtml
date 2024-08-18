@@ -48,6 +48,10 @@
             <button class="cancelBtn">Cancel</button>
             <button class="payBtn">Pay (₱0.00)</button>
         </div>
+        <form asp-action="AddOrder" method="post" id="formPay">
+            <input class="" name="checkoutList" id="checkOutListInput" />
+            <input name="checkoutTotal" id="checkOutTotalInput" />
+        </form>
        
     </div>
 </div> 

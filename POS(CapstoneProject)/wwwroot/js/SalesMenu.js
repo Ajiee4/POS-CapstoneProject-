@@ -197,3 +197,17 @@ $('.checkout-icon').click(function () {
     });
         
 })
+
+
+
+    $('.payBtn').click(function () {
+        let total = CalculateTotalAmount();
+   
+        let jsonData = JSON.stringify(checkOutList);
+        $('#checkOutTotalInput').val(total)
+        $('#checkOutListInput').val(jsonData);
+        $('#formPay').submit();
+    })
+   
+
+/*    $('.checkOutListInput')*/
