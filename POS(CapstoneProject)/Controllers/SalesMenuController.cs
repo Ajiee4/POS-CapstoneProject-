@@ -28,7 +28,7 @@ namespace POS_CapstoneProject_.Controllers
             //created an object to save the order          
             Order order = new Order()
             {
-                UserId = 1,
+                UserId = 1,//id
                 TotalAmount = checkoutTotal,
                 OrderDate = DateTime.Now.Date
             };           
