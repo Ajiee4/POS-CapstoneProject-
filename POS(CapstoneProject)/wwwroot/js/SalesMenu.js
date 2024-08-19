@@ -22,6 +22,7 @@ function FilterProduct(category) {
     $('.category-item').removeClass('active');
     $(event.target).addClass('active');
 
+    //search
     let searchInput = document.querySelector('.searchProductInput').value.toLowerCase().trim();
    
     let filteredProducts = products.filter(function (product) {
