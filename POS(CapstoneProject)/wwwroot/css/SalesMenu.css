@@ -137,8 +137,7 @@
 .checkout-footer .checkout-btn .payBtn {
     flex: 1;    
    
-}
-
+}   
 
 #inputDiscount {
     text-align: center;
@@ -310,34 +309,7 @@
 }
 
 .search-wrapper {
-    
-    margin-bottom: 20px;
-}
-.search-wrapper .searchProd label img{
-    width: 20px;
-    height: 20px;
-    margin-top: 5px;
-}
-.search-wrapper .searchProd {
-       
-    max-width: 200px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    padding: 0px 10px;
-    gap: 5px;     
-    background-color: #E7E2E2;
-}
-.search-wrapper .searchProd input {
-    width: 100%;
-          
-    background-color: transparent;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    padding: 5px
+    border: 1px solid black;
 }
 
 .category-list-wrapper {
@@ -346,8 +318,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0px 5px;
+    gap: 0px 5px;  
     padding: 5px 0px;
+
 }
 
 .category-list-wrapper .category-item {
@@ -356,7 +329,6 @@
     border: 2px solid transparent;
     transition: 0.5s ease-in;
     padding: 5px;
-    font-size: 1em;
     outline: none;
 
 }
@@ -372,7 +344,6 @@
 }
 
 .product-catalog{
-    position:  relative;
     width: 100%;
     margin-top: 10px;
     padding: 10px 30px;
@@ -424,72 +395,4 @@
     background-color: transparent !important;
 }
 
-#paymentModal .submitFormBtn {
-    background-color: #693D29;
-    border-radius: 20px;
-    padding: 10px 30px;
-    border: none;
-    color: white;
-}
 
-#paymentModal .submitFormBtn:hover {
-    background-color: black;
-    color: white;
-}
-
-#paymentModal .modal-content {
-    background-color: rgba(197, 172, 148,0.9) !important;
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px black;
-}
-
-#paymentModal .modal-header {
-    border: none;
-}
-
-#paymentModal .modal-title{
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#paymentModal label{
-    font-weight: bold;
-}
-
-#paymentModal .close {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    outline: none;
-    transition: 0.5s;
-}
-
-#paymentModal .close:hover{
-    transform: scale(1.2);
-}
-#paymentModal .payComplete {
-    background-color: #693D29;
-    border-radius: 20px;
-    padding: 10px 30px;
-    border: none;
-    color: white;
-    transition: 0.5s;
-}
-#paymentModal .payComplete:hover{
-    background-color: black
-}
-
-/*.totalAmountInputReadOnly{
-    background-color: rgba(0,0,0,0.1) !important;
-}*/
-.noResult{
-    position: absolute;
-    width: 100% ;
-    display: none;
-    font-size: 1.2rem;
-    font-weight: lighter;
-    text-align: center;
-    margin-top: 5px;
-    
-}

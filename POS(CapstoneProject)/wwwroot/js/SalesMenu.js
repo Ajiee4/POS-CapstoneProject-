@@ -1,54 +1,35 @@
 ﻿
 const checkOutList = [];
-
-
-//declare array to store objects (name and category)
 let products = [];
 
-//adding product to the array to be use in filtering based on category
-function addProd() {
-    let productElements = $('.product-item');
-    productElements.each(function () {
+let productElements = $('.product-item');
+productElements.each(function () {
         let name = $(this).find('.product-item-name span').text();
         let category = $(this).data('category');
         products.push({ name, category });
     });
-}
 
-addProd();
+
 
 function FilterProduct(category) {
-    $('.noResult').hide();
-    $('.category-item').removeClass('active');
-    $(event.target).addClass('active');
 
-    let searchInput = document.querySelector('.searchProductInput').value.toLowerCase().trim();
+    $('.category-item').removeClass('active'); 
+    $(event.target).addClass('active'); 
+   
    
     let filteredProducts = products.filter(function (product) {
-        let isInCategory = product.category === category || category === 'All';
-        let isInSearch = product.name.toLowerCase().includes(searchInput);
-        return isInCategory && isInSearch;
+        return product.category === category || category === 'All';
     });
 
-  
-    $('.product-item').hide();
-
-   
+    console.log(filteredProducts)
+    $('.product-item').hide();  
     filteredProducts.forEach(function (product) {
-        let productItem = $('.product-item').filter(function () {
-            return $(this).find('.product-item-name span').text() === product.name;
-        });
-        productItem.show();
+        let productItem = $('.product-item[data-category="' + product.category + '"]');
+        productItem.show(); 
     });
-
-   
-    if (filteredProducts.length === 0) {
-        $('.noResult').show();
-    }
 }
 
 
-//Display the check out products 
 function DisplayCheckOut() {
 
     const tableBody = document.querySelector('.checkout-table tbody');
@@ -90,14 +71,13 @@ function DisplayCheckOut() {
 
     let subTotalText = document.querySelector('.subTotalValue');
     let totalAmountText = document.querySelector('.TotalAmount');
-    $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)
-    subTotalText.innerHTML = `₱${CalculateSubtotal().toFixed(2)}`;
-    totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
+    $('.payBtn').text(`Pay (₱${CalculateTotalAmount()})`)
+    subTotalText.innerHTML = `₱${CalculateSubtotal()}`;
+    totalAmountText.innerHTML = `₱${CalculateTotalAmount()}`;
 
 }
 
-//add the clicked product to the checklist
-//call the display funct to show in the checklist
+
 function checkoutProduct(id, name, quantity, price) {
 
     let product = checkOutList.find(item => item.prodID === id);
@@ -119,7 +99,7 @@ function checkoutProduct(id, name, quantity, price) {
    
 }
 
-//increment the quantity of product
+
 function incrementQty(id) {
     const product = checkOutList.find((item) => item.prodID === id);
     if (product) {
@@ -129,7 +109,7 @@ function incrementQty(id) {
     }
 }
 
-//decrement the quantity of product
+
 function decrementQty(id) {
     const product = checkOutList.find((item) => item.prodID === id);
     if (product && product.prodQty > 1) {
@@ -138,7 +118,7 @@ function decrementQty(id) {
         
     }
 }
-//delete a specific item from the checklist
+//delete a specific item
 function deleteItem(id) {
     let index = checkOutList.findIndex(item => item.prodID === id);
 
@@ -151,13 +131,13 @@ function deleteItem(id) {
 
 
 
-//discount not yet applied; subtotal
+//discount not yet applied
 function CalculateSubtotal() {
     let subtotal = 0;
     checkOutList.forEach((item) => {
         subtotal += (item.prodPrice * item.prodQty);
     })
-    subtotal = Math.round(subtotal * 100) / 100;
+    subtotal = subtotal.toFixed(2);
     return subtotal;
   
 };
@@ -169,19 +149,19 @@ function CalculateTotalAmount() {
     let discountAmount = subTotal * (discount / 100);
     let totalAmount = subTotal - discountAmount;
 
-    totalAmount = Math.round(totalAmount * 100) / 100;
+    totalAmount = totalAmount.toFixed(2)
    
     return totalAmount;
 }
-//adjust the total when the discount input changed
+//discount input change
 function ApplyDiscount() {
     let totalAmountText = document.querySelector('.TotalAmount');
     CalculateTotalAmount();  
-    $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)
-    totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
+    $('.payBtn').text(`Pay (₱${CalculateTotalAmount()})`)
+    totalAmountText.innerHTML = `₱${CalculateTotalAmount() }`;
 }
 
-//only number can be entered in the discount input
+//only number can be entered
 function validateInput(input) {
    
     input.value = input.value.replace(/[^0-9]/g, '');
@@ -197,140 +177,37 @@ document.querySelector('#inputDiscount').addEventListener('change', function () 
     }
 });
 
-//adjusting the width of contens if sidebar was showed/hidden
-function AdjustContent() {
-    $('.checkout-icon').click(function () {
+$('.checkout-icon').click(function () {
 
-        $('.checkout-wrapper').slideToggle(1000, function () {
+    $('.checkout-wrapper').slideToggle(1000 ,function () {
+       
+        const checkoutWrapper = $('.checkout-wrapper');
+        checkoutWrapper.toggleClass('checkHide');
 
-            const checkoutWrapper = $('.checkout-wrapper');
-            checkoutWrapper.toggleClass('checkHide');
-
-            if (checkoutWrapper.hasClass('checkHide')) {
-                $('.product-list-wrapper').css({
-                    'width': '100%'
-                })
-            }
-            else {
-                $('.product-list-wrapper').css({
-                    'width': '68%'
-                })
-            }
-        });
-
-    })
-}
-AdjustContent();
+        if (checkoutWrapper.hasClass('checkHide')) {
+            $('.product-list-wrapper').css({
+                'width': '100%'
+            })
+        }
+        else {
+            $('.product-list-wrapper').css({
+                'width': '68%'
+            })
+        }         
+    });
+        
+})
 
 
-$('.payBtn').click(function () {
+
+    $('.payBtn').click(function () {
+        let total = CalculateTotalAmount();
    
-    if (checkOutList.length === 0) {
-
-        swal({
-            title: "",
-            text: "You have no items in your check out list",
-            icon: "error",
-            button: false,
-            timer: 2000
-        }).show();
-
-    } else {
-        $('#paymentModal').modal('toggle')
-        let total = CalculateTotalAmount();
-        $('.totalAmountInputReadOnly').val(total.toFixed(2))
-       
-    }
-
-});
-
-function amountChange(){
-
-    let totalAmo = CalculateTotalAmount();
-    let money = Number($('.amountInput').val());
-    let changeAmount = money - totalAmo;
-
-    if (money >= totalAmo) {
-        $('.changeAmountText').val(changeAmount.toFixed(2));
-    }
-    else {
-
-        swal({
-            title: "",
-            text: "Insufficient Amount",
-            icon: "error",
-            button: false,
-            timer: 2000
-        }).then(() => {
-            $('.amountInput').val('').focus();
-        });
-       
-    }
- 
-}
-
-function validateAmount(event) {
-    const input = event.target.value;
-    const regex = /^[0-9]*\.?[0-9]*$/;
-    return regex.test(input);
-}
-
-$('.payComplete').click(function () {
-    
-    let amountInput = $('.amountInput').val();
-    if (amountInput === '') {
-        swal({
-            title: "",
-            text: "Cash tendered required",
-            icon: "error",
-            button: false,
-            timer: 2000
-        }).then(() => {
-
-            document.querySelector('.amountInput').focus();
-        });
-
-    }
-    else {
-
-        let total = CalculateTotalAmount();
         let jsonData = JSON.stringify(checkOutList);
         $('#checkOutTotalInput').val(total)
         $('#checkOutListInput').val(jsonData);
         $('#formPay').submit();
-    }
-  
-});
-
-
-//search product
-function searchProduct() {
-    let searchInput = document.querySelector('.searchProductInput').value.toLowerCase().trim();
-    let prodItem = document.querySelectorAll('.product-item');
-    let selectedCategory = document.querySelector('.category-item.active')
-    let categoryData = selectedCategory.getAttribute('data-category'); 
-   
-    let productList = [];
-  
-
-    prodItem.forEach((item) => {
-        let productName = item.querySelector('.product-item-name').textContent.toLowerCase();
-        let prodCat = item.getAttribute('data-category');
-        item.style.display = "none";
-
-        if (productName.includes(searchInput) && (categoryData === 'All' || categoryData === prodCat)) {
-            item.style.display = "block";
-            productList.push(item)
-        }
-        
-        if (productList.length === 0) {
-
-            $('.noResult').show();
-        }
-        else {
-            $('.noResult').hide();
-        }
     })
    
-   
-}
+
+/*    $('.checkOutListInput')*/
