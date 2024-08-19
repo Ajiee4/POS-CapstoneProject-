@@ -186,7 +186,7 @@ function validateInput(input) {
    
     input.value = input.value.replace(/[^0-9]/g, '');
 }
-
+//eyyy
 //default value is 0
 document.querySelector('#inputDiscount').addEventListener('change', function () {
     const inputDiscount = document.querySelector('#inputDiscount');
