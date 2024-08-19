@@ -3,8 +3,11 @@
     padding: 0;
     margin: 0;
 }
+.header .right-section .checkout-icon{
+    display: none;
+}
 
-.product-wrapper{
+.product-wrapper {
     position: relative;
 }
 

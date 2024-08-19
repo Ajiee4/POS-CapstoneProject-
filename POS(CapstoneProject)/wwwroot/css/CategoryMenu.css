@@ -5,9 +5,11 @@
     margin: 0;
 
 }
+.header .right-section .checkout-icon{
+    display: none;
+}
 /*Buttons*/
 .addCategoryBtn {
-
     position: absolute;
     cursor: pointer;
     z-index: 100;
@@ -22,7 +24,6 @@
     border: none !important;
     outline: none !important;
     box-shadow: none;
-
 }
 
 .updateCategoryBtn {

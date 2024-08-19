@@ -4,7 +4,11 @@ namespace POS_CapstoneProject_.Controllers
 {
     public class InventoryMenuController : Controller
     {
-        public IActionResult Index()
+        public IActionResult InventoryList()
+        {
+            return View();
+        }
+        public IActionResult StockMovement()
         {
             return View();
         }
