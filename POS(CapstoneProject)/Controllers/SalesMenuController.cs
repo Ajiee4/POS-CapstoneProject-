@@ -30,7 +30,7 @@ namespace POS_CapstoneProject_.Controllers
             {
                 UserId = 1,//id
                 TotalAmount = checkoutTotal,
-                OrderDate = DateTime.Now.Date
+                OrderDate = DateTime.Now
             };           
             //save order in db
             await _context.Order.AddAsync(order);
@@ -49,13 +49,9 @@ namespace POS_CapstoneProject_.Controllers
 
                 await _context.OrderDetails.AddAsync(details);
             }
-            //save change to db
             await _context.SaveChangesAsync();
-            TempData["TransactionComplete"] = " ";
 
             return RedirectToAction("Index");
         }
-
-        
     }
 }

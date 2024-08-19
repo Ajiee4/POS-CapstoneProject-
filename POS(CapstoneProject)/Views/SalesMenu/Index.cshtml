@@ -4,18 +4,6 @@
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
 }
-
-<style>
-    .header .right-section .checkout-icon {
-        display: block;
-    }
-
-    .link-sales {
-        background-color: #C6976C !important;
-    }
-    <style>
-
-</style>
 <div class="checkout-wrapper">
     <h1 class="checkout-title">Check Out</h1>
 
@@ -60,7 +48,10 @@
             <button class="cancelBtn">Cancel</button>
             <button class="payBtn">Pay (₱0.00)</button>
         </div>
-       
+        <form asp-action="AddOrder" method="post" id="formPay">
+            <input class="" name="checkoutList" id="checkOutListInput" />
+            <input name="checkoutTotal" id="checkOutTotalInput" />
+        </form>
        
     </div>
 </div> 
@@ -68,34 +59,29 @@
 <div class="product-list-wrapper">
        <div class="search-wrapper">
              
-       <div class="searchProd">
-            <input type="search" class="searchProductInput" onkeyup="searchProduct()" placeholder="Search...">
-            <label>
-                <img src="~/images/search.png" />
-            </label>
-
-        </div>
-        
+            <input type="search" placeholder="Search...">
+            <button type="button">
+               Search
+            </button>
+                  
        </div>
 
 
 
        <div class="category-list-wrapper">
-            <button class="category-item active" data-category="All" onclick="FilterProduct('All')">
+            <button class="category-item active" onclick="FilterProduct('All')">
                 All
             </button>
 
             @foreach (var item in ViewData["CategoryList"] as List<Category>)
             {
-                <button class="category-item" data-category="@item.CategoryName" onclick="FilterProduct('@item.CategoryName')">
+                <button class="category-item" onclick="FilterProduct('@item.CategoryName')">
                     @item.CategoryName
                 </button>
             }      
        </div>
 
        <div class="product-catalog">
-
-       <div class="noResult">Nothing Found...</div>
             @foreach(var prod in ViewData["ProductList"] as List<Product>)
             {
             <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
@@ -110,7 +96,7 @@
                             }
                         </div>
 
-                        <div class="product-item-name" data-category="@prod.Category.CategoryName">
+                        <div class="product-item-name" >
                             <span>@prod.Name</span>
                         </div>
                  </div>
@@ -122,64 +108,3 @@
 
 <br />
 
-
-<!--Payment Modal-->
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">PAYMENT</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <label class="control-label">Amount Due</label>
-                    <input class="form-control totalAmountInputReadOnly" readonly/>
-
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Cash Tendered</label>
-                    <input class="form-control amountInput" onchange="amountChange()" oninput="validateAmount(this)"/>
-                       
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Change Due</label>
-                    <input class="form-control changeAmountText" readonly />
-
-                </div>
-                                     
-                <form asp-action="AddOrder" method="post" id="formPay">
-                    <input class="" name="checkoutList" id="checkOutListInput" hidden />
-                    <input name="checkoutTotal" id="checkOutTotalInput" hidden />
-                </form>
-
-                <div class="form-group">
-                    <button class="d-block mx-auto payComplete">Pay</button>
-                </div>
-               
-            </div>
-
-        </div>
-    </div>
-</div>
-
-    @if (TempData["TransactionComplete"] != null)
-    {
-
-        <script>
-            swal({
-                title: "",
-                text: "Transaction Complete",
-                icon: "success",
-                button: false,
-                timer: 2000
-            });
-
-        </script>
-    }

@@ -3,11 +3,6 @@
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
     var productList = ViewData["productList"] as List<Product>;
 }
-<style>
-    .link-product {
-        background-color: #C6976C !important;
-    }
-</style>
  <div class="product-wrapper">
     <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">Add Product</button>
    
@@ -100,7 +95,7 @@
 
 
 
-<!--Update New Product-->
+<!--Update Product-->
 <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -137,7 +132,7 @@
                     <div class="form-group">
 
                         <label asp-for="Price" class="control-label">Price</label>
-                        <input asp-for="Price" type="number" class="form-control productInputPrice" required />
+                        <input asp-for="Price" type="number" step="any" class="form-control productInputPrice" required />
 
                     </div>
  
@@ -201,7 +196,7 @@
 
                     <div class="form-group">
                         <label asp-for="Price" class="control-label">Price</label>
-                        <input asp-for="Price" type="number" class="form-control productInputPrice" required />
+                        <input asp-for="Price" type="number" step="any" class="form-control productInputPrice" required />
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
 
