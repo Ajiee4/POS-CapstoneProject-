@@ -20,10 +20,11 @@ namespace POS_CapstoneProject_.Controllers
             var productList = await _context.Product.Where(s => s.IsArchive == false).Include(s => s.Category).ToListAsync();
             ViewData["CategoryList"] = categoryList;
             ViewData["ProductList"] = productList;
+          
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrder(string checkoutList, decimal checkoutTotal)
+        public async Task<IActionResult> AddOrder(string checkoutList, decimal checkoutTotal, decimal changeDueAmount, decimal discount, decimal cashTendered, decimal subTotalAmount)
         {
             //created an object to save the order          
             Order order = new Order()
@@ -51,8 +52,14 @@ namespace POS_CapstoneProject_.Controllers
             }
             //save change to db
             await _context.SaveChangesAsync();
-            TempData["TransactionComplete"] = " ";
 
+            var getItems = _context.Order.Include(order)
+            TempData["TransactionComplete"] = " ";
+            TempData["Total"] = checkoutTotal.ToString();
+            TempData["SubTotal"] = subTotalAmount.ToString();
+            TempData["Change"] = changeDueAmount.ToString();
+            TempData["Discount"] = discount.ToString();
+            TempData["Cash"] = cashTendered.ToString();
             return RedirectToAction("Index");
         }
 

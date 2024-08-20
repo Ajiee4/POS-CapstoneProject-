@@ -157,6 +157,10 @@
                 <form asp-action="AddOrder" method="post" id="formPay">
                     <input class="" name="checkoutList" id="checkOutListInput" hidden />
                     <input name="checkoutTotal" id="checkOutTotalInput" hidden />
+                    <input name="changeDueAmount" id="changeDueAmount" hidden />
+                    <input name="discount" id="discount" hidden />
+                    <input name="cashTendered" id="cashTendered" hidden />
+                    <input name="subTotalAmount" id="subTotalAmount" hidden />
                 </form>
 
                 <div class="form-group">
@@ -169,17 +173,89 @@
     </div>
 </div>
 
+
     @if (TempData["TransactionComplete"] != null)
     {
-
+  
+ 
         <script>
+         
             swal({
-                title: "",
+                title: " ",
                 text: "Transaction Complete",
                 icon: "success",
                 button: false,
                 timer: 2000
+            }).then(() => {
+                    document.querySelector(".receipt").classList.add("showReceipt");
+                    window.print();
+                    setTimeout(function(){
+                            document.querySelector(".receipt").classList.remove("showReceipt");
+                    }, 2000)
+           
             });
 
+          
+
         </script>
+
+    <div class="receipt">
+        <div class="receipt-content">
+            <div class="receipt-header">
+                <p class="name">Don Machiattos</p>
+                <p>Date: 12/12/12</p>
+                <p>Cashier: Cashier's Name</p>
+            </div>
+
+            <hr />
+
+            <div class="receipt-items">
+                <p>Banna</p>
+            </div>
+
+            <hr />
+
+            <div class="receipt-calculation">
+
+                <div class="discount">
+                    <p>Discount</p>
+                    <p>@TempData["Discount"]</p>
+                </div>
+
+                <div class="subtotal">
+                    <p>Sub Total</p>
+                    <p>@TempData["SubTotal"]</p>
+                </div>
+
+                <div class="total">
+                    <p>Total</p>
+                    <p>@TempData["Total"]</p>
+                </div>
+
+            </div>
+            <hr />
+            <div class="receipt-change">
+                <div class="cash">
+                    <p>Cash</p>
+                    <p>@TempData["Cash"]</p>
+                </div>
+
+                <div class="change">
+                    <p>Change</p>
+                    <p>@TempData["Change"]</p>
+                </div>
+            </div>
+
+
+
+            <h3 class="footer">THANK YOU</h3>
+
+
+        </div>
+    </div>
+
+      
+   
     }
+
+

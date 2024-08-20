@@ -21,6 +21,7 @@
     border-radius: 5px;
     gap: 5px;
     box-shadow: 1px 1px 5px grey;
+    z-index: 990
     /* padding: 5px;*/
 }
 
@@ -492,4 +493,86 @@
     text-align: center;
     margin-top: 5px;
     
+}
+
+.receipt{
+    display: none;
+    position: fixed;
+    padding: 10px;
+    border: 1px solid black;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 290px;
+  
+   
+
+}
+    .receipt .receipt-content {
+      
+        text-align: center;
+        padding: 10px;
+
+        height: 100%;
+    }
+    .receipt hr{
+        border: 1px dashed black;
+    }
+
+    .receipt .footer{
+       letter-spacing: 2px;
+       text-align: center;
+       margin-top: 10px;
+       text-wrap: nowrap;
+    }
+    .receipt-header {
+        line-height: 10px;
+    }
+.receipt-header .name {
+    font-size: 1.5rem;
+}
+    .receipt .receipt-content .receipt-calculation {
+      
+        line-height: 10px;
+    }
+
+    .receipt-calculation .discount, .subtotal, .total{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+.receipt .receipt-content .receipt-change {
+   
+    line-height: 10px;
+}
+.receipt-change .cash, .change {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.showReceipt{
+    display: block;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .receipt, .receipt * {
+        visibility: visible;
+    }
+
+    .receipt {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 300px;
+        height: auto;
+    }
 }

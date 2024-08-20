@@ -270,10 +270,17 @@ function amountChange(){
  
 }
 
-function validateAmount(event) {
-    const input = event.target.value;
-    const regex = /^[0-9]*\.?[0-9]*$/;
-    return regex.test(input);
+function validateAmount(input) {
+  
+    let value = input.value;
+   
+    let validValue = value.match(/^\d*\.?\d{0,2}$/);
+
+    if (validValue) {
+        input.value = validValue[0]; 
+    } else {
+        input.value = ""; 
+    }
 }
 
 $('.payComplete').click(function () {
@@ -296,10 +303,21 @@ $('.payComplete').click(function () {
 
         let total = CalculateTotalAmount();
         let jsonData = JSON.stringify(checkOutList);
+        let subTotal = CalculateSubtotal();
+        let cash = Number($('.amountInput').val());
+        let changedue = Number($('.changeAmountText').val())
+
         $('#checkOutTotalInput').val(total)
         $('#checkOutListInput').val(jsonData);
+        $('#cashTendered').val(cash)
+        $('#changeDueAmount').val(changedue);
+        $('#subTotalAmount').val(subTotal);
+
+      
         $('#formPay').submit();
     }
+
+   
   
 });
 
@@ -335,3 +353,5 @@ function searchProduct() {
    
    
 }
+
+
