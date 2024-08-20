@@ -20,11 +20,14 @@ namespace POS_CapstoneProject_.Controllers
             var productList = await _context.Product.Where(s => s.IsArchive == false).Include(s => s.Category).ToListAsync();
             ViewData["CategoryList"] = categoryList;
             ViewData["ProductList"] = productList;
-          
+            
+            
+
+
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrder(string checkoutList, decimal checkoutTotal, decimal changeDueAmount, decimal discount, decimal cashTendered, decimal subTotalAmount)
+        public async Task<IActionResult> AddOrder(string checkoutList, decimal checkoutTotal, string changeDueAmount, string discount, string cashTendered, string subTotalAmount, string totalString)
         {
             //created an object to save the order          
             Order order = new Order()
@@ -52,14 +55,22 @@ namespace POS_CapstoneProject_.Controllers
             }
             //save change to db
             await _context.SaveChangesAsync();
-
-            var getItems = _context.Order.Include(order)
+            var user = _context.UserDetail.Where(s => s.UserId == 1).FirstOrDefault();
+            //var getItems = _context.Order.Include(order)
+            TempData["OrderDate"] = order.OrderDate.ToString("MM/dd/yyyy");
             TempData["TransactionComplete"] = " ";
-            TempData["Total"] = checkoutTotal.ToString();
-            TempData["SubTotal"] = subTotalAmount.ToString();
-            TempData["Change"] = changeDueAmount.ToString();
-            TempData["Discount"] = discount.ToString();
-            TempData["Cash"] = cashTendered.ToString();
+            TempData["UserName"] = user.Firstname +" "+ user.Lastname;
+            TempData["Total"] = totalString;
+            TempData["SubTotal"] = subTotalAmount;
+            TempData["Change"] = changeDueAmount;
+            TempData["Discount"] = discount;
+            TempData["Cash"] = cashTendered;
+            TempData["orderID"] = order.OrderId;
+
+         
+          
+
+
             return RedirectToAction("Index");
         }
 

@@ -64,6 +64,7 @@
     flex-grow: 1;
     background-color: rgba(0,0,0,0.1);
     padding-top: 10px;
+  
 
 }
 
@@ -74,25 +75,38 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;   
-    padding: 5px 5px;
+   
+   padding: 0px 5px;
 
 }
-
+.discount-wrapper label{
+    margin-top: 7px;
+   
+}
 .discount-wrapper input {
     width: 35px;
     height: 20px;
-
+}
+.tax-wrapper {
+    width: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px 5px;
+  
 }
 
 .subtotal-wrapper {
     padding: 5px 5px;
+    
     width: 100%;
     font-size: 0.8rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row
-
 }
 
 .totalamount-wrapper {
@@ -347,8 +361,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0px 5px;
+    flex-wrap: wrap;
+    gap: 5px 5px;
     padding: 5px 0px;
+   
+   
 }
 
 .category-list-wrapper .category-item {
@@ -416,9 +433,9 @@
     text-align: center;
     font-weight: bolder;
     height: 10%;
-    overflow: hidden;
+  /*  overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap;*/
    
 }
 .product-item-name span {
@@ -538,7 +555,7 @@
         line-height: 10px;
     }
 
-    .receipt-calculation .discount, .subtotal, .total{
+    .receipt-calculation .discount, .tax, .total{
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -556,6 +573,21 @@
 }
 .showReceipt{
     display: block;
+}
+
+.receipt-items .item-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    font-weight: bold;
+}
+.receipt-items .item-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    font-size: 0.8em;
 }
 
 @media print {

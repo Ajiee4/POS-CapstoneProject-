@@ -176,6 +176,7 @@ header .header-links .button-logout-text {
     height: 15px;
     top: 50%;
     right: -7px;
+    padding: 4px;
     background-color: #B5875D;
     border-radius: 50%;
     transform: translateY(-50%);

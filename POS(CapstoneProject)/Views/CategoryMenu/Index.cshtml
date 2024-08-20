@@ -55,7 +55,7 @@
 
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" class="form-control addInputName" required/>
+                        <input asp-for="CategoryName" maxlength="15" class="form-control addInputName" required/>
                         <span asp-validation-for="CategoryName" class="text-danger"></span>
                     </div>
                    
@@ -88,7 +88,7 @@
                     <input asp-for="CategoryId" class="form-control input-id" hidden/>
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" class="form-control updateInputName" required />
+                        <input asp-for="CategoryName" maxlength="15" class="form-control updateInputName" required />
                         <span asp-validation-for="CategoryName" class="text-danger"></span>
                     </div>
                     

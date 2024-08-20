@@ -303,15 +303,21 @@ $('.payComplete').click(function () {
 
         let total = CalculateTotalAmount();
         let jsonData = JSON.stringify(checkOutList);
-        let subTotal = CalculateSubtotal();
+        let subTotal = Number(CalculateSubtotal());
         let cash = Number($('.amountInput').val());
         let changedue = Number($('.changeAmountText').val())
+        let discount = Number($('#discount').val())
 
         $('#checkOutTotalInput').val(total)
         $('#checkOutListInput').val(jsonData);
-        $('#cashTendered').val(cash)
-        $('#changeDueAmount').val(changedue);
-        $('#subTotalAmount').val(subTotal);
+        $('#totalString').val(total.toFixed(2))
+        $('#cashTendered').val(cash.toFixed(2))
+        $('#changeDueAmount').val(changedue.toFixed(2));
+        $('#subTotalAmount').val(subTotal.toFixed(2));
+        $('#discount').val(discount.toFixed(2))
+
+     
+      
 
       
         $('#formPay').submit();
@@ -322,7 +328,7 @@ $('.payComplete').click(function () {
 });
 
 
-//search product
+//live search for product
 function searchProduct() {
     let searchInput = document.querySelector('.searchProductInput').value.toLowerCase().trim();
     let prodItem = document.querySelectorAll('.product-item');
@@ -355,3 +361,14 @@ function searchProduct() {
 }
 
 
+function truncateName() {
+    let names = document.querySelectorAll('.product-item-name span');
+
+    names.forEach((item) => {
+        if (item.textContent.length > 8) {
+            item.textContent = item.textContent.substr(0, 6) + '...';
+        }
+    });
+}
+
+truncateName();

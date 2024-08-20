@@ -1,18 +1,19 @@
 ﻿
 
 //Setting up the Data Table
-$(document).ready(function () {
-    $('.category-table').DataTable({
-        "paging": true,
-        "scrollY": true,
-        "searching": true,
-        "ordering": true,
-        "pageLength": 5,
-       
-       
-    });
+
+$('.category-table').DataTable({
+    "paging": true,
+    
+    "searching": true,
+    "ordering": true,
+    "pageLength": 5,
    
+       
+       
 });
+   
+
 
 //reset to defaul value when closing the modal
 
@@ -35,5 +36,11 @@ function updateCategory(id, name) {
   
 }
 
+$('.submitFormBtn').click(function () {
+
+})
 
 
+
+
+   

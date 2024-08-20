@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $('.product-table').DataTable({
         "paging": true,
-        "scrollY": true,
+        
         "searching": true,
         "ordering": true,
         "pageLength": 5
@@ -53,7 +53,6 @@ $('.unarchiveBtn').click(function () {
 //when update button is click
 function updateProduct(id, name, price, category, img) {
 
-    alert(id)
     $('#updateProductModal .productId').val(id); 
     $('#updateProductModal .productInputName').val(name);
     $('#updateProductModal .productInputPrice').val(price);
@@ -92,3 +91,24 @@ $('#updateProductModal .inputPhoto').change(function (e) {
 
     reader.readAsDataURL(file);
 });
+
+function validatePrice(input) {
+
+    let value = input.value;
+
+    let validValue = value.match(/^\d*\.?\d{0,2}$/);
+
+    if (validValue) {
+        input.value = validValue[0];
+    } else {
+        swal({
+            title: "",
+            text: "Only numbers are allowed",
+            icon: "error",
+            button: false,
+            timer: 1000
+        })
+        input.value = "";
+    }
+}
+
