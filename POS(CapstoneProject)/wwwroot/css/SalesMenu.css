@@ -167,7 +167,7 @@
 
 }
 
-/*.checkout-table tbody tr:hover{
+.checkout-table tbody tr:hover{
     background-color: rgba(0,0,0,0.1);
 
 }
@@ -180,7 +180,7 @@
 .checkout-table, th, td, tr {
     border: none;
 
-}*/
+}
 
 .checkout-table tr{
     border-bottom: 1px solid grey;
@@ -603,7 +603,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%,-50%);
-        width: 300px;
+        width: 500px;
         height: auto;
     }
 }
