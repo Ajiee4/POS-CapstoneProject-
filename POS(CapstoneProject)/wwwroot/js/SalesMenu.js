@@ -363,7 +363,7 @@ $('.payComplete').click(function () {
         $('#changeDueAmount').val(changedue.toFixed(2));
         $('#subTotalAmount').val(subTotal.toFixed(2));
         $('#discount').val(discount.toFixed(2))
-
+        //test
      
       
 
