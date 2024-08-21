@@ -9,6 +9,7 @@ window.addEventListener('load', () => {
         checkOutList = JSON.parse(storedList);
         DisplayCheckOut(); 
     }
+
 });
 
 
@@ -145,6 +146,8 @@ function incrementQty(id) {
         DisplayCheckOut();
        
     }
+
+    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
 
 //decrement the quantity of product
@@ -155,6 +158,7 @@ function decrementQty(id) {
         DisplayCheckOut();
         
     }
+    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
 //delete a specific item from the checklist
 function deleteItem(id) {
@@ -165,6 +169,7 @@ function deleteItem(id) {
         DisplayCheckOut();
        
     }  
+    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
 
 
@@ -262,7 +267,7 @@ $('.cancelBtn').click(function (){
     checkOutList.splice(0);
 
     DisplayCheckOut();
-   
+    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     
 })
 
@@ -343,7 +348,7 @@ $('.payComplete').click(function () {
 
     }
     else {
-
+       
         let total = CalculateTotalAmount();
         let jsonData = JSON.stringify(checkOutList);
         let subTotal = Number(CalculateSubtotal());
@@ -364,6 +369,10 @@ $('.payComplete').click(function () {
 
       
         $('#formPay').submit();
+
+        checkOutList.splice(0);
+
+        localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     }
 
    
