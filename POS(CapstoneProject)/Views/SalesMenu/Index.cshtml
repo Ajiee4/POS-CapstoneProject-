@@ -15,7 +15,6 @@
     .link-sales {
         background-color: #C6976C !important;
     }
-    <style>
 
 </style>
 <div class="checkout-wrapper">
@@ -90,7 +89,7 @@
             
             @foreach (var item in ViewData["CategoryList"] as List<Category>)
             {
-                <button class="category-item" data-category="@item.CategoryName" onclick="FilterProduct('@item.CategoryName')">
+            <button class="category-item" data-category="@item.CategoryName" onclick="FilterProduct('@item.CategoryName')">
                     @item.CategoryName
                 </button>
             }      
