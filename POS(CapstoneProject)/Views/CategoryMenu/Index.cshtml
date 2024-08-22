@@ -47,7 +47,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <br />
+          
             <br />
             <div class="modal-body">
                 <form asp-action="AddCategory" asp-controller="CategoryMenu" method="post">
@@ -55,11 +55,11 @@
 
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" maxlength="15" class="form-control addInputName" required/>
+                        <input asp-for="CategoryName" maxlength="15" class="form-control addInputName" placeholder="Enter Category Name" required/>
                         <span asp-validation-for="CategoryName" class="text-danger"></span>
                     </div>
                    
-                   
+                    <br />
                     <div class="form-group">
                         <button type="submit" class="d-block mx-auto submitFormBtn">ADD</button>
                     </div>
@@ -81,18 +81,18 @@
                 </button>
             </div>
              <br />
-            <br />
+            
             <div class="modal-body">
                 <form asp-action="UpdateCategory" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                   
                     <input asp-for="CategoryId" class="form-control input-id" hidden/>
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" maxlength="15" class="form-control updateInputName" required />
-                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                        <input asp-for="CategoryName" placeholder="Enter Category Name" maxlength="15" class="form-control updateInputName" required />
+                        
                     </div>
-                    
 
+                    <br />
 
                     <div class="form-group">
                         <button type="submit" class="d-block mx-auto submitFormBtn">UPDATE</button>

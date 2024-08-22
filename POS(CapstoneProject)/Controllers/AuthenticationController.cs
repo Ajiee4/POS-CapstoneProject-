@@ -23,12 +23,12 @@ namespace POS_CapstoneProject_.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string Username, string Password)
+        public async Task<IActionResult> Login(User user)
         {
             if (ModelState.IsValid)
             {
                 //return a record based on a condition
-                var checkUsername = await _context.User.Where(s => s.Username == Username).FirstOrDefaultAsync();
+                var checkUsername = await _context.User.Where(s => s.Username == user.Username).FirstOrDefaultAsync();
 
                 //checks the record if it is null
                 if (checkUsername == null)
@@ -39,7 +39,7 @@ namespace POS_CapstoneProject_.Controllers
                 else //if there's a record
                 {
                     //check if password is correct
-                    if(checkUsername.Password == Password)
+                    if(checkUsername.Password == user.Password)
                     {
                         //send a message to the view
                         TempData["Success"] = "Success"; 
@@ -51,6 +51,7 @@ namespace POS_CapstoneProject_.Controllers
                   
                 }
 
+                ModelState.Clear();
                 
             }
 

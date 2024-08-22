@@ -162,3 +162,8 @@
     display: none;
 
 }
+input::placeholder{
+    color: dimgrey;
+    font-weight: lighter;
+    font-size: 0.9rem;
+}

@@ -207,8 +207,8 @@ document.querySelector('#inputDiscount').addEventListener('change', function () 
         inputDiscount.value = 0;
     }
 });
-
-function CartToggle() {
+//
+function CheckOutToggle() {
     $('.checkout-wrapper').slideToggle(1000, function () {
 
         const checkoutWrapper = $('.checkout-wrapper');
@@ -230,7 +230,7 @@ function CartToggle() {
 function AdjustContent() {
     $('.checkout-icon').click(function () {
 
-        CartToggle();
+        CheckOutToggle();
 
     })
 }
@@ -238,7 +238,7 @@ AdjustContent();
 
 $('.cancelBtn').click(function (){
     
-    CartToggle();
+    CheckOutToggle();
 
     checkOutList.splice(0);
 
@@ -252,13 +252,14 @@ $('.payBtn').click(function () {
    
     if (checkOutList.length === 0) {
 
-        swal({
-            title: "",
-            text: "You have no items in your check out list",
-            icon: "error",
-            button: false,
-            timer: 2000
-        }).show();
+        alert('You have no items in your check out list')
+        //swal({
+        //    title: "",
+        //    text: "You have no items in your check out list",
+        //    icon: "error",
+        //    button: false,
+        //    timer: 2000
+        //}).show();
 
     } else {
         $('#paymentModal').modal('toggle')
@@ -280,15 +281,16 @@ function amountChange(){
     }
     else {
 
-        swal({
-            title: "",
-            text: "Insufficient Amount",
-            icon: "error",
-            button: false,
-            timer: 2000
-        }).then(() => {
+        alert('Insufficient Amount');
+        //swal({
+        //    title: "",
+        //    text: "Insufficient Amount",
+        //    icon: "error",
+        //    button: false,
+        //    timer: 2000
+        //}).then(() => {
             $('.amountInput').val('').focus();
-        });
+       /* });*/
        
     }
  
@@ -311,16 +313,18 @@ $('.payComplete').click(function () {
     
     let amountInput = $('.amountInput').val();
     if (amountInput === '') {
-        swal({
-            title: "",
-            text: "Cash tendered required",
-            icon: "error",
-            button: false,
-            timer: 2000
-        }).then(() => {
+
+        alert('Cash tendered required');
+        //swal({
+        //    title: "",
+        //    text: "Cash tendered required",
+        //    icon: "error",
+        //    button: false,
+        //    timer: 2000
+        //}).then(() => {
 
             document.querySelector('.amountInput').focus();
-        });
+       /* });*/
 
     }
     else {
@@ -353,7 +357,7 @@ $('.payComplete').click(function () {
 
 
 
-
+//if the name greater than 8
 function truncateName() {
     let names = document.querySelectorAll('.product-item-name span');
 

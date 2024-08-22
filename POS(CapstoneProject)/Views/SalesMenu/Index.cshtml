@@ -19,17 +19,24 @@
 </style>
 <div class="checkout-wrapper">
     <h1 class="checkout-title">Check Out</h1>
-
+    <div class="table-header">
+        <div style="color: transparent"></div>
+        <div class="table-header-name">Name &nbsp;&nbsp;&nbsp;</div>
+        <div class="table-header-quantity">Qty</div>
+        <div class="table-header-price">Price &nbsp;</div>
+    </div>
     <div class="checkout-table-wrapper">
+
+       
         <table class="checkout-table">
-            <thead>
+            @* <thead>
                 <tr>
                     <th style="color: transparent">A</th>
                     <th class="table-header-name">Name</th>
                     <th class="table-header-quantity">Qty</th>
                     <th class="table-header-price">Price &nbsp;</th>
                 </tr>
-            </thead>
+            </thead> *@
             <tbody>
               
                
@@ -146,7 +153,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Cash Tendered</label>
-                    <input class="form-control amountInput" onchange="amountChange()" oninput="validateAmount(this)"/>
+                    <input class="form-control amountInput"  placeholder="Enter Cash Tendered"onchange="amountChange()" oninput="validateAmount(this)"/>
                        
                 </div>
 
@@ -186,21 +193,30 @@
         <script>
 
 
-
-            swal({
+           
+            @*
+                swal({
                 title: " ",
                 text: "Transaction Complete",
                 icon: "success",
                 button: false,
                 timer: 2000
-            }).then(() => {
-                document.querySelector(".receipt").classList.add("showReceipt");
-                window.print();
+                }).then(() => { *@
+                alert('Transaction Complete');
+
+                @* document.querySelector(".receipt").classList.add("showReceipt"); *@
+             
                 setTimeout(function () {
-                    document.querySelector(".receipt").classList.remove("showReceipt");
+                    document.querySelector(".receipt").classList.add("hideReceipt");
+                     window.print();
                 }, 2000)
 
-            });
+            setTimeout(function () {
+              
+                window.print();
+            }, 2000)
+
+           @*  }); *@
 
 
                
@@ -276,17 +292,6 @@
 
                 </div>
             </div>
-
-
-       
-
-        
-
-        
-
- 
-      
-
    
     }
 

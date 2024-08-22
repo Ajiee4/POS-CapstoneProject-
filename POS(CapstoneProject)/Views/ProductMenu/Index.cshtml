@@ -130,13 +130,13 @@
                    
                     <div class="form-group">
                         <label asp-for="Name"  class="control-label">Product Name</label>
-                        <input asp-for="Name" maxlength="20" class="form-control productInputName" required />
+                        <input asp-for="Name" placeholder="Enter Product Name" maxlength="20" class="form-control productInputName" required />
                     </div>
 
                     <div class="form-group">
 
                         <label asp-for="Price" class="control-label">Price</label>
-                        <input asp-for="Price" maxlength="8" oninput="validatePrice(this)" class="form-control productInputPrice" required />
+                        <input asp-for="Price" maxlength="8" placeholder="Enter Price" oninput="validatePrice(this)" class="form-control productInputPrice" required />
 
                     </div>
  
@@ -194,13 +194,13 @@
                   
                     <div class="form-group">
                         <label asp-for="Name" class="control-label">Product Name</label>
-                        <input asp-for="Name" maxlength="20" class="form-control productInputName" required />
+                        <input asp-for="Name" maxlength="20" placeholder="Enter Product Name" class="form-control productInputName" required />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
                         <label asp-for="Price" class="control-label">Price</label>
-                        <input asp-for="Price" maxlength="8" oninput="validatePrice(this)" class="form-control productInputPrice" required />
+                        <input asp-for="Price" maxlength="8" placeholder="Enter Price" oninput="validatePrice(this)" class="form-control productInputPrice" required />
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
 

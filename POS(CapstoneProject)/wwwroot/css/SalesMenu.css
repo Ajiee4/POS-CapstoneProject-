@@ -9,7 +9,7 @@
     position: fixed;
     top: 90px;
     right: 20px;
-    bottom: 20px;
+  
     /*background-color: #F1DCC8;*/
     background-color: #F1DCC8;
     width: 320px;
@@ -130,28 +130,37 @@
    
 }
 
-    .checkout-footer .checkout-btn  button {
-        padding: 10px;
-       
-        background-color: #693D29;
-        color: white;
-        border: none;
-        outline: none;
-        font-size: 0.8rem;
-        border-radius: 2px;
-        letter-spacing: 1px;
-       
-        font-weight: bolder;
-    }
+.checkout-footer .checkout-btn button {
+    padding: 10px;
+    background-color: #693D29;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    font-weight: bolder;
+}
 
     .checkout-footer .checkout-btn .payBtn {
         flex: 1;
        
     }
 
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #693D29;
+    padding: 5px 0px;
+    color: white;
+    font-weight: bolder;
+}
+
 .checkout-table-wrapper {
     flex-grow: 1;
+   
     overflow-y: auto;
+    height: 200px;
 }
 #inputDiscount {
     text-align: center;
@@ -449,6 +458,12 @@
     color: white;
 }
 
+input::placeholder {
+    color: dimgrey;
+    font-weight: lighter;
+    font-size: 0.9rem;
+}
+
 #paymentModal .submitFormBtn:hover {
     background-color: black;
     color: white;
@@ -512,7 +527,7 @@
 }
 
 .receipt{
-    display: none;
+    /*display: none;*/
     position: fixed;
     padding: 10px;
     border: 1px solid black;
@@ -573,8 +588,11 @@
 .showReceipt{
     display: block;
 }
+.hideReceipt{
+    display: none;
+}
 
-.receipt-items .item-header{
+.receipt-items .item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
