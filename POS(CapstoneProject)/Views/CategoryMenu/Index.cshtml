@@ -8,6 +8,7 @@
         background-color: #C6976C !important;
     }
 </style>
+
  <!--Wrapper-->
 <div class="category-wrapper">
     <button type="button" class="addCategoryBtn" data-toggle="modal" data-target="#addCategoryModal" >Add Category</button>
@@ -50,18 +51,18 @@
           
             <br />
             <div class="modal-body">
-                <form asp-action="AddCategory" asp-controller="CategoryMenu" method="post">
+                <form asp-action="AddCategory" id="addForm" asp-controller="CategoryMenu" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" maxlength="15" class="form-control addInputName" placeholder="Enter Category Name" required/>
+                        <input asp-for="CategoryName" onkeydown="pressEnterAdd(event)" class="form-control addInputName" placeholder="Enter Category Name" required />
                         <span asp-validation-for="CategoryName" class="text-danger"></span>
                     </div>
                    
                     <br />
                     <div class="form-group">
-                        <button type="submit" class="d-block mx-auto submitFormBtn">ADD</button>
+                        <button type="button" class="d-block mx-auto addSubmitBtn" >ADD</button>
                     </div>
                 </form>
             </div>
@@ -83,19 +84,19 @@
              <br />
             
             <div class="modal-body">
-                <form asp-action="UpdateCategory" method="post">
+                <form asp-action="UpdateCategory" id="updateForm" method="post">
                    
                     <input asp-for="CategoryId" class="form-control input-id" hidden/>
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" placeholder="Enter Category Name" maxlength="15" class="form-control updateInputName" required />
+                        <input asp-for="CategoryName" onkeydown="pressEnterUpdate(event)" placeholder="Enter Category Name" class="form-control updateInputName" required />
                         
                     </div>
 
                     <br />
 
                     <div class="form-group">
-                        <button type="submit" class="d-block mx-auto submitFormBtn">UPDATE</button>
+                        <button type="button" class="d-block mx-auto updateSubmitBtn">UPDATE</button>
                     </div>
                 </form>
             </div>
@@ -108,12 +109,12 @@
 @if (TempData["CategoryExist"] != null)
 {
     <script>
-        swal({
-            title: "",
+
+        Swal.fire({
             text: "Category already exists",
-            icon: "error",
-            button: false,
-            timer: 3000
+            icon: "warning",
+            showConfirmButton: false,
+            timer: 2000
         });
        
     </script>
@@ -124,12 +125,11 @@
 @if (TempData["AddedCategory"] != null)
 {
     <script>
-        swal({
-            title: "",
+        Swal.fire({
             text: "New category added",
             icon: "success",
-            button: false,
-            timer: 3000
+            showConfirmButton: false,
+            timer: 2000
         });
 
     </script>
@@ -139,12 +139,11 @@
 @if (TempData["UpdatedCategory"] != null)
 {
     <script>
-        swal({
-            title: "",
+        Swal.fire({
             text: "Category updated",
             icon: "success",
-            button: false,
-            timer: 3000
+            showConfirmButton: false,
+            timer: 2000
         });
 
     </script>
@@ -155,4 +154,4 @@
 
 
  
-                    
+                     

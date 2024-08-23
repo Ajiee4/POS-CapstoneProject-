@@ -3,8 +3,10 @@
     box-sizing:border-box;
     padding: 0;
     margin: 0;
+    font-family: Arial;
 
 }
+
 .header .right-section .checkout-icon{
     display: none;
 }
@@ -24,26 +26,29 @@
     border: none !important;
     outline: none !important;
     box-shadow: none;
+    transition: 0.3s ease-in-out
+}
+.addCategoryBtn:hover{
+    background-color: black;
 }
 
 .updateCategoryBtn {
-
     background-color: #1964C5;
     color: white;
-
 }
 
 /*Wrapper*/
-.category-wrapper{
-
-    position: relative;  
-  
+.category-wrapper {
+    position: relative;
+    width: 100%;
 }
 
 .category-table {
-    width: 100% !important;
-    border: none;
+   
+    border: 1px solid black;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
     overflow: scroll;
+
 }
 
 .category-table tr,th,td{
@@ -77,27 +82,21 @@
 }
 
 /*Add and Update Modals*/
-#addCategoryModal .submitFormBtn, #updateCategoryModal .submitFormBtn {
-
+#addCategoryModal .addSubmitBtn, #updateCategoryModal .updateSubmitBtn {
     background-color: #693D29;
     border-radius: 20px;
     padding: 10px 30px;
     border: none;
     color: white;
-
 }
-#addCategoryModal .submitFormBtn:hover {
-
+#addCategoryModal .addSubmitBtn:hover {
     background-color: black;
     color: white;
-
 }
 
-#updateCategoryModal .submitFormBtn:hover {
-
+#updateCategoryModal .updateSubmitBtn:hover {
     background-color: black;
     color: white;
-
 }
 
 
@@ -166,4 +165,23 @@ input::placeholder{
     color: dimgrey;
     font-weight: lighter;
     font-size: 0.9rem;
+}
+
+input:focus{
+    outline: 1px solid grey !important;
+}
+
+.custom-icon {
+    font-size: 8px !important; /* Adjust the size as needed */
+}
+
+.swal-addCategory-title {
+    font-size: 25px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}
+.swal-updateCategory-title {
+    font-size: 25px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
 }

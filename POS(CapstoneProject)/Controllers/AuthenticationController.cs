@@ -16,10 +16,6 @@ namespace POS_CapstoneProject_.Controllers
         {
             return View();
         }
-        public IActionResult Blank()
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

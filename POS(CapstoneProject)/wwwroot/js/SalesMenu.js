@@ -315,16 +315,10 @@ $('.payComplete').click(function () {
     if (amountInput === '') {
 
         alert('Cash tendered required');
-        //swal({
-        //    title: "",
-        //    text: "Cash tendered required",
-        //    icon: "error",
-        //    button: false,
-        //    timer: 2000
-        //}).then(() => {
+      
 
             document.querySelector('.amountInput').focus();
-       /* });*/
+     
 
     }
     else {

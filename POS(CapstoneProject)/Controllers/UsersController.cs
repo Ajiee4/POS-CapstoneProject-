@@ -48,7 +48,7 @@ namespace POS_CapstoneProject_.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "RoleName");
+            ViewData["RoleId"] = new SelectList(_context.Role, "RoleId", "RoleName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace POS_CapstoneProject_.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Username,Password,RoleId,Status")] User user)
+        public async Task<IActionResult> Create([Bind("UserId,Username,Password,RoleId,isActive")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace POS_CapstoneProject_.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "RoleName", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Role, "RoleId", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -82,7 +82,7 @@ namespace POS_CapstoneProject_.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "RoleName", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Role, "RoleId", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -91,7 +91,7 @@ namespace POS_CapstoneProject_.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Password,RoleId,Status")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Password,RoleId,isActive")] User user)
         {
             if (id != user.UserId)
             {
@@ -118,7 +118,7 @@ namespace POS_CapstoneProject_.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "RoleName", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Role, "RoleId", "RoleName", user.RoleId);
             return View(user);
         }
 

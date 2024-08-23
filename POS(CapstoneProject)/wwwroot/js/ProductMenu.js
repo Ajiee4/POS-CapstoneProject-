@@ -11,6 +11,17 @@ $(document).ready(function () {
 
 });
 
+function popUpMessageProduct(message, icon) {
+    Swal.fire({
+        text: message,
+        icon: icon,
+        showConfirmButton: false,
+        timer: 2000,
+
+    });
+}
+
+
 //when the button is click it will fire the input to select an image
 $('#addProductModal .uploadPhoto').click(function () {
 
@@ -32,8 +43,8 @@ $('#addProductModal .inputPhoto').change(function (e) {
 //when modal is close, it will clear the value
 $('#addProductModal').on('hidden.bs.modal', function () {
     //set the defaul value when modal is hidden
-    $('#addProductModal .productInputName').val('');
-    $('#addProductModal .productInputPrice').val('');
+    $('#addProductModal .addProductInputName').val('');
+    $('#addProductModal .addProductInputPrice').val('');
     $('#addProductModal .photo-wrapper img').attr('src', '/images/noimage.jpg');
     $('#addProductModal .inputPhoto').val('');
 });
@@ -42,20 +53,67 @@ $('#addProductModal').on('hidden.bs.modal', function () {
 //when the archive button is click, the form will be submitted
 $('.archiveBtn').click(function () {
 
-    $('.archiveForm').submit();
+    Swal.fire({
+       
+        title: "Are you sure you want to archive this product? <br/>",
+        icon: "warning",
+        padding: "1em",
+        iconColor: "#F71F1F",
+        showCancelButton: true,
+        confirmButtonColor: "#1964C5",
+        cancelButtonColor: "#F71F1F",
+        confirmButtonText: "Yes",
+        customClass: {
+            icon:  'custom-icon',
+            title: 'swal-archive-title',
+           
+        }
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $('.archiveForm').submit();
+
+        }
+    });
+   
 })
 //when the unarchive button is click, the form will be submitted
 $('.unarchiveBtn').click(function () {
 
-    $('.unarchiveForm').submit();
+    Swal.fire({
+        title: "Are you sure you want to unarchive this product? <br/>",
+        padding: "1em",
+        icon: "question",
+        iconColor: "#1964C5",
+        showCancelButton: true,
+        confirmButtonColor: "#1964C5",
+        cancelButtonColor: "#F71F1F",
+        confirmButtonText: "Yes",
+        customClass: {
+            icon: 'custom-icon',
+            title: 'swal-unarchive-title',
+
+        }
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $('.unarchiveForm').submit();
+
+        }
+    });
+   
 })
 
-//when update button is click
+//when update button is click, set default value
 function updateProduct(id, name, price, category, img) {
 
     $('#updateProductModal .productId').val(id); 
-    $('#updateProductModal .productInputName').val(name);
-    $('#updateProductModal .productInputPrice').val(price);
+    $('#updateProductModal .updateProductInputName').val(name);
+    $('#updateProductModal .updateProductInputPrice').val(price);
     $('#updateProductModal .selectProductCategory option[value="' + category + '"]').prop('selected', true);
 
     
@@ -101,14 +159,112 @@ function validatePrice(input) {
     if (validValue) {
         input.value = validValue[0];
     } else {
-        swal({
-            title: "",
-            text: "Only numbers are allowed",
-            icon: "error",
-            button: false,
-            timer: 1000
-        })
+       
+        popUpMessageProduct("Only numbers are allowed","error")
         input.value = "";
     }
 }
 
+$('.addProductSubmit').click(function () {
+    
+    AddProduct();
+});
+function AddProduct() {
+    let productName = document.querySelector('.addProductInputName').value;
+    let productPrice = document.querySelector('.addProductInputPrice').value;
+
+    if (productName == '' || productPrice == '') {
+
+        popUpMessageProduct("Fill out all necessary information", "error");
+       
+    }
+    else {
+
+        if (productName.length >= 3 && productName.length <= 15) {
+
+            Swal.fire({
+                icon: "question",
+                title: "Do you want to add this product?",
+                padding: "1em",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes",
+                customClass: {
+                    icon: 'custom-icon',
+                    title: 'swal-addProd-title',
+
+                }
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    $("#addProductForm").submit();
+
+                }
+            });
+
+
+        } else {
+
+            popUpMessageProduct("Input must be 3-15 characters for product name", "error");
+           
+
+        }
+    }
+
+}
+
+
+$('.updateProductSubmit').click(function () {
+
+    UpdateProduct();
+});
+
+function UpdateProduct() {
+    let productName = document.querySelector('.updateProductInputName').value;
+    let productPrice = document.querySelector('.updateProductInputPrice').value;
+
+    if (productName == '' || productPrice == '') {
+
+        popUpMessageProduct("Fill out all necessary information", "error");
+
+    }
+    else {
+
+        if (productName.length >= 3 && productName.length <= 15) {
+
+            Swal.fire({
+                icon: "question",
+                title: "Do you want to update this product?",
+                padding: "1em",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes",
+                customClass: {
+                    icon: 'custom-icon',
+                    title: 'swal-updateProd-title',
+
+                }
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    $("#updateProductForm").submit();
+
+                }
+            });
+
+
+        } else {
+
+            popUpMessageProduct("Input must be 3-15 characters for product name", "error");
+
+
+        }
+    }
+
+}

@@ -24,20 +24,23 @@
     font-weight: bold;
     border-radius: 20px;
     border: none;
+    transition: 0.3s ease-in-out
 }
+
+.addProductBtn:hover{
+    background-color: black;
+}
+
 .product-table {
     width: 100%;
-    border-collapse: collapse;
-    height: 30px !important;
-    border: none;
     overflow: scroll;
+    border: 1px solid black;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
 }
 
 .product-table tr, th, td {
     border: 1px solid black;
 }
-
-
 
 .product-table th {
     padding: 5px;
@@ -99,19 +102,20 @@
     transition: 0.5s;
 }
 
-    #addProductModal .close:hover, #updateProductModal .close:hover {
-        transform: scale(1.2);
-    }
+#addProductModal .close:hover, #updateProductModal .close:hover {
+    transform: scale(1.2);
+}
 
-.submitFormBtn {
+#addProductModal .addProductSubmit, #updateProductModal .updateProductSubmit {
     background-color: #693D29;
     border-radius: 20px;
     padding: 10px 30px;
     border: none;
     color: white;
+    transition: 0.3s ease-in-out
 }
 
-.submitFormBtn:hover {
+#addProductModal .addProductSubmit:hover, #updateProductModal .updateProductSubmit:hover {
     background-color: black;
     color: white;
 }
@@ -131,14 +135,17 @@
     width: 40px;
     height: 40px;
 }
+
 .updateProductBtn {
     background-color: #1964C5;
     color: white;
 }
+
 .archiveBtn, .unarchiveBtn {
     background-color: #F71F1F;
     color: white;
 }
+
 .action-wrapper{
    
     display: flex;
@@ -151,3 +158,50 @@ input::placeholder {
     font-weight: lighter;
     font-size: 0.9rem;
 }
+
+
+.custom-icon {
+    font-size: 8px !important; /* Adjust the size as needed */
+}
+.swal-archive-title {
+    font-size: 25px ; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}
+.swal-archive-title::after{
+    content: "(Product will not be available for sale)";
+        font-weight: lighter;
+        color: grey;
+        font-size: 0.9rem;
+        white-space: pre-wrap
+}
+
+.swal-unarchive-title {
+    font-size: 25px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}
+
+.swal-unarchive-title::after {
+    content: "(Product will be available for sale)";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+    white-space: pre-wrap
+}
+
+.swal-addProd-title {
+    font-size: 25px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}
+
+
+.swal-updateProd-title {
+    font-size: 25px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}
+
+
+
