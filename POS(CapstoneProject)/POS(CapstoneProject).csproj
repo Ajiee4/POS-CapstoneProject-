@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\ProductMenu.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\UserManagement.css" />
   </ItemGroup>
 
   <ItemGroup>

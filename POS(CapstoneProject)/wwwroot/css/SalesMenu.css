@@ -333,10 +333,12 @@
 }
 
 .search-wrapper {
-    
+   
     margin-bottom: 20px;
 }
-.search-wrapper .searchProd label img{
+
+
+.search-wrapper .searchProd label img {
     width: 20px;
     height: 20px;
     margin-top: 5px;
@@ -357,8 +359,8 @@
     width: 100%;
           
     background-color: transparent;
-    border: none;
-    outline: none;
+    border: none !important;
+    outline: none !important;
     box-shadow: none;
     padding: 5px
 }
@@ -389,12 +391,12 @@
 
 .category-list-wrapper .active {
     border-bottom-color: white;
-
+   
 }
 
 .category-list-wrapper .category-item:hover {
     border-bottom-color: white;
-
+        
 }
 
 .product-catalog{
@@ -441,10 +443,7 @@
     text-align: center;
     font-weight: bolder;
     height: 10%;
-  /*  overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;*/
-   
+  
 }
 .product-item-name span {
     background-color: transparent !important;
@@ -527,7 +526,7 @@ input::placeholder {
 }
 
 .receipt{
-    /*display: none;*/
+    display: none;
     position: fixed;
     padding: 10px;
     border: 1px solid black;
@@ -588,9 +587,7 @@ input::placeholder {
 .showReceipt{
     display: block;
 }
-.hideReceipt{
-    display: none;
-}
+
 
 .receipt-items .item-header {
     display: flex;
@@ -624,4 +621,21 @@ input::placeholder {
         width: 500px;
         height: auto;
     }
+}
+
+.custom-icon {
+    font-size: 8px !important; /* Adjust the size as needed */
+}
+
+.swal-sales-title {
+    font-size: 30px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}
+.swal-sales-title::after {
+    content: "(Cannot be undone)";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+   
 }

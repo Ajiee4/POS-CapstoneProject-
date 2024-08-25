@@ -1,0 +1,220 @@
+﻿*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+}
+.header .right-section .checkout-icon {
+    display: none;
+}
+
+.addUserBtn {
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    padding: 10px 15px;
+    background-color: #693D29;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none;
+    transition: 0.3s ease-in-out
+}
+
+    .addCategoryBtn:hover {
+        background-color: black;
+    }
+
+.updateCategoryBtn {
+    background-color: #1964C5;
+    color: white;
+}
+
+/*Wrapper*/
+.user-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.user-table {
+    border: 1px solid black;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+    overflow: scroll;
+}
+
+    .user-table tr, th, td {
+        border: 1px solid black;
+    }
+
+.user-table th {
+    color: white;
+    text-align: left !important;
+    background-color: #693D29;
+}
+
+.user-table thead {
+    /*   width: 100%;*/
+}
+
+.user-table tbody {
+    background-color: #F7F7F7;
+    color: black;
+}
+
+.user-table td {
+    text-align: left !important;
+}
+.dt-search label {
+    color: black;
+    font-weight: lighter;
+}
+
+.dt-search .dt-input {
+    border: 1px solid black !important;
+}
+
+.dt-length, .dt-info {
+    display: none;
+}
+
+
+.updateUserBtn {
+    background-color: #1964C5;
+    color: white;
+}
+
+.archiveUserBtn, .unarchiveUserBtn {
+    background-color: #F71F1F;
+    color: white;
+}
+
+.action-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.detailsUserBtn{
+    background-color: black;
+    color: white;
+}
+input::placeholder {
+    color: dimgrey;
+    font-weight: lighter;
+    font-size: 0.9rem;
+}
+#addUserModal .modal-content, #updateUserModal .modal-content, #detailsUserModal .modal-content {
+    background-color: rgba(197, 172, 148,0.9) !important;
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px black;
+}
+
+#addUserModal .modal-header, #updateUserModal .modal-header, #detailsUserModal .modal-header {
+    border: none;
+}
+
+#addUserModal .modal-title, #updateUserModal .modal-title, #detailsUserModal .modal-title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+#addUserModal label, #updateUserModal label {
+    font-weight: bold
+}
+
+#addUserModal .close, #updateUserModal .close, #detailsUserModal .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    outline: none;
+    transition: 0.5s;
+}
+
+    #addUserModal .close:hover, #updateUserModal .close:hover, #detailsUserModal .close:hover {
+        transform: scale(1.2);
+    }
+
+#addUserModal .addUserSubmit, #updateUserModal .updateUserSubmit, #detailsUserModal .detailUserBack {
+    background-color: #693D29;
+    border-radius: 20px;
+    padding: 10px 30px;
+    border: none;
+    color: white;
+    transition: 0.3s ease-in-out
+}
+
+#addUserModal .addUserSubmit:hover, #updateUserModal .updateUserSubmit:hover, #detailsUserModal .detailUserBack:hover {
+    background-color: black;
+    color: white;
+}
+
+#detailsUserModal .modal-content{
+   padding: 20px;
+}
+
+.details-table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    
+    width: 100%; 
+    background-color: black
+}
+   
+
+.details-table th, .details-table td {
+       
+    padding: 10px;
+    text-align: left;
+
+}
+
+.details-table th {
+    background-color: #693D29;
+    color: white;
+}
+
+    .details-table td {
+        background-color: #C5AC94;
+        font-weight: lighter;
+    }
+    
+input::placeholder {
+    color: dimgrey;
+    font-weight: lighter;
+    font-size: 0.9rem;
+}
+
+.selectRole {
+    display: block;
+    width: 100%;
+    padding: .475rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+custom-icon {
+    font-size: 8px !important; /* Adjust the size as needed */
+}
+
+.swal-addUser-title {
+    font-size: 25px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}
+
+.swal-updateUser-title {
+    font-size: 25px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}

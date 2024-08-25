@@ -22,6 +22,7 @@ function FilterProduct(category) {
    
     $('.category-item').removeClass('active');
     $(event.target).addClass('active');
+   
 }
 
 function searchProduct() {
@@ -187,6 +188,7 @@ function CalculateTotalAmount() {
 //adjust the total when the discount input changed
 function ApplyDiscount() {
     let totalAmountText = document.querySelector('.TotalAmount');
+
     CalculateTotalAmount();  
     $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)
     totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
@@ -196,6 +198,8 @@ function ApplyDiscount() {
 function validateInput(input) {
    
     input.value = input.value.replace(/[^0-9]/g, '');
+    
+    
 }
 
 //default value is 0
@@ -251,15 +255,7 @@ $('.cancelBtn').click(function (){
 $('.payBtn').click(function () {
    
     if (checkOutList.length === 0) {
-
-        alert('You have no items in your check out list')
-        //swal({
-        //    title: "",
-        //    text: "You have no items in your check out list",
-        //    icon: "error",
-        //    button: false,
-        //    timer: 2000
-        //}).show();
+        popUpMessageSales("Your check out list is empty", "error");
 
     } else {
         $('#paymentModal').modal('toggle')
@@ -270,78 +266,87 @@ $('.payBtn').click(function () {
 
 });
 
-function amountChange(){
+function validateAndCalculateAmount() {
+    let input = $('.amountInput');
+    let value = input.val();
 
-    let totalAmo = CalculateTotalAmount();
-    let money = Number($('.amountInput').val());
-    let changeAmount = money - totalAmo;
-
-    if (money >= totalAmo) {
-        $('.changeAmountText').val(changeAmount.toFixed(2));
-    }
-    else {
-
-        alert('Insufficient Amount');
-        //swal({
-        //    title: "",
-        //    text: "Insufficient Amount",
-        //    icon: "error",
-        //    button: false,
-        //    timer: 2000
-        //}).then(() => {
-            $('.amountInput').val('').focus();
-       /* });*/
-       
-    }
- 
-}
-
-function validateAmount(input) {
   
-    let value = input.value;
-   
-    let validValue = value.match(/^\d*\.?\d{0,2}$/);
+    let validValue = value.match(/^\d+(\.\d{0,2})?$/);
 
     if (validValue) {
-        input.value = validValue[0]; 
+       
+        let totalAmo = CalculateTotalAmount();
+        let money = Number(validValue[0]);
+        let changeAmount = money - totalAmo;
+
+        if (money >= totalAmo) {
+            $('.changeAmountText').val(changeAmount.toFixed(2));
+        } else {
+            popUpMessageSales("Insufficient Amount", "error");
+            input.val('').focus();
+            $('.changeAmountText').val('');
+        }
     } else {
-        input.value = ""; 
+       
+        popUpMessageSales("Only numbers are allowed", "error");
+        input.val('');
     }
 }
+//validates the cash tendered
 
 $('.payComplete').click(function () {
     
     let amountInput = $('.amountInput').val();
     if (amountInput === '') {
 
-        alert('Cash tendered required');
-      
-
-            document.querySelector('.amountInput').focus();
+        popUpMessageSales("Cash tendered required", 'error');
+       
+        document.querySelector('.amountInput').focus();
      
-
     }
     else {
+        Swal.fire({
+            icon: "question",
+            title: "Confirm payment? <br>",
+          
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes",
+            customClass: {
+                icon: 'custom-icon',
+                title: 'swal-sales-title',
+
+            }
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                let total = CalculateTotalAmount();
+                let jsonData = JSON.stringify(checkOutList);
+                let subTotal = Number(CalculateSubtotal());
+                let cash = Number($('.amountInput').val());
+                let changedue = Number($('.changeAmountText').val())
+                let discount = Number($('#discount').val())
+
+                $('#checkOutTotalInput').val(total)
+                $('#checkOutListInput').val(jsonData);
+                $('#totalString').val(total.toFixed(2))
+                $('#cashTendered').val(cash.toFixed(2))
+                $('#changeDueAmount').val(changedue.toFixed(2));
+                $('#subTotalAmount').val(subTotal.toFixed(2));
+                $('#discount').val(discount.toFixed(2))
+
+                $('#formPay').submit();
+
+                checkOutList.splice(0);
+                localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+
+            }
+        });
        
-        let total = CalculateTotalAmount();
-        let jsonData = JSON.stringify(checkOutList);
-        let subTotal = Number(CalculateSubtotal());
-        let cash = Number($('.amountInput').val());
-        let changedue = Number($('.changeAmountText').val())
-        let discount = Number($('#discount').val())
-
-        $('#checkOutTotalInput').val(total)
-        $('#checkOutListInput').val(jsonData);
-        $('#totalString').val(total.toFixed(2))
-        $('#cashTendered').val(cash.toFixed(2))
-        $('#changeDueAmount').val(changedue.toFixed(2));
-        $('#subTotalAmount').val(subTotal.toFixed(2));
-        $('#discount').val(discount.toFixed(2))
-     
-        $('#formPay').submit();
-
-        checkOutList.splice(0);
-        localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+        
     }
 
    
@@ -363,3 +368,14 @@ function truncateName() {
 }
 
 truncateName();
+
+function popUpMessageSales(message, icon) {
+    Swal.fire({
+        text: message,
+        icon: icon,
+        padding: '1em',
+        showConfirmButton: false,
+        timer: 2000,
+
+    });
+}

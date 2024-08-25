@@ -77,13 +77,12 @@
 <div class="product-list-wrapper">
        <div class="search-wrapper">
              
-       <div class="searchProd">
-            <input type="search" class="searchProductInput" onkeyup="searchProduct()" placeholder="Search...">
-            <label>
-                <img src="~/images/search.png" />
-            </label>
-
-        </div>
+           <div class="searchProd">
+                <input type="search" class="searchProductInput" onkeyup="searchProduct()" placeholder="Search...">
+                <label>
+                    <img src="~/images/search.png" />
+                </label>
+            </div>
         
        </div>
 
@@ -153,7 +152,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Cash Tendered</label>
-                    <input class="form-control amountInput"  placeholder="Enter Cash Tendered"onchange="amountChange()" oninput="validateAmount(this)"/>
+                    <input class="form-control amountInput" placeholder="Enter Cash Tendered" onchange="validateAndCalculateAmount()" />
                        
                 </div>
 
@@ -191,35 +190,22 @@
         var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
 
         <script>
-
-
-           
-            @*
-                swal({
-                title: " ",
+            Swal.fire({
                 text: "Transaction Complete",
                 icon: "success",
-                button: false,
-                timer: 2000
-                }).then(() => { *@
-                alert('Transaction Complete');
+                showConfirmButton: false,
+                timer: 2000,
 
-                @* document.querySelector(".receipt").classList.add("showReceipt"); *@
-             
+            }).then(() => {
+                document.querySelector(".receipt").classList.add("showReceipt");
+
                 setTimeout(function () {
-                    document.querySelector(".receipt").classList.add("hideReceipt");
-                     window.print();
+                    document.querySelector(".receipt").classList.remove("showReceipt");
+                    window.print();
                 }, 2000)
 
-            setTimeout(function () {
+            });
               
-                window.print();
-            }, 2000)
-
-           @*  }); *@
-
-
-               
         </script>
 
             <div class="receipt">
