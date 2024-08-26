@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS_CapstoneProject_.Data;
 
@@ -11,9 +12,11 @@ using POS_CapstoneProject_.Data;
 namespace POS_CapstoneProject_.Migrations
 {
     [DbContext(typeof(POS_CapstoneProject_Context))]
-    partial class POS_CapstoneProject_ContextModelSnapshot : ModelSnapshot
+    [Migration("20240826040300_fifth")]
+    partial class fifth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,10 +50,14 @@ namespace POS_CapstoneProject_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IngredientId"));
 
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("CostPerUnit")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("ExpiryDate")
+                    b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("LowStockThreshold")
@@ -74,11 +81,11 @@ namespace POS_CapstoneProject_.Migrations
 
             modelBuilder.Entity("POS_CapstoneProject_.Models.InventoryTransaction", b =>
                 {
-                    b.Property<int>("InventoryTransactId")
+                    b.Property<int>("InvenotryTransactId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryTransactId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvenotryTransactId"));
 
                     b.Property<DateTime>("TransactionDate")
                         .HasColumnType("datetime2");
@@ -90,7 +97,7 @@ namespace POS_CapstoneProject_.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("InventoryTransactId");
+                    b.HasKey("InvenotryTransactId");
 
                     b.HasIndex("UserId");
 

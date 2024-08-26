@@ -7,4 +7,42 @@
     }
 </style>
 
-<h1>INVENTORY</h1>
+<div class="inventory-wrapper">
+  
+
+    <table class="inventory-table stock-movement-table">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Type</th>
+                <th>Ingredient</th>
+                <th>Quantity</th>
+                <th>Date</th>
+                <th>Remarks</th>
+
+
+
+            </tr>
+        </thead>
+
+        <tbody>
+
+
+            @foreach (var item in ViewData["InventoryTransactDetail"] as List<InventoryTransactionDetail>)
+            {
+                <tr>
+                   <td>@item.InventoryTransactId</td>
+                   <td>@item.InventoryTransaction.User.UserId</td>
+                   <td>@item.InventoryTransaction.TransactionType</td>
+                   <td>@item.Ingredient.Name</td>
+                   <td>@item.Quantity</td>
+                   <td>@item.InventoryTransaction.TransactionDate.ToString("MM/dd/yyyy")</td>
+                   <td>@item.Remarks</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

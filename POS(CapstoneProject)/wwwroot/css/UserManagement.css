@@ -203,7 +203,7 @@ input::placeholder {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-custom-icon {
+.custom-icon {
     font-size: 8px !important; /* Adjust the size as needed */
 }
 

@@ -186,8 +186,8 @@
 
 }
 
-.checkout-table, th, td, tr {
-    border: none;
+.checkout-table, th, td {
+    border: none !important;
 
 }
 
@@ -604,6 +604,24 @@ input::placeholder {
     font-size: 0.8em;
 }
 
+
+.custom-icon {
+    font-size: 8px !important; /* Adjust the size as needed */
+}
+
+.swal-sales-title {
+    font-size: 30px; /* Adjust the sizeas needed */
+    font-weight: bolder !important; /* Optionally make it bold */
+    color: black !important;
+}
+.swal-sales-title::after {
+    content: "(Cannot be undone)";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+   
+}
+
 @media print {
     body * {
         visibility: hidden;
@@ -621,21 +639,4 @@ input::placeholder {
         width: 500px;
         height: auto;
     }
-}
-
-.custom-icon {
-    font-size: 8px !important; /* Adjust the size as needed */
-}
-
-.swal-sales-title {
-    font-size: 30px; /* Adjust the sizeas needed */
-    font-weight: bolder !important; /* Optionally make it bold */
-    color: black !important;
-}
-.swal-sales-title::after {
-    content: "(Cannot be undone)";
-    font-weight: lighter;
-    color: grey;
-    font-size: 0.9rem;
-   
 }

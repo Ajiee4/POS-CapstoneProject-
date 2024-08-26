@@ -6,6 +6,7 @@ namespace POS_CapstoneProject_.Controllers
     {
         public IActionResult Index()
         {
+            var name = HttpContext.Session.GetString("UserName");
             return View();
         }
     }

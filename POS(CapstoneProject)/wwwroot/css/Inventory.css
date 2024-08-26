@@ -1,0 +1,200 @@
+﻿*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+}
+.InOutBtn {
+    background-color: #11B402;
+    color: white;
+    
+}
+.updateIngredientBtn {
+    background-color: #1964C5;
+    color: white;
+}
+.addIngredientBtn {
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    padding: 10px 15px;
+    background-color: #693D29;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none;
+    transition: 0.3s ease-in-out
+}
+
+.addCategoryBtn:hover {
+    background-color: black;
+}
+
+.updateCategoryBtn {
+    background-color: #1964C5;
+    color: white;
+}
+
+/*Wrapper*/
+.inventory-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.inventory-table {
+    border: 1px solid black;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+    overflow: scroll;
+}
+
+.inventory-table tr, th, td {
+    border: 1px solid black;
+}
+
+.inventory-table th {
+    color: white;
+    text-align: left !important;
+    background-color: #693D29;
+    font-size: 0.9rem;
+    font-weight: bolder;
+}
+.inventory-table tbody {
+    background-color: #F7F7F7;
+    color: black;
+}
+
+.inventory-table td {
+    text-align: left !important;
+}
+
+.dt-search label {
+    color: black;
+    font-weight: lighter;
+}
+
+.dt-search .dt-input {
+    border: 1px solid black !important;
+}
+
+.dt-length, .dt-info {
+    display: none;
+}
+input::placeholder {
+    color: dimgrey;
+    font-weight: lighter;
+    font-size: 0.9rem;
+}
+
+#addIngredientModal .modal-content, #updateIngredientModal
+.modal-content, #choiceIngredientModal .modal-content,
+#stockInIngredientModal .modal-content, #stockOutIngredientModal .modal-content {
+    background-color: rgba(197, 172, 148,0.9) !important;
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px black;
+}
+
+#addIngredientModal .modal-header, #updateIngredientModal
+.modal-header, #choiceIngredientModal .modal-header,
+#stockInIngredientModal .modal-header, #stockOutIngredientModal .modal-header {
+    border: none;
+}
+
+#addIngredientModal .modal-title, #updateIngredientModal
+.modal-title, #choiceIngredientModal .modal-title,
+#stockInIngredientModal .modal-title, #stockOutIngredientModal .modal-title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+#addIngredientModal label, #updateIngredientModal label,
+#stockInIngredientModal label, #stockOutIngredientModal label {
+    font-weight: bold
+}
+
+#addIngredientModal .close, #updateIngredientModal .close,
+#choiceIngredientModal .close, #stockInIngredientModal .close, #stockOutIngredientModal .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    outline: none;
+    transition: 0.5s;
+}
+
+    #addIngredientModal .close:hover, #updateIngredientModal .close:hover,
+    #choiceIngredientModal .close:hover, #stockInIngredientModal .close:hover,
+    #stockOutIngredientModal .close:hover {
+        transform: scale(1.2);
+    }
+
+#addIngredientModal .addIngredientSubmit, #updateIngredientModal .updateIngredientSubmit
+, #stockInIngredientModal .stockInIngredientSubmit, #stockOutIngredientModal .stockOutIngredientSubmit  {
+    background-color: #693D29;
+    border-radius: 20px;
+    padding: 10px 30px;
+    border: none;
+    color: white;
+    transition: 0.3s ease-in-out
+}
+
+    #addIngredientModal .addIngredientSubmit:hover, #updateIngredientModal .updateIngredientSubmit:hover,
+    #stockInIngredientModal .stockInIngredientSubmit:hover, #stockOutIngredientModal .stockOutIngredientSubmit:hover {
+        background-color: black;
+        color: white;
+    }
+
+#choiceIngredientModal .modal-body {
+    padding: 60px;
+}
+
+#choiceIngredientModal .choices-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+#choiceIngredientModal .choices-wrapper button {
+    padding: 10px;
+    border: none;
+    color: white;
+    font-weight: bolder;
+    background-color: #693D29;
+    transition: 0.5s ease-in-out;
+    border: 1px solid #693D29
+}
+#choiceIngredientModal .choices-wrapper button:hover {
+    background-color: black;
+ 
+    transform: scale(1.03)
+}
+#choiceIngredientModal .modal-title {
+    font-size: 2rem;
+}
+.custom-icon {
+    font-size: 8px !important; 
+}
+
+.swal-addIngredient-title {
+    font-size: 25px;
+    font-weight: bolder !important; 
+    color: black !important;
+}
+.swal-updateIngredient-title {
+    font-size: 25px; 
+    font-weight: bolder !important; 
+    color: black !important;
+}
+.swal-stockInIngredient-title {
+    font-size: 25px;
+    font-weight: bolder !important;
+    color: black !important;
+}
+.swal-stockOutIngredient-title {
+    font-size: 25px;
+    font-weight: bolder !important;
+    color: black !important;
+}

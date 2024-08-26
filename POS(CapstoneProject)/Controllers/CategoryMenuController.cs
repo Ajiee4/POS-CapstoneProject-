@@ -16,6 +16,7 @@ namespace POS_CapstoneProject_.Controllers
         }
         public async Task<IActionResult>Index()
         {
+
             ////create a list of categories
             var categoryList = await _context.Category.ToListAsync();
             ViewData["CategoryList"] = categoryList; //store the list in the viewdata to display on the view
