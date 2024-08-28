@@ -9,8 +9,8 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession(options =>
 {
-    options.Cookie.Name = "POS(CapstoneProject).Session";
-  
+    options.Cookie.Name = "POS_CapstoneProject.Session";
+    
     options.Cookie.IsEssential = true;
 });
 // Add services to the container.
@@ -32,8 +32,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
-
 
 app.UseAuthorization();
 

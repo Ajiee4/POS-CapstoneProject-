@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using NuGet.Protocol;
 using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
 
-namespace POS_CapstoneProject_.Controllers
+namespace POS_CapstoneProject_.Controllers.Cashier
 {
-    public class SalesMenuController : Controller
+    public class CashierInterfaceController : Controller
     {
+
         private readonly POS_CapstoneProject_Context _context;
-        public SalesMenuController(POS_CapstoneProject_Context context)
+        public CashierInterfaceController(POS_CapstoneProject_Context context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace POS_CapstoneProject_.Controllers
                 var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
                 if (check != null)
                 {
-                    if (check.RoleId != 1)
+                    if (check.RoleId != 2)
                     {
                         HttpContext.Session.Clear();
                         return RedirectToAction("Login", "Authentication");
@@ -33,7 +33,6 @@ namespace POS_CapstoneProject_.Controllers
                         var productList = await _context.Product.Where(s => s.IsArchive == false).Include(s => s.Category).ToListAsync();
                         ViewData["CategoryList"] = categoryList;
                         ViewData["ProductList"] = productList;
-
                         return View();
                     }
                 }
@@ -46,21 +45,22 @@ namespace POS_CapstoneProject_.Controllers
             {
                 return RedirectToAction("Login", "Authentication");
             }
-          
+
+
+
         }
         [HttpPost]
         public async Task<IActionResult> AddOrder(string checkoutList, decimal checkoutTotal, string changeDueAmount, string discount, string cashTendered, string subTotalAmount, string totalString)
         {
             int userId = (int)HttpContext.Session.GetInt32("UserID");
             var user = _context.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
-
             //created an object to save the order          
             Order order = new Order()
             {
                 UserId = user.UserId,
                 TotalAmount = checkoutTotal,
                 OrderDate = DateTime.Now.Date
-            };           
+            };
             //save order in db
             await _context.Order.AddAsync(order);
             await _context.SaveChangesAsync();
@@ -71,21 +71,21 @@ namespace POS_CapstoneProject_.Controllers
             {
                 OrderDetails details = new OrderDetails
                 {
-                    OrderId = order.OrderId, 
-                    ProductId = item.prodID,                   
-                    Quantity = item.prodQty,                   
+                    OrderId = order.OrderId,
+                    ProductId = item.prodID,
+                    Quantity = item.prodQty,
                 };
 
                 await _context.OrderDetails.AddAsync(details);
             }
             //save change to db
             await _context.SaveChangesAsync();
-           
+
             //var getItems = _context.Order.Include(order)
 
             TempData["OrderDate"] = order.OrderDate.ToString("MM/dd/yyyy");
             TempData["TransactionComplete"] = " ";
-            TempData["UserName"] = user.Firstname +" "+ user.Lastname;
+            TempData["UserName"] = user.Firstname + " " + user.Lastname;
             TempData["Total"] = totalString;
             TempData["SubTotal"] = subTotalAmount;
             TempData["Change"] = changeDueAmount;
@@ -93,9 +93,12 @@ namespace POS_CapstoneProject_.Controllers
             TempData["Cash"] = cashTendered;
             TempData["orderID"] = order.OrderId;
 
+
+
+
+
             return RedirectToAction("Index");
         }
 
-        
     }
 }

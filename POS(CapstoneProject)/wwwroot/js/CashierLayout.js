@@ -1,5 +1,5 @@
 ﻿
-let checkOutList =  [];
+let checkOutList = [];
 
 
 
@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
     const storedList = localStorage.getItem('checkoutList');
     if (storedList) {
         checkOutList = JSON.parse(storedList);
-        DisplayCheckOut(); 
+        DisplayCheckOut();
     }
 
 });
@@ -19,10 +19,10 @@ function FilterProduct(category) {
     selectedCategory = category;
     updateProductList();
 
-   
+
     $('.category-item').removeClass('active');
     $(event.target).addClass('active');
-   
+
 }
 
 function searchProduct() {
@@ -38,7 +38,7 @@ function updateProductList() {
         const productName = product.querySelector('.product-item-name span').textContent.toLowerCase();
         const productCategory = product.getAttribute('data-category');
 
-      
+
         const matchesCategory = (selectedCategory === 'All' || productCategory === selectedCategory);
         const matchesSearch = productName.includes(searchQuery);
 
@@ -50,7 +50,7 @@ function updateProductList() {
         }
     });
 
-   
+
     document.querySelector('.noResult').style.display = found ? 'none' : 'block';
 }
 
@@ -109,10 +109,10 @@ function checkoutProduct(id, name, quantity, price) {
     let product = checkOutList.find(item => item.prodID === id);
 
     if (product) {
-        
+
         product.prodQty += quantity;
     } else {
-      
+
         checkOutList.push({
             prodID: id,
             prodName: name,
@@ -120,11 +120,11 @@ function checkoutProduct(id, name, quantity, price) {
             prodPrice: price
         });
 
-        
+
     }
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     DisplayCheckOut();
-   
+
 }
 
 //increment the quantity of product
@@ -133,7 +133,7 @@ function incrementQty(id) {
     if (product) {
         product.prodQty += 1;
         DisplayCheckOut();
-       
+
     }
 
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
@@ -145,7 +145,7 @@ function decrementQty(id) {
     if (product && product.prodQty > 1) {
         product.prodQty -= 1;
         DisplayCheckOut();
-        
+
     }
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
@@ -156,8 +156,8 @@ function deleteItem(id) {
     if (index !== -1) {
         checkOutList.splice(index, 1);
         DisplayCheckOut();
-       
-    }  
+
+    }
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
 
@@ -171,7 +171,7 @@ function CalculateSubtotal() {
     })
     subtotal = Math.round(subtotal * 100) / 100;
     return subtotal;
-  
+
 };
 
 //calculate total amount
@@ -182,24 +182,24 @@ function CalculateTotalAmount() {
     let totalAmount = subTotal - discountAmount;
 
     totalAmount = Math.round(totalAmount * 100) / 100;
-   
+
     return totalAmount;
 }
 //adjust the total when the discount input changed
 function ApplyDiscount() {
     let totalAmountText = document.querySelector('.TotalAmount');
 
-    CalculateTotalAmount();  
+    CalculateTotalAmount();
     $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)
     totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
 }
 
 //only number can be entered in the discount input
 function validateInput(input) {
-   
+
     input.value = input.value.replace(/[^0-9]/g, '');
-    
-    
+
+
 }
 
 //default value is 0
@@ -240,20 +240,20 @@ function AdjustContent() {
 }
 AdjustContent();
 
-$('.cancelBtn').click(function (){
-    
+$('.cancelBtn').click(function () {
+
     CheckOutToggle();
 
     checkOutList.splice(0);
 
     DisplayCheckOut();
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-    
+
 })
 
 
 $('.payBtn').click(function () {
-   
+
     if (checkOutList.length === 0) {
         popUpMessageSales("Your check out list is empty", "error");
 
@@ -261,7 +261,7 @@ $('.payBtn').click(function () {
         $('#paymentModal').modal('toggle')
         let total = CalculateTotalAmount();
         $('.totalAmountInputReadOnly').val(total.toFixed(2))
-       
+
     }
 
 });
@@ -270,11 +270,11 @@ function validateAndCalculateAmount() {
     let input = $('.amountInput');
     let value = input.val();
 
-  
+
     let validValue = value.match(/^\d+(\.\d{0,2})?$/);
 
     if (validValue) {
-       
+
         let totalAmo = CalculateTotalAmount();
         let money = Number(validValue[0]);
         let changeAmount = money - totalAmo;
@@ -287,7 +287,7 @@ function validateAndCalculateAmount() {
             $('.changeAmountText').val('');
         }
     } else {
-       
+
         popUpMessageSales("Only numbers are allowed", "error");
         input.val('');
     }
@@ -295,20 +295,20 @@ function validateAndCalculateAmount() {
 //validates the cash tendered
 
 $('.payComplete').click(function () {
-    
+
     let amountInput = $('.amountInput').val();
     if (amountInput === '') {
 
         popUpMessageSales("Cash tendered required", 'error');
-       
+
         document.querySelector('.amountInput').focus();
-     
+
     }
     else {
         Swal.fire({
             icon: "question",
             title: "Confirm payment? <br>",
-          
+
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
@@ -345,13 +345,16 @@ $('.payComplete').click(function () {
 
             }
         });
-       
-        
+
+
     }
 
-   
-  
+
+
 });
+
+
+
 
 //if the name greater than 8
 function truncateName() {

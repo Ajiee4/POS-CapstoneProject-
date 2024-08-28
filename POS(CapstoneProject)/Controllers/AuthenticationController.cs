@@ -18,47 +18,76 @@ namespace POS_CapstoneProject_.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Login(User user)
         {
            
                 //return a record based on a condition
-                var checkUsername = await _context.User.Where(s => s.Username == user.Username).FirstOrDefaultAsync();
+            var checkUsername = await _context.User.Where(s => s.Username == user.Username).Include(s => s.Role).FirstOrDefaultAsync();
 
+            //checks the record if it is null
+            if (checkUsername == null)
+            {
+                //send a message to the view
+                TempData["NotExist"] = "Username does not exist";
 
-                //checks the record if it is null
-                if (checkUsername == null)
-                {
-                    //send a message to the view
-                    TempData["NotExist"] = "Username does not exist";
-                   
-                }
-                else //if there's a record
-                {
+            }
+            else //if there's a record
+            {
+               
+                
                     //check if password is correct
-                    if(checkUsername.Password == user.Password)
+                    if (checkUsername.Password == user.Password)
                     {
-                    TempData["Success"] = "Success";
-                    //var check = await _context.UserDetail.Where(s => s.UserId == checkUsername.UserId).FirstOrDefaultAsync();
-                    //send a message to the view
-
-                    HttpContext.Session.SetString("UserName", "testing");
-                       
+                        var check = await _context.UserDetail.Where(s => s.UserId == checkUsername.UserId).FirstOrDefaultAsync();
                       
+                        if (checkUsername.RoleId == 1) //Manager/Admin
+                        {
+                            HttpContext.Session.SetInt32("UserID", check.UserId);
+                            HttpContext.Session.SetString("Name", check.Firstname);
+                            return RedirectToAction("Index", "DashboardMenu");
+                        }
+
+                        else if(checkUsername.RoleId == 2)//Cashier
+                        {
+                            HttpContext.Session.SetInt32("UserID", check.UserId);
+                            HttpContext.Session.SetString("Name", check.Firstname);
+                            return RedirectToAction("Index", "CashierInterface");
+
+                        }
+
+                        else if(checkUsername.RoleId == 3)//Stock Manager
+                        {
+                            HttpContext.Session.SetInt32("UserID", check.UserId);
+                            HttpContext.Session.SetString("Name", check.Firstname);
+                            return RedirectToAction("Index", "StockManagerInterface");
+                        }
+                        //TempData["Success"] = "Success";
+                      
+
 
                     }
                     else //if password does not match
                     {
                         TempData["IncorrectPassword"] = "Incorrect password";
-                       
-                    }           
-                  
-                }
 
-              
-            
-                return View();
+                    }
+                  
+                
+             
+
+            }
+
+
+
+            return View();
            
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Login");
         }
     }
 }

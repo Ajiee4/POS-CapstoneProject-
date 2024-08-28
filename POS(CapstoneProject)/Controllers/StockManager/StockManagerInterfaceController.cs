@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using POS_CapstoneProject_.Data;
 
-namespace POS_CapstoneProject_.Controllers
+namespace POS_CapstoneProject_.Controllers.StockManager
 {
-    public class SalesReportMenuController : Controller
+    public class StockManagerInterfaceController : Controller
     {
+
         private readonly POS_CapstoneProject_Context _context;
-        public SalesReportMenuController (POS_CapstoneProject_Context context)
+        public StockManagerInterfaceController(POS_CapstoneProject_Context context)
         {
             _context = context;
         }
@@ -19,7 +20,7 @@ namespace POS_CapstoneProject_.Controllers
                 var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
                 if (check != null)
                 {
-                    if (check.RoleId != 1)
+                    if (check.RoleId != 3)
                     {
                         HttpContext.Session.Clear();
                         return RedirectToAction("Login", "Authentication");
@@ -38,6 +39,7 @@ namespace POS_CapstoneProject_.Controllers
             {
                 return RedirectToAction("Login", "Authentication");
             }
+
         }
     }
 }

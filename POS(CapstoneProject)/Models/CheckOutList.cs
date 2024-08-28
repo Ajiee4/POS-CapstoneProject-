@@ -7,9 +7,6 @@
         public int prodQty { get; set; }
         public decimal prodPrice { get; set; }
 
-        //prodID: id,
-        //    prodName: name,
-        //    prodQty: quantity,
-        //    prodPrice: price
+       
     }
 }

@@ -55,24 +55,27 @@ body {
 
 
 
+
 .right-section {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    gap: 10px;
+    gap: 30px;
     margin-right: 10px;
 }
 .header .right-section .checkout-icon {
     display: none;
-    margin-right: 30px;
+   
     transition: 0.5s;
 }
 .header .right-section .checkout-icon:hover {
     transform: scale(1.2);
   
 }
-
+.header .right-section .logout-link a{
+    color: white;
+}
 .header .right-section .checkout-icon img {
     width: 25px;
     height: 25px;
@@ -96,69 +99,7 @@ body {
     background-color: black;
     border-radius: 50%;
 }
-/*
-header .brand {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
-}
 
-header .brand .brand-logo {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid white;
-}
-
-header .brand .brand-name {
-    font-size: 0.6rem;
-    margin-left: 5px;
-    font-weight: bolder;
-    color: white;
-}
-
-header .header-links {
-    margin-right: 10px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    align-items: center;
-}
-
-header .header-links .profile {
-    width: 25px;
-    height: 25px;
-    background-color: rgb(219, 215, 215);
-    display: flex;
-    justify-content: center;
-    border-radius: 50%;
-    align-items: center;
-}
-
-header .header-links .profile-icon {
-    width: 15px;
-    height: 15px;
-}
-
-header .header-links button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    border-radius: 15px;
-    border: 1px solid grey;
-}
-
-header .header-links .button-logout-icon {
-    width: 10px;
-    height: 10px;
-}
-
-header .header-links .button-logout-text {
-    font-size: 0.5rem;
-    margin-left: 3px;
-}*/
 .sidebar {
     background-color: #9E7148;
     width: 180px;

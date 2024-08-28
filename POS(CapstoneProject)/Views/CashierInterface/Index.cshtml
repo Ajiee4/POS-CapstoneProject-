@@ -1,0 +1,274 @@
+﻿@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data;
+@{
+    Layout = "/Views/Shared/_CashierLayout.cshtml";
+}
+
+<style>
+    .header .right-section .checkout-icon {
+        display: block;
+    }
+</style>
+<div class="checkout-wrapper">
+    <h1 class="checkout-title">Check Out</h1>
+    <div class="table-header">
+        <div style="color: transparent"></div>
+        <div class="table-header-name">Name &nbsp;&nbsp;&nbsp;</div>
+        <div class="table-header-quantity">Qty</div>
+        <div class="table-header-price">Price &nbsp;</div>
+    </div>
+    <div class="checkout-table-wrapper">
+
+
+        <table class="checkout-table">
+            @* <thead>
+            <tr>
+            <th style="color: transparent">A</th>
+            <th class="table-header-name">Name</th>
+            <th class="table-header-quantity">Qty</th>
+            <th class="table-header-price">Price &nbsp;</th>
+            </tr>
+            </thead> *@
+            <tbody>
+            </tbody>
+
+        </table>
+    </div>
+
+
+    <div class="checkout-footer">
+        <div class="discount-wrapper">
+            <label for="inputDiscount">Discount (%)</label>
+            <input id="inputDiscount" value="0" maxlength="2" onchange="ApplyDiscount()" oninput="validateInput(this)" />
+        </div>
+
+        <div class="tax-wrapper">
+            <span>Tax</span>
+            <span>₱0.00</span>
+        </div>
+
+        <div class="subtotal-wrapper">
+            <span class="subTotalText">Sub Total </span>
+            <span class="subTotalValue">₱0.00</span>
+        </div>
+
+        <div class="totalamount-wrapper">
+            <span class="TotalAmountText">Total</span>
+            <span class="TotalAmount">₱0.00</span>
+        </div>
+
+        <div class="checkout-btn">
+            <button class="cancelBtn">Cancel</button>
+            <button class="payBtn">Pay (₱0.00)</button>
+        </div>
+    </div>
+</div>
+
+<div class="product-list-wrapper">
+    <div class="search-wrapper">
+
+        <div class="searchProd">
+            <input type="search" class="searchProductInput" onkeyup="searchProduct()" placeholder="Search...">
+            <label>
+                <img src="~/images/search.png" />
+            </label>
+        </div>
+
+    </div>
+
+
+
+    <div class="category-list-wrapper">
+        <button class="category-item active" data-category="All" onclick="FilterProduct('All')">
+            All
+        </button>
+
+        @foreach (var item in ViewData["CategoryList"] as List<Category>)
+        {
+            <button class="category-item" data-category="@item.CategoryName" onclick="FilterProduct('@item.CategoryName')">
+                @item.CategoryName
+            </button>
+        }
+    </div>
+
+    <div class="product-catalog">
+
+        <div class="noResult">Nothing Found...</div>
+        @foreach (var prod in ViewData["ProductList"] as List<Product>)
+        {
+            <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
+                <div class="product-item-img">
+                    @if (prod.ImageData != null)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
+                    }
+                    else
+                    {
+                        <span></span>
+                    }
+                </div>
+
+                <div class="product-item-name" data-category="@prod.Category.CategoryName">
+                    <span>@prod.Name</span>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<br />
+
+
+<!--Payment Modal-->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">PAYMENT</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="control-label">Amount Due</label>
+                    <input class="form-control totalAmountInputReadOnly" readonly />
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Cash Tendered</label>
+                    <input class="form-control amountInput" placeholder="Enter Cash Tendered" onchange="validateAndCalculateAmount()" />
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Change Due</label>
+                    <input class="form-control changeAmountText" readonly />
+
+                </div>
+
+                <form asp-action="AddOrder" method="post" id="formPay">
+                    <input class="" name="checkoutList" id="checkOutListInput" hidden />
+                    <input name="checkoutTotal" id="checkOutTotalInput" hidden />
+                    <input name="changeDueAmount" id="changeDueAmount" hidden />
+                    <input name="discount" id="discount" hidden />
+                    <input name="cashTendered" id="cashTendered" hidden />
+                    <input name="subTotalAmount" id="subTotalAmount" hidden />
+                    <input name="totalString" id="totalString" hidden />
+                </form>
+
+                <div class="form-group">
+                    <button class="d-block mx-auto payComplete">Pay</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@if (TempData["TransactionComplete"] != null)
+{
+
+    int orderId = int.Parse(TempData["orderID"].ToString());
+    var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
+
+    <script>
+        Swal.fire({
+            text: "Transaction Complete",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
+
+        }).then(() => {
+            document.querySelector(".receipt").classList.add("showReceipt");
+            window.print();
+            setTimeout(function () {
+                document.querySelector(".receipt").classList.remove("showReceipt");
+              
+            }, 2000)
+
+        });
+
+    </script>
+
+    <div class="receipt">
+        <div class="receipt-content">
+            <div class="receipt-header">
+                <p class="name">Don Machiattos</p>
+                <p>Date: @TempData["OrderDate"]</p>
+                <p>Cashier: @TempData["UserName"]</p>
+            </div>
+
+            <hr />
+
+            <div class="receipt-items">
+
+                <div class="item-header">
+                    <span>QTY</span>
+                    <span>Name</span>
+                    <span>Price</span>
+                </div>
+
+                @foreach (var item in myorder)
+                {
+
+                    <div class="item-list">
+                        <span>@item.Quantity</span>
+                        <span>@item.Product.Name</span>
+                        <span>₱@item.Product.Price</span>
+                    </div>
+
+                }
+
+            </div>
+            <hr />
+
+            <div class="receipt-calculation">
+
+                <div class="discount">
+                    <p>Discount</p>
+                    <p>₱@TempData["Discount"]</p>
+                </div>
+
+                <div class="tax">
+                    <p>Tax</p>
+                    <p>₱0.00</p>
+                </div>
+
+                <div class="total">
+                    <p>Total</p>
+                    <p>₱@TempData["Total"]</p>
+                </div>
+
+            </div>
+            <hr />
+            <div class="receipt-change">
+                <div class="cash">
+                    <p>Cash</p>
+                    <p>₱@TempData["Cash"]</p>
+                </div>
+
+                <div class="change">
+                    <p>Change</p>
+                    <p>₱@TempData["Change"]</p>
+                </div>
+            </div>
+
+
+
+            <h3 class="footer">THANK YOU</h3>
+
+
+        </div>
+    </div>
+
+}
+
+
+

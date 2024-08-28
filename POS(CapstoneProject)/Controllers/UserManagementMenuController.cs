@@ -15,12 +15,38 @@ namespace POS_CapstoneProject_.Controllers
 
         public IActionResult Index()
         {
-            var userList = _context.UserDetail.Include(x => x.User).Include(s =>s.User.Role).ToList();
-            var roleList =  _context.Role.Where(s => s.RoleName != "Manager").ToList();
-            ViewData["UserList"] = userList;
-            ViewData["RoleList"] = roleList;
 
-            return View();
+            var UserId = HttpContext.Session.GetInt32("UserID");
+            if (UserId != null)
+            {
+                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                if (check != null)
+                {
+                    if (check.RoleId != 1)
+                    {
+                        HttpContext.Session.Clear();
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                    else
+                    {
+                        var userList = _context.UserDetail.Include(x => x.User).Include(s => s.User.Role).ToList();
+                        var roleList = _context.Role.Where(s => s.RoleName != "Manager").ToList();
+                        ViewData["UserList"] = userList;
+                        ViewData["RoleList"] = roleList;
+
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+           
         }
         
        

@@ -15,9 +15,34 @@ namespace POS_CapstoneProject_.Controllers
         }
         public IActionResult InventoryList()
         {
-            var ingredientsList = _context.Ingredient.ToList();
-            ViewData["IngredientsList"] = ingredientsList;
-            return View();
+            var UserId = HttpContext.Session.GetInt32("UserID");
+            if (UserId != null)
+            {
+                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                if (check != null)
+                {
+                    if (check.RoleId != 1)
+                    {
+                        HttpContext.Session.Clear();
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                    else
+                    {
+                        var ingredientsList = _context.Ingredient.ToList();
+                        ViewData["IngredientsList"] = ingredientsList;
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+          
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -68,6 +93,7 @@ namespace POS_CapstoneProject_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> StockInIngredient(Ingredient ingredient, string StockInType)
         {
+            int id = (int)HttpContext.Session.GetInt32("UserID");
             var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
             if(checkIngredient != null)
             {
@@ -78,7 +104,7 @@ namespace POS_CapstoneProject_.Controllers
             }
             var inventTransact = new InventoryTransaction()
             {
-                UserId = 1,
+                UserId = id,
                 TransactionDate = DateTime.Now.Date,
                 TransactionType = StockInType
             };
@@ -104,6 +130,7 @@ namespace POS_CapstoneProject_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> StockOutIngredient(Ingredient ingredient, string StockInType, string remarks)
         {
+            int id = (int)HttpContext.Session.GetInt32("UserID");
             var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
             if (checkIngredient != null)
             {
@@ -117,7 +144,7 @@ namespace POS_CapstoneProject_.Controllers
 
                     var inventTransact = new InventoryTransaction()
                     {
-                        UserId = 1,
+                        UserId = id,
                         TransactionDate = DateTime.Now.Date,
                         TransactionType = StockInType
                     };
@@ -148,9 +175,35 @@ namespace POS_CapstoneProject_.Controllers
         }
         public IActionResult StockMovement()
         {
-            var inventoryDetails = _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).ToList();
-            ViewData["InventoryTransactDetail"] = inventoryDetails;
-            return View();
+
+            var UserId = HttpContext.Session.GetInt32("UserID");
+            if (UserId != null)
+            {
+                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                if (check != null)
+                {
+                    if (check.RoleId != 1)
+                    {
+                        HttpContext.Session.Clear();
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                    else
+                    {
+                        var inventoryDetails = _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).ToList();
+                        ViewData["InventoryTransactDetail"] = inventoryDetails;
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+           
         }
     }
 }

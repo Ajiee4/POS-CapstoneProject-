@@ -15,15 +15,44 @@ namespace POS_CapstoneProject_.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            //create a variable to store a list of products including
-            var productList = await _context.Product.Include(s => s.Category).ToListAsync();
-            //create a variable to store a list of category that has a type of Product
-            var getCategoryProduct = await _context.Category.ToListAsync();
-            //store in ViewData to pass it to the View
-            ViewData["productCategory"] = getCategoryProduct;
-            ViewData["productList"] = productList;
 
-            return View();
+            var UserId = HttpContext.Session.GetInt32("UserID");
+            if (UserId != null)
+            {
+                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                if (check != null)
+                {
+                    if (check.RoleId != 1)
+                    {
+                        HttpContext.Session.Clear();
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                    else
+                    {
+                        //create a variable to store a list of products including
+                        var productList = await _context.Product.Include(s => s.Category).ToListAsync();
+                        //create a variable to store a list of category that has a type of Product
+                        var getCategoryProduct = await _context.Category.ToListAsync();
+                        //store in ViewData to pass it to the View
+                        ViewData["productCategory"] = getCategoryProduct;
+                        ViewData["productList"] = productList;
+
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
+
+
+          
 
         }
         [HttpPost]

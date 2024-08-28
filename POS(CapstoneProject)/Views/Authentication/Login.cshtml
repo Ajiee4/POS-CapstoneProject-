@@ -68,10 +68,7 @@
             icon: "success",
             showConfirmButton: false,
             timer: 2000
-        }).then(function () {
-            window.location.href = '@Url.Action("Index", "DashboardMenu")'
-        });
-
+        })
    </script>
 
 }
@@ -94,7 +91,25 @@
 
 } 
 
-  
+@if (TempData["OnlyAdmin"] != null)
+{
+    <script>
+
+        Swal.fire({
+
+            text: "Only admin can login for now",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+        });
+
+
+
+    </script>
+
+}
+
+
 
 
 

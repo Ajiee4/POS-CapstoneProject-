@@ -17,11 +17,39 @@ namespace POS_CapstoneProject_.Controllers
         public async Task<IActionResult>Index()
         {
 
-            ////create a list of categories
-            var categoryList = await _context.Category.ToListAsync();
-            ViewData["CategoryList"] = categoryList; //store the list in the viewdata to display on the view
+            var UserId = HttpContext.Session.GetInt32("UserID");
+            if (UserId != null)
+            {
+                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                if (check != null)
+                {
+                    if (check.RoleId != 1)
+                    {
+                        HttpContext.Session.Clear();
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                    else
+                    {
+                        ////create a list of categories
+                        var categoryList = await _context.Category.ToListAsync();
+                        ViewData["CategoryList"] = categoryList; //store the list in the viewdata to display on the view
 
-            return View();
+                        return View();
+
+                        
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
+           
         }
         //receive the http request from the view when the form wis submitted
         [HttpPost]
