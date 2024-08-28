@@ -5,7 +5,7 @@ using NuGet.Protocol;
 using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
 
-namespace POS_CapstoneProject_.Controllers
+namespace POS_CapstoneProject_.Controllers.Admin
 {
     public class SalesMenuController : Controller
     {
@@ -16,6 +16,7 @@ namespace POS_CapstoneProject_.Controllers
         }
         public async Task<IActionResult> Index()
         {
+
             var UserId = HttpContext.Session.GetInt32("UserID");
             if (UserId != null)
             {
@@ -46,7 +47,7 @@ namespace POS_CapstoneProject_.Controllers
             {
                 return RedirectToAction("Login", "Authentication");
             }
-          
+
         }
         [HttpPost]
         public async Task<IActionResult> AddOrder(string checkoutList, decimal checkoutTotal, string changeDueAmount, string discount, string cashTendered, string subTotalAmount, string totalString)
@@ -60,7 +61,7 @@ namespace POS_CapstoneProject_.Controllers
                 UserId = user.UserId,
                 TotalAmount = checkoutTotal,
                 OrderDate = DateTime.Now.Date
-            };           
+            };
             //save order in db
             await _context.Order.AddAsync(order);
             await _context.SaveChangesAsync();
@@ -71,21 +72,21 @@ namespace POS_CapstoneProject_.Controllers
             {
                 OrderDetails details = new OrderDetails
                 {
-                    OrderId = order.OrderId, 
-                    ProductId = item.prodID,                   
-                    Quantity = item.prodQty,                   
+                    OrderId = order.OrderId,
+                    ProductId = item.prodID,
+                    Quantity = item.prodQty,
                 };
 
                 await _context.OrderDetails.AddAsync(details);
             }
             //save change to db
             await _context.SaveChangesAsync();
-           
+
             //var getItems = _context.Order.Include(order)
 
             TempData["OrderDate"] = order.OrderDate.ToString("MM/dd/yyyy");
             TempData["TransactionComplete"] = " ";
-            TempData["UserName"] = user.Firstname +" "+ user.Lastname;
+            TempData["UserName"] = user.Firstname + " " + user.Lastname;
             TempData["Total"] = totalString;
             TempData["SubTotal"] = subTotalAmount;
             TempData["Change"] = changeDueAmount;
@@ -96,6 +97,6 @@ namespace POS_CapstoneProject_.Controllers
             return RedirectToAction("Index");
         }
 
-        
+
     }
 }

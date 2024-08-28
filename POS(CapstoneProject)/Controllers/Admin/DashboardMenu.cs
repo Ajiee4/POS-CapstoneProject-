@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using POS_CapstoneProject_.Data;
 
-namespace POS_CapstoneProject_.Controllers
+namespace POS_CapstoneProject_.Controllers.Admin
 {
-    public class SalesReportMenuController : Controller
+    public class DashboardMenu : Controller
     {
         private readonly POS_CapstoneProject_Context _context;
-        public SalesReportMenuController (POS_CapstoneProject_Context context)
+        public DashboardMenu(POS_CapstoneProject_Context context)
         {
             _context = context;
         }
@@ -38,6 +38,8 @@ namespace POS_CapstoneProject_.Controllers
             {
                 return RedirectToAction("Login", "Authentication");
             }
+
+
         }
     }
 }

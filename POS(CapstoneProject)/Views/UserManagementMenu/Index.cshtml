@@ -26,7 +26,6 @@
 
             </tr>
 
-
         </thead>
 
         <tbody>
@@ -75,10 +74,6 @@
               
                 }
             
-        
-
-
-
         </tbody>
 
 
@@ -334,8 +329,18 @@
             showConfirmButton: false,
             timer: 2000
         });
+    </script>
 
-
+}
+@if (TempData["Exist"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "Username already exist",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+        });
     </script>
 
 }

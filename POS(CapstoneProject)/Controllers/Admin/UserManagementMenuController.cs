@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
 
-namespace POS_CapstoneProject_.Controllers
+namespace POS_CapstoneProject_.Controllers.Admin
 {
     public class UserManagementMenuController : Controller
     {
@@ -46,46 +46,56 @@ namespace POS_CapstoneProject_.Controllers
             {
                 return RedirectToAction("Login", "Authentication");
             }
-           
+
         }
-        
-       
+
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddUser(string firstname, string lastname, string email, string cellnumber, string username, string password, int roleId)
         {
-            var adduser = new User()
+            var checkUser = _context.User.Where(s => s.Username == username).FirstOrDefault();
+            if (checkUser != null)
             {
-                Username = username,
-                Password = password,
-                RoleId = roleId,
-                isActive = true
-            };
-
-          
-           await  _context.User.AddAsync(adduser);
-           await _context.SaveChangesAsync();
-
-            var userDetails = new UserDetail()
+                TempData["Exist"] = "";
+            }
+            else
             {
-                UserId = adduser.UserId,
-                Firstname = firstname,
-                Lastname = lastname,
-                EmailAddress = email,
-                ContactNumber = cellnumber,
-            };
+                var adduser = new User()
+                {
+                    Username = username,
+                    Password = password,
+                    RoleId = roleId,
+                    isActive = true
+                };
 
-            
-            await _context.UserDetail.AddAsync(userDetails);
-            await _context.SaveChangesAsync();
 
-            TempData["AddUser"] = "";
+                await _context.User.AddAsync(adduser);
+                await _context.SaveChangesAsync();
 
-          
+                var userDetails = new UserDetail()
+                {
+                    UserId = adduser.UserId,
+                    Firstname = firstname,
+                    Lastname = lastname,
+                    EmailAddress = email,
+                    ContactNumber = cellnumber,
+                };
+
+
+                await _context.UserDetail.AddAsync(userDetails);
+                await _context.SaveChangesAsync();
+
+                TempData["AddUser"] = "";
+
+
+
+            }
+
             return RedirectToAction("Index");
         }
-       
-       
+
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> UpdateUser(int userid, string firstname, string lastname, string email, string cellnumber, string username, string password, int roleId)
@@ -98,10 +108,10 @@ namespace POS_CapstoneProject_.Controllers
                 findUser.Password = password;
                 findUser.RoleId = roleId;
 
-                 _context.User.Update(findUser);
+                _context.User.Update(findUser);
                 await _context.SaveChangesAsync();
             }
-                    
+
             var findUserDetail = await _context.UserDetail.Where(s => s.UserId == userid).FirstOrDefaultAsync();
 
             if (findUserDetail != null)
@@ -118,7 +128,7 @@ namespace POS_CapstoneProject_.Controllers
             TempData["UpdateUser"] = "";
             return RedirectToAction("Index");
 
-          
+
         }
 
 
@@ -131,11 +141,11 @@ namespace POS_CapstoneProject_.Controllers
             if (findUser != null)
             {
                 findUser.isActive = true;
-                 _context.User.Update(findUser);
+                _context.User.Update(findUser);
                 _context.SaveChanges();
                 TempData["SuccessUnarchived"] = "";
             }
-          
+
 
             return RedirectToAction("Index");
         }
@@ -147,11 +157,11 @@ namespace POS_CapstoneProject_.Controllers
             if (findUser != null)
             {
                 findUser.isActive = false;
-                 _context.User.Update(findUser);
+                _context.User.Update(findUser);
                 _context.SaveChanges();
                 TempData["SuccessArchived"] = " ";
             }
-           
+
 
             return RedirectToAction("Index");
         }

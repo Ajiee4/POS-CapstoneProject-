@@ -4,7 +4,7 @@ using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
 using System.Runtime.InteropServices;
 
-namespace POS_CapstoneProject_.Controllers
+namespace POS_CapstoneProject_.Controllers.Admin
 {
     public class CategoryMenuController : Controller
     {
@@ -14,7 +14,7 @@ namespace POS_CapstoneProject_.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult>Index()
+        public async Task<IActionResult> Index()
         {
 
             var UserId = HttpContext.Session.GetInt32("UserID");
@@ -36,7 +36,7 @@ namespace POS_CapstoneProject_.Controllers
 
                         return View();
 
-                        
+
                     }
                 }
                 else
@@ -49,14 +49,14 @@ namespace POS_CapstoneProject_.Controllers
                 return RedirectToAction("Login", "Authentication");
             }
 
-           
+
         }
         //receive the http request from the view when the form wis submitted
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddCategory(Category category)
         {
-            
+
             if (ModelState.IsValid)
             {
                 //check if the submitted data already exist in the database

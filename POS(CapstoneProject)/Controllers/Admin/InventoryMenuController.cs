@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
 
-namespace POS_CapstoneProject_.Controllers
+namespace POS_CapstoneProject_.Controllers.Admin
 {
     public class InventoryMenuController : Controller
     {
@@ -42,11 +42,11 @@ namespace POS_CapstoneProject_.Controllers
             {
                 return RedirectToAction("Login", "Authentication");
             }
-          
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  async Task<IActionResult> AddIngredient(Ingredient ingredient)
+        public async Task<IActionResult> AddIngredient(Ingredient ingredient)
         {
 
             var newIngredient = new Ingredient()
@@ -77,7 +77,7 @@ namespace POS_CapstoneProject_.Controllers
                 checkIngredient.CostPerUnit = ingredient.CostPerUnit;
                 checkIngredient.ExpiryDate = ingredient.ExpiryDate;
                 checkIngredient.LowStockThreshold = ingredient.LowStockThreshold;
-             
+
 
                 _context.Ingredient.Update(checkIngredient);
                 await _context.SaveChangesAsync();
@@ -95,7 +95,7 @@ namespace POS_CapstoneProject_.Controllers
         {
             int id = (int)HttpContext.Session.GetInt32("UserID");
             var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
-            if(checkIngredient != null)
+            if (checkIngredient != null)
             {
                 checkIngredient.Quantity += ingredient.Quantity;
                 _context.Ingredient.Update(checkIngredient);
@@ -134,7 +134,7 @@ namespace POS_CapstoneProject_.Controllers
             var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
             if (checkIngredient != null)
             {
-                if(checkIngredient.Quantity >= ingredient.Quantity)
+                if (checkIngredient.Quantity >= ingredient.Quantity)
                 {
                     checkIngredient.Quantity -= ingredient.Quantity;
                     _context.Ingredient.Update(checkIngredient);
@@ -167,10 +167,10 @@ namespace POS_CapstoneProject_.Controllers
                 {
                     TempData["Insufficient"] = " ";
                 }
-               
+
 
             }
-         
+
             return RedirectToAction("InventoryList");
         }
         public IActionResult StockMovement()
@@ -203,7 +203,7 @@ namespace POS_CapstoneProject_.Controllers
             {
                 return RedirectToAction("Login", "Authentication");
             }
-           
+
         }
     }
 }
