@@ -1,8 +1,9 @@
 ﻿
+//array of objects
 let checkOutList =  [];
 
 
-
+//get the data from the locale storage and store it in the checkoutlist array
 window.addEventListener('load', () => {
     const storedList = localStorage.getItem('checkoutList');
     if (storedList) {
@@ -15,6 +16,7 @@ window.addEventListener('load', () => {
 let selectedCategory = 'All';
 let searchQuery = '';
 
+//filter out products based on the category
 function FilterProduct(category) {
     selectedCategory = category;
     updateProductList();
@@ -25,11 +27,12 @@ function FilterProduct(category) {
    
 }
 
+//search product
 function searchProduct() {
     searchQuery = document.querySelector('.searchProductInput').value.toLowerCase();
     updateProductList();
 }
-
+//function for displaying the products base on its category ang search input
 function updateProductList() {
     const products = document.querySelectorAll('.product-item');
     let found = false;
@@ -53,7 +56,7 @@ function updateProductList() {
    
     document.querySelector('.noResult').style.display = found ? 'none' : 'block';
 }
-
+//display the check out items from the 
 function DisplayCheckOut() {
 
     const tableBody = document.querySelector('.checkout-table tbody');
@@ -265,12 +268,17 @@ $('.payBtn').click(function () {
     }
 
 });
+function inputAmountChange() {
+    $('#paymentModal .calculateBtn').css({
+        "display": "none",
 
+    })
+    $('.changeAmountText').val('');
+}
 function validateAndCalculateAmount() {
+   
     let input = $('.amountInput');
-    let value = input.val();
-
-  
+    let value = input.val(); 
     let validValue = value.match(/^\d+(\.\d{0,2})?$/);
 
     if (validValue) {
@@ -281,7 +289,16 @@ function validateAndCalculateAmount() {
 
         if (money >= totalAmo) {
             $('.changeAmountText').val(changeAmount.toFixed(2));
+
+            $('#paymentModal .calculateBtn').css({
+                "display": "block",
+                "margin": "0px auto"
+
+            })
         } else {
+            $('#paymentModal .calculateBtn').css({
+                "display": "none",
+            })
             popUpMessageSales("Insufficient Amount", "error");
             input.val('').focus();
             $('.changeAmountText').val('');
@@ -294,66 +311,53 @@ function validateAndCalculateAmount() {
 }
 //validates the cash tendered
 
-$('.payComplete').click(function () {
-    
-    let amountInput = $('.amountInput').val();
-    if (amountInput === '') {
+$('.calculateBtn').click(function () {
+  
+    Swal.fire({
+        icon: "question",
+        title: "Confirm payment? <br>",
 
-        popUpMessageSales("Cash tendered required", 'error');
-       
-        document.querySelector('.amountInput').focus();
-     
-    }
-    else {
-        Swal.fire({
-            icon: "question",
-            title: "Confirm payment? <br>",
-          
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes",
-            customClass: {
-                icon: 'custom-icon',
-                title: 'swal-sales-title',
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        customClass: {
+            icon: 'custom-icon',
+            title: 'swal-sales-title',
 
-            }
+        }
 
-        }).then((result) => {
+    }).then((result) => {
 
-            if (result.isConfirmed) {
+        if (result.isConfirmed) {
 
-                let total = CalculateTotalAmount();
-                let jsonData = JSON.stringify(checkOutList);
-                let subTotal = Number(CalculateSubtotal());
-                let cash = Number($('.amountInput').val());
-                let changedue = Number($('.changeAmountText').val())
-                let discount = Number($('#discount').val())
+            let total = CalculateTotalAmount();
+            let jsonData = JSON.stringify(checkOutList);
+            let subTotal = Number(CalculateSubtotal());
+            let cash = Number($('.amountInput').val());
+            let changedue = Number($('.changeAmountText').val())
+            let discount = Number($('#discount').val())
 
-                $('#checkOutTotalInput').val(total)
-                $('#checkOutListInput').val(jsonData);
-                $('#totalString').val(total.toFixed(2))
-                $('#cashTendered').val(cash.toFixed(2))
-                $('#changeDueAmount').val(changedue.toFixed(2));
-                $('#subTotalAmount').val(subTotal.toFixed(2));
-                $('#discount').val(discount.toFixed(2))
+            $('#checkOutTotalInput').val(total)
+            $('#checkOutListInput').val(jsonData);
+            $('#totalString').val(total.toFixed(2))
+            $('#cashTendered').val(cash.toFixed(2))
+            $('#changeDueAmount').val(changedue.toFixed(2));
+            $('#subTotalAmount').val(subTotal.toFixed(2));
+            $('#discount').val(discount.toFixed(2))
 
-                $('#formPay').submit();
+            $('#formPay').submit();
 
-                checkOutList.splice(0);
-                localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+            checkOutList.splice(0);
+            localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 
-            }
-        });
-       
-        
-    }
-
+        }
+    });
    
   
 });
 
-//if the name greater than 8
+//if the name is greater than 8
 function truncateName() {
     let names = document.querySelectorAll('.product-item-name span');
 

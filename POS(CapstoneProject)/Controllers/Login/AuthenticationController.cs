@@ -41,28 +41,33 @@ namespace POS_CapstoneProject_.Controllers.Login
                 {
                     var check = await _context.UserDetail.Where(s => s.UserId == checkUsername.UserId).FirstOrDefaultAsync();
 
-                    if (checkUsername.RoleId == 1) //Manager/Admin
+                    if(check.User.isActive == true)
                     {
-                        HttpContext.Session.SetInt32("UserID", check.UserId);
-                        HttpContext.Session.SetString("Name", check.Firstname);
-                        return RedirectToAction("Index", "DashboardMenu");
+                        switch (checkUsername.RoleId)
+                        {
+                            case 1:
+                                HttpContext.Session.SetInt32("UserID", check.UserId);
+                                HttpContext.Session.SetString("Name", check.Firstname);
+                                return RedirectToAction("Index", "DashboardMenu");
+
+                            case 2:
+                                HttpContext.Session.SetInt32("UserID", check.UserId);
+                                HttpContext.Session.SetString("Name", check.Firstname);
+                                return RedirectToAction("Index", "CashierInterface");
+
+                            case 3:
+                                HttpContext.Session.SetInt32("UserID", check.UserId);
+                                HttpContext.Session.SetString("Name", check.Firstname);
+                                return RedirectToAction("Index", "StockManagerInterface");
+
+                        }
+
+                    }
+                    else
+                    {
+                        TempData["Deactivated"] = "Account was deactivated";
                     }
 
-                    else if (checkUsername.RoleId == 2)//Cashier
-                    {
-                        HttpContext.Session.SetInt32("UserID", check.UserId);
-                        HttpContext.Session.SetString("Name", check.Firstname);
-                        return RedirectToAction("Index", "CashierInterface");
-
-                    }
-
-                    else if (checkUsername.RoleId == 3)//Stock Manager
-                    {
-                        HttpContext.Session.SetInt32("UserID", check.UserId);
-                        HttpContext.Session.SetString("Name", check.Firstname);
-                        return RedirectToAction("Index", "StockManagerInterface");
-                    }
-                    //TempData["Success"] = "Success";
 
 
 

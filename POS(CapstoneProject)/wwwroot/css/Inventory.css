@@ -40,7 +40,6 @@
     color: white;
 }
 
-/*Wrapper*/
 .inventory-wrapper {
     position: relative;
     width: 100%;
@@ -60,9 +59,10 @@
     color: white;
     text-align: left !important;
     background-color: #693D29;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     font-weight: bolder;
 }
+
 .inventory-table tbody {
     background-color: #F7F7F7;
     color: black;
@@ -72,6 +72,7 @@
     text-align: left !important;
 }
 
+/*Data table Library*/
 .dt-search label {
     color: black;
     font-weight: lighter;
@@ -90,6 +91,7 @@ input::placeholder {
     font-size: 0.9rem;
 }
 
+/*Modal*/
 #addIngredientModal .modal-content, #updateIngredientModal
 .modal-content, #choiceIngredientModal .modal-content,
 #stockInIngredientModal .modal-content, #stockOutIngredientModal .modal-content {
@@ -126,11 +128,11 @@ input::placeholder {
     transition: 0.5s;
 }
 
-    #addIngredientModal .close:hover, #updateIngredientModal .close:hover,
-    #choiceIngredientModal .close:hover, #stockInIngredientModal .close:hover,
-    #stockOutIngredientModal .close:hover {
-        transform: scale(1.2);
-    }
+#addIngredientModal .close:hover, #updateIngredientModal .close:hover,
+#choiceIngredientModal .close:hover, #stockInIngredientModal .close:hover,
+#stockOutIngredientModal .close:hover {
+    transform: scale(1.2);
+}
 
 #addIngredientModal .addIngredientSubmit, #updateIngredientModal .updateIngredientSubmit
 , #stockInIngredientModal .stockInIngredientSubmit, #stockOutIngredientModal .stockOutIngredientSubmit  {
@@ -142,11 +144,11 @@ input::placeholder {
     transition: 0.3s ease-in-out
 }
 
-    #addIngredientModal .addIngredientSubmit:hover, #updateIngredientModal .updateIngredientSubmit:hover,
-    #stockInIngredientModal .stockInIngredientSubmit:hover, #stockOutIngredientModal .stockOutIngredientSubmit:hover {
-        background-color: black;
-        color: white;
-    }
+#addIngredientModal .addIngredientSubmit:hover, #updateIngredientModal .updateIngredientSubmit:hover,
+#stockInIngredientModal .stockInIngredientSubmit:hover, #stockOutIngredientModal .stockOutIngredientSubmit:hover {
+    background-color: black;
+    color: white;
+}
 
 #choiceIngredientModal .modal-body {
     padding: 60px;
@@ -157,6 +159,7 @@ input::placeholder {
     flex-direction: column;
     gap: 5px;
 }
+
 #choiceIngredientModal .choices-wrapper button {
     padding: 10px;
     border: none;
@@ -166,14 +169,17 @@ input::placeholder {
     transition: 0.5s ease-in-out;
     border: 1px solid #693D29
 }
+
 #choiceIngredientModal .choices-wrapper button:hover {
     background-color: black;
- 
     transform: scale(1.03)
 }
+
 #choiceIngredientModal .modal-title {
     font-size: 2rem;
 }
+
+/*SweetAlert Custom Class*/
 .custom-icon {
     font-size: 8px !important; 
 }
@@ -183,16 +189,19 @@ input::placeholder {
     font-weight: bolder !important; 
     color: black !important;
 }
+
 .swal-updateIngredient-title {
     font-size: 25px; 
     font-weight: bolder !important; 
     color: black !important;
 }
+
 .swal-stockInIngredient-title {
     font-size: 25px;
     font-weight: bolder !important;
     color: black !important;
 }
+
 .swal-stockOutIngredient-title {
     font-size: 25px;
     font-weight: bolder !important;

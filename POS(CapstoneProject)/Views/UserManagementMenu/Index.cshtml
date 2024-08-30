@@ -33,9 +33,9 @@
 
             @foreach (var item in ViewData["UserList"] as List<UserDetail>)
                 {
-                    @if(!(item.User.Role.RoleName == "Manager"))
+                    @if((item.User.Role.RoleName != "Manager"))
                     {
-                        <tr>
+                        <tr class="@(item.User.isActive == false ? "archived-user" : "")">
                             <td>@item.UserId</td>
                             <td>@item.User.Role.RoleName</td>
                             <td>@item.Firstname</td>

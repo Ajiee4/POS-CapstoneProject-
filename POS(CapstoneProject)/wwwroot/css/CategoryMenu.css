@@ -1,16 +1,15 @@
 ﻿*, *::after,*::before{
-
     box-sizing:border-box;
     padding: 0;
     margin: 0;
     font-family: Arial;
-
 }
 
+/*Header*/
 .header .right-section .checkout-icon{
     display: none;
 }
-/*Buttons*/
+
 .addCategoryBtn {
     position: absolute;
     cursor: pointer;
@@ -37,14 +36,12 @@
     color: white;
 }
 
-/*Wrapper*/
 .category-wrapper {
     position: relative;
     width: 100%;
 }
 
-.category-table {
-   
+.category-table {  
     border: 1px solid black;
     box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
     overflow: scroll;
@@ -52,20 +49,13 @@
 }
 
 .category-table tr,th,td{
-
     border: 1px solid black;
-
 }
 
-.category-table th {
-        
+.category-table th {       
     color: white;
     text-align: left !important;
     background-color: #693D29;
-}
-
-.category-table thead {
-    /*   width: 100%;*/
 }
 
 .category-table tbody {
@@ -81,7 +71,6 @@
 
 }
 
-/*Add and Update Modals*/
 #addCategoryModal .addSubmitBtn, #updateCategoryModal .updateSubmitBtn {
     background-color: #693D29;
     border-radius: 20px;
@@ -99,8 +88,6 @@
     color: white;
 }
 
-
-
 #addCategoryModal .modal-content, #updateCategoryModal .modal-content {
 
     background-color: rgba(197, 172, 148,0.9) !important;
@@ -109,17 +96,13 @@
 
 }
 #addCategoryModal .modal-header, #updateCategoryModal .modal-header {
-
     border: none;
-
 }
 
 #addCategoryModal .modal-title, #updateCategoryModal .modal-title {
-
     width: 100%;
     text-align: center;
     font-weight: bold;
-
 }
 
 #addCategoryModal label, #updateCategoryModal label {
@@ -127,8 +110,8 @@
     font-weight: bold;
 
 }
-#addCategoryModal .close, #updateCategoryModal .close {
 
+#addCategoryModal .close, #updateCategoryModal .close {
     position: absolute;
     top: 6px;
     right: 10px;
@@ -137,30 +120,27 @@
 
 }
 #addCategoryModal .close:hover, #updateCategoryModal .close:hover {
-
     transform: scale(1.2);
 
 }
 
 /*Data Table*/
 .dt-search label {
-
     color: black;
     font-weight: lighter;
 
 }
 
 .dt-search .dt-input {
-
     border: 1px solid black !important;
 
 }
 
 .dt-length, .dt-info {
-
     display: none;
 
 }
+
 input::placeholder{
     color: dimgrey;
     font-weight: lighter;
@@ -171,17 +151,19 @@ input:focus{
     outline: 1px solid grey !important;
 }
 
+/*SweetAlert Custom Class*/
 .custom-icon {
-    font-size: 8px !important; /* Adjust the size as needed */
+    font-size: 8px !important; 
 }
 
 .swal-addCategory-title {
-    font-size: 25px; /* Adjust the sizeas needed */
-    font-weight: bolder !important; /* Optionally make it bold */
+    font-size: 25px; 
+    font-weight: bolder !important; 
     color: black !important;
 }
+
 .swal-updateCategory-title {
-    font-size: 25px; /* Adjust the sizeas needed */
-    font-weight: bolder !important; /* Optionally make it bold */
+    font-size: 25px; 
+    font-weight: bolder !important; 
     color: black !important;
 }

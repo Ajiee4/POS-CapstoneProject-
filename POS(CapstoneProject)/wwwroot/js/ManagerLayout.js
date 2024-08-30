@@ -32,9 +32,9 @@ function openSidebar() {
 //function for closing the sidebar
 function closeSidebar() {
     let inventorySubmenuToggler = document.querySelector('.sidebarlink-inventory-toggler');
-    let sidebar = document.querySelector('.sidebar'); //sidebar
-    let toggler = document.querySelector('.sidebar-toggler'); //sidebar toggler
-    let sidebarName = document.querySelectorAll('.sidebar-link-name'); //sidebar link name
+    let sidebar = document.querySelector('.sidebar');
+    let toggler = document.querySelector('.sidebar-toggler'); 
+    let sidebarName = document.querySelectorAll('.sidebar-link-name'); 
     let inventorySubmenu = document.querySelector('.inventorySubmenu');
     sidebar.style.width = "65px"
     toggler.style.transform = "rotate(180deg)"

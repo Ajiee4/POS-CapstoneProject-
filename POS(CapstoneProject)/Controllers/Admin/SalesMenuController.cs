@@ -68,19 +68,24 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             //converting from JSON to object
             var myList = JsonConvert.DeserializeObject<List<CheckOutList>>(checkoutList);
-            foreach (var item in myList)
+            if (myList! != null)
             {
-                OrderDetails details = new OrderDetails
+                foreach (var item in myList)
                 {
-                    OrderId = order.OrderId,
-                    ProductId = item.prodID,
-                    Quantity = item.prodQty,
-                };
+                    OrderDetails details = new OrderDetails
+                    {
+                        OrderId = order.OrderId,
+                        ProductId = item.prodID,
+                        Quantity = item.prodQty,
+                    };
 
-                await _context.OrderDetails.AddAsync(details);
+                    await _context.OrderDetails.AddAsync(details);
+                }
+                await _context.SaveChangesAsync();
             }
+          
             //save change to db
-            await _context.SaveChangesAsync();
+           
 
             //var getItems = _context.Order.Include(order)
 

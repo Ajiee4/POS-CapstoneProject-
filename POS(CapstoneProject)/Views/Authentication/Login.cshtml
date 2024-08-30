@@ -91,13 +91,13 @@
 
 } 
 
-@if (TempData["OnlyAdmin"] != null)
+@if (TempData["Deactivated"] != null)
 {
     <script>
 
         Swal.fire({
 
-            text: "Only admin can login for now",
+            text: "Account was deactivated",
             icon: "error",
             showConfirmButton: false,
             timer: 2000
@@ -108,6 +108,7 @@
     </script>
 
 }
+
 
 
 

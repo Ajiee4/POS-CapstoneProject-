@@ -71,7 +71,7 @@
     </table>
 </div>
 
-<!--Add New Ingredient-->
+<!--Add New Ingredient Modal-->
 
 <div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document">
@@ -117,8 +117,7 @@
 </div>
 
 
-
-<!--Update Ingredient-->
+<!--Update Ingredient Modal-->
 
 <div class="modal fade" id="updateIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document">
@@ -261,15 +260,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
 @if (TempData["AddIngredient"] != null)
 {
     <script>
@@ -284,6 +274,18 @@
     </script>
 
 }
+
+@if (TempData["Exist"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "Ingredient already exist",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+}
 @if (TempData["StockIn"] != null)
 {
     <script>
@@ -293,10 +295,7 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }
 @if (TempData["Insufficient"] != null)
 {
@@ -307,10 +306,7 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }
 
 
@@ -323,10 +319,7 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }
 @if (TempData["UpdateIngredient"] != null)
 {
@@ -337,8 +330,5 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }

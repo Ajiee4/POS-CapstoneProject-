@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿//setting up the data table
+$(document).ready(function () {
     $('.inventory-table').DataTable({
         "paging": true,
 
@@ -8,6 +9,7 @@
 
     });
 })
+//function for showing pop up message
 function popUpMessageInventory(message, icon) {
     Swal.fire({
         text: message,
@@ -17,14 +19,16 @@ function popUpMessageInventory(message, icon) {
         timer: 2000
     });
 }
+
 //cost per unit validation
 function validateInput(input) {
     const value = input.value;
     if (!/^[0-9]+(\.[0-9])?$/.test(value)) {
-        input.value = value.replace(/[^\d\.]/g, ''); // remove non-numeric characters
+        input.value = value.replace(/[^\d\.]/g, ''); 
     }
 }
 
+//call the function when
 $('.addIngredientSubmit').click(function () {
     AddIngredient();
 });
@@ -34,6 +38,7 @@ function AddIngredient() {
     let unitMeasurement = document.querySelector('#addIngredientModal .inputMeasurement').value;
     let costPerUnit = document.querySelector('#addIngredientModal .inputCost').value;
     let lowStockThreshold = document.querySelector('#addIngredientModal .inputThreshold').value;
+    ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
 
     if (ingredientName === '' || unitMeasurement === '' || costPerUnit === '' || lowStockThreshold === '') {
         popUpMessageInventory('Fill out all information', 'error');
@@ -47,6 +52,8 @@ function AddIngredient() {
         popUpMessageInventory("Input Cost Per Unit must be between 1 and 8 characters", "error")
         return;
     }
+
+    $('#addIngredientModal .inputIngredientName').val(ingredientName);
     Swal.fire({
         icon: "question",
         title: "Do you want to add this ingredient?",
@@ -68,6 +75,7 @@ function AddIngredient() {
     });
     
 }
+//check if the name is valid
 
 function isValidName(name) {
 
@@ -75,13 +83,15 @@ function isValidName(name) {
         return true;
     }
 }
+
+//check if the cost per unit input is valid
 function isValidCost(cost) {
 
     if (cost.length >= 1 && cost.length <= 8) {
         return true;
     }
 }
-
+//set the default value when the modal is showed
 function UpdateIngredient(id, name, measurement, cost, threshold, expiry) {
   
     $('#updateIngredientModal .inputIngredientId').val(id),
@@ -92,6 +102,7 @@ function UpdateIngredient(id, name, measurement, cost, threshold, expiry) {
     $('#updateIngredientModal .inputExpiry').val(expiry)
         
 }
+//call the function when button is click
 $('.updateIngredientSubmit').click(function () {
     updateIngredient();
 });
@@ -101,7 +112,7 @@ function updateIngredient() {
     let unitMeasurement = document.querySelector('#updateIngredientModal .inputMeasurement').value;
     let costPerUnit = document.querySelector('#updateIngredientModal .inputCost').value;
     let lowStockThreshold = document.querySelector('#updateIngredientModal .inputThreshold').value;
-
+    ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
     if (ingredientName === '' || unitMeasurement === '' || costPerUnit === '' || lowStockThreshold === '') {
         popUpMessageInventory('Fill out all information', 'error');
         return;
@@ -114,6 +125,7 @@ function updateIngredient() {
         popUpMessageInventory("Input Cost Per Unit must be between 1 and 8 characters", "error")
         return;
     }
+    $('#updateIngredientModal .inputIngredientName').val(ingredientName);
     Swal.fire({
         icon: "question",
         title: "Do you want to update this ingredient?",

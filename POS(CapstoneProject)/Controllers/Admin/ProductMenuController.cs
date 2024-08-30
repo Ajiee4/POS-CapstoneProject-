@@ -67,6 +67,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
                 if (checkExisting == null)
                 {
+                    
                     //save to database
                     _context.Add(prod);
                     await _context.SaveChangesAsync();

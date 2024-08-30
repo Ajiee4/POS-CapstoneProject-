@@ -170,9 +170,9 @@ $('.addProductSubmit').click(function () {
     AddProduct();
 });
 function AddProduct() {
-    let productName = document.querySelector('.addProductInputName').value;
-    let productPrice = document.querySelector('.addProductInputPrice').value;
-
+    let productName = document.querySelector('.addProductInputName').value.trim();
+    let productPrice = document.querySelector('.addProductInputPrice').value.trim();
+    productName = productName.replace(/\s{2,}/g, ' ');
     if (productName == '' || productPrice == '') {
 
         popUpMessageProduct("Fill out all necessary information", "error");
@@ -182,6 +182,7 @@ function AddProduct() {
 
         if (productName.length >= 3 && productName.length <= 15) {
 
+            $('.addProductInputName').val(productName);
             Swal.fire({
                 icon: "question",
                 title: "Do you want to add this product?",
@@ -225,7 +226,7 @@ $('.updateProductSubmit').click(function () {
 function UpdateProduct() {
     let productName = document.querySelector('.updateProductInputName').value;
     let productPrice = document.querySelector('.updateProductInputPrice').value;
-
+    productName = productName.replace(/\s{2,}/g, ' ');
     if (productName == '' || productPrice == '') {
 
         popUpMessageProduct("Fill out all necessary information", "error");
@@ -234,7 +235,7 @@ function UpdateProduct() {
     else {
 
         if (productName.length >= 3 && productName.length <= 15) {
-
+            $('.updateProductInputName').val(productName);
             Swal.fire({
                 icon: "question",
                 title: "Do you want to update this product?",

@@ -16,6 +16,7 @@ body {
 
 }
 
+/*Header*/
 .header {
     display: flex;
     justify-content: space-between;
@@ -38,13 +39,13 @@ body {
     flex-direction: row;
 
 }
-.header .left-section .brand-logo {
-}
+
 .header .left-section .brand-logo img {
     border-radius: 50%;
     width: 50px;
     height: 50px;
 }
+
 .header .left-section .brand-name{
     color: white;
     margin-left: 15px;
@@ -52,9 +53,6 @@ body {
     text-wrap: wrap;
     line-height: 19px;
 }
-
-
-
 
 .right-section {
     display: flex;
@@ -73,9 +71,20 @@ body {
     transform: scale(1.2);
   
 }
-.header .right-section .logout-link a{
-    color: white;
+
+.header .right-section .logout-link{
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 20px;
 }
+.header .right-section .logout-link a {
+    color: black;
+    letter-spacing: 1px;
+   
+    font-weight: bolder;
+    
+}
+
 .header .right-section .checkout-icon img {
     width: 25px;
     height: 25px;
@@ -93,6 +102,7 @@ body {
     color: white;
     font-weight: lighter;
 }
+
 .header .right-section .user .user-icon img {
     width: 30px;
     height: 30px;
@@ -100,6 +110,7 @@ body {
     border-radius: 50%;
 }
 
+/*Sidebar*/
 .sidebar {
     background-color: #9E7148;
     width: 180px;
@@ -122,24 +133,20 @@ body {
     border-radius: 50%;
     transform: translateY(-50%);
     transition: 0.8s;
-
 }
 
 .sidebar ul {
-
     height: 100%;
     list-style: none;
 
 }
 
 .sidebar ul li {
-
     padding: 5px 15px;
     
 }
 
 .sidebar ul li a .sidebar-link-img {
-
     width: 15px;
     height: 15px;
     margin-left: 5px;
@@ -154,7 +161,6 @@ body {
 }
 
 .sidebar ul li a {
-
     position: relative;
     text-decoration: none;
     color: white;
@@ -169,31 +175,24 @@ body {
 }
 
 .sidebar ul li a:hover {
-
     background-color: #C6976C;
-
 }
 
 .sidebar ul ul {
-
     display: none;
     position: static;
     margin-top: 5px;
-
 }
 
 .sidebar ul ul li a {
-
     font-size: 0.6rem;
     display: block;
     text-align: center;
     font-weight: lighter;
     text-wrap: nowrap;
-
 }
 
 .sidebarlink-inventory-toggler {
-
     position: absolute;
     width: 10px;
     height: 10px;

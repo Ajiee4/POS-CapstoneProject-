@@ -141,7 +141,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Cash Tendered</label>
-                    <input class="form-control amountInput" placeholder="Enter Cash Tendered" onchange="validateAndCalculateAmount()" />
+                    <input class="form-control amountInput" placeholder="Enter Cash Tendered" oninput="inputAmountChange()" onchange="validateAndCalculateAmount()" />
 
                 </div>
 
@@ -162,7 +162,7 @@
                 </form>
 
                 <div class="form-group">
-                    <button class="d-block mx-auto payComplete">Pay</button>
+                    <button class="calculateBtn">Pay</button>
                 </div>
 
             </div>

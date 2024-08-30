@@ -4,6 +4,7 @@
     padding: 0;
 }
 
+/*Wrapper*/
 .dashboard-wrapper{
     width: 100%;
     padding: 10px;
@@ -15,14 +16,16 @@
     background-color: transparent;
     min-height: 200px;
 }
-.box{
-   
+
+.box {
     height: 170px;
     width: 200px;
-    border-radius: 20px;
     display: flex;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     flex-direction: column;
 }
+
 .box .top-content{
   
     flex:1;
@@ -30,11 +33,6 @@
     flex-direction: column;
 }
 
-    .box .bottom-content {
-       
-        padding: 5px;
-       
-    }
 
 .box .top-content .top-content-section-first{
   
@@ -42,45 +40,59 @@
     display: flex;
     flex-direction: row;
 }
+
 .box .top-content .top-content-section-first .count-input{
-  
     flex:1;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bolder;
+    font-size: 3rem;
 
 }
 
 .box .top-content .top-content-section-first .icon {
-      
+    
     flex: 2;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .box .top-content .top-content-section-first .icon img{
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
 }
 
 .box .top-content .top-content-section-second {
     padding: 5px;
     flex: 1;
+    font-weight: bold;  
+    margin-left: 5px;
 }
 
 .box .bottom-content .view-more {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    gap: 10px;
+    background-color: #BB832F;
+    overflow: hidden;
+    color: black;
+    font-weight: bold;
 }
 
 .box .bottom-content .view-more span {
     font-size: 0.8rem;
+    padding: 2px 0px;
+}
+.box .bottom-content .view-more img{
+    height: 15px;
+    width: 15px;
 }
 
 .box.first {
-    background-color: #F6AE43;
+    background-color: rgba(246, 174, 67,0.8);
 }
 
 .box.second {
@@ -93,4 +105,17 @@
 
 .box.fourth {
     background-color: #B57537;
+}
+
+.view-more-first {
+    background-color: #BB832F !important;
+}
+.view-more-second {
+    background-color: #BA6F1A !important;
+}
+.view-more-third {
+    background-color: #BC7F3D !important;
+}
+.view-more-fourth {
+    background-color: #905A25 !important;
 }

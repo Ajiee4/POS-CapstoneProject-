@@ -8,9 +8,7 @@
 .checkout-wrapper {
     position: fixed;
     top: 90px;
-    right: 20px;
-  
-    /*background-color: #F1DCC8;*/
+    right: 20px; 
     background-color: #F1DCC8;
     width: 320px;
     display: flex;
@@ -499,7 +497,9 @@ input::placeholder {
 #paymentModal .close:hover{
     transform: scale(1.2);
 }
-#paymentModal .payComplete {
+
+#paymentModal .calculateBtn {
+    display: none;
     background-color: #693D29;
     border-radius: 20px;
     padding: 10px 30px;
@@ -507,13 +507,11 @@ input::placeholder {
     color: white;
     transition: 0.5s;
 }
+
 #paymentModal .payComplete:hover{
     background-color: black
 }
 
-/*.totalAmountInputReadOnly{
-    background-color: rgba(0,0,0,0.1) !important;
-}*/
 .noResult{
     position: absolute;
     width: 100% ;
@@ -540,40 +538,42 @@ input::placeholder {
    
 
 }
-    .receipt .receipt-content {
-      
-        text-align: center;
-        padding: 10px;
+.receipt .receipt-content {     
+    text-align: center;
+    padding: 10px;
+    height: 100%;
+}
 
-        height: 100%;
-    }
-    .receipt hr{
-        border: 1px dashed black;
-    }
+.receipt hr{
+    border: 1px dashed black;
+}
 
-    .receipt .footer{
-       letter-spacing: 2px;
-       text-align: center;
-       margin-top: 10px;
-       text-wrap: nowrap;
-    }
-    .receipt-header {
-        line-height: 10px;
-    }
+.receipt .footer{
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 10px;
+    text-wrap: nowrap;
+}
+
+.receipt-header {
+    line-height: 10px;
+}
+
 .receipt-header .name {
     font-size: 1.5rem;
 }
-    .receipt .receipt-content .receipt-calculation {
+
+.receipt .receipt-content .receipt-calculation {
       
-        line-height: 10px;
-    }
+    line-height: 10px;
+}
 
-    .receipt-calculation .discount, .tax, .total{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+.receipt-calculation .discount, .tax, .total{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    }
+}
 
 .receipt .receipt-content .receipt-change {
    
@@ -604,14 +604,14 @@ input::placeholder {
     font-size: 0.8em;
 }
 
-
+/*SweetAlert Custom Class*/
 .custom-icon {
-    font-size: 8px !important; /* Adjust the size as needed */
+    font-size: 8px !important; 
 }
 
 .swal-sales-title {
-    font-size: 30px; /* Adjust the sizeas needed */
-    font-weight: bolder !important; /* Optionally make it bold */
+    font-size: 30px; 
+    font-weight: bolder !important; 
     color: black !important;
 }
 .swal-sales-title::after {
@@ -621,13 +621,13 @@ input::placeholder {
     font-size: 0.9rem;
    
 }
-
-/*@media print {
+/*Window Print*/
+@media print {
     body * {
         visibility: hidden;
     }
 
-    .receipt, .receipt  * {
+    .receipt, .receipt * {
         visibility: visible;
     }
 
@@ -636,8 +636,6 @@ input::placeholder {
         left: 50%;
         top: 50%;
         transform: translate(-50%,-50%);
-        width: 500px;
-       
+        width: 400px;
     }
 }
-*/

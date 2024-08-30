@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: Arial;
 }
+
 body {
     padding-top: 90px;
     padding-left: 20px;
@@ -12,6 +13,7 @@ body {
     transition: 0.8s;
 }
 
+/*Header*/
 .header {
     display: flex;
     justify-content: space-between;
@@ -32,9 +34,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-}
-
-        
+}    
 
 .header .left-section .brand-logo img {
     border-radius: 50%;
@@ -50,7 +50,6 @@ body {
     line-height: 19px;
 }
 
-
 .right-section {
     display: flex;
     justify-content: center;
@@ -60,12 +59,20 @@ body {
     margin-right: 10px;
 }
 
-.header .right-section .logout-link a {
-    color: white;
+.header .right-section .logout-link {
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 20px;
 }
+
+.header .right-section .logout-link a {
+    color: black;
+    letter-spacing: 1px;
+    font-weight: bolder;
+}
+
 .header .right-section .checkout-icon {
-    display: none;
-    
+    display: none;    
     transition: 0.5s;
 }
 
@@ -98,6 +105,7 @@ body {
     border-radius: 50%;
 }
 
+/*Checkout*/
 .checkout-wrapper {
     position: fixed;
     top: 90px;
@@ -125,14 +133,10 @@ body {
     padding: 5px 0px;
 }
 
-
 .checkout-footer {
-    /*padding: 10px 5px;*/
-    /*flex-grow: 1;*/
     background-color: rgba(0,0,0,0.1);
     border-top: 1px solid black;
 }
-
 
 .checkout-table-wrapper::-webkit-scrollbar {
     width: 4px;
@@ -146,10 +150,9 @@ body {
     background-color: black;
 }
 
-    .checkout-table-wrapper::-webkit-scrollbar-thumb:hover {
-        background-color: white;
-    }
-
+.checkout-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: white;
+}
 
 .discount-wrapper {
     width: 100%;
@@ -161,14 +164,14 @@ body {
     padding: 0px 5px;
 }
 
-    .discount-wrapper label {
-        margin-top: 7px;
-    }
+.discount-wrapper label {
+    margin-top: 7px;
+}
 
-    .discount-wrapper input {
-        width: 35px;
-        height: 20px;
-    }
+.discount-wrapper input {
+    width: 35px;
+    height: 20px;
+}
 
 .tax-wrapper {
     width: 100%;
@@ -192,7 +195,6 @@ body {
 
 .totalamount-wrapper {
     width: 100%;
-    /*  background-color: #F1DCC8;*/
     font-weight: bolder;
     padding: 10px 5px;
     margin: 0;
@@ -214,21 +216,21 @@ body {
     padding: 5px;
 }
 
-    .checkout-footer .checkout-btn button {
-        padding: 10px;
-        background-color: #693D29;
-        color: white;
-        border: none;
-        outline: none;
-        font-size: 0.8rem;
-        border-radius: 2px;
-        letter-spacing: 1px;
-        font-weight: bolder;
-    }
+.checkout-footer .checkout-btn button {
+    padding: 10px;
+    background-color: #693D29;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    font-weight: bolder;
+}
 
-    .checkout-footer .checkout-btn .payBtn {
-        flex: 1;
-    }
+.checkout-footer .checkout-btn .payBtn {
+    flex: 1;
+}
 
 .table-header {
     display: flex;
@@ -257,13 +259,13 @@ body {
     width: 100%
 }
 
-    .checkout-table tbody tr:hover {
-        background-color: rgba(0,0,0,0.1);
-    }
+.checkout-table tbody tr:hover {
+    background-color: rgba(0,0,0,0.1);
+}
 
-    .checkout-table tbody tr td {
-        font-size: 0.8rem;
-    }
+.checkout-table tbody tr td {
+    font-size: 0.8rem;
+}
 
 .checkout-table, th, td {
     border: none !important;
@@ -296,7 +298,7 @@ body {
     animation: shake 0.5s ease-in-out infinite;
     transform: scale(1.2);
 }
-
+/*delete animation*/
 @keyframes shake {
     0% {
         transform: translateX(0);
@@ -390,6 +392,9 @@ body {
     width: 8px;
 }
 
+
+/*Product List*/
+
 .product-list-wrapper {
     border-radius: 5px;
     width: 69%;
@@ -398,7 +403,6 @@ body {
 .search-wrapper {
     margin-bottom: 20px;
 }
-
 
 .search-wrapper .searchProd label img {
     width: 20px;
@@ -473,9 +477,9 @@ body {
     cursor: pointer;
 }
 
-    .product-item:hover {
-        transform: scale(1.02);
-    }
+.product-item:hover {
+    transform: scale(1.02);
+}
 
 .product-item-img {
     width: 100%;
@@ -497,9 +501,9 @@ body {
     height: 10%;
 }
 
-    .product-item-name span {
-        background-color: transparent !important;
-    }
+.product-item-name span {
+    background-color: transparent !important;
+}
 
 #paymentModal .submitFormBtn {
     background-color: #693D29;
@@ -548,11 +552,12 @@ input::placeholder {
     transition: 0.5s;
 }
 
-    #paymentModal .close:hover {
-        transform: scale(1.2);
-    }
+#paymentModal .close:hover {
+    transform: scale(1.2);
+}
 
-#paymentModal .payComplete {
+#paymentModal .calculateBtn {
+    display: none;
     background-color: #693D29;
     border-radius: 20px;
     padding: 10px 30px;
@@ -561,13 +566,11 @@ input::placeholder {
     transition: 0.5s;
 }
 
-    #paymentModal .payComplete:hover {
-        background-color: black
-    }
+#paymentModal .payComplete:hover {
+    background-color: black
+}
 
-/*.totalAmountInputReadOnly{
-    background-color: rgba(0,0,0,0.1) !important;
-}*/
+/*no result message*/
 .noResult {
     position: absolute;
     width: 100%;
@@ -578,6 +581,7 @@ input::placeholder {
     margin-top: 5px;
 }
 
+/*Receipt*/
 .receipt {
     display: none;
     position: fixed;
@@ -591,30 +595,30 @@ input::placeholder {
     width: 290px;
 }
 
-    .receipt .receipt-content {
-        text-align: center;
-        padding: 10px;
-        height: 100%;
-    }
+.receipt .receipt-content {
+    text-align: center;
+    padding: 10px;
+    height: 100%;
+}
 
-    .receipt hr {
-        border: 1px dashed black;
-    }
+.receipt hr {
+    border: 1px dashed black;
+}
 
-    .receipt .footer {
-        letter-spacing: 2px;
-        text-align: center;
-        margin-top: 10px;
-        text-wrap: nowrap;
-    }
+.receipt .footer {
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 10px;
+    text-wrap: nowrap;
+}
 
 .receipt-header {
     line-height: 10px;
 }
 
-    .receipt-header .name {
-        font-size: 1.5rem;
-    }
+.receipt-header .name {
+    font-size: 1.5rem;
+}
 
 .receipt .receipt-content .receipt-calculation {
     line-height: 10px;
@@ -640,7 +644,6 @@ input::placeholder {
     display: block;
 }
 
-
 .receipt-items .item-header {
     display: flex;
     justify-content: space-between;
@@ -657,23 +660,25 @@ input::placeholder {
     font-size: 0.8em;
 }
 
-
+/*SweetAlert custom class*/
 .custom-icon {
-    font-size: 8px !important; /* Adjust the size as needed */
+    font-size: 8px !important; 
 }
 
 .swal-sales-title {
-    font-size: 30px; /* Adjust the sizeas needed */
-    font-weight: bolder !important; /* Optionally make it bold */
+    font-size: 30px; 
+    font-weight: bolder !important; 
     color: black !important;
 }
 
-    .swal-sales-title::after {
-        content: "(Cannot be undone)";
-        font-weight: lighter;
-        color: grey;
-        font-size: 0.9rem;
-    }
+.swal-sales-title::after {
+    content: "(Cannot be undone)";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+}
+
+/*Window Print*/
 @media print {
     body * {
         visibility: hidden;

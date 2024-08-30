@@ -1,7 +1,4 @@
-﻿
-
-//Setting up the Data Table
-
+﻿//Setting up the Data Table
 $(document).ready(function () {
     $('.category-table').DataTable({
         "paging": true,
@@ -13,10 +10,7 @@ $(document).ready(function () {
     });
 })
 
-$('.addSubmitBtn').click(function () {
-    AddCategory();
-});
-
+//function for pop up messages
 function popUpMessageCategory(message, icon) {
     Swal.fire({
         text: message,
@@ -26,6 +20,13 @@ function popUpMessageCategory(message, icon) {
         timer: 2000
     });
 }
+//call the function with add category button is click
+$('.addSubmitBtn').click(function () {
+    AddCategory();
+});
+
+
+//function for validating the input category
 function AddCategory() {
     let categoryName = document.querySelector('.addInputName').value.trim();
 

@@ -48,19 +48,29 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddIngredient(Ingredient ingredient)
         {
+            var checkIngredients = _context.Ingredient.Where(s => s.Name == ingredient.Name).FirstOrDefault();
 
-            var newIngredient = new Ingredient()
+            if(checkIngredients != null)
             {
-                Name = ingredient.Name,
-                UnitOfMeasurement = ingredient.UnitOfMeasurement,
-                Quantity = 0,
-                CostPerUnit = ingredient.CostPerUnit,
-                ExpiryDate = ingredient.ExpiryDate,
-                LowStockThreshold = ingredient.LowStockThreshold
-            };
-            await _context.Ingredient.AddAsync(newIngredient);
-            await _context.SaveChangesAsync();
-            TempData["AddIngredient"] = " ";
+                TempData["Exist"] = " ";
+            }
+            else
+            {
+                var newIngredient = new Ingredient()
+                {
+                    Name = ingredient.Name,
+                    UnitOfMeasurement = ingredient.UnitOfMeasurement,
+                    Quantity = 0,
+                    CostPerUnit = ingredient.CostPerUnit,
+                    ExpiryDate = ingredient.ExpiryDate,
+                    LowStockThreshold = ingredient.LowStockThreshold
+                };
+
+                await _context.Ingredient.AddAsync(newIngredient);
+                await _context.SaveChangesAsync();
+                TempData["AddIngredient"] = " ";
+            }
+          
             return RedirectToAction("InventoryList");
         }
         [HttpPost]
@@ -71,13 +81,11 @@ namespace POS_CapstoneProject_.Controllers.Admin
             if (checkIngredient != null)
             {
 
-
                 checkIngredient.Name = ingredient.Name;
                 checkIngredient.UnitOfMeasurement = ingredient.UnitOfMeasurement;
                 checkIngredient.CostPerUnit = ingredient.CostPerUnit;
                 checkIngredient.ExpiryDate = ingredient.ExpiryDate;
                 checkIngredient.LowStockThreshold = ingredient.LowStockThreshold;
-
 
                 _context.Ingredient.Update(checkIngredient);
                 await _context.SaveChangesAsync();

@@ -4,6 +4,7 @@
     margin: 0;
     font-family: Arial;
 }
+/*header*/
 .header .right-section .checkout-icon {
     display: none;
 }
@@ -57,9 +58,6 @@
     background-color: #693D29;
 }
 
-.user-table thead {
-    /*   width: 100%;*/
-}
 
 .user-table tbody {
     background-color: #F7F7F7;
@@ -69,6 +67,8 @@
 .user-table td {
     text-align: left !important;
 }
+
+/*Datatable js*/
 .dt-search label {
     color: black;
     font-weight: lighter;
@@ -107,6 +107,8 @@ input::placeholder {
     font-weight: lighter;
     font-size: 0.9rem;
 }
+
+/*Modal*/
 #addUserModal .modal-content, #updateUserModal .modal-content, #detailsUserModal .modal-content {
     background-color: rgba(197, 172, 148,0.9) !important;
     border-radius: 20px;
@@ -135,9 +137,9 @@ input::placeholder {
     transition: 0.5s;
 }
 
-    #addUserModal .close:hover, #updateUserModal .close:hover, #detailsUserModal .close:hover {
-        transform: scale(1.2);
-    }
+#addUserModal .close:hover, #updateUserModal .close:hover, #detailsUserModal .close:hover {
+    transform: scale(1.2);
+}
 
 #addUserModal .addUserSubmit, #updateUserModal .updateUserSubmit, #detailsUserModal .detailUserBack {
     background-color: #693D29;
@@ -203,18 +205,22 @@ input::placeholder {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
+/*SweetAlert custom class*/
 .custom-icon {
-    font-size: 8px !important; /* Adjust the size as needed */
+    font-size: 8px !important; 
 }
 
 .swal-addUser-title {
-    font-size: 25px; /* Adjust the sizeas needed */
-    font-weight: bolder !important; /* Optionally make it bold */
+    font-size: 25px; 
+    font-weight: bolder !important;
     color: black !important;
 }
 
 .swal-updateUser-title {
-    font-size: 25px; /* Adjust the sizeas needed */
-    font-weight: bolder !important; /* Optionally make it bold */
+    font-size: 25px; 
+    font-weight: bolder !important; 
     color: black !important;
+}
+.archived-user {
+    background-color: rgba(0,0,0,0.2) !important;
 }
