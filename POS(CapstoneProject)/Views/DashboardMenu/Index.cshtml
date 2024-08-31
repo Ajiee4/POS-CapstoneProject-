@@ -11,91 +11,75 @@
 </style>
 <div class="dashboard-wrapper">
     <div class="box first">
-        <div class="top-content">
-            <div class="top-content-section-first">
-                <div class="count-input">
-                    <span>5</span>
-                </div>
-                <div class="icon">
-                    <img src="~/images/totalUsers.png" />
-                </div>
-            </div>
-            <div  class="top-content-section-second">              
-               <span>no. of users</span>
+       <div class="box-top">
+           <div class="count">
+                <span class="count-text">@ViewData["CountUser"]</span>
            </div>
-        </div>
-
-        <div class="bottom-content">
-            <div class="view-more view-more-first">
-                <span>view more</span>
-                <img src="~/images/next-black.png" />
-            </div>
-        </div>
+            <div class="icon">
+                <img src="~/images/totalUsers.png" />
+           </div>
+       </div>
+       <div class="box-middle">
+           <span class="label">No. of Users</span>
+       </div>
+        <div class="box-bottom view-more-first">
+           <span class="view-more">view more</span>
+            <img src="~/images/next-black.png" />
+       </div>
     </div>
+
     <div class="box second">
-        <div class="top-content">
-            <div class="top-content-section-first">
-                <div class="count-input">
-                    <span>5</span>
-                </div>
-                <div class="icon">
-                    <img src="~/images/totalSales.png" />
-                </div>
+        <div class="box-top">
+            <div class="count">
+                <span class="count-text">₱@ViewData["TotalSales"]</span>
             </div>
-            <div class="top-content-section-second">
-                <span>total sales</span>
+            <div class="icon">
+                <img src="~/images/totalSales.png" />
             </div>
         </div>
-
-        <div class="bottom-content">
-            <div class="view-more view-more-second">
-                <span>view more</span>
-                <img src="~/images/next-black.png" />
-            </div>
+        <div class="box-middle">
+            <span class="label">Daily Sales</span>
+        </div>
+        <div class="box-bottom view-more-second">
+            <span class="view-more">view more</span>
+            <img src="~/images/next-black.png" />
         </div>
     </div>
+
     <div class="box third">
-        <div class="top-content">
-            <div class="top-content-section-first">
-                <div class="count-input">
-                    <span>5</span>
-                </div>
-                <div class="icon">
-                    <img src="~/images/totalProduct.png" />
-                </div>
-            </div>
-            <div class="top-content-section-second">
-                <span>no. of products</span>
-            </div>
-        </div>
-
-        <div class="bottom-content">
-            <div class="view-more view-more-third">
-                <span>view more</span>
-                <img src="~/images/next-black.png" />
-            </div>
-        </div>
+       <div class="box-top">
+           <div class="count">
+                <span class="count-text">@ViewData["CountProduct"]</span>
+           </div>
+            <div class="icon">
+                <img src="~/images/totalProduct.png" />
+           </div>
+       </div>
+       <div class="box-middle">
+           <span class="label">No. of products</span>
+       </div>
+        <div class="box-bottom view-more-third">
+           <span class="view-more">view more</span>
+            <img src="~/images/next-black.png" />
+       </div>
     </div>
+
     <div class="box fourth">
-        <div class="top-content">
-            <div class="top-content-section-first">
-                <div class="count-input">
-                    <span>5</span>
-                </div>
-                <div class="icon">
-                    <img src="~/images/totalUsers.png" />
-                </div>
+        <div class="box-top">
+            <div class="count">
+                <span class="count-text"></span>
             </div>
-            <div class="top-content-section-second">
-                <span>no. of users</span>
+            <div class="icon">
+                
             </div>
         </div>
-
-        <div class="bottom-content">
-            <div class="view-more view-more-fourth">
-                <span>view more</span>
-                <img src="~/images/next-black.png" />
-            </div>
+        <div class="box-middle">
+            <span class="label">Pending</span>
+        </div>
+        <div class="box-bottom  view-more-fourth">
+            <span class="view-more">view more</span>
+            <img src="~/images/next-black.png" />
         </div>
     </div>
+
 </div>

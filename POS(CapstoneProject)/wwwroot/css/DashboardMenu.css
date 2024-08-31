@@ -21,75 +21,63 @@
     height: 170px;
     width: 200px;
     display: flex;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     flex-direction: column;
+    background-color: #BB832F;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
-
-.box .top-content{
-  
-    flex:1;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.box .top-content .top-content-section-first{
-  
+.box .box-top{
     flex: 5;
+   padding: 5px;
     display: flex;
-    flex-direction: row;
+   
 }
-
-.box .top-content .top-content-section-first .count-input{
-    flex:1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bolder;
-    font-size: 3rem;
-
-}
-
-.box .top-content .top-content-section-first .icon {
-    
+.box .box-top .count {
     flex: 2;
     display: flex;
     justify-content: center;
+    font-weight: bolder;
+    font-size: 1.2rem;
     align-items: center;
+       
 }
-
-.box .top-content .top-content-section-first .icon img{
-    height: 100px;
-    width: 100px;
-}
-
-.box .top-content .top-content-section-second {
-    padding: 5px;
-    flex: 1;
-    font-weight: bold;  
-    margin-left: 5px;
-}
-
-.box .bottom-content .view-more {
+.box .box-top .icon {
+    flex: 4;
     display: flex;
+      
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    background-color: #BB832F;
-    overflow: hidden;
-    color: black;
-    font-weight: bold;
+}
+.box .box-top .icon img {
+    height: 90px;
+    width: 90px;
 }
 
-.box .bottom-content .view-more span {
-    font-size: 0.8rem;
-    padding: 2px 0px;
+.box .box-middle {
+    padding: 5px;
+    font-weight: bold;
+    flex: 1;
+   
+
 }
-.box .bottom-content .view-more img{
+
+.box .box-bottom {
+    flex: 1;
+
+    display: flex;
+   
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-weight: lighter;
+}
+
+.box .box-bottom img{
     height: 15px;
     width: 15px;
 }
+
 
 .box.first {
     background-color: rgba(246, 174, 67,0.8);

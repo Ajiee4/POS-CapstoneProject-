@@ -8,23 +8,30 @@ namespace POS_CapstoneProject_.Controllers.Admin
 {
     public class CategoryMenuController : Controller
     {
+        //database context
         private readonly POS_CapstoneProject_Context _context;
 
+        //constructor
         public CategoryMenuController(POS_CapstoneProject_Context context)
         {
             _context = context;
         }
+
         public async Task<IActionResult> Index()
         {
-
+            //get the session
             var UserId = HttpContext.Session.GetInt32("UserID");
-            if (UserId != null)
+            //check if there's an ongoing session
+            if (UserId != null) 
             {
+
                 var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
                 if (check != null)
                 {
+                    //check if the user is an admin
                     if (check.RoleId != 1)
                     {
+                        //clear the session and redirect to the login if the user is not an admin
                         HttpContext.Session.Clear();
                         return RedirectToAction("Login", "Authentication");
                     }
@@ -44,7 +51,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     return RedirectToAction("Login", "Authentication");
                 }
             }
-            else
+            else //redirect to login if there's no ongoing session
             {
                 return RedirectToAction("Login", "Authentication");
             }

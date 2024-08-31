@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
 }
@@ -9,4 +7,53 @@
         background-color: #C6976C !important;
     }
 </style>
-<h1>SALES REPORT</h1>
+            <div class="report-header">
+
+                <form asp-action="Index" method="post">
+                    <div class="reportType-wrapper">
+                        <label>Report Type</label>
+                        <select class="selectReportType" name="reportType">
+                            <option value="Sales">Sales Report</option>
+                            <option value="Inventory">Inventory Report</option>
+                        </select>
+                    </div>
+                   
+       
+       
+                     <button type="submit" class="generateReportBtn">Generate</button>
+                </form>
+            </div>
+        <br />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@if (ViewData["Sales"] != null)
+{
+    <h1>Daily Sales Report</h1>
+    <br />
+    <canvas id="bar"></canvas>
+    <script>
+        var chartData = @Json.Serialize(ViewData["Sales"]);
+        var chart = document.getElementById('bar').getContext('2d');
+        var mychart = new Chart(chart, {
+            type: 'bar',
+            data: {
+                labels: chartData.labels,
+                datasets: [{
+                    label: 'Total Sales',
+                    data: chartData.data,
+                    backgroundColor: 'rgba(6,128,250)'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}

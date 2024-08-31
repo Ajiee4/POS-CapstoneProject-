@@ -15,7 +15,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
         }
         public async Task<IActionResult> Index()
         {
-
+            //check if there's an ongoing session
             var UserId = HttpContext.Session.GetInt32("UserID");
             if (UserId != null)
             {
@@ -29,11 +29,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-                        //create a variable to store a list of products including
-                        var productList = await _context.Product.Include(s => s.Category).ToListAsync();
-                        //create a variable to store a list of category that has a type of Product
+                       
+                        var productList = await _context.Product.Include(s => s.Category).ToListAsync();                       
                         var getCategoryProduct = await _context.Category.ToListAsync();
-                        //store in ViewData to pass it to the View
+                       
                         ViewData["productCategory"] = getCategoryProduct;
                         ViewData["productList"] = productList;
 
@@ -59,6 +58,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct(Product prod, IFormFile file)
         {
+            //check if there's an existing product
             var checkExisting = await _context.Product.Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId).FirstOrDefaultAsync();
 
             //check if the image is null

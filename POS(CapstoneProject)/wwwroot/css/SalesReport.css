@@ -1,0 +1,98 @@
+﻿*, *::after, *::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+.report-header {
+    padding: 10px;
+    width: 100%;
+    background-color: #693D29;
+    border: 1px solid black;
+    border-radius: 5px;
+    gap: 5px;
+}
+.report-header form{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    color: white;
+
+    gap: 10px;
+}
+.report-header form label{
+    font-weight: bolder;
+}
+input {
+    border-radius: 5px;
+    padding: 5px;
+    border: none;   
+}
+.selectReportType{
+    padding: 10px;
+    border-radius: 5px;
+}
+.generateReportBtn {
+    padding: 6px 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    margin-left: 5px;
+}
+.generateReportBtn:hover{
+
+}
+
+/*Product Table*/
+.sales-report-table {
+    width: 100%;
+    overflow: scroll;
+    border: 1px solid black;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+}
+
+    .sales-report-table tr, th, td {
+        border: 1px solid black;
+    }
+
+    .sales-report-table th {
+        padding: 15px;
+        color: white;
+        text-align: left !important;
+        background-color: #693D29;
+    }
+
+    .sales-report-table tbody {
+        background-color: #F7F7F7;
+        color: black;
+    }
+
+    .sales-report-table td {
+        text-align: left !important;
+        padding: 10px 5px;
+    }
+
+/*Data table library*/
+.dt-search label {
+    color: black;
+    font-weight: lighter;
+}
+
+.dt-search .dt-input {
+    border: 1px solid black !important;
+}
+
+.dt-length, .dt-info {
+    display: none;
+}
+
+#bar{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+   
+    overflow-x: auto;
+}
