@@ -34,7 +34,10 @@
 
           <div class="right-section">
                 <div class="checkout-icon">
-                    <img src="~/images/check-out.png" />
+                   
+                        <div class="cart-count">0</div>                             
+                        <img src="~/images/trolley.png" />
+                                     
                 </div>
                 
                 <div class="user" data-toggle="tooltip" data-placement="bottom" title="@HttpContextAccessor.HttpContext.Session.GetString("Name")">
@@ -55,7 +58,7 @@
 
     </header>
 
-    <div class="sidebar closeSidebar">
+    <div class="sidebar">
 
         <img src="~/Images//BackWhite.png" class="sidebar-toggler" />
 

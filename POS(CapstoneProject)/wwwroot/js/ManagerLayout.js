@@ -3,125 +3,82 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+window.addEventListener('load', () => {
+    const sidebar = document.querySelector('.sidebar');
+    const isOpen = localStorage.getItem('sidebarOpen') === 'true' ? true : false;
 
-//call the functions
-//SidebarToggle();
-//SubmenuToggler();
+    if (isOpen) {
+        sidebar.classList.add('openSidebar');
+        toggleSidebar(); // Call toggleSidebar to update the styles
+    }
+});
 
-////function for opening the sidebar
-//function openSidebar() {
+
+
+let toggler = document.querySelector('.sidebar-toggler');
+let sidebar = document.querySelector('.sidebar');
+let sidebarName = document.querySelectorAll('.sidebar-link-name'); 
+let submenu = document.querySelector('.sidebar ul ul');
+let body = document.querySelector('body');
+
+toggleSidebar();
+function toggleSidebar() {
    
-//    let inventorySubmenuToggler = document.querySelector('.sidebarlink-inventory-toggler'); //inventory menu toggler for submenu
-//    let sidebar = document.querySelector('.sidebar'); //sidebar
-//    let toggler = document.querySelector('.sidebar-toggler'); //sidebar toggler
-//    let sidebarName = document.querySelectorAll('.sidebar-link-name'); //sidebar link name
 
-//    sidebar.style.width = "180px"
-//    toggler.style.transform = "rotate(0deg)"
-//    sidebarName.forEach((link) => {
-//        setTimeout(() => {
-//            link.style.display = "block"; //hide each sidebar name
-
-//        },200)
-       
-//    });
-//    inventorySubmenuToggler.style.display = "block";
-//    $('body').css({
-//        'padding-left': '200px',
-       
+    if (sidebar.classList.contains('openSidebar')) {
 
 
-//    });
-   
-//}
-//function for closing the sidebar
-//function closeSidebar() {
-//    let inventorySubmenuToggler = document.querySelector('.sidebarlink-inventory-toggler');
-//    let sidebar = document.querySelector('.sidebar');
-//    let toggler = document.querySelector('.sidebar-toggler'); 
-//    let sidebarName = document.querySelectorAll('.sidebar-link-name'); 
-//    let inventorySubmenu = document.querySelector('.inventorySubmenu');
-//    sidebar.style.width = "65px"
-//    toggler.style.transform = "rotate(180deg)"
+        sidebar.style.width = "180px"
+        submenu.style.left = '180px'
+        body.style.paddingLeft = '190px'
+        toggler.style.transform = "rotate(0deg)"
+        sidebarName.forEach((link) => {
+            setTimeout(() => {
+                link.style.display = "block";
 
+            }, 200)
 
-//    sidebarName.forEach((link) => {
-//        setTimeout(() => {
-//            link.style.display = "none";
-//        },200)
-      
-//    });
-//    inventorySubmenuToggler.style.display = "none";
-//    inventorySubmenu.style.display = "none";
+        });
 
-   
-//    $('body').css({
-//        'padding-left': '85px',
-       
+    }
+    else {
 
+        body.style.paddingLeft = '65px'
+        sidebar.style.width = "55px"
+        submenu.style.left = '55px'
+        toggler.style.transform = "rotate(180deg)"
+        sidebarName.forEach((link) => {
+            setTimeout(() => {
+                link.style.display = "none";
 
-//    });
+            }, 100)
 
-//}
+        });
 
-//funcion for toggling the sidebar (closing/opening)
-//function SidebarToggle() {
-//    let sidebar = document.querySelector('.sidebar'); //sidebar
-//    let toggler = document.querySelector('.sidebar-toggler'); //sidebar toggler
-//    toggler.addEventListener('click', function () {
+    }
+}
+toggler.addEventListener('click', function () {
+    sidebar.classList.toggle('openSidebar')
+    toggleSidebar();
+  
+});
 
-//        sidebar.classList.toggle('openSidebar')
-
-//        if (sidebar.classList.contains('openSidebar')) {
+function linkSave() {
+    let links = document.querySelectorAll('.sidebar li a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            const sidebar = document.querySelector('.sidebar');
+            const isOpen = sidebar.classList.contains('openSidebar');
 
            
-//            openSidebar();
+            localStorage.setItem('sidebarOpen', isOpen);
 
-//        }
-//        else {
-           
-            
-//            closeSidebar();
+          
+        });
+    });
+}
 
-//        }
-//    });
-//}
-
-//funcion for toggling the Inventory sugbmenu (closing/opening)
-//function SubmenuToggler() {
-//    $('.inventoryMenu').click(() => {
-        
-      
-//        let sidebar = document.querySelector('.sidebar')
-      
-//        if (sidebar.offsetWidth < 80) {
-//            let submenuToggler = document.querySelector('.sidebarlink-inventory-toggler');
-//            let inventoryMenu = document.querySelector('.inventoryMenu')
-//            let inventorySubmenu = document.querySelector('.inventorySubmenu');
-//            inventoryMenu.classList.add('open');
-//            sidebar.classList.add('openSidebar');
-//            submenuToggler.style.transform = "rotate(90deg)"
-
-//            openSidebar();
-           
-//            inventorySubmenu.style.display = "block";
-//        }
-//        else {
-
-//            let submenuToggler = document.querySelector('.sidebarlink-inventory-toggler');
-//            let inventoryMenu = document.querySelector('.inventoryMenu')
-//            inventoryMenu.classList.toggle('open')
-//            $('.inventorySubmenu').slideToggle(500);
+linkSave();
 
 
-//            if (inventoryMenu.classList.contains('open')) {
-
-//                submenuToggler.style.transform = "rotate(90deg)"
-//            }
-//            else {
-//                submenuToggler.style.transform = "rotate(270deg)"
-//            }
-//        }
-//    });
-//}
 

@@ -14,7 +14,7 @@
     }
 
 </style>
-<div class="checkout-wrapper">
+<div class="checkout-wrapper checkHide">
     <img src="~/images/no.png" class="exitCheckout" />
     <h1 class="checkout-title">Check Out</h1>
     <div class="table-header">
@@ -181,103 +181,106 @@
 </div>
 
 
-    @if (TempData["TransactionComplete"] != null)   
-     {
+@if (TempData["TransactionComplete"] != null)   
+    {
         
-        int orderId = int.Parse(TempData["orderID"].ToString());
-        var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
+    int orderId = int.Parse(TempData["orderID"].ToString());
+    var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
 
-        <script>
-            Swal.fire({
-                text: "Transaction Complete",
-                icon: "success",
-                showConfirmButton: false,
-                timer: 2000,
+    <script>
+        Swal.fire({
+            text: "Transaction Complete",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
 
-            }).then(() => {
-                document.querySelector(".receipt").classList.add("showReceipt");
-                window.print();
-                setTimeout(function () {
-                    document.querySelector(".receipt").classList.remove("showReceipt");
+        }).then(() => {
+            document.querySelector(".receipt").classList.add("showReceipt");
+            window.print();
+            setTimeout(function () {
+                document.querySelector(".receipt").classList.remove("showReceipt");
                    
-                }, 2000)
+            }, 2000)
 
-            });
+        });
               
-        </script>
+    </script>
 
-            <div class="receipt">
-                <div class="receipt-content">
-                    <div class="receipt-header">
-                        <p class="name">Don Machiattos</p>
-                        <p>Date: @TempData["OrderDate"]</p>
-                        <p>Cashier: @TempData["UserName"]</p>
+        <div class="receipt">
+            <div class="receipt-content">
+                <div class="receipt-header">
+                    <p class="name">Don Machiattos</p>
+                    <p>Date: @TempData["OrderDate"]</p>
+                    <p>Cashier: @TempData["UserName"]</p>
+                </div>
+
+                <hr />
+
+                <div class="receipt-items">
+
+                    <div class="item-header">
+                        <span>QTY</span>
+                        <span>Name</span>
+                        <span>Price</span>
                     </div>
 
-                    <hr />
+                        @foreach (var item in myorder)
+                        {
 
-                    <div class="receipt-items">
-
-                        <div class="item-header">
-                            <span>QTY</span>
-                            <span>Name</span>
-                            <span>Price</span>
+                        <div class="item-list">
+                            <span>@item.Quantity</span>
+                            <span>@item.Product.Name</span>
+                            <span>₱@item.Product.Price</span>
                         </div>
 
-                            @foreach (var item in myorder)
-                            {
-
-                            <div class="item-list">
-                                <span>@item.Quantity</span>
-                                <span>@item.Product.Name</span>
-                                <span>₱@item.Product.Price</span>
-                            </div>
-
-                            }
-
-                    </div>
-                    <hr />
-
-                    <div class="receipt-calculation">
-
-                        <div class="discount">
-                            <p>Discount</p>
-                            <p>₱@TempData["Discount"]</p>
-                        </div>
-
-                        <div class="tax">
-                            <p>Tax</p>
-                            <p>₱0.00</p>
-                        </div>
-
-                        <div class="total">
-                            <p>Total</p>
-                            <p>₱@TempData["Total"]</p>
-                        </div>
-
-                    </div>
-                    <hr />
-                    <div class="receipt-change">
-                        <div class="cash">
-                            <p>Cash</p>
-                            <p>₱@TempData["Cash"]</p>
-                        </div>
-
-                        <div class="change">
-                            <p>Change</p>
-                            <p>₱@TempData["Change"]</p>
-                        </div>
-                    </div>
-
-
-
-                    <h3 class="footer">THANK YOU</h3>
-
+                        }
 
                 </div>
+                <hr />
+
+                <div class="receipt-calculation">
+
+                    <div class="discount">
+                        <p>Discount</p>
+                        <p>₱@TempData["Discount"]</p>
+                    </div>
+
+                    <div class="tax">
+                        <p>Tax</p>
+                        <p>₱0.00</p>
+                    </div>
+
+                    <div class="total">
+                        <p>Total</p>
+                        <p>₱@TempData["Total"]</p>
+                    </div>
+
+                </div>
+                <hr />
+                <div class="receipt-change">
+                    <div class="cash">
+                        <p>Cash</p>
+                        <p>₱@TempData["Cash"]</p>
+                    </div>
+
+                    <div class="change">
+                        <p>Change</p>
+                        <p>₱@TempData["Change"]</p>
+                    </div>
+                </div>
+
+
+
+                <h3 class="footer">THANK YOU</h3>
+
+
             </div>
+        </div>
    
-    }
+}
 
 
    
+<script>
+
+</script>

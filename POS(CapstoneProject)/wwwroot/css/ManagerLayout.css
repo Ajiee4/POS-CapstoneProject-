@@ -59,6 +59,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+  
     flex-direction: row;
     gap: 10px;
    
@@ -78,16 +79,29 @@ body {
     font-weight: bold;
     
 }
-
-.header .right-section .checkout-icon img {
-    width: 20px;
-    height: 20px;
-}
-
 .header .right-section .checkout-icon {
-    display: none;
+    
+    cursor: pointer;
     transition: 0.5s;
+    margin-bottom: 5px;
+    text-align: center;
+    position: relative;
 }
+.header .right-section .checkout-icon .cart-count{
+    position: absolute;
+    top: 59%;
+    left: 62%;
+    font-size: 0.6rem;
+    font-weight: lighter;
+    color: white;
+    transform: translate(-50%, -50%);
+}
+.header .right-section .checkout-icon img {
+    width: 32px;
+    height: 32px;
+}
+
+
 
 .header .right-section .checkout-icon:hover {
     transform: scale(1.2);
@@ -123,10 +137,11 @@ body {
     left: 0;
     height: 100%;
     transition: 0.5s;
+    z-index: 2;
 }
 
 .sidebar .sidebar-toggler {
-    display: none;
+  
     position: absolute;
     width: 15px;
     height: 15px;
@@ -186,21 +201,22 @@ body {
     background-color: #C6976C;
 }
 
-    .sidebar ul li:hover .inventorySubmenu {
-        display: block;
-        z-index: 1000 !important;
-    }
+.sidebar ul li:hover .inventorySubmenu {
+    display: block;
+    z-index: 1000 !important;
+}
 
 .sidebar ul ul {
     display: none;
     position: absolute;
     left: 55px;
     top: 5px;
-    z-index: 1000 !important;
+    z-index: 2000 !important;
     background-color: #9E7148;
     border-radius: 5px;
     width: 150px;
     height: auto;
+    transition: 0.5s ease-in-out;
 }
 
 .sidebar ul ul li a {
@@ -209,6 +225,25 @@ body {
     text-align: center;
     font-weight: lighter;
     text-wrap: nowrap;
+}
+
+
+@media (max-width: 770px){
+    .sidebar .sidebar-toggler{
+        display: none !important;
+    }
+    .sidebar {
+        width: 55px !important;
+    }
+    .sidebar ul li a .sidebar-link-name{
+        display: none !important;
+    }
+    body{
+        padding-left: 65px !important; 
+    }
+    .sidebar ul ul {
+        left: 55px !important;
+    }
 }
 
 

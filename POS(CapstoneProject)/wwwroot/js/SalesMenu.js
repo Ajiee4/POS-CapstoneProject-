@@ -3,16 +3,30 @@
 let checkOutList =  [];
 
 
+
+
+
 //get the data from the locale storage and store it in the checkoutlist array
 window.addEventListener('load', () => {
     const storedList = localStorage.getItem('checkoutList');
     if (storedList) {
         checkOutList = JSON.parse(storedList);
         DisplayCheckOut(); 
+        cartCount();
     }
 
 
 });
+
+function cartCount() {
+    let sum = 0;
+    checkOutList.forEach((item) => {
+        sum += item.prodQty
+    });
+    $('.cart-count').text(sum);
+
+   /* alert(sum);*/
+}
 
 let selectedCategory = 'All';
 let searchQuery = '';
@@ -65,7 +79,7 @@ function DisplayCheckOut() {
     const storedList = localStorage.getItem('checkOutList');
     checkOutList.forEach((item) => {
 
-        const truncatedName = item.prodName.length > 8 ? `${item.prodName.substring(0, 8)}...` : item.prodName;
+        const truncatedName = item.prodName.length > 10 ? `${item.prodName.substring(0, 10)}...` : item.prodName;
         html +=
             `
              <tr >
@@ -128,6 +142,7 @@ function checkoutProduct(id, name, quantity, price) {
     }
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     DisplayCheckOut();
+    cartCount();
    
 }
 
@@ -137,9 +152,9 @@ function incrementQty(id) {
     if (product) {
         product.prodQty += 1;
         DisplayCheckOut();
-       
+        cartCount();
     }
-
+   
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
 
@@ -149,8 +164,10 @@ function decrementQty(id) {
     if (product && product.prodQty > 1) {
         product.prodQty -= 1;
         DisplayCheckOut();
+        cartCount();
         
     }
+  
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
 //delete a specific item from the checklist
@@ -160,8 +177,10 @@ function deleteItem(id) {
     if (index !== -1) {
         checkOutList.splice(index, 1);
         DisplayCheckOut();
+        cartCount();
        
     }  
+    
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
 
@@ -224,6 +243,7 @@ $('.cancelBtn').click(function (){
     checkOutList.splice(0);
 
     DisplayCheckOut();
+    cartCount();
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     
 })
@@ -325,6 +345,7 @@ $('.calculateBtn').click(function () {
             $('#formPay').submit();
 
             checkOutList.splice(0);
+            cartCount();
             localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 
         }
