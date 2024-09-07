@@ -11,6 +11,7 @@ window.addEventListener('load', () => {
         DisplayCheckOut(); 
     }
 
+
 });
 
 let selectedCategory = 'All';
@@ -214,34 +215,7 @@ document.querySelector('#inputDiscount').addEventListener('change', function () 
         inputDiscount.value = 0;
     }
 });
-//
-function CheckOutToggle() {
-    $('.checkout-wrapper').slideToggle(1000, function () {
-
-        const checkoutWrapper = $('.checkout-wrapper');
-        checkoutWrapper.toggleClass('checkHide');
-
-        if (checkoutWrapper.hasClass('checkHide')) {
-            $('.product-list-wrapper').css({
-                'width': '100%'
-            })
-        }
-        else {
-            $('.product-list-wrapper').css({
-                'width': '68%'
-            })
-        }
-    });
-}
-//adjusting the width of conten if sidebar was showed/hidden
-function AdjustContent() {
-    $('.checkout-icon').click(function () {
-
-        CheckOutToggle();
-
-    })
-}
-AdjustContent();
+//cancel order
 
 $('.cancelBtn').click(function (){
     
@@ -336,15 +310,17 @@ $('.calculateBtn').click(function () {
             let subTotal = Number(CalculateSubtotal());
             let cash = Number($('.amountInput').val());
             let changedue = Number($('.changeAmountText').val())
-            let discount = Number($('#discount').val())
+            let discount = Number($('#inputDiscount').val())
 
+            let discountAmount = subTotal * (discount / 100);
+           
             $('#checkOutTotalInput').val(total)
             $('#checkOutListInput').val(jsonData);
             $('#totalString').val(total.toFixed(2))
             $('#cashTendered').val(cash.toFixed(2))
             $('#changeDueAmount').val(changedue.toFixed(2));
             $('#subTotalAmount').val(subTotal.toFixed(2));
-            $('#discount').val(discount.toFixed(2))
+            $('#discount').val(discountAmount.toFixed(2))
 
             $('#formPay').submit();
 
@@ -380,3 +356,36 @@ function popUpMessageSales(message, icon) {
 
     });
 }
+
+
+
+function CheckOutToggle() {
+    $('.checkout-wrapper').slideToggle(1000, function () {
+
+      
+        const checkoutWrapper = $('.checkout-wrapper');
+        checkoutWrapper.toggleClass('checkHide');
+
+        if (checkoutWrapper.hasClass('checkHide')) {
+            $('.product-list-wrapper').css({
+                'width': '100%'
+            })
+        } else {
+            $('.product-list-wrapper').css({
+                'width': "calc(100% - 340px) "
+            })
+        }
+  
+    });
+}
+
+$('.exitCheckout').click(function () {
+    CheckOutToggle();
+})
+//adjusting the width of conten if sidebar was showed/hidden
+
+$('.checkout-icon').click(function () {
+
+    CheckOutToggle();
+
+});

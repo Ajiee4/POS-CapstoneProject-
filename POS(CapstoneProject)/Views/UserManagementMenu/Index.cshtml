@@ -35,16 +35,16 @@
                 {
                     @if((item.User.Role.RoleName != "Manager"))
                     {
-                        <tr class="@(item.User.isActive == false ? "archived-user" : "")">
-                            <td>@item.UserId</td>
-                            <td>@item.User.Role.RoleName</td>
-                            <td>@item.Firstname</td>
-                            <td>@item.Lastname</td>
+                        <tr>
+                            <td data-label="ID">@item.UserId</td>
+                            <td data-label="Role">@item.User.Role.RoleName</td>
+                            <td data-label="First Name">@item.Firstname</td>
+                            <td data-label="Last Name">@item.Lastname</td>
                             
 
                             @if (@item.User.isActive)
                             {
-                                <td>
+                                <td data-label="Actions">
                                     <div class="action-wrapper">
                                         <form asp-action="ArchiveUser" class="archiveUserForm">
                                             <input name="userid" class="inputArchiveUserId"  hidden/>
@@ -57,7 +57,7 @@
                             }
                             else
                             {
-                                <td>
+                                <td data-label="Actions">
                                     <div class="action-wrapper">
                                         <form asp-action="UnarchiveUser" class="unarchiveUserForm">
                                             <input name="userid" class="inputUnrchiveUserId" hidden />

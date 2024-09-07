@@ -9,7 +9,7 @@
 
     }
 </style>
-<div class="dashboard-wrapper">
+@* <div class="dashboard-wrapper">
     <div class="box first">
        <div class="box-top">
            <div class="count">
@@ -37,9 +37,11 @@
                 <img src="~/images/totalSales.png" />
             </div>
         </div>
+
         <div class="box-middle">
             <span class="label">Daily Sales</span>
         </div>
+
         <div class="box-bottom view-more-second">
             <span class="view-more">view more</span>
             <img src="~/images/next-black.png" />
@@ -67,14 +69,14 @@
     <div class="box fourth">
         <div class="box-top">
             <div class="count">
-                <span class="count-text"></span>
+                <span class="count-text">@ViewData["CountCategory"]</span>
             </div>
             <div class="icon">
-                
+                <img src="~/images/category-black.png" />
             </div>
         </div>
         <div class="box-middle">
-            <span class="label">Pending</span>
+            <span class="label">No. of Categories</span>
         </div>
         <div class="box-bottom  view-more-fourth">
             <span class="view-more">view more</span>
@@ -82,4 +84,4 @@
         </div>
     </div>
 
-</div>
+</div> *@

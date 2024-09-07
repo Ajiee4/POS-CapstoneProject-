@@ -10,13 +10,13 @@
 </style>
  <div class="product-wrapper">
     <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">Add Product</button>
-   
+   <br />
     <table class="product-table">
 
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Product Name</th>
+                <th>Name</th>
                 <th>Category</th>
                 <th>Price</th>              
                 <th>Image</th>
@@ -29,33 +29,33 @@
 
         <tbody>
                 
-            @if(productList != null)
-            {
+           
                 @foreach (var item in productList)
                 {
-                    <tr class="@(item.IsArchive ? "archived-product" : "")">
-                        <td>@item.ProductId</td>
-                        <td>@item.Name</td>
-                        <td>@item.Category?.CategoryName</td>
-                        <td>₱@item.Price</td>
+          @*   class="@(item.IsArchive ? "archived-product" : "")" *@
+                    <tr >
+                        <td data-label="ID">@item.ProductId</td>
+                        <td data-label="Name">@item.Name</td>
+                        <td data-label="Category">@item.Category?.CategoryName</td>
+                        <td data-label="Price">₱@item.Price</td>
                       
 
                         @if (item.ImageData == null)
                         {
-                            <td>
-                                <div class="text-center">No Image</div>
+                            <td data-label="Image">
+                                <div>No Image</div>
                             </td>
                         }
                         else
                         {
-                            <td>
-                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto d-block mx-auto" alt="Image" />
+                            <td data-label="Image" class="product-photo-wrapper">
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto" alt="Image" />
                             </td>
                         }
 
                         @if (item.IsArchive)
                         {
-                            <td>
+                            <td data-label="Actions">
                                 <div class="action-wrapper">
                                     <form class="unarchiveForm" asp-action="UnarchiveProduct">
                                         <input asp-for="ProductId" value="@item.ProductId" class="unarchiveInput" hidden />
@@ -67,7 +67,7 @@
                         }
                         else
                         {
-                            <td>
+                            <td data-label="Actions">
                                 <div class="action-wrapper">
                                     <form class="archiveForm" asp-action="ArchiveProduct">
                                         <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden />
@@ -80,12 +80,8 @@
 
                     </tr>
                 }
-            }
-            else
-            {
-                <div>No Data</div>
-            }
-          
+            
+           
             
            
         </tbody>
@@ -94,6 +90,8 @@
     </table>
 
     
+    <br />
+    <br />
 </div>
 
 

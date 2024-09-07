@@ -67,8 +67,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     Name = ingredient.Name,
                     UnitOfMeasurement = ingredient.UnitOfMeasurement,
                     Quantity = 0,
-                    CostPerUnit = ingredient.CostPerUnit,
-                    ExpiryDate = ingredient.ExpiryDate,
+                  
                     LowStockThreshold = ingredient.LowStockThreshold
                 };
 
@@ -90,8 +89,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 //update the ingredient
                 checkIngredient.Name = ingredient.Name;
                 checkIngredient.UnitOfMeasurement = ingredient.UnitOfMeasurement;
-                checkIngredient.CostPerUnit = ingredient.CostPerUnit;
-                checkIngredient.ExpiryDate = ingredient.ExpiryDate;
+               
                 checkIngredient.LowStockThreshold = ingredient.LowStockThreshold;
 
                 _context.Ingredient.Update(checkIngredient);
@@ -220,6 +218,40 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     {
                         var inventoryDetails = _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).ToList();
                         ViewData["InventoryTransactDetail"] = inventoryDetails;
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
+        }
+        public IActionResult RequestList()
+        {
+            //get and store the session
+            var UserId = HttpContext.Session.GetInt32("UserID");
+            //check if there's an ongoing session
+            if (UserId != null)
+            {
+                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                if (check != null)
+                {
+                    if (check.RoleId != 1)
+                    {
+                        HttpContext.Session.Clear();
+                        return RedirectToAction("Login", "Authentication");
+                    }
+                    else
+                    {
+
+                        var productList = _context.Product.ToList();
+                        ViewData["productList"] = productList;
                         return View();
                     }
                 }

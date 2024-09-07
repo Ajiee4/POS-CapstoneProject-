@@ -9,6 +9,7 @@
 </style>
 
 <div class="inventory-wrapper">
+  @*   <button>In/Out</button> *@
     <button type="button" class="addIngredientBtn" data-toggle="modal" data-target="#addIngredientModal">Add Item</button>
 
     <table class="inventory-table">
@@ -18,17 +19,10 @@
                 <th>ID</th>
                 <th>Name</th>             
                 <th>Unit<br /> of<br /> Measurement</th>
-                <th>Quantity</th>
-                <th>Cost<br/>Per<br/>Unit</th>
-                <th>Expiry Date</th>
+                <th>Quantity</th>              
                 <th>Stock<br /> Threshold</th>
                 <th>Actions</th>
-
-
-
             </tr>
-
-
         </thead>
 
         <tbody>
@@ -37,33 +31,37 @@
             @foreach (var item in ViewData["IngredientsList"] as List<Ingredient>)
             {
               <tr>
+
+                    
+                  
                   <td>@item.IngredientId</td>
                   <td>@item.Name</td>
                  
                   <td>@item.UnitOfMeasurement</td>
-                  <td>@item.Quantity</td>
-                  <td>@item.CostPerUnit</td>
+                    <td class="@(item.Quantity < item.LowStockThreshold ? "belowThreshold" : "")">
+                        @if (item.Quantity < item.LowStockThreshold)
+                        {
+                            <span class="warning-icon d-block mx-auto">
+                                <img src="~/images/exclamation-mark.png" class="warning-icon" />
+                            </span>
+                        }
+                        @item.Quantity
+                    </td>
                  
                  
-                @if(item.ExpiryDate == null)
-                {
-                    <td>N/A</td>
-                }
-                else
-                {
-                    <td>@item.ExpiryDate?.ToString("MM/dd/yyyy")</td>
-                     
-                }
-
+             
                  
                   <td>@item.LowStockThreshold</td>
                   <td>
                       <!---->
-                        <button class="btn InOutBtn" data-id="@item.IngredientId" data-toggle="modal" data-target="#choiceIngredientModal">In/Out</button>
-                        <button class="btn updateIngredientBtn" onclick="UpdateIngredient(@item.IngredientId, '@item.Name', 
-                        '@item.UnitOfMeasurement', @item.CostPerUnit, @item.LowStockThreshold, '@item.ExpiryDate?.ToString("yyyy-MM-dd")')" 
+                      @*   <button class="btn InOutBtn" data-id="@item.IngredientId" data-toggle="modal" data-target="#choiceIngredientModal">In/Out</button> *@
+                        <button class="btn updateIngredientBtn" onclick="UpdateIngredient(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)" 
                         data-toggle="modal" data-target="#updateIngredientModal">Update</button>
-                       
+                        @if(item.Quantity < item.LowStockThreshold)
+                        {
+                            <button class="btn btn-dark" type="button">Request</button>
+                        }
+
                   </td>
               </tr>
             }
@@ -93,14 +91,7 @@
                         <label asp-for="UnitOfMeasurement" class="control-label">Unit of Measurement</label>
                         <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement" placeholder="Enter Unit of Measurement" required />
                     </div>
-                    <div class="form-group">
-                        <label asp-for="CostPerUnit" class="control-label">Cost Per Unit</label>
-                        <input asp-for="CostPerUnit" oninput="validateInput(this)" class="form-control inputCost" placeholder="Enter Cost Per Unit" required />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ExpiryDate" class="control-label">Expiry Date</label>
-                        <input asp-for="ExpiryDate" class="form-control inputExpiry" type="date" placeholder="Enter Expiry Date" required />
-                    </div>
+                   
                     <div class="form-group">
                         <label asp-for="LowStockThreshold" class="control-label">Stock Threshold</label>
                         <input asp-for="LowStockThreshold" step="1" class="form-control inputThreshold" placeholder="Enter Low Stock Threshold" required />
@@ -141,17 +132,10 @@
                         <label asp-for="UnitOfMeasurement" class="control-label">Unit of Measurement</label>
                         <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement" placeholder="Enter Unit of Measurement" required />
                     </div>
-                    <div class="form-group">
-                        <label asp-for="CostPerUnit" class="control-label">Cost Per Unit</label>
-                        <input asp-for="CostPerUnit" oninput="validateInput(this)" class="form-control inputCost" placeholder="Enter Cost Per Unit" required />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ExpiryDate" class="control-label">Expiry Date</label>
-                        <input asp-for="ExpiryDate" class="form-control inputExpiry" type="date" placeholder="Enter Expiry Date" required />
-                    </div>
+                   
                     <div class="form-group">
                         <label asp-for="LowStockThreshold" class="control-label">Stock Threshold</label>
-                        <input asp-for="LowStockThreshold" step="1" class="form-control inputThreshold" placeholder="Enter Low Stock Threshold" required />
+                        <input asp-for="LowStockThreshold" class="form-control inputThreshold" placeholder="Enter Low Stock Threshold" required />
                     </div>
 
                     <br />

@@ -37,8 +37,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         ViewData["CountUser"] = userCount;
                         var totalSales = _context.Order.Where(s => s.OrderDate == DateTime.Now.Date).Sum(s => s.TotalAmount);
                         ViewData["TotalSales"] = totalSales;
-                        var productCount = _context.Product.Count();
-                        ViewData["CountProduct"] = userCount;
+                        var productCount = _context.Product.Where(s => s.IsArchive == false).Count();
+                        ViewData["CountProduct"] = productCount;
+                        var categoryCount = _context.Category.Count();
+                        ViewData["CountCategory"] = categoryCount;
                         return View();
                     }
                 }

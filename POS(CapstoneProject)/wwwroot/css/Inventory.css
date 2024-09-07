@@ -49,6 +49,7 @@
     border: 1px solid black;
     box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
     overflow: scroll;
+    
 }
 
 .inventory-table tr, th, td {
@@ -207,3 +208,49 @@ input::placeholder {
     font-weight: bolder !important;
     color: black !important;
 }
+.belowThreshold{
+    color: red;
+    font-weight: bolder;
+  /*  background-color: rgba(0,0,0,0.1) !important;*/
+}
+
+
+
+.warning-icon {
+    position: absolute;
+    right: 5px; 
+    z-index: 999;
+}
+inventory-wrapper td{
+    position: relative;
+}
+.warning-icon img {
+    height: 25px;
+    width: 25px;
+    transition: 0.8s ease-in-out;
+    animation: glowing 1s infinite;
+   
+}
+
+@keyframes glowing {
+    0% {
+        filter: drop-shadow(0px 0px 0px red);
+       
+    }
+
+   
+    50% {
+        filter: drop-shadow(0px 0px 5px red);
+      
+    }
+   
+    
+    100% {
+        filter: drop-shadow(0px 0px 0px red);
+        
+    }
+}
+/*
+.dt-container > div:first-child {
+    display: none !important;
+}*/

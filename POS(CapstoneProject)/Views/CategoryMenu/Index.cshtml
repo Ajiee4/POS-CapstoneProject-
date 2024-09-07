@@ -26,10 +26,13 @@
             @foreach (var item in ViewData["CategoryList"] as List<Category>)
             {
                 <tr>
-                    <td>@item.CategoryId</td>                  
-                    <td>@item.CategoryName</td>
-                    <td>
-                        <button class="btn updateCategoryBtn d-block mx-auto" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">Update</button>
+                    <td data-label="ID">@item.CategoryId</td>
+                    <td data-label="Category">@item.CategoryName</td>
+                    <td data-label="Actions">
+                        <div class="action-wrapper">
+                            <button class="btn updateCategoryBtn" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">Update</button>
+                        </div>
+                      
                     </td>
                 </tr>
             }

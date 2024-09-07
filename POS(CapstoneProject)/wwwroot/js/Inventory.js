@@ -36,11 +36,11 @@ $('.addIngredientSubmit').click(function () {
 function AddIngredient() {
     let ingredientName = document.querySelector('#addIngredientModal .inputIngredientName').value;
     let unitMeasurement = document.querySelector('#addIngredientModal .inputMeasurement').value;
-    let costPerUnit = document.querySelector('#addIngredientModal .inputCost').value;
+   
     let lowStockThreshold = document.querySelector('#addIngredientModal .inputThreshold').value;
     ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
 
-    if (ingredientName === '' || unitMeasurement === '' || costPerUnit === '' || lowStockThreshold === '') {
+    if (ingredientName === '' || unitMeasurement === ''|| lowStockThreshold === '') {
         popUpMessageInventory('Fill out all information', 'error');
         return;
     }
@@ -48,10 +48,7 @@ function AddIngredient() {
         popUpMessageInventory("Input ingredient name must be between 3 and 15 characters","error")
         return;
     }
-    if (!isValidCost(costPerUnit)) {
-        popUpMessageInventory("Input Cost Per Unit must be between 1 and 8 characters", "error")
-        return;
-    }
+   
 
     $('#addIngredientModal .inputIngredientName').val(ingredientName);
     Swal.fire({
@@ -84,22 +81,15 @@ function isValidName(name) {
     }
 }
 
-//check if the cost per unit input is valid
-function isValidCost(cost) {
 
-    if (cost.length >= 1 && cost.length <= 8) {
-        return true;
-    }
-}
 //set the default value when the modal is showed
-function UpdateIngredient(id, name, measurement, cost, threshold, expiry) {
+function UpdateIngredient(id, name, measurement, threshold) {
   
-    $('#updateIngredientModal .inputIngredientId').val(id),
-    $('#updateIngredientModal .inputIngredientName').val(name),
-    $('#updateIngredientModal .inputMeasurement').val(measurement),
-    $('#updateIngredientModal .inputCost').val(cost),
-    $('#updateIngredientModal .inputThreshold').val(threshold),
-    $('#updateIngredientModal .inputExpiry').val(expiry)
+    $('#updateIngredientModal .inputIngredientId').val(id);
+    $('#updateIngredientModal .inputIngredientName').val(name);
+    $('#updateIngredientModal .inputMeasurement').val(measurement);
+    $('#updateIngredientModal .inputThreshold').val(threshold);
+  
         
 }
 //call the function when button is click
@@ -109,11 +99,10 @@ $('.updateIngredientSubmit').click(function () {
 
 function updateIngredient() {
     let ingredientName = document.querySelector('#updateIngredientModal .inputIngredientName').value;
-    let unitMeasurement = document.querySelector('#updateIngredientModal .inputMeasurement').value;
-    let costPerUnit = document.querySelector('#updateIngredientModal .inputCost').value;
+    let unitMeasurement = document.querySelector('#updateIngredientModal .inputMeasurement').value;   
     let lowStockThreshold = document.querySelector('#updateIngredientModal .inputThreshold').value;
     ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
-    if (ingredientName === '' || unitMeasurement === '' || costPerUnit === '' || lowStockThreshold === '') {
+    if (ingredientName === '' || unitMeasurement === '' || lowStockThreshold === '') {
         popUpMessageInventory('Fill out all information', 'error');
         return;
     }
@@ -121,10 +110,7 @@ function updateIngredient() {
         popUpMessageInventory("Input ingredient name must be between 3 and 15 characters", "error")
         return;
     }
-    if (!isValidCost(costPerUnit)) {
-        popUpMessageInventory("Input Cost Per Unit must be between 1 and 8 characters", "error")
-        return;
-    }
+  
     $('#updateIngredientModal .inputIngredientName').val(ingredientName);
     Swal.fire({
         icon: "question",

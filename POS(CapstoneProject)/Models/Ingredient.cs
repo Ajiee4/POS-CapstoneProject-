@@ -12,10 +12,7 @@ namespace POS_CapstoneProject_.Models
         public string UnitOfMeasurement { get; set; }
         [Required]
         public int Quantity { get; set; }
-        [Required]
-        public decimal CostPerUnit { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime? ExpiryDate {  get; set; }
+       
         [Required]
         public int LowStockThreshold {  get; set; }
     }

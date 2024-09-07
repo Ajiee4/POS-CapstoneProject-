@@ -31,7 +31,7 @@ input {
     padding: 5px;
     border: none;   
 }
-.selectReportType{
+.selectReportType,.selectFilter{
     padding: 10px;
     border-radius: 5px;
 }
@@ -42,52 +42,7 @@ input {
     background-color: white;
     margin-left: 5px;
 }
-.generateReportBtn:hover{
 
-}
-
-/*Product Table*/
-.sales-report-table {
-    width: 100%;
-    overflow: scroll;
-    border: 1px solid black;
-    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
-}
-
-    .sales-report-table tr, th, td {
-        border: 1px solid black;
-    }
-
-    .sales-report-table th {
-        padding: 15px;
-        color: white;
-        text-align: left !important;
-        background-color: #693D29;
-    }
-
-    .sales-report-table tbody {
-        background-color: #F7F7F7;
-        color: black;
-    }
-
-    .sales-report-table td {
-        text-align: left !important;
-        padding: 10px 5px;
-    }
-
-/*Data table library*/
-.dt-search label {
-    color: black;
-    font-weight: lighter;
-}
-
-.dt-search .dt-input {
-    border: 1px solid black !important;
-}
-
-.dt-length, .dt-info {
-    display: none;
-}
 
 #bar{
     background-color: white;
@@ -95,4 +50,12 @@ input {
     border-radius: 5px;
    
     overflow-x: auto;
+}
+
+#bar{
+    max-width: 90%;
+    display: block;
+    margin: auto;
+    height: 450px !important;
+    overflow-x: scroll;
 }

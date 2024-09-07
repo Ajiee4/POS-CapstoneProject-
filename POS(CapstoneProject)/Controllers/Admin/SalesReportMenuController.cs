@@ -45,39 +45,92 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
         }
         [HttpPost]
-        public IActionResult Index(string reportType)
+        public IActionResult Index(string reportType, string filter)
         {
             if (reportType == "Sales")
             {
-                var dailySalesData = _context.Order
-                    .GroupBy(o => o.OrderDate.Date)
-                    .Select(g => new SalesReport
-                    {
-                        Date = g.Key,
-                        TotalSales = g.Sum(o => o.TotalAmount)
-                    })
-                    .OrderBy(g => g.Date)
-                    .ToList();
 
-                var chartData = new
+                if (filter == "Daily")
                 {
-                    labels = dailySalesData.Select(d => d.Date.ToString("yyyy-MM-dd")),
-                    data = dailySalesData.Select(d => d.TotalSales)
-                };
-
-                ViewData["Sales"] = chartData;
-              
 
 
+                    var Daily = _context.Order
+                        .GroupBy(o => o.OrderDate)
+                        .Select(g => new SalesReport
+                        {
+                            Date = g.Key,
+                            TotalSales = g.Sum(o => o.TotalAmount)
+                        })
+                        .OrderBy(g => g.Date)
+                        .ToList();
 
+                    var chartData = new
+                    {
+                        labels = Daily.Select(d => d.Date.ToString("MMMM dd, yyyy")),
+                        data = Daily.Select(d => d.TotalSales)
+                    };
+                    TempData["SalesFilter"] = "Daily Sales";
+                    ViewData["Sales"] = chartData;
+                }
+                else if (filter == "Monthly")
+                {
+                  
+                    var orders = _context.Order.ToList();
+
+                    var monthlySalesData = orders
+                        .GroupBy(o => new { Year = o.OrderDate.Year, Month = o.OrderDate.Month })
+                        .Select(g => new SalesReport
+                        {
+                            Date = new DateTime(g.Key.Year, g.Key.Month, 1),
+                            TotalSales = g.Sum(o => o.TotalAmount)
+                        })
+                        .OrderBy(g => g.Date)
+                        .ToList();
+
+                    var chartData = new
+                    {
+                        labels = monthlySalesData.Select(d => d.Date.ToString("MMMM yyyy")),
+                        data = monthlySalesData.Select(d => d.TotalSales)
+                    };
+                    TempData["SalesFilter"] = "Monthly Sales";
+                    ViewData["Sales"] = chartData;
+                }
+                else if (filter == "Yearly")
+                {
+                    var orders = _context.Order.ToList();
+
+                    var yearlySalesData = orders
+                        .GroupBy(o => o.OrderDate.Year)
+                        .Select(g => new SalesReport
+                        {
+                            Date = new DateTime(g.Key, 1, 1), 
+                            TotalSales = g.Sum(o => o.TotalAmount)
+                        })
+                        .OrderBy(g => g.Date)
+                        .ToList();
+
+                    var chartData = new
+                    {
+                        labels = yearlySalesData.Select(d => d.Date.ToString("yyyy")),
+                        data = yearlySalesData.Select(d => d.TotalSales)
+                    };
+                    TempData["SalesFilter"] = "Yearly Sales";
+                    ViewData["Sales"] = chartData;
+                }
               
             }
-            else if(reportType == "Inventory")
+
+            else if (reportType == "Inventory")
             {
-
+                
             }
 
-              return View();
+
+
+
+     
+
+            return View();
         }
        
      

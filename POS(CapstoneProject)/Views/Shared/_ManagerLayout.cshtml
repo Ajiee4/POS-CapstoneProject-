@@ -37,7 +37,7 @@
                     <img src="~/images/check-out.png" />
                 </div>
                 
-                <div class="user">
+                <div class="user" data-toggle="tooltip" data-placement="bottom" title="@HttpContextAccessor.HttpContext.Session.GetString("Name")">
                     
                     <span class="name-user">@HttpContextAccessor.HttpContext.Session.GetString("Name")</span>
 
@@ -55,28 +55,28 @@
 
     </header>
 
-    <div class="sidebar openSidebar">
+    <div class="sidebar closeSidebar">
 
         <img src="~/Images//BackWhite.png" class="sidebar-toggler" />
 
         <ul>
             <li>
-                <a href="@Url.Action("Index", "DashboardMenu")" class="sidebar-link link-dashboard">                  
+                <a href="@Url.Action("Index", "DashboardMenu")" class="sidebar-link link-dashboard" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <img src="~/Images/Dashboard.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "ProductMenu")" class="sidebar-link link-product">
+                <a href="@Url.Action("Index", "ProductMenu")" class="sidebar-link link-product" data-toggle="tooltip" data-placement="right" title="Product">
                     <img src="~/Images/Product.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Product</span>
                 </a>
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "CategoryMenu")" class="sidebar-link link-category">
-                    <img src="~/Images//Category.png" class="sidebar-link-img" alt="">
+                <a href="@Url.Action("Index", "CategoryMenu")" class="sidebar-link link-category" data-toggle="tooltip" data-placement="right" title="Category">
+                    <img src="~/Images//Category.png" class="sidebar-link-img" >
                     <span class="sidebar-link-name">Category</span>
                    @*  <i class="fa-solid fa-caret-down caret" style="color: #ffffff;"></i> *@
                    
@@ -84,11 +84,12 @@
             </li>
 
             <li>
-                <a class="sidebar-link text-white inventoryMenu ">
+                <a class="sidebar-link text-white inventoryMenu" data-toggle="tooltip" data-placement="right" title="">
                     <img src="~/Images/Inventory.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Inventory</span>
-                    <img src="~/Images//BackWhite.png" class="sidebarlink-inventory-toggler" />               
+                               
                 </a>
+
                 <ul class="inventorySubmenu">
                     <li>
                         <a href="@Url.Action("InventoryList", "InventoryMenu")" class="link-inventorylist">Inventory List</a>
@@ -96,25 +97,28 @@
                     <li>
                         <a href="@Url.Action("StockMovement", "InventoryMenu")" class="link-stockmovement">Stock Movement</a>
                     </li>
+                    <li>
+                        <a href="@Url.Action("RequestList", "InventoryMenu")" class="link-requestlist">Request List</a>
+                    </li>
                 </ul>
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "SalesMenu")" class="sidebar-link link-sales">
+                <a href="@Url.Action("Index", "SalesMenu")" class="sidebar-link link-sales" data-toggle="tooltip" data-placement="right" title="Sales">
                     <img src="~/Images/Sales.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Sales</span>
                 </a>
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "SalesReportMenu")" class="sidebar-link link-salesreport">
+                <a href="@Url.Action("Index", "SalesReportMenu")" class="sidebar-link link-salesreport" data-toggle="tooltip" data-placement="right" title="Sales Report">
                     <img src="~/Images/SalesReport.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Sales Report</span>
                 </a>
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "UserManagementMenu")" class="sidebar-link link-usermanagement">
+                <a href="@Url.Action("Index", "UserManagementMenu")" class="sidebar-link link-usermanagement" data-toggle="tooltip" data-placement="right" title="User Management">
                     <img src="~/Images/UserManagement.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">User Management</span>
                 </a>

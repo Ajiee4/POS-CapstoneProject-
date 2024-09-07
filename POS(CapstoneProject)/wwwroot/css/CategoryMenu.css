@@ -10,12 +10,11 @@
     display: none;
 }
 
+.sidebar ul ul{
+    z-index: 100 !important;
+}
 .addCategoryBtn {
-    position: absolute;
-    cursor: pointer;
-    z-index: 100;
-    top: 0;
-    left: 0;
+ 
     padding: 10px 15px;
     background-color: #693D29;
     color: white;
@@ -41,35 +40,124 @@
     width: 100%;
 }
 
-.category-table {  
+/* Category Table */
+.category-table {
+    border-collapse: collapse !important;
     border: 1px solid black;
+    z-index: 1 !important;
     box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
-    overflow: scroll;
-
 }
 
-.category-table tr,th,td{
-    border: 1px solid black;
-}
-
-.category-table th {       
-    color: white;
-    text-align: left !important;
+.category-table thead {
     background-color: #693D29;
+    color: white;
+}
+
+.category-table thead th {
+    text-align: left !important;
+}
+
+.category-table tr{
+    border: 1px solid black !important;
 }
 
 .category-table tbody {
-
     background-color: #F7F7F7;
     color: black;
-
 }
 
-.category-table td {
-
+.category-table tbody td {
     text-align: left !important;
-
 }
+@media (max-width: 770px) {
+    .category-table thead {
+        display: none;
+    }
+
+    .category-table {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+        .category-table tbody {
+            background-color: transparent !important;
+            border: none !important;
+            outline: none !important;
+        }
+
+        .category-table, .category-table tbody, .category-table tr, .category-table td {
+            display: block;
+            width: 100%;
+        }
+
+            .category-table tbody td {
+                text-align: right !important;
+                border: none !important;
+                outline: none !important;
+            }
+
+            .category-table tr {
+                margin-bottom: 20px;
+                border-bottom: 2px solid #ccc;
+                padding: 5px;
+                border-radius: 10px;
+                background-color: #f1f1f1 !important;
+            }
+
+            .category-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border: 1px solid #ccc;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+                .category-table td:before {
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 0;
+                    width: 50%;
+                    padding-left: 10px;
+                    font-size: 15px;
+                    font-weight: bold;
+                    text-align: left;
+                }
+
+                .category-table td .action-wrapper {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 5px;
+                    margin-top: 20px;
+                }
+
+                .category-table td .btn {
+                    flex: 1;
+                    margin-top: 5px;
+                    max-width: 200px;
+                }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #addCategoryModal .addSubmitBtn, #updateCategoryModal .updateSubmitBtn {
     background-color: #693D29;
