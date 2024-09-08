@@ -393,7 +393,7 @@ function CheckOutToggle() {
             })
         } else {
             $('.product-list-wrapper').css({
-                'width': "calc(100% - 340px) "
+                'width': "calc(100% - 340px)"
             })
         }
   

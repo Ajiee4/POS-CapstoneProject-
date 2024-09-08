@@ -66,6 +66,9 @@
         display: none;
     }
     .product-table{
+        width: 100%;
+        max-width: 550px;
+
         outline: none !important;
         border: none !important;
         box-shadow: none !important; 
@@ -91,6 +94,7 @@
         border-bottom: 2px solid #ccc;
         padding: 5px;
         border-radius: 10px; 
+       
         background-color: #f1f1f1 !important;  
     }
 

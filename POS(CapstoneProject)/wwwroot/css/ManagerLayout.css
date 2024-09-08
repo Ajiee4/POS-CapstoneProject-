@@ -130,6 +130,7 @@ body {
 
 /*Sidebar*/
 .sidebar {
+    cursor: pointer;
     background-color: #9E7148;
     width: 55px;
     position: fixed;
@@ -156,8 +157,9 @@ body {
 }
 
 .sidebar ul {
-    height: 100%;
+   
     list-style: none;
+   
 
 }
 
@@ -213,7 +215,9 @@ body {
     top: 5px;
     z-index: 2000 !important;
     background-color: #9E7148;
-    border-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 1px solid #C6976C;
     width: 150px;
     height: auto;
     transition: 0.5s ease-in-out;
@@ -241,6 +245,28 @@ body {
     body{
         padding-left: 65px !important; 
     }
+    .sidebar ul ul {
+        left: 55px !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .sidebar .sidebar-toggler {
+        display: none !important;
+    }
+
+    .sidebar {
+        width: 55px !important;
+    }
+
+    .sidebar ul li a .sidebar-link-name {
+        display: none !important;
+    }
+
+    body {
+        padding-left: 65px !important;
+    }
+
     .sidebar ul ul {
         left: 55px !important;
     }

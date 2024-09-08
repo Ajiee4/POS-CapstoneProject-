@@ -79,6 +79,8 @@
         outline: none !important;
         border: none !important;
         box-shadow: none !important;
+        width: 100%;
+        max-width: 550px;
     }
 
         .category-table tbody {

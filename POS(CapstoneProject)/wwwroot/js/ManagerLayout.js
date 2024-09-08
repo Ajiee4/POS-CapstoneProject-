@@ -1,4 +1,11 @@
 ﻿
+let toggler = document.querySelector('.sidebar-toggler');
+let sidebar = document.querySelector('.sidebar');
+let sidebarName = document.querySelectorAll('.sidebar-link-name');
+let submenu = document.querySelector('.sidebar ul ul');
+let body = document.querySelector('body');
+
+
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
@@ -9,17 +16,25 @@ window.addEventListener('load', () => {
 
     if (isOpen) {
         sidebar.classList.add('openSidebar');
-        toggleSidebar(); // Call toggleSidebar to update the styles
+        toggleSidebar(); 
     }
 });
 
 
 
-let toggler = document.querySelector('.sidebar-toggler');
-let sidebar = document.querySelector('.sidebar');
-let sidebarName = document.querySelectorAll('.sidebar-link-name'); 
-let submenu = document.querySelector('.sidebar ul ul');
-let body = document.querySelector('body');
+toggler.addEventListener('click', function () {
+
+    sidebar.classList.toggle('openSidebar')
+    toggleSidebar();
+
+});
+
+$('.sidebar').click((event) => {
+    if ($(event.target).is('.sidebar') && $(event.target).closest('.sidebar > *').length === 0) {
+        sidebar.classList.toggle('openSidebar');
+        toggleSidebar();
+    }
+});
 
 toggleSidebar();
 function toggleSidebar() {
@@ -57,23 +72,29 @@ function toggleSidebar() {
 
     }
 }
-toggler.addEventListener('click', function () {
-    sidebar.classList.toggle('openSidebar')
-    toggleSidebar();
-  
-});
+
 
 function linkSave() {
     let links = document.querySelectorAll('.sidebar li a');
     links.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
             const sidebar = document.querySelector('.sidebar');
             const isOpen = sidebar.classList.contains('openSidebar');
 
            
             localStorage.setItem('sidebarOpen', isOpen);
 
+           
+            const currentUrl = window.location.href;
+
           
+            const linkUrl = link.href;
+
+           
+            if (currentUrl === linkUrl) {
+               
+                e.preventDefault();
+            }
         });
     });
 }
