@@ -4,18 +4,14 @@
     margin: 0;
     font-family: Arial;
 }
-.InOutBtn {
-    background-color: #11B402;
-    color: white;
-    
-}
+
 .updateIngredientBtn {
     background-color: #1964C5;
     color: white;
 }
-.addIngredientBtn {
-    
+.addIngredientBtn, .InOutBtn {
     padding: 10px 15px;
+    cursor: pointer;
     background-color: #693D29;
     color: white;
     font-size: 0.8rem;
@@ -46,6 +42,7 @@
     border-collapse: collapse !important;
     border: 1px solid black;
     z-index: 1 !important;
+    transition: 0.5s ease-in-out;
     box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
 }
 
@@ -58,12 +55,17 @@
     text-align: left !important;
 }
 
-.inventory-table tr {
+.inventory-table tbody tr {
+    cursor: pointer;
     border: 1px solid black !important;
 }
-.inventory-table th{
-    font-size: 0.8rem;
-}
+    .inventory-table tbody tr:hover{
+        background-color: rgba(0,0,0,0.1);
+
+    }
+    .inventory-table th {
+        font-size: 0.8rem;
+    }
 .inventory-table tbody {
     background-color: #F7F7F7;
     color: black;
@@ -143,16 +145,16 @@
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
+      
+
     .inventory-table td:before {
         content: attr(data-label);
         position: absolute;
         left: 0;
-       
         padding-left: 10px;
         font-size: 15px;
         font-weight: bold;
         text-align: left;
-        
     }
 
     .inventory-table td .action-wrapper {
@@ -264,6 +266,7 @@ input::placeholder {
 #choiceIngredientModal .choices-wrapper button {
     padding: 10px;
     border: none;
+    cursor: pointer;
     color: white;
     font-weight: bolder;
     background-color: #693D29;
@@ -308,11 +311,11 @@ input::placeholder {
     font-weight: bolder !important;
     color: black !important;
 }
-.belowThreshold{
+/*.belowThreshold{
     color: red;
-    font-weight: bolder;
+    font-weight: bolder;*/
   /*  background-color: rgba(0,0,0,0.1) !important;*/
-}
+/*}*/
 
 
 
@@ -336,7 +339,191 @@ input::placeholder {
         
     }
 }
-/*
-.dt-container > div:first-child {
-    display: none !important;
-}*/
+.exitRequest {
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    border-radius: 50%;
+}
+
+.request-wrapper {
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    background-color: #F1DCC8;
+    width: 300px;
+    display: flex; 
+    justify-content: space-between;
+    align-content: center;
+    flex-direction: column;
+    border: 1px solid grey;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px grey;
+    z-index: 990
+}
+.closeRequest {
+    display: none;
+}
+.request-header {
+    text-align: center;
+    color: black;
+    margin: 0;
+    font-weight: bold;
+    font-size: 2rem;
+    flex-grow: 0;
+    padding: 5px 0px;
+}
+.request-wrapper .request-th {
+    display: flex;
+    justify-content: space-between;
+    background-color: #693D29;
+    padding: 5px 0px;
+    color: white;
+    font-weight: bolder;
+}
+
+
+.request-wrapper .request-th .th-delete {
+    flex: 1;
+}
+.request-wrapper .request-th .th-name {
+    flex: 2;
+  
+}
+.request-wrapper .request-th .th-quantity {
+    flex: 2;
+    text-align: left;
+}
+.quantityInput {
+    width: 50%;
+    text-align: center;
+}
+.request-table-wrapper {
+    flex-grow: 1;
+    overflow-y: auto;
+    height: 300px;
+}
+
+.request-footer {
+    background-color: rgba(0,0,0,0.1);
+    border-top: 1px solid black;
+    padding: 10px;
+}
+.request-footer button {
+   
+    padding: 10px;
+    background-color: #693D29;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    font-weight: bolder;
+}
+
+.request-table{
+    width: 100%;
+
+}
+    .request-table tbody tr td {
+        font-size: 0.8rem;
+    }
+
+.request-table td {
+    border: none;
+    padding: 10px;
+}
+
+    .request-table tr {
+        border-bottom: 1px solid grey;
+    }
+.request-table-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+.request-table-wrapper::-webkit-scrollbar-track {
+    background: #F1DCC8;
+}
+
+.request-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: black;
+}
+
+.request-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: white;
+}
+
+.delete-request-img {
+    width: 12px;
+    height: 12px;
+    transition: 0.4s;
+}
+
+.table-data-name {
+    text-align: left;
+}
+
+.table-data-quantity {
+    text-align: center;
+}
+
+
+.quantity-table-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+}
+
+    .quantity-table-data .button {
+        border-radius: 50%;
+        background-color: white;
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+    }
+
+    .quantity-table-data span img {
+        height: 8px;
+        width: 8px;
+    }
+
+
+@media (max-width: 768px) {
+   
+
+    .request-wrapper {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        max-height: 450px;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+.custom-icon {
+    font-size: 8px !important;
+}
+
+.swal-inventory-title {
+    font-size: 30px;
+    font-weight: bolder !important;
+    color: black !important;
+}
+
+    /*.swal-sales-title::after {
+        content: "(Cannot be undone)";
+        font-weight: lighter;
+        color: grey;
+        font-size: 0.9rem;
+    }*/

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
 
@@ -28,12 +29,17 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     if (check.RoleId != 1)
                     {
                         HttpContext.Session.Clear();
+                        
+                      
                         return RedirectToAction("Login", "Authentication");
                     }
                     else
                     {
-                        var ingredientsList = _context.Ingredient.ToList();
+                        ViewData["DateNow"] = DateTime.Now.ToString("dd/mm/yyyy");
+                        var ingredientsList = _context.Ingredient.OrderByDescending(s => s.Quantity).ToList();
+                        var requestList = _context.RequestDetails.Include(s => s.Request).ToList();
                         ViewData["IngredientsList"] = ingredientsList;
+                        ViewData["RequestList"] = requestList;
                         return View();
                     }
                 }
@@ -101,104 +107,237 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             return RedirectToAction("InventoryList");
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> StockInIngredient(Ingredient ingredient, string StockInType)
-        {   
-            //get and store the use rid
+        public async Task<IActionResult> AddRequest(string requestData)
+        {
             int id = (int)HttpContext.Session.GetInt32("UserID");
-            //check the id if it exist
-            var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
-            if (checkIngredient != null)
-            {
-                //update the quantity of ingredient
-                checkIngredient.Quantity += ingredient.Quantity;
-                _context.Ingredient.Update(checkIngredient);
-                await _context.SaveChangesAsync();
+           
+            var myList = JsonConvert.DeserializeObject<List<RequestList>>(requestData);
 
-            }
-            //add new inventory transaction and save to db
-            var inventTransact = new InventoryTransaction()
+
+            Request req = new Request()
             {
                 UserId = id,
-                TransactionDate = DateTime.Now.Date,
-                TransactionType = StockInType
+                RequestDate = DateTime.Now.Date,
+                Status = "Pending"
             };
 
-            _context.InventoryTransaction.Add(inventTransact);
+            await _context.Request.AddAsync(req);
             await _context.SaveChangesAsync();
-            //add transaction details and save to db
-            var inventTransactDetails = new InventoryTransactionDetail()
+
+            if (myList! != null)
             {
-                InventoryTransactId = inventTransact.InventoryTransactId,
-                IngredientId = checkIngredient.IngredientId,
-                Quantity = ingredient.Quantity,
-                Remarks = "Purchased"
+                foreach (var item in myList)
+                {
+                    RequestDetails details = new RequestDetails
+                    {
+                        RequestId = req.RequestId,
+                        IngredientId = item.ingredientId,
+                        Quantity = item.ingredientQty,
+                    };
 
-            };
-
-            _context.InventoryTransactionDetail.Add(inventTransactDetails);
-            await _context.SaveChangesAsync();
-
-            TempData["StockIn"] = " ";
-
+                    await _context.RequestDetails.AddAsync(details);
+                }
+                await _context.SaveChangesAsync();
+            }
+            TempData["AddRequest"] = " ";
             return RedirectToAction("InventoryList");
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> StockOutIngredient(Ingredient ingredient, string StockInType, string remarks)
+        [ValidateAntiForgeryToken]  
+        public async Task<IActionResult> UpdateRequest(string requestData, int requestId)
         {
-            //get and store the user id
-            int id = (int)HttpContext.Session.GetInt32("UserID");
-            //check the id of the ingredient if it exist
-            var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
-            if (checkIngredient != null)
+            int userId = (int)HttpContext.Session.GetInt32("UserID");
+            var checkRequest = await _context.Request.Where(s => s.RequestId == requestId).FirstOrDefaultAsync();
+            if (checkRequest != null)
             {
-                //check if the quantity is greaten than the input quanty
-                if (checkIngredient.Quantity >= ingredient.Quantity)
+                checkRequest.Status = "Completed";
+                
+
+                _context.Request.Update(checkRequest);
+                await _context.SaveChangesAsync();
+            }
+            var myList = JsonConvert.DeserializeObject<List<RequestListUpdated>>(requestData);
+
+            if (myList! != null)
+            {
+                foreach (var item in myList)
                 {
-                    //update the records
-                    checkIngredient.Quantity -= ingredient.Quantity;
-                    _context.Ingredient.Update(checkIngredient);
-                    await _context.SaveChangesAsync();
-
-                    TempData["StockOut"] = " ";
-
-                    //add new inventory transaction
-                    var inventTransact = new InventoryTransaction()
+                    var ingredient = _context.Ingredient.Where(s => s.IngredientId == item.IngredientId).FirstOrDefault();
+                    if (ingredient != null)
                     {
-                        UserId = id,
-                        TransactionDate = DateTime.Now.Date,
-                        TransactionType = StockInType
-                    };
+                        ingredient.Quantity += item.Quantity;
+                        _context.Ingredient.Update(ingredient);
+                    }
 
-                    _context.InventoryTransaction.Add(inventTransact);
-                    await _context.SaveChangesAsync();
 
-                    //add inventory transaction details
-                    var inventTransactDetails = new InventoryTransactionDetail()
-                    {
-                        InventoryTransactId = inventTransact.InventoryTransactId,
-                        IngredientId = checkIngredient.IngredientId,
-                        Quantity = ingredient.Quantity,
-                        Remarks = remarks
-
-                    };
-                    _context.InventoryTransactionDetail.Add(inventTransactDetails);
-                    await _context.SaveChangesAsync();
 
                 }
-                else
-                {
-                    TempData["Insufficient"] = " ";
-                }
-
-
+                await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("InventoryList");
+            TempData["UpdateRequest"] = "Request Complete";
+
+            var inventTransact = new InventoryTransaction()
+            {
+                UserId = userId,
+                TransactionDate = DateTime.Now.Date,
+                TransactionType = "Stock In"
+            };
+
+
+            await _context.InventoryTransaction.AddAsync(inventTransact);
+            await _context.SaveChangesAsync();
+            //add transaction details and save to db
+
+          
+
+            if (myList! != null)
+            {
+                foreach (var item in myList)
+                {
+                    if(item.Quantity > 0)
+                    {
+                        var inventDetails = new InventoryTransactionDetail()
+                        {
+                            InventoryTransactId = inventTransact.InventoryTransactId,
+                            IngredientId = item.IngredientId,
+                            Quantity = item.Quantity,
+                            Remarks = "Requested"
+
+                        };
+                        await _context.InventoryTransactionDetail.AddAsync(inventDetails);
+                    }
+                  
+                 
+                   
+
+                }
+
+                await _context.SaveChangesAsync();
+            }
+         
+
+            return RedirectToAction("RequestList");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelRequest(int requestId)
+        {
+            int userId = (int)HttpContext.Session.GetInt32("UserID");
+            var checkRequest = await _context.Request.Where(s => s.RequestId == requestId).FirstOrDefaultAsync();
+            if (checkRequest != null)
+            {
+                checkRequest.Status = "Canceled";
+               
+
+                _context.Request.Update(checkRequest);
+                await _context.SaveChangesAsync();
+            }
+
+            TempData["CancelRequest"] = "Request Canceled";
+
+            return RedirectToAction("RequestList");
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]  
+        //public async Task<IActionResult> StockInIngredient(Ingredient ingredient, string StockInType)
+        //{   
+        ////    //get and store the use rid
+        ////    int id = (int)HttpContext.Session.GetInt32("UserID");
+        ////    //check the id if it exist
+        ////    var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
+        ////    if (checkIngredient != null)
+        ////    {
+        ////        //update the quantity of ingredient
+        ////        checkIngredient.Quantity += ingredient.Quantity;
+        ////        _context.Ingredient.Update(checkIngredient);
+        ////        await _context.SaveChangesAsync();
+
+        ////    }
+        ////    //add new inventory transaction and save to db
+        ////    var inventTransact = new InventoryTransaction()
+        ////    {
+        ////        UserId = id,
+        ////        TransactionDate = DateTime.Now.Date,
+        ////        TransactionType = StockInType
+        ////    };
+
+        ////    _context.InventoryTransaction.Add(inventTransact);
+        ////    await _context.SaveChangesAsync();
+        ////    //add transaction details and save to db
+        ////    var inventTransactDetails = new InventoryTransactionDetail()
+        ////    {
+        ////        InventoryTransactId = inventTransact.InventoryTransactId,
+        ////        IngredientId = checkIngredient.IngredientId,
+        ////        Quantity = ingredient.Quantity,
+        ////        Remarks = "Purchased"
+
+        ////    };
+
+        //    _context.InventoryTransactionDetail.Add(inventTransactDetails);
+        //    await _context.SaveChangesAsync();
+
+        //    TempData["StockIn"] = " ";
+
+        //    return RedirectToAction("InventoryList");
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> StockOutIngredient(Ingredient ingredient, string StockInType, string remarks)
+        //{
+        //    //get and store the user id
+        //    int id = (int)HttpContext.Session.GetInt32("UserID");
+        //    //check the id of the ingredient if it exist
+        //    var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
+        //    if (checkIngredient != null)
+        //    {
+        //        //check if the quantity is greaten than the input quanty
+        //        if (checkIngredient.Quantity >= ingredient.Quantity)
+        //        {
+        //            //update the records
+        //            checkIngredient.Quantity -= ingredient.Quantity;
+        //            _context.Ingredient.Update(checkIngredient);
+        //            await _context.SaveChangesAsync();
+
+        //            TempData["StockOut"] = " ";
+
+        //            //add new inventory transaction
+        //            var inventTransact = new InventoryTransaction()
+        //            {
+        //                UserId = id,
+        //                TransactionDate = DateTime.Now.Date,
+        //                TransactionType = StockInType
+        //            };
+
+        //            _context.InventoryTransaction.Add(inventTransact);
+        //            await _context.SaveChangesAsync();
+
+        //            //add inventory transaction details
+        //            var inventTransactDetails = new InventoryTransactionDetail()
+        //            {
+        //                InventoryTransactId = inventTransact.InventoryTransactId,
+        //                IngredientId = checkIngredient.IngredientId,
+        //                Quantity = ingredient.Quantity,
+        //                Remarks = remarks
+
+        //            };
+        //            _context.InventoryTransactionDetail.Add(inventTransactDetails);
+        //            await _context.SaveChangesAsync();
+
+        //        }
+        //        else
+        //        {
+        //            TempData["Insufficient"] = " ";
+        //        }
+
+
+        //    }
+
+        //    return RedirectToAction("InventoryList");
+        //}
         public IActionResult StockMovement()
         {
             //check if there's an ongoing session
@@ -249,9 +388,16 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
+                        //var requestList = _context.Request.Include(s );
+                        var requesComplete = _context.Request.Include(s => s.User).Where(s => s.Status == "Completed").ToList();
+                        var requesPending = _context.Request.Include(s => s.User).Where(s => s.Status == "Pending").ToList();
+                        var requesCanceled = _context.Request.Include(s => s.User).Where(s => s.Status == "Canceled").ToList();
+                        var requestDetails = _context.RequestDetails.Include(s => s.Ingredient).ToList();
+                        ViewData["RequestComplete"] = requesComplete;
+                        ViewData["RequestPending"] = requesPending;
+                        ViewData["RequestCanceled"] = requesCanceled;
+                        ViewData["RequestDetails"] = JsonConvert.SerializeObject(requestDetails);
 
-                        var productList = _context.Product.ToList();
-                        ViewData["productList"] = productList;
                         return View();
                     }
                 }
@@ -266,5 +412,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
 
         }
+
+
     }
 }

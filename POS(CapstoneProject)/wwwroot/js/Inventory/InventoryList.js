@@ -1,14 +1,41 @@
-﻿//setting up the data table
+﻿let ingredientList = [];
+
+
+
+
+//setting up the data table
 $(document).ready(function () {
     $('.inventory-table').DataTable({
         "paging": true,
 
         "searching": true,
-        "ordering": true,
+        "ordering": false,
         "pageLength": 5,
 
     });
 })
+$(document).ready(function () {
+    $('.stock-movement-table').DataTable({
+        "paging": true,
+
+        "searching": true,
+        "ordering": false,
+        "pageLength": 5,
+
+    });
+})
+$(document).ready(function () {
+    $('.request-details-table').DataTable({
+        "paging": true,
+
+        "searching": true,
+        "ordering": false,
+        "pageLength": 5,
+
+    });
+})
+
+
 //function for showing pop up message
 function popUpMessageInventory(message, icon) {
     Swal.fire({
@@ -83,7 +110,7 @@ function isValidName(name) {
 
 
 //set the default value when the modal is showed
-function UpdateIngredient(id, name, measurement, threshold) {
+function DefaultUpdateIngredientModal(id, name, measurement, threshold) {
   
     $('#updateIngredientModal .inputIngredientId').val(id);
     $('#updateIngredientModal .inputIngredientName').val(name);
@@ -139,6 +166,7 @@ $('.InOutBtn').click(function () {
    
     ingredientId = id;
 })
+
 $('#stockInIngredientModal').on('hidden.bs.modal', function () {
 
  
@@ -182,6 +210,7 @@ $('.stockInIngredientSubmit').click(function () {
     
 });
 
+//stockout
 $('.stockOutIngredientSubmit').click(function () {
 
     $('.inputIngredientId').val(ingredientId);
@@ -214,3 +243,167 @@ $('.stockOutIngredientSubmit').click(function () {
     });
 
 });
+function RequestToggle() {
+    $('.request-wrapper').slideToggle(1000, function () {
+
+
+        const requestWrapper = $('.request-wrapper');
+        requestWrapper.toggleClass('closeRequest');
+
+        if (requestWrapper.hasClass('closeRequest')) {
+            $('.inventory-wrapper').css({
+                'width': '100%'
+            })
+        } else {
+            $('.inventory-wrapper').css({
+                'width': "calc(100% - 320px)"
+            })
+        }
+
+    });
+}
+
+
+$('.requestIngredientBtn').click(function () {
+
+   
+   
+    RequestToggle();
+  
+});
+
+
+$('.exitRequest').click(function () {
+   
+    RequestToggle();
+})
+
+RequestIngredient();
+function RequestIngredient() {
+    let tableBody = document.querySelector('.inventory-table tbody');
+
+    tableBody.addEventListener('click', function (event) {
+        let row = event.target.closest('tr');
+        if (row && event.target.tagName !== 'BUTTON') {
+
+            let ingredient = ingredientList.find(item => item.ingredientId == row.dataset.id)
+            if (ingredient) {
+                popUpMessageInventory("Ingredient is already in the list", "error")
+                //ingredient.ingredientQty++;
+                //DisplayRequest();
+            }
+            else {
+                ingredientList.push({
+                    ingredientId: Number(row.dataset.id),
+                    ingredientName: row.dataset.name,
+                    ingredientQty: 1
+
+                });
+
+                DisplayRequest();
+            }
+         
+            console.log(ingredientList);
+        }
+    });
+
+}
+
+
+function DisplayRequest() {
+
+    const tableBody = document.querySelector('.request-table tbody');
+    let html = '';
+    ingredientList.forEach((item) => {
+
+        const truncatedName = item.ingredientName.length > 10 ? `${item.ingredientName.substring(0, 10)}...` : item.ingredientName;
+        html +=
+            `
+             <tr >
+                    <td>
+                            <img src="/images/delete-black.png" class="delete-request-img d-block mx-auto" onclick="deleteItemRequest(${item.ingredientId})"/>
+                    </td>
+                    <td class="table-data-name">
+                        ${truncatedName}
+                    </td>
+                    <td class="table-data-quantity">
+                        <div class="quantity-table-data">
+                            
+                            <input data-id="${item.ingredientId}" onchange="qtyChange(this)" class="quantityInput" oninput="validateQuantity(this)" value="${item.ingredientQty}" />
+                          
+
+                        </div>
+
+                    </td>
+
+                   
+                </tr>
+                                 
+            `
+    });
+
+    tableBody.innerHTML = html;
+
+   
+}
+
+function qtyChange(input) {
+    let idIngredient = Number(input.dataset.id);
+    const ingredient = ingredientList.find((item) => item.ingredientId === idIngredient);
+    const inputValue = input.value.trim();
+    if (!inputValue) {
+        input.value = 1;
+    }
+    ingredient.ingredientQty = Number(input.value);
+    console.log(ingredientList);  
+      
+}
+
+
+function validateQuantity(input) {
+
+    input.value = input.value.replace(/[^0-9]/g, '');
+   
+}
+
+
+
+function deleteItemRequest(id) {
+    let indexIngrediet = ingredientList.findIndex(item => item.ingredientId === id);
+
+    if (indexIngrediet !== -1) {
+        ingredientList.splice(indexIngrediet, 1);
+        DisplayRequest();
+
+        console.log(ingredientList)
+    }
+}
+
+$('.requestBtn').click(function () {
+    Swal.fire({
+        icon: "question",
+        title: "Confirm Request?",
+
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        customClass: {
+            icon: 'custom-icon',
+            title: 'swal-inventory-title',
+
+        }
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            let jsonData = JSON.stringify(ingredientList);
+          
+            $('.requestData').val(jsonData);
+
+            $('#formRequest').submit();       
+
+        }
+    });
+});
+

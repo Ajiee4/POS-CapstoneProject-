@@ -1,4 +1,5 @@
 ﻿@model POS_CapstoneProject_.Models.Ingredient
+@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
 }
@@ -11,76 +12,122 @@
 <div class="inventory-wrapper">
   @*   <button>In/Out</button> *@
     <button type="button" class="addIngredientBtn" data-toggle="modal" data-target="#addIngredientModal">Add Item</button>
+   @*  <button type="button" class="InOutBtn" data-toggle="modal" data-target="#choiceIngredientModal">In/Out</button>
+ *@
 
-    <table class="inventory-table">
+    <button type="button" class="InOutBtn">In/Out</button>
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>             
-                <th>Unit of<br /> Measurement</th>
-                <th>Quantity</th>              
-                <th>Stock<br /> Threshold</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+  
+        <table class="inventory-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Unit of<br /> Measurement</th>
+                    <th>Quantity</th>
+                    <th>Stock<br /> Threshold</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData["IngredientsList"] as List<Ingredient>)
+                {
+                 @*    var requestList = ViewData["RequestList"]; *@
+                var checkRequest = data.RequestDetails.Where(s => s.IngredientId == item.IngredientId && s.Request.Status == "Pending").FirstOrDefault();
+              
+                    <tr data-id="@item.IngredientId" data-name="@item.Name">
 
-        <tbody>
+                        <td data-label="ID">@item.IngredientId</td>
+                        <td data-label="Name">@item.Name</td>
+                        <td data-label="Unit of Measurement">@item.UnitOfMeasurement</td>
+                        <td data-label="Quantity">@item.Quantity</td>
+                        <td data-label="Threshold">@item.LowStockThreshold</td>
+                        <td data-label="Actions">
+                            <!---->
+                            @*   <button class="btn InOutBtn" data-id="@item.IngredientId" data-toggle="modal" data-target="#choiceIngredientModal">In/Out</button> *@
 
+                            <div class="action-wrapper">
+                                <div class="action-button">
+                                    <button class="btn updateIngredientBtn" onclick="DefaultUpdateIngredientModal(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"
+                                            data-toggle="modal" data-target="#updateIngredientModal">
+                                        Update
+                                    </button>
+                                    
+                                                                       
+                                       
 
-            @foreach (var item in ViewData["IngredientsList"] as List<Ingredient>)
-            {
-              <tr>
+                                            <button class="btn btn-dark requestIngredientBtn" type="button">Request</button>
+                                           
+                                                                           
 
-                    
-                  
-                  <td data-label="ID">@item.IngredientId</td>
-                  <td data-label="Name">@item.Name</td>
+                                    
+                                </div>
 
-                   <td data-label="Unit of Measurement">@item.UnitOfMeasurement</td>
-                   <td data-label="Quantity" class="@(item.Quantity < item.LowStockThreshold ? "belowThreshold" : "")">
-                       
-                        @item.Quantity
-                   </td>
-                 
-                 
-             
-                 
-                  <td data-label="Threshold">@item.LowStockThreshold</td>
-                  <td data-label="Actions">
-                      <!---->
-                      @*   <button class="btn InOutBtn" data-id="@item.IngredientId" data-toggle="modal" data-target="#choiceIngredientModal">In/Out</button> *@
-
-                        <div class="action-wrapper">
-                            <div class="action-button">
-                                <button class="btn updateIngredientBtn" onclick="UpdateIngredient(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"
-                                        data-toggle="modal" data-target="#updateIngredientModal">
-                                    Update
-                                </button>
-                                @if (item.Quantity < item.LowStockThreshold)
-                                {
-                                    <button class="btn btn-dark" type="button">Request</button>
-                                   
-                                }
+                                    @if (item.Quantity < item.LowStockThreshold)
+                                    {
+                                        if (checkRequest != null)
+                                        {
+                                            <div class="warning-icon-wrapper">
+                                                <span>Requested</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="action-warning">
+                                                <div class="warning-icon-wrapper">
+                                                    <img src="~/images/exclamation-mark.png" class="warning-icon" />
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (checkRequest != null)
+                                        {
+                                            <div class="warning-icon-wrapper">
+                                                <span>Requested</span>
+                                            </div>
+                                        }
+                                    }
                             </div>
-                                @if (item.Quantity < item.LowStockThreshold)
-                                {
-                                    <div class="action-warning">
-                                        <div class="warning-icon-wrapper">
-                                            <img src="~/images/exclamation-mark.png" class="warning-icon" />
-                                        </div>
-                                    </div>
-                                }                                                
-                        </div>
-                       
 
-                  </td>
-              </tr>
-            }
-        </tbody>
-    </table>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table> 
 </div>
+<br />
 
+
+<!--Request-->
+
+<div class="request-wrapper closeRequest">
+    <img src="~/images/no.png" class="exitRequest"/>
+    
+    <h1 class="request-header">REQUEST</h1>
+  
+    <div class="request-th">
+        <div class="th-delete"style="color: transparent">s</div>
+        <div class="th-name">Name</div>
+        <div class="th-quantity">Qty</div>       
+    </div>
+    <div class="request-table-wrapper">
+       
+        <table class="request-table">
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <form asp-action="AddRequest" method="post" id="formRequest">
+        <input name="requestData" class="requestData" hidden/>
+    </form>
+    <div class="request-footer">
+        <button class="d-block mx-auto requestBtn">Request</button>
+    </div>
+</div>
 <!--Add New Ingredient Modal-->
 
 <div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -96,7 +143,7 @@
                 <form asp-action="AddIngredient" id="addIngredientForm" method="post">
 
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label">Category Name</label>
+                        <label asp-for="Name" class="control-label">Ingredient Name</label>
                         <input asp-for="Name" class="form-control inputIngredientName" type="text" placeholder="Enter Ingredient Name" required />                        
                     </div>
                     <div class="form-group">
@@ -161,27 +208,7 @@
 </div>
 
 
-<!--Choice Modal-->
 
-<div class="modal fade" id="choiceIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">CHOOSE</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-             
-                <div class="choices-wrapper">
-                    <button data-dismiss="modal" data-toggle="modal" data-target="#stockInIngredientModal">Stock In</button>
-                    <button data-dismiss="modal" data-toggle="modal" data-target="#stockOutIngredientModal">Stock Out</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--Stock In Modal-->
 
@@ -200,6 +227,10 @@
 
                     <input asp-for="IngredientId" class="inputIngredientId" hidden />
                     <input name="StockInType" value="Stock In"  hidden />
+                    <div class="form-group">
+                        <label  class="control-label">Date</label>
+                        <input  class="form-control dateReadOnly" type="date" value="@ViewData["DateNow"]" readonly />
+                    </div>
                     <div class="form-group">
                         <label asp-for="Quantity" class="control-label">Quantity</label>
                         <input asp-for="Quantity" class="form-control inputQuantity" oninput="this.value = this.value.replace(/[^0-9]/g, '');" placeholder="Enter Quantity To Stock In" required />
@@ -322,6 +353,17 @@
     <script>
         Swal.fire({
             text: "Ingredient Updated",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+}
+@if (TempData["AddRequest"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "Request Complete",
             icon: "success",
             showConfirmButton: false,
             timer: 2000

@@ -1,0 +1,66 @@
+﻿*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+}
+
+.stock-movement-table
+
+
+.stock-movement-table {
+    border-collapse: collapse !important;
+    border: 1px solid black;
+    z-index: 1 !important;
+    transition: 0.5s ease-in-out;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+}
+
+.stock-movement-table thead {
+    background-color: #693D29;
+    color: white;
+}
+
+    .stock-movement-table thead th {
+        text-align: left !important;
+    }
+
+.stock-movement-table tbody tr {
+   
+    border: 1px solid black !important;
+}
+
+    .stock-movement-table tbody tr:hover {
+        background-color: rgba(0,0,0,0.1);
+    }
+
+.stock-movement-table th {
+    font-size: 0.8rem;
+}
+
+.stock-movement-table tbody {
+    background-color: #F7F7F7;
+    color: black;
+}
+
+    .stock-movement-table tbody td {
+        text-align: left !important;
+        position: relative;
+    }
+
+.stock-movement-table .action-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.warning-icon-wrapper {
+    padding: 5px;
+}
+
+    .warning-icon-wrapper .warning-icon {
+        height: 25px;
+        width: 25px;
+        transition: 0.8s ease-in-out;
+        animation: glowing 1s infinite;
+    }
+

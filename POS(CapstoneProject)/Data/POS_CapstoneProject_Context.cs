@@ -33,5 +33,7 @@ namespace POS_CapstoneProject_.Data
         public DbSet<POS_CapstoneProject_.Models.Ingredient> Ingredient { get; set; } = default!;
         public DbSet<POS_CapstoneProject_.Models.InventoryTransaction> InventoryTransaction { get; set; } = default!;
         public DbSet<POS_CapstoneProject_.Models.InventoryTransactionDetail> InventoryTransactionDetail { get; set; } = default!;
+        public DbSet<POS_CapstoneProject_.Models.Request> Request { get; set; } = default!;
+        public DbSet<POS_CapstoneProject_.Models.RequestDetails> RequestDetails { get; set; } = default!;
     }
 }

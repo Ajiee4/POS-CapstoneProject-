@@ -172,10 +172,10 @@ function decrementQty(id) {
 }
 //delete a specific item from the checklist
 function deleteItem(id) {
-    let index = checkOutList.findIndex(item => item.prodID === id);
+    let indexItem = checkOutList.findIndex(item => item.prodID === id);
 
-    if (index !== -1) {
-        checkOutList.splice(index, 1);
+    if (indexItem !== -1) {
+        checkOutList.splice(indexItem, 1);
         DisplayCheckOut();
         cartCount();
        
