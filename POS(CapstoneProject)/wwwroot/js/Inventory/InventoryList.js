@@ -415,32 +415,68 @@ function ProcessDetails() {
    
 }
 
+
+
 $('.processSubmit').click(function () {
-    Swal.fire({
-        icon: "question",
-        title: "Are you sure you want to proceed?",
 
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'swal-inventory-title',
+    const insufficientList = []
+    if ($('.selectProcess').val() == "Stock Out") {
+        let ingredient = ingredientListQuanti
 
-        }
+        let result = ingredientList.every(item => {
+            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);         
+            return findIngredient.quantity >= item.ingredientQty
 
-    }).then((result) => {
+        });
 
-        if (result.isConfirmed) {
+        ingredientList.forEach(item => {
+            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);
+            if (!(findIngredient.quantity >= item.ingredientQty)) {
+                insufficientList.push(item.ingredientName)
+            }
+        });
+
+
+        if (result) {
             let jsonData = JSON.stringify(ingredientList);
 
             $('.listData').val(jsonData);
 
             $('#formProcess').submit();
-
         }
-    });
+        else {
+            let insufficientListText = insufficientList.map(item => `<li>${item}</li>`).join('');
+            console.log(insufficientList);
+            Swal.fire({
+                icon: "error",
+                title: "Insufficient Ingredients Quantity <br>",
+                html: `
+                   <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
+                showConfirmButton: false,
+                timer: 2000,
+                padding: "1em",
+                customClass: {
+                    icon: 'custom-icon',
+                    title: 'swal-stockOutInsufficient-title',
+                   
+
+                }
+
+            })
+          
+        }
+
+    }
+    else {
+        let jsonData = JSON.stringify(ingredientList);
+
+        $('.listData').val(jsonData);
+
+        $('#formProcess').submit();
+    }
+   
+
+   
 })
 
 $('.selectProcess').change(function () {
@@ -461,7 +497,4 @@ function selectedProcess() {
 }
 
        
-//function ProcessDetails() {
-  
-//}
 

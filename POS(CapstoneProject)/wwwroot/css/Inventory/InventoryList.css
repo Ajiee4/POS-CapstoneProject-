@@ -482,10 +482,23 @@ input::placeholder {
     font-size: 8px !important;
 }
 
-.swal-inventory-title {
-    font-size: 30px;
+.swal-stockOutInsufficient-title {
+    font-size: 25px;
     font-weight: bolder !important;
     color: black !important;
+}
+.swal-stockOutInsufficient-title:after {
+    content: "The following Ingredients are:";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+}
+
+.swal-stockOutInsufficient-html {
+    list-style: none;
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
 }
 
     /*.swal-sales-title::after {

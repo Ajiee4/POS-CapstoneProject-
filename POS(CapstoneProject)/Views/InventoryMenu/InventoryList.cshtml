@@ -43,7 +43,7 @@
                         <td data-label="ID">@item.IngredientId</td>
                         <td data-label="Name">@item.Name</td>
                         <td data-label="Unit of Measurement">@item.UnitOfMeasurement</td>
-                        <td data-label="Quantity">@item.Quantity</td>
+                        <td data-label="Quantity" data-quantity="@item.Quantity" class="ingredientQuanti">@item.Quantity</td>
                         <td data-label="Threshold">@item.LowStockThreshold</td>
                         <td data-label="Actions">
                             <!---->
@@ -154,13 +154,13 @@
 
 <!--Process Modal-->
 
-<div class="modal fade" id="processDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="processDetailsModal" tabindex="-1" role="dialog" >
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -172,6 +172,7 @@
                         var user = data.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
                         var fullName = user.Firstname + " " + user.Lastname;
                     }
+
                     <div class="form-group">
                         <label class="control-label">Date</label>
                         <input class="form-control inputReadOnlyDate" value="@dateNow" type="text" readonly />
@@ -203,7 +204,7 @@
 
 <!--Add New Ingredient Modal-->
 
-<div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" >
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -242,7 +243,7 @@
 
 <!--Update Ingredient Modal-->
 
-<div class="modal fade" id="updateIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="updateIngredientModal" tabindex="-1" role="dialog">
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -279,6 +280,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
 
@@ -319,18 +323,6 @@
         });
     </script>
 }
-@if (TempData["Insufficient"] != null)
-{
-    <script>
-        Swal.fire({
-            text: "Insufficient Quantity",
-            icon: "error",
-            showConfirmButton: false,
-            timer: 2000
-        });
-    </script>
-}
-
 
 @if (TempData["StockOut"] != null)
 {
@@ -365,3 +357,7 @@
         });
     </script>
 }
+
+    <script>
+        let ingredientListQuanti = @Html.Raw(Json.Serialize(ViewData["IngredientsList"]));
+    </script>
