@@ -109,11 +109,26 @@ namespace POS_CapstoneProject_.Controllers.Admin
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddRequest(string requestData)
+        public async Task<IActionResult> AddProcess(string listData, string selectProcess)
         {
             int id = (int)HttpContext.Session.GetInt32("UserID");
-           
-            var myList = JsonConvert.DeserializeObject<List<RequestList>>(requestData);
+
+            switch (selectProcess)
+            {
+                case "Request":
+                    await AddRequest(listData, id);
+                    TempData["AddRequest"] = " ";
+                    break;
+                case "Stock In":
+                    break;
+                case "Stock Out":
+                    break;
+            }          
+            return RedirectToAction("InventoryList");
+        }
+        public async Task AddRequest(string data, int id)
+        {
+            var myList = JsonConvert.DeserializeObject<List<RequestList>>(data);
 
 
             Request req = new Request()
@@ -141,8 +156,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 }
                 await _context.SaveChangesAsync();
             }
-            TempData["AddRequest"] = " ";
-            return RedirectToAction("InventoryList");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]  

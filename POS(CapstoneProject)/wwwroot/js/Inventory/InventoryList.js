@@ -55,7 +55,7 @@ function validateInput(input) {
     }
 }
 
-//call the function when
+
 $('.addIngredientSubmit').click(function () {
     AddIngredient();
 });
@@ -160,97 +160,13 @@ function updateIngredient() {
     });
 }
 
-let ingredientId = 0;
-$('.InOutBtn').click(function () {
-    let id = $(this).data('id');
-   
-    ingredientId = id;
-})
+function IngredientListToggle() {
+    $('.ingredient-list-wrapper').slideToggle(1000, function () {
 
-$('#stockInIngredientModal').on('hidden.bs.modal', function () {
+        const ingredientListWrapper = $('.ingredient-list-wrapper');
+        ingredientListWrapper.toggleClass('closeIngredientList');
 
- 
-    $('#stockInIngredientModal .inputQuantity').val('');
-});
-$('#stockOutIngredientModal').on('hidden.bs.modal', function () {
-
-
-    $('#stockOutIngredientModal .inputQuantity').val('');
-});
-$('.stockInIngredientSubmit').click(function () {
-   
-    $('.inputIngredientId').val(ingredientId);
-    
-    let quantity = document.querySelector('#stockInIngredientModal .inputQuantity').value;
-    if (quantity === '') {
-        popUpMessageInventory('Fill out all information', 'error')
-        $('#stockInIngredientModal .inputQuantity').focus()
-        return;
-    }
-
-    Swal.fire({
-        icon: "question",
-        title: "Are you sure to proceed stocking in?",
-        padding: "1em",
-        showCancelButton: true,
-        confirmButtonColor: "#1964C5",
-        cancelButtonColor: "#F71F1F",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'swal-stockInIngredient-title',
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            $('#stockInIngredientForm').submit();
-
-        }
-    });
-    
-});
-
-//stockout
-$('.stockOutIngredientSubmit').click(function () {
-
-    $('.inputIngredientId').val(ingredientId);
-
-    let quantity = document.querySelector('#stockOutIngredientModal .inputQuantity').value;
-    if (quantity === '') {
-        popUpMessageInventory('Fill out all information', 'error')
-        $('#stockOutIngredientModal .inputQuantity').focus()
-        return;
-    }
-
-    Swal.fire({
-        icon: "question",
-        title: "Are you sure to proceed stocking out?",
-        padding: "1em",
-        showCancelButton: true,
-        confirmButtonColor: "#1964C5",
-        cancelButtonColor: "#F71F1F",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'swal-stockOutIngredient-title',
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            $('#stockOutIngredientForm').submit();
-
-        }
-    });
-
-});
-function RequestToggle() {
-    $('.request-wrapper').slideToggle(1000, function () {
-
-
-        const requestWrapper = $('.request-wrapper');
-        requestWrapper.toggleClass('closeRequest');
-
-        if (requestWrapper.hasClass('closeRequest')) {
+        if (ingredientListWrapper.hasClass('closeIngredientList')) {
             $('.inventory-wrapper').css({
                 'width': '100%'
             })
@@ -262,24 +178,97 @@ function RequestToggle() {
 
     });
 }
-
+$('.selectProcess').change(function () {
+    
+})
 
 $('.requestIngredientBtn').click(function () {
-
-   
-   
-    RequestToggle();
   
+    
+    let wrapper = document.querySelector('.ingredient-list-wrapper');
+    if (wrapper.classList.contains('closeIngredientList')) {
+        $('.selectProcess').val('Request')
+        selectedProcess();
+        IngredientListToggle();
+    }
+    else {
+
+        if ($('.selectProcess').val() == "Request") {
+            IngredientListToggle();
+          
+        }
+        else {
+            $('.selectProcess').val('Request')
+            selectedProcess();
+
+        }
+        //else {
+        //    $('.selectProcess').val('Request')
+        //    selectedProcess();
+        //}
+  
+    }
+  
+  
+});
+$('.stockInBtn').click(function () {
+
+    let wrapper = document.querySelector('.ingredient-list-wrapper');
+    if (wrapper.classList.contains('closeIngredientList')) {
+        $('.selectProcess').val('Stock In')
+        selectedProcess();
+        IngredientListToggle();
+    }
+    else {
+
+        if ($('.selectProcess').val() == "Stock In") {
+            IngredientListToggle();
+
+        }
+        else {
+            $('.selectProcess').val('Stock In')
+            selectedProcess();
+
+        }
+      
+       
+       
+      
+    }
+   
+});
+$('.stockOutBtn').click(function () {
+
+    let wrapper = document.querySelector('.ingredient-list-wrapper');
+    if (wrapper.classList.contains('closeIngredientList')) {
+        $('.selectProcess').val('Stock Out')
+        selectedProcess();
+        IngredientListToggle();
+    }
+    else {
+        if ($('.selectProcess').val() == "Stock Out") {
+            IngredientListToggle();
+
+        }
+        else {
+            $('.selectProcess').val('Stock Out')
+            selectedProcess();
+
+        }
+      
+       
+    }
 });
 
 
-$('.exitRequest').click(function () {
+
+$('.exitIngredientList').click(function () {
    
-    RequestToggle();
+    IngredientListToggle();
 })
 
-RequestIngredient();
-function RequestIngredient() {
+AddIngredientList();
+function AddIngredientList() {
     let tableBody = document.querySelector('.inventory-table tbody');
 
     tableBody.addEventListener('click', function (event) {
@@ -300,7 +289,7 @@ function RequestIngredient() {
 
                 });
 
-                DisplayRequest();
+                DisplayIngredientList();
             }
          
             console.log(ingredientList);
@@ -310,9 +299,9 @@ function RequestIngredient() {
 }
 
 
-function DisplayRequest() {
+function DisplayIngredientList() {
 
-    const tableBody = document.querySelector('.request-table tbody');
+    const tableBody = document.querySelector('.ingredient-list-table tbody');
     let html = '';
     ingredientList.forEach((item) => {
 
@@ -321,7 +310,7 @@ function DisplayRequest() {
             `
              <tr >
                     <td>
-                            <img src="/images/delete-black.png" class="delete-request-img d-block mx-auto" onclick="deleteItemRequest(${item.ingredientId})"/>
+                            <img src="/images/delete-black.png" class="delete-ingredient-img d-block mx-auto" onclick="deleteItemIngredient(${item.ingredientId})"/>
                     </td>
                     <td class="table-data-name">
                         ${truncatedName}
@@ -351,12 +340,13 @@ function qtyChange(input) {
     let idIngredient = Number(input.dataset.id);
     const ingredient = ingredientList.find((item) => item.ingredientId === idIngredient);
     const inputValue = input.value.trim();
-    if (!inputValue) {
+
+   
+    if (!inputValue || inputValue == 0) {
         input.value = 1;
     }
     ingredient.ingredientQty = Number(input.value);
-    console.log(ingredientList);  
-      
+  
 }
 
 
@@ -368,21 +358,67 @@ function validateQuantity(input) {
 
 
 
-function deleteItemRequest(id) {
+function deleteItemIngredient(id) {
     let indexIngrediet = ingredientList.findIndex(item => item.ingredientId === id);
 
     if (indexIngrediet !== -1) {
         ingredientList.splice(indexIngrediet, 1);
-        DisplayRequest();
+        DisplayIngredientList();
 
         console.log(ingredientList)
     }
 }
 
-$('.requestBtn').click(function () {
+$('.processIngredientListBtn').click(function () {
+  
+    
+    ProcessDetails();
+
+});
+
+//Set Process Details Modal Default Values
+function ProcessDetails() {
+    if (ingredientList.length == 0) {
+        popUpMessageInventory("List is empty", "error")
+       
+    }
+    else {
+
+        let selectedProcess = document.querySelector('.selectProcess');
+        let selectedVal = selectedProcess.value;
+
+
+        $('#processDetailsModal .modal-title').text(selectedVal.toUpperCase());
+
+
+        let tableBody = document.querySelector('.process-detail-table tbody');
+        let html = ``;
+
+        ingredientList.forEach(item => {
+            html += `          
+                      <tr >                  
+                            <td class="table-data-name">
+                                ${item.ingredientName}
+                            </td>
+                            <td class="table-data-quantity">
+                                ${item.ingredientQty}
+                            </td>                   
+                       </tr>       
+                    `
+        });
+
+        tableBody.innerHTML = html;
+
+        $('#processDetailsModal').modal('show');
+    }
+
+   
+}
+
+$('.processSubmit').click(function () {
     Swal.fire({
         icon: "question",
-        title: "Confirm Request?",
+        title: "Are you sure you want to proceed?",
 
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -398,12 +434,34 @@ $('.requestBtn').click(function () {
 
         if (result.isConfirmed) {
             let jsonData = JSON.stringify(ingredientList);
-          
-            $('.requestData').val(jsonData);
 
-            $('#formRequest').submit();       
+            $('.listData').val(jsonData);
+
+            $('#formProcess').submit();
 
         }
     });
+})
+
+$('.selectProcess').change(function () {
+    selectedProcess();
+   
 });
+
+function selectedProcess() {
+    if ($('.selectProcess').val() == "Stock Out") {
+
+        $('.select-remarks-wrapper').show();
+    }
+    else {
+
+        $('.select-remarks-wrapper').hide();
+    }
+
+}
+
+       
+//function ProcessDetails() {
+  
+//}
 

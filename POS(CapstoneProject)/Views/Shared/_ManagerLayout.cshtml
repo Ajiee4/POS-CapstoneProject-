@@ -1,4 +1,5 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
+@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,10 +43,15 @@
                         <img src="~/images/trolley.png" />
                                      
                 </div>
-                
-                <div class="user" data-toggle="tooltip" data-placement="bottom" title="@HttpContextAccessor.HttpContext.Session.GetString("Name")">
-                    
-                    <span class="name-user">@HttpContextAccessor.HttpContext.Session.GetString("Name")</span>
+               
+                @{
+                    var userId = HttpContextAccessor.HttpContext.Session.GetInt32("UserID");
+                    var user = data.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
+                    var firstName = user.Firstname;
+                }
+                <div class="user" data-toggle="tooltip" data-placement="bottom" title="@firstName">
+                   
+                    <span class="name-user">@firstName</span>
 
                     <div class="user-icon">
                         <img src="~/images/person.png" />

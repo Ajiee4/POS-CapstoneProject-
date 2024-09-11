@@ -9,7 +9,7 @@
     background-color: #1964C5;
     color: white;
 }
-.addIngredientBtn, .InOutBtn {
+.addIngredientBtn, .stockInBtn, .stockOutBtn, .requestIngredientBtn {
     padding: 10px 15px;
     cursor: pointer;
     background-color: #693D29;
@@ -196,34 +196,31 @@ input::placeholder {
 
 /*Modal*/
 #addIngredientModal .modal-content, #updateIngredientModal
-.modal-content, #choiceIngredientModal .modal-content,
-#stockInIngredientModal .modal-content, #stockOutIngredientModal .modal-content {
+.modal-content, #processDetailsModal .modal-content {
     background-color: rgba(197, 172, 148,0.9) !important;
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
 }
 
 #addIngredientModal .modal-header, #updateIngredientModal
-.modal-header, #choiceIngredientModal .modal-header,
-#stockInIngredientModal .modal-header, #stockOutIngredientModal .modal-header {
+.modal-header, #processDetailsModal .modal-header {
     border: none;
 }
 
 #addIngredientModal .modal-title, #updateIngredientModal
-.modal-title, #choiceIngredientModal .modal-title,
-#stockInIngredientModal .modal-title, #stockOutIngredientModal .modal-title {
+.modal-title, #processDetailsModal .modal-title {
     width: 100%;
     text-align: center;
     font-weight: bold;
 }
 
 #addIngredientModal label, #updateIngredientModal label,
-#stockInIngredientModal label, #stockOutIngredientModal label {
+ #processDetailsModal label {
     font-weight: bold
 }
 
 #addIngredientModal .close, #updateIngredientModal .close,
-#choiceIngredientModal .close, #stockInIngredientModal .close, #stockOutIngredientModal .close {
+#choiceIngredientModal .close, #processDetailsModal .close {
     position: absolute;
     top: 6px;
     right: 10px;
@@ -231,14 +228,13 @@ input::placeholder {
     transition: 0.5s;
 }
 
-#addIngredientModal .close:hover, #updateIngredientModal .close:hover,
-#choiceIngredientModal .close:hover, #stockInIngredientModal .close:hover,
-#stockOutIngredientModal .close:hover {
-    transform: scale(1.2);
-}
+    #addIngredientModal .close:hover, #updateIngredientModal .close:hover,
+    #choiceIngredientModal .close:hover, #processDetailsModal .close:hover {
+        transform: scale(1.2);
+    }
 
-#addIngredientModal .addIngredientSubmit, #updateIngredientModal .updateIngredientSubmit
-, #stockInIngredientModal .stockInIngredientSubmit, #stockOutIngredientModal .stockOutIngredientSubmit  {
+#addIngredientModal .addIngredientSubmit, #updateIngredientModal .updateIngredientSubmit,
+#processDetailsModal .processSubmit {
     background-color: #693D29;
     border-radius: 20px;
     padding: 10px 30px;
@@ -247,41 +243,13 @@ input::placeholder {
     transition: 0.3s ease-in-out
 }
 
-#addIngredientModal .addIngredientSubmit:hover, #updateIngredientModal .updateIngredientSubmit:hover,
-#stockInIngredientModal .stockInIngredientSubmit:hover, #stockOutIngredientModal .stockOutIngredientSubmit:hover {
-    background-color: black;
-    color: white;
-}
+    #addIngredientModal .addIngredientSubmit:hover, #updateIngredientModal .updateIngredientSubmit:hover,
+    #processDetailsModal .processSubmit:hover {
+        background-color: black;
+        color: white;
+    }
 
-#choiceIngredientModal .modal-body {
-    padding: 60px;
-}
 
-#choiceIngredientModal .choices-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-#choiceIngredientModal .choices-wrapper button {
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-weight: bolder;
-    background-color: #693D29;
-    transition: 0.5s ease-in-out;
-    border: 1px solid #693D29
-}
-
-#choiceIngredientModal .choices-wrapper button:hover {
-    background-color: black;
-    transform: scale(1.03)
-}
-
-#choiceIngredientModal .modal-title {
-    font-size: 2rem;
-}
 
 /*SweetAlert Custom Class*/
 .custom-icon {
@@ -339,7 +307,7 @@ input::placeholder {
         
     }
 }
-.exitRequest {
+.exitIngredientList {
     height: 15px;
     width: 15px;
     position: absolute;
@@ -348,13 +316,13 @@ input::placeholder {
     border-radius: 50%;
 }
 
-.request-wrapper {
+.ingredient-list-wrapper {
     position: fixed;
     top: 80px;
     right: 10px;
     background-color: #F1DCC8;
     width: 300px;
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-content: center;
     flex-direction: column;
@@ -363,10 +331,10 @@ input::placeholder {
     box-shadow: 1px 1px 5px grey;
     z-index: 990
 }
-.closeRequest {
+.closeIngredientList {
     display: none;
 }
-.request-header {
+.ingredient-list-header {
     text-align: center;
     color: black;
     margin: 0;
@@ -375,7 +343,7 @@ input::placeholder {
     flex-grow: 0;
     padding: 5px 0px;
 }
-.request-wrapper .request-th {
+.ingredient-list-wrapper .ingredient-list-th {
     display: flex;
     justify-content: space-between;
     background-color: #693D29;
@@ -385,34 +353,34 @@ input::placeholder {
 }
 
 
-.request-wrapper .request-th .th-delete {
-    flex: 1;
-}
-.request-wrapper .request-th .th-name {
-    flex: 2;
-  
-}
-.request-wrapper .request-th .th-quantity {
-    flex: 2;
-    text-align: left;
-}
+    .ingredient-list-wrapper .ingredient-list-th .th-delete {
+        flex: 1;
+    }
+    .ingredient-list-wrapper .ingredient-list-th .th-name {
+        flex: 2;
+    }
+    .ingredient-list-wrapper .ingredient-list-th .th-quantity {
+        flex: 2;
+        text-align: left;
+    }
 .quantityInput {
     width: 50%;
     text-align: center;
 }
-.request-table-wrapper {
+.ingredient-list-table-wrapper {
     flex-grow: 1;
     overflow-y: auto;
-    height: 300px;
+    height: 200px;
+
 }
 
-.request-footer {
+.ingredient-list-footer {
     background-color: rgba(0,0,0,0.1);
     border-top: 1px solid black;
     padding: 10px;
 }
-.request-footer button {
-   
+.ingredient-list-footer .processIngredientListBtn {
+    margin-top: 5px;
     padding: 10px;
     background-color: #693D29;
     color: white;
@@ -424,39 +392,38 @@ input::placeholder {
     font-weight: bolder;
 }
 
-.request-table{
+.ingredient-list-table {
     width: 100%;
-
 }
-    .request-table tbody tr td {
-        font-size: 0.8rem;
+.ingredient-list-table tbody tr td {
+    font-size: 0.8rem;
+}
+
+    .ingredient-list-table td {
+        border: none;
+        padding: 10px;
     }
 
-.request-table td {
-    border: none;
-    padding: 10px;
-}
-
-    .request-table tr {
+    .ingredient-list-table tr {
         border-bottom: 1px solid grey;
     }
-.request-table-wrapper::-webkit-scrollbar {
+.ingredient-list-table-wrapper::-webkit-scrollbar, .process-detail-table-wrapper::-webkit-scrollbar{
     width: 4px;
 }
 
-.request-table-wrapper::-webkit-scrollbar-track {
+.ingredient-list-table-wrapper::-webkit-scrollbar-track, .process-detail-table-wrapper::-webkit-scrollbar-track {
     background: #F1DCC8;
 }
 
-.request-table-wrapper::-webkit-scrollbar-thumb {
+.ingredient-list-table-wrapper::-webkit-scrollbar-thumb, .process-detail-table-wrapper::-webkit-scrollbar-thumb {
     background-color: black;
 }
 
-.request-table-wrapper::-webkit-scrollbar-thumb:hover {
+.ingredient-list-table-wrapper::-webkit-scrollbar-thumb:hover, .process-detail-table-wrapper::-webkit-scrollbar-thumb:hover {
     background-color: white;
 }
 
-.delete-request-img {
+.delete-ingredient-img {
     width: 12px;
     height: 12px;
     transition: 0.4s;
@@ -496,9 +463,9 @@ input::placeholder {
 
 
 @media (max-width: 768px) {
-   
 
-    .request-wrapper {
+
+    .ingredient-list-wrapper {
         position: fixed;
         top: 50%;
         left: 50%;
@@ -527,3 +494,50 @@ input::placeholder {
         color: grey;
         font-size: 0.9rem;
     }*/
+
+.select-process-wrapper{
+   
+    display: flex;
+    flex-direction: column;
+    
+  
+}
+    .select-process-wrapper label{
+        padding: 0;
+        margin: 0;
+    }
+    .selectProcess {
+        padding: 5px;
+    }
+  /*  .select-process-wrapper .selectProcess-wrapper {
+        flex: 1;
+        background-color: blue;
+    }*/
+/*.selectProcess-wrapper .selectProcess{
+    width: 100%;
+    height: 100%;
+}*/
+
+#processDetailsModal .process-detail-header {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #693D29;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#processDetailsModal .process-detail-table-wrapper {
+    width: 100%;
+    border: 1px solid black;
+    height: 200px;
+    overflow-y: auto;
+    background-color: #F1DCC8;
+}
+.process-detail-table{
+    width: 100%;
+}
+
+.select-remarks-wrapper {
+    display: none;
+}

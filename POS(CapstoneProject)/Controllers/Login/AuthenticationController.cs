@@ -47,17 +47,17 @@ namespace POS_CapstoneProject_.Controllers.Login
                         {
                             case 1:
                                 HttpContext.Session.SetInt32("UserID", check.UserId);
-                                HttpContext.Session.SetString("Name", check.Firstname);
+                                //HttpContext.Session.SetString("Name", check.Firstname);
                                 return RedirectToAction("Index", "DashboardMenu");
 
                             case 2:
                                 HttpContext.Session.SetInt32("UserID", check.UserId);
-                                HttpContext.Session.SetString("Name", check.Firstname);
+                                //HttpContext.Session.SetString("Name", check.Firstname);
                                 return RedirectToAction("Index", "CashierInterface");
 
                             case 3:
                                 HttpContext.Session.SetInt32("UserID", check.UserId);
-                                HttpContext.Session.SetString("Name", check.Firstname);
+                                //HttpContext.Session.SetString("Name", check.Firstname);
                                 return RedirectToAction("Index", "StockManagerInterface");
 
                         }

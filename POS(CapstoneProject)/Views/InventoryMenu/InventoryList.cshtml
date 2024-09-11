@@ -1,4 +1,5 @@
 ﻿@model POS_CapstoneProject_.Models.Ingredient
+@inject IHttpContextAccessor HttpContextAccessor
 @inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
@@ -12,10 +13,12 @@
 <div class="inventory-wrapper">
   @*   <button>In/Out</button> *@
     <button type="button" class="addIngredientBtn" data-toggle="modal" data-target="#addIngredientModal">Add Item</button>
+    <button class="btn requestIngredientBtn" type="button">Request</button>
    @*  <button type="button" class="InOutBtn" data-toggle="modal" data-target="#choiceIngredientModal">In/Out</button>
  *@
 
-    <button type="button" class="InOutBtn">In/Out</button>
+    <button type="button" class="stockInBtn">Stock In</button>
+    <button type="button" class="stockOutBtn">Stock Out</button>
 
   
         <table class="inventory-table">
@@ -52,14 +55,8 @@
                                             data-toggle="modal" data-target="#updateIngredientModal">
                                         Update
                                     </button>
-                                    
-                                                                       
-                                       
 
-                                            <button class="btn btn-dark requestIngredientBtn" type="button">Request</button>
-                                           
-                                                                           
-
+                                          
                                     
                                 </div>
 
@@ -103,31 +100,107 @@
 
 <!--Request-->
 
-<div class="request-wrapper closeRequest">
-    <img src="~/images/no.png" class="exitRequest"/>
+<div class="ingredient-list-wrapper closeIngredientList">
+    <img src="~/images/no.png" class="exitIngredientList"/>
     
-    <h1 class="request-header">REQUEST</h1>
+    <h1 class="ingredient-list-header">List</h1>
   
-    <div class="request-th">
+    <div class="ingredient-list-th">
         <div class="th-delete"style="color: transparent">s</div>
         <div class="th-name">Name</div>
         <div class="th-quantity">Qty</div>       
     </div>
-    <div class="request-table-wrapper">
+    <div class="ingredient-list-table-wrapper">
        
-        <table class="request-table">
+        <table class="ingredient-list-table">
             <tbody>
 
             </tbody>
         </table>
     </div>
-    <form asp-action="AddRequest" method="post" id="formRequest">
-        <input name="requestData" class="requestData" hidden/>
-    </form>
-    <div class="request-footer">
-        <button class="d-block mx-auto requestBtn">Request</button>
+   
+    <div class="ingredient-list-footer">
+        <form asp-action="AddProcess" method="post" id="formProcess">
+            <div class="select-process-wrapper">
+                <div class="form-group">
+                    <label class="control-label">Process Type</label>
+                    <select name="selectProcess" class="form-control selectProcess">
+                        <option value="Request" selected>Request</option>
+                        <option value="Stock In">Stock In</option>
+                        <option value="Stock Out">Stock Out</option>
+                    </select>                 
+                </div>
+            </div>
+            <div class="select-remarks-wrapper">
+                <div class="form-group">
+                    <label class="control-label">Remarks</label>
+                    <select name="stockOutRemarks" class="form-control stockOutRemarks">
+                        <option value="Damaged">Damaged</option>
+                        <option value="Disposed">Disposed</option>
+                    </select>
+                </div>
+            </div>
+               
+              
+           
+           
+            <input name="listData" class="listData" hidden />
+        </form>
+     
+        <button class="d-block mx-auto processIngredientListBtn">Process</button>
     </div>
 </div>
+
+
+<!--Process Modal-->
+
+<div class="modal fade" id="processDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @{
+                        var dateNow = DateTime.Now.Date.ToString("yyyy-MM-dd");
+
+                        var userId = HttpContextAccessor.HttpContext.Session.GetInt32("UserID");
+                        var user = data.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
+                        var fullName = user.Firstname + " " + user.Lastname;
+                    }
+                    <div class="form-group">
+                        <label class="control-label">Date</label>
+                        <input class="form-control inputReadOnlyDate" value="@dateNow" type="text" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Name</label>
+                        <input class="form-control inputReadOnlyUser" value="@fullName" type="text" readonly />
+                    </div>
+                    <div class="process-detail-header">
+                        <div class="process-detail-name">
+                            Name
+                        </div>
+                        <div class="process-detail-quantity">
+                            Quantity
+                        </div>
+                    </div>
+                    <div class="process-detail-table-wrapper">
+                        <table class="process-detail-table">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <button type="button" class="d-block mx-auto processSubmit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!--Add New Ingredient Modal-->
 
 <div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -208,84 +281,6 @@
 </div>
 
 
-
-
-<!--Stock In Modal-->
-
-<div class="modal fade" id="stockInIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Stock In</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <form asp-action="StockInIngredient" id="stockInIngredientForm" method="post">
-
-                    <input asp-for="IngredientId" class="inputIngredientId" hidden />
-                    <input name="StockInType" value="Stock In"  hidden />
-                    <div class="form-group">
-                        <label  class="control-label">Date</label>
-                        <input  class="form-control dateReadOnly" type="date" value="@ViewData["DateNow"]" readonly />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Quantity" class="control-label">Quantity</label>
-                        <input asp-for="Quantity" class="form-control inputQuantity" oninput="this.value = this.value.replace(/[^0-9]/g, '');" placeholder="Enter Quantity To Stock In" required />
-                    </div>
-
-                    <br />
-                    <div class="form-group">
-                        <button type="button" class="d-block mx-auto stockInIngredientSubmit">STOCK IN</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Stock Out Modal-->
-
-<div class="modal fade" id="stockOutIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Stock OUT</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <form asp-action="StockOutIngredient" id="stockOutIngredientForm" method="post">
-
-                    <input asp-for="IngredientId" class="inputIngredientId" hidden />
-                    <input name="StockInType" value="Stock Out" hidden />
-                    <div class="form-group">
-                        <label asp-for="Quantity" class="control-label">Quantity</label>
-                        <input asp-for="Quantity" class="form-control inputQuantity" oninput="this.value = this.value.replace(/[^0-9]/g, '');" placeholder="Enter Quantity To Stock In" required />
-                    </div>
-                    <div class="form-group">
-                        <label  class="control-label">Remarks</label>
-                        <select name="remarks" class="form-control">
-                            <option value="Discarded">Discarded</option>
-                            <option value="Expired">Expired</option>
-                            <option value="Consumed">Consumed</option>
-                        </select>
-                     
-                    </div>
-
-                    <br />
-                    <div class="form-group">
-                        <button type="button" class="d-block mx-auto stockOutIngredientSubmit">STOCK OUT</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 @if (TempData["AddIngredient"] != null)
 {
