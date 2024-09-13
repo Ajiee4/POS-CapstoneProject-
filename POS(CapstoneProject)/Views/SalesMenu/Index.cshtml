@@ -197,10 +197,11 @@
         }).then(() => {
             document.querySelector(".receipt").classList.add("showReceipt");
             window.print();
-            setTimeout(function () {
-                document.querySelector(".receipt").classList.remove("showReceipt");
+            document.querySelector(".receipt").classList.remove("showReceipt");
+          @*   setTimeout(function () {
+              
                    
-            }, 2000)
+            }, 2000) *@
 
         });
               

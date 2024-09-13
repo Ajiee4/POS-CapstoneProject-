@@ -8,11 +8,12 @@
         background-color: #C6976C !important;
     }
 </style>
+
  <div class="product-wrapper">
     <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">Add Product</button>
-   <br />
-    <table class="product-table">
+    <br />
 
+    <table class="product-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -21,77 +22,56 @@
                 <th>Price</th>              
                 <th>Image</th>
                 <th>Actions</th>
-
-            </tr>
-
-           
+            </tr>          
         </thead>
-
-        <tbody>
-                
-           
-                @foreach (var item in productList)
-                {
-          @*   class="@(item.IsArchive ? "archived-product" : "")" *@
-                    <tr >
-                        <td data-label="ID">@item.ProductId</td>
-                        <td data-label="Name">@item.Name</td>
-                        <td data-label="Category">@item.Category?.CategoryName</td>
-                        <td data-label="Price">₱@item.Price</td>
-                      
-
-                        @if (item.ImageData == null)
-                        {
-                            <td data-label="Image">
-                                <div>No Image</div>
-                            </td>
-                        }
-                        else
-                        {
-                            <td data-label="Image" class="product-photo-wrapper">
-                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto" alt="Image" />
-                            </td>
-                        }
-
-                        @if (item.IsArchive)
-                        {
-                            <td data-label="Actions">
-                                <div class="action-wrapper">
-                                    <form class="unarchiveForm" asp-action="UnarchiveProduct">
-                                        <input asp-for="ProductId" value="@item.ProductId" class="unarchiveInput" hidden />
-                                    </form>
-                                    <button class="btn unarchiveBtn">Unarchive</button>
-                                    <button class="btn updateProductBtn" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">Update</button>
-                                </div>
-                            </td>
-                        }
-                        else
-                        {
-                            <td data-label="Actions">
-                                <div class="action-wrapper">
-                                    <form class="archiveForm" asp-action="ArchiveProduct">
-                                        <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden />
-                                    </form>
-                                    <button class="btn archiveBtn">Archive</button>
-                                    <button class="btn updateProductBtn" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">Update</button>
-                                </div>
-                            </td>
-                        }
-
-                    </tr>
-                }
-            
-           
-            
-           
+        <tbody>        
+            @foreach (var item in productList)
+            {  
+                <tr >
+                    <td data-label="ID">@item.ProductId</td>
+                    <td data-label="Name">@item.Name</td>
+                    <td data-label="Category">@item.Category?.CategoryName</td>
+                    <td data-label="Price">₱@item.Price</td>                    
+                    @if (item.ImageData == null)
+                    {
+                        <td data-label="Image">
+                            <div>No Image</div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td data-label="Image" class="product-photo-wrapper">
+                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto" alt="Image" />
+                        </td>
+                    }
+                    @if (item.IsArchive)
+                    {
+                        <td data-label="Actions">
+                            <div class="action-wrapper">
+                                <form class="unarchiveForm" asp-action="UnarchiveProduct">
+                                    <input asp-for="ProductId" value="@item.ProductId" class="unarchiveInput" hidden />
+                                </form>
+                                <button class="btn unarchiveBtn">Unarchive</button>
+                                <button class="btn updateProductBtn" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">Update</button>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td data-label="Actions">
+                            <div class="action-wrapper">
+                                <form class="archiveForm" asp-action="ArchiveProduct">
+                                    <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden />
+                                </form>
+                                <button class="btn archiveBtn">Archive</button>
+                                <button class="btn updateProductBtn" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">Update</button>
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }           
         </tbody>
-       
-
-    </table>
-
-    
-    <br />
-    <br />
+    </table> 
 </div>
 
 
@@ -109,57 +89,45 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                 
-                <form asp-action="UpdateProduct" id="updateProductForm" method="post" enctype="multipart/form-data">
-                   
+            <div class="modal-body">               
+                <form asp-action="UpdateProduct" id="updateProductForm" method="post" enctype="multipart/form-data">                 
                     <input asp-for="ProductId" class="productId" hidden />
 
-                    <div class="form-group">
-                      
+                    <div class="form-group">                     
                         <div class="photo-wrapper d-block mx-auto">
                             <img src="~/images/noimage.jpg" />
                         </div>
 
                         <input asp-for="ImageData" hidden class="inputPhoto form-control" type="file" name="file" accept="image/*" />   <br />                     
                         <button type="button" class="btn uploadPhoto d-block mx-auto">Upload Photo</button>
-
-                    </div>
-                   
+                    </div>      
+                    
                     <div class="form-group">
                         <label asp-for="Name"  class="control-label">Product Name</label>
                         <input asp-for="Name" placeholder="Enter Product Name" class="form-control updateProductInputName" required />
                     </div>
 
                     <div class="form-group">
-
                         <label asp-for="Price" class="control-label">Price</label>
                         <input asp-for="Price"  maxlength="8" placeholder="Enter Product Price" oninput="validatePrice(this)" class="form-control updateProductInputPrice" required />
-
                     </div>
  
                     <div class="form-group">
-                        <label asp-for="ProdCategoryId" class="control-label">Category Name</label>
+                        <label asp-for="ProdCategoryId" class="control-label">Category</label>
 
-                        <select asp-for="ProdCategoryId" class="form-control selectProductCategory">
-
+                        <select asp-for="ProdCategoryId" class="form-control selectProductCategory" required>
                             @foreach (var item in ViewData["productCategory"] as List<Category>)
                             {
                                 <option value="@item.CategoryId">@item.CategoryName</option>
-                            }
-                           
+                            }                          
                         </select>
-
-                     </div> 
+                    </div> 
 
                     <div class="form-group">
-
                         <button type="button" class="d-block mx-auto updateProductSubmit">Submit </button>
-
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -175,23 +143,19 @@
                 </button>
             </div>
             <div class="modal-body">
-
                 <form asp-action="AddProduct" id="addProductForm" method="post" enctype="multipart/form-data">
                    
                     <div class="form-group">
-
                         <div class="photo-wrapper d-block mx-auto">
                             <img src="~/images/noimage.jpg" />
                         </div>
-                        <input hidden class="inputPhoto form-control" type="file" name="file" accept="image/*" />
-                        <br />
+                        <input hidden class="inputPhoto form-control" type="file" name="file" accept="image/*"/><br/>                    
                         <button type="button" class="btn uploadPhoto d-block mx-auto">Upload Photo</button>
                     </div>
                   
                     <div class="form-group">
                         <label asp-for="Name" class="control-label">Product Name</label>
-                        <input asp-for="Name" placeholder="Enter Product Name" class="form-control addProductInputName" required />
-                      
+                        <input asp-for="Name" placeholder="Enter Product Name" class="form-control addProductInputName" required />                     
                     </div>
 
                     <div class="form-group">
@@ -201,14 +165,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="ProdCategoryId" class="control-label">Category Name</label>
-                        <select asp-for="ProdCategoryId" class="form-control">
-
+                        <label asp-for="ProdCategoryId" class="control-label">Category</label>
+                        <select asp-for="ProdCategoryId" class="form-control selectCat" required>
                             @foreach (var item in ViewData["productCategory"] as List<Category>)
                             {
                                 <option value="@item.CategoryId">@item.CategoryName</option>
                             }
-
                         </select>
                     </div>
 
@@ -217,28 +179,26 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
 
 
+
+<!--Pop up message when new product was added-->
 @if (TempData["ProductAdded"] != null)
 {
     <script>
-
         Swal.fire({
             text: "New product added",
             icon: "success",
             showConfirmButton: false,
             timer: 2000
         });
-       
-
     </script>
-
 }
 
+<!--Pop up message when product was updated-->
 @if (TempData["ProductUpdated"] != null)
 {
     <script>
@@ -248,13 +208,11 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }
 
 
+<!--Pop up message when product was archived-->
 @if (TempData["SuccessArchived"] != null)
 {
     <script>
@@ -264,11 +222,12 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
 
 }
+
+
+<!--Pop up message when product was unarchived-->
 @if (TempData["SuccessUnarchived"] != null)
 {
     <script>
@@ -278,24 +237,30 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }
 
+
+<!--Pop up message when product already exist-->
 @if (TempData["ProductExist"] != null)
 {
     <script>
         Swal.fire({
             text: "Product already exists",
-            icon: "info",
-            iconColor: "#3085d6",
+            icon: "error",      
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
+} 
+@if (TempData["NoChanges"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "No changes have been made",
+            icon: "info",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
 } 

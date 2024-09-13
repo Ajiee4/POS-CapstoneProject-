@@ -55,9 +55,7 @@
                                             data-toggle="modal" data-target="#updateIngredientModal">
                                         Update
                                     </button>
-
-                                          
-                                    
+                                   
                                 </div>
 
                                     @if (item.Quantity < item.LowStockThreshold)
@@ -87,8 +85,6 @@
                                         }
                                     }
                             </div>
-
-
                         </td>
                     </tr>
                 }
@@ -114,7 +110,7 @@
        
         <table class="ingredient-list-table">
             <tbody>
-
+               
             </tbody>
         </table>
     </div>
@@ -137,6 +133,7 @@
                     <select name="stockOutRemarks" class="form-control stockOutRemarks">
                         <option value="Damaged">Damaged</option>
                         <option value="Disposed">Disposed</option>
+                        <option value="Returned">Returned</option>
                     </select>
                 </div>
             </div>
@@ -194,6 +191,7 @@
                             <tbody></tbody>
                         </table>
                     </div>
+                    <br>
                     <button type="button" class="d-block mx-auto processSubmit">Submit</button>
                 </div>
             </div>
@@ -330,6 +328,17 @@
         Swal.fire({
             text: "Stock Out Complete",
             icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+}
+@if (TempData["NoChanges"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "No changes have been made",
+            icon: "info",
             showConfirmButton: false,
             timer: 2000
         });

@@ -127,10 +127,34 @@ function checkoutProduct(id, name, quantity, price) {
     let product = checkOutList.find(item => item.prodID === id);
 
     if (product) {
-        
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            width: 300,
+            showConfirmButton: false,
+            timer: 1500,
+
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Quantity incremented"
+        });
+
         product.prodQty += quantity;
     } else {
-      
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            width: 250,
+            showConfirmButton: false,
+            timer: 1500,
+
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Product Added"
+        });
+
         checkOutList.push({
             prodID: id,
             prodName: name,

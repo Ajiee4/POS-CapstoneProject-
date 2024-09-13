@@ -95,23 +95,37 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateCategory(Category category)
         {
-            if (ModelState.IsValid)
+           
+               
+            var checkCategory = _context.Category.Where(s => s.CategoryId == category.CategoryId).FirstOrDefault();
+            if (checkCategory != null)
             {
-                //check if the submitted data already exist in the database
-                var categoryNames = _context.Category.Where(s => s.CategoryName == category.CategoryName).FirstOrDefault();
-                if (categoryNames == null)
+                if(checkCategory.CategoryName == category.CategoryName)
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                    TempData["UpdatedCategory"] = "";
+                    TempData["NoChanges"] = " ";
                 }
                 else
                 {
-                    //if the data already exist, send an error message
-                    TempData["Exist"] = "";
-                }
 
+                    var checkName = _context.Category.Where(s => s.CategoryName == category.CategoryName).FirstOrDefault();
+                    if(checkName == null)
+                    {
+                        checkCategory.CategoryName = category.CategoryName;
+                        _context.Category.Update(checkCategory);
+                        await _context.SaveChangesAsync();
+                        TempData["UpdatedCategory"] = "";
+                    }
+                    else
+                    {
+                        TempData["CategoryExist"] = " ";
+                    }
+                  
+                }
+             
             }
+           
+
+            
 
             return RedirectToAction("Index");
         }

@@ -98,12 +98,15 @@
     .inventory-table thead {
         display: none;
     }
+    .inventory-wrapper {
+        width: 100% !important;
+    }
 
     .inventory-table {
         outline: none !important;
         border: none !important;
         box-shadow: none !important;
-        width: 100%;
+        width: 100% ;
         max-width: 550px;
     }
 
@@ -308,29 +311,34 @@ input::placeholder {
     }
 }
 .exitIngredientList {
+    cursor: pointer;
     height: 15px;
     width: 15px;
     position: absolute;
     top: 1px;
     right: 1px;
     border-radius: 50%;
+    transition: 0.5s ease-in-out
 }
+    .exitIngredientList:hover{
+        transform: scale(1.5)
+    }
 
-.ingredient-list-wrapper {
-    position: fixed;
-    top: 80px;
-    right: 10px;
-    background-color: #F1DCC8;
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    flex-direction: column;
-    border: 1px solid grey;
-    border-radius: 5px;
-    box-shadow: 1px 1px 5px grey;
-    z-index: 990
-}
+    .ingredient-list-wrapper {
+        position: fixed;
+        top: 80px;
+        right: 10px;
+        background-color: #F1DCC8;
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        flex-direction: column;
+        border: 1px solid grey;
+        border-radius: 5px;
+        box-shadow: 1px 1px 5px grey;
+        z-index: 990
+    }
 .closeIngredientList {
     display: none;
 }
@@ -370,7 +378,7 @@ input::placeholder {
 .ingredient-list-table-wrapper {
     flex-grow: 1;
     overflow-y: auto;
-    height: 200px;
+    height: 180px;
 
 }
 
@@ -427,6 +435,7 @@ input::placeholder {
     width: 12px;
     height: 12px;
     transition: 0.4s;
+    cursor: pointer;
 }
 
 .table-data-name {
@@ -488,7 +497,7 @@ input::placeholder {
     color: black !important;
 }
 .swal-stockOutInsufficient-title:after {
-    content: "The following Ingredients are:";
+    content: "The following ingredients are:";
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;
@@ -501,35 +510,20 @@ input::placeholder {
     font-size: 0.9rem;
 }
 
-    /*.swal-sales-title::after {
-        content: "(Cannot be undone)";
-        font-weight: lighter;
-        color: grey;
-        font-size: 0.9rem;
-    }*/
-
 .select-process-wrapper{
    
     display: flex;
     flex-direction: column;
     
-  
 }
-    .select-process-wrapper label{
-        padding: 0;
-        margin: 0;
-    }
-    .selectProcess {
-        padding: 5px;
-    }
-  /*  .select-process-wrapper .selectProcess-wrapper {
-        flex: 1;
-        background-color: blue;
-    }*/
-/*.selectProcess-wrapper .selectProcess{
-    width: 100%;
-    height: 100%;
-}*/
+.select-process-wrapper label{
+    padding: 0;
+    margin: 0;
+}
+.selectProcess {
+    padding: 5px;
+}
+
 
 #processDetailsModal .process-detail-header {
     display: flex;

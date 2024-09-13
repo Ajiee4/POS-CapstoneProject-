@@ -8,6 +8,21 @@
         background-color: #C6976C !important;
     }
 </style>
+<div class="request-list-header">
+
+    <form asp-action="DisplayRequest" method="post" id="requestListForm">
+        <div class="request-status-wrapper">
+            <label>Status</label>
+            <select class="selectRequestStatus" name="requestStatus">             
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Canceled">Canceled</option>
+            </select>
+        </div>
+        <button type="button" class="viewRequestBtn">View</button>
+
+    </form>
+</div>
 
 <div class="request-list-wrapper"> 
     <div class="note">
@@ -15,48 +30,17 @@
             <b>Note</b>:
         </p>
         <ul>
-            <li>Ingredients with a quantity of zero will not be included in the Stock Movement record.</li>
+            <li>Ingredients with a quantity of zero will not be recorded in the Stock Movement.</li>
             <li>Inventory Level will be updated once the request is complete.</li>
         </ul>     
     </div>
-    <div class="request-pending-wrapper">
-        <h1 class="request-header">PENDING</h1>
-        <div class="request-pending-grid">
-            @foreach (var item in ViewData["RequestPending"] as List<Request>)
-            {
-                var employeeName = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-                var count = data.RequestDetails.Where(s => s.RequestId == item.RequestId).Sum(s => s.Quantity);
-
-                <div class="request-card" data-id="@item.RequestId" data-status="Pending">
-                    <div class="card-id">
-                        <b>Request Id:</b> 
-                        @item.RequestId
-                    </div>
-                    <div class="card-date">
-                        <b>Request Date:</b> 
-                        @item.RequestDate.ToString("yyyy-MM-dd")
-                    </div>
-                    <div class="card-name">
-                        <b>Requested By:</b>
-                        @employeeName.Firstname @employeeName.Lastname
-                    </div>
-                    <div class="card-total-quantity">
-                        <b>Total Quantity:</b> 
-                        @count
-                    </div>
-                </div>              
-            }
-        </div>
-    </div>
-
+   
     <div class="request-completed-wrapper">
-        <h1 class="request-header">COMPLETED</h1>
-        <div class="request-completed-grid">
+        <h1 class="request-header">UNKNOWN</h1>
+        <div class="request-grid">
             @foreach (var item in ViewData["RequestComplete"] as List<Request>)
             { 
                 var employeeName = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-                var count = data.RequestDetails.Where(s => s.RequestId == item.RequestId).Sum(s => s.Quantity);
-
                 <div class="request-card" data-id="@item.RequestId" data-status="Completed">
                     <div class="card-id">
                         <b>Request Id:</b> 
@@ -70,43 +54,12 @@
                         <b>Requested By:</b>
                         @employeeName.Firstname @employeeName.Lastname
                     </div>
-                    <div class="card-total-quantity">
-                        <b>Total Quantity:</b> 
-                        @count
-                    </div>
+                  
                 </div>
             }
         </div>
     </div>
-    <div class="request-completed-wrapper">
-        <h1 class="request-header">CANCELED</h1>
-        <div class="request-completed-grid">
-            @foreach (var item in ViewData["RequestCanceled"] as List<Request>)
-            {
-                var employeeName = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-                var count = data.RequestDetails.Where(s => s.RequestId == item.RequestId).Sum(s => s.Quantity);
-
-                <div class="request-card" data-id="@item.RequestId" data-status="Completed">
-                    <div class="card-id">
-                        <b>Request Id:</b>
-                        @item.RequestId
-                    </div>
-                    <div class="card-date">
-                        <b>Request Date:</b>
-                        @item.RequestDate.ToString("yyyy-MM-dd")
-                    </div>
-                    <div class="card-name">
-                        <b>Requested By:</b>
-                        @employeeName.Firstname @employeeName.Lastname
-                    </div>
-                    <div class="card-total-quantity">
-                        <b>Total Quantity:</b>
-                        @count
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
+   
 </div>
 
 <div class="modal fade" id="requestCardModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -119,11 +72,11 @@
                 </button>
             </div>          
             <div class="modal-body">
-               <div class="request-card-modal-header">
+                <div class="request-card-modal-header">
                    <div class="request-card-modal-name">Ingredient</div>
                    <div class="request-card-modal-quantity">Quantity</div>
                   
-               </div>
+                </div> 
                <div class="request-card-table-wrapper">
                    <table class="request-card-table">
                        <form asp-action="UpdateRequest" method="post" id="FormRequestUpdate">
@@ -194,8 +147,10 @@
 
                
                 filteredDetails.forEach(deta => {
+
+                    const truncatedName = deta.Ingredient.Name.length > 5 ? `${deta.Ingredient.Name.substring(0, 5)}...` : deta.Ingredient.Name;
                     let row = `<tr>
-                                  <td>${deta.Ingredient.Name}</td>
+                                  <td>${truncatedName}</td>
                                   <td>
                                        <input class="inputQtyRequest" data-id="${deta.IngredientId}" onchange="changeQtyRequest(this)" oninput="validateQtyRequest(this)" value="${deta.Quantity}" />
                                   </td>

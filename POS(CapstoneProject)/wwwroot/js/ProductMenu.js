@@ -1,23 +1,20 @@
-﻿//Initialize data table
+﻿//Setup the table
 $(document).ready(function () {
     $('.product-table').DataTable({
-        "paging": true,
-        
+        "paging": true,       
         "searching": true,
         "ordering": true,
         "pageLength": 5
-
     });
-
 });
 
+//pop up message using sweetalert
 function popUpMessageProduct(message, icon) {
     Swal.fire({
         text: message,
         icon: icon,
         showConfirmButton: false,
         timer: 2000,
-
     });
 }
 
@@ -42,7 +39,6 @@ $('#addProductModal .inputPhoto').change(function (e) {
 
 //when modal is close, it will clear the value
 $('#addProductModal').on('hidden.bs.modal', function () {
-    //set the defaul value when modal is hidden
     $('#addProductModal .addProductInputName').val('');
     $('#addProductModal .addProductInputPrice').val('');
     $('#addProductModal .photo-wrapper img').attr('src', '/images/noimage.jpg');
@@ -56,9 +52,8 @@ $('.archiveBtn').click(function () {
     Swal.fire({
        
         title: "Are you sure you want to archive this product? <br/>",
-        icon: "warning",
-        padding: "1em",
-        iconColor: "#F71F1F",
+        icon: "question",    
+        iconColor: "#1964C5", 
         showCancelButton: true,
         confirmButtonColor: "#1964C5",
         cancelButtonColor: "#F71F1F",
@@ -84,7 +79,7 @@ $('.unarchiveBtn').click(function () {
 
     Swal.fire({
         title: "Are you sure you want to unarchive this product? <br/>",
-        padding: "1em",
+       
         icon: "question",
         iconColor: "#1964C5",
         showCancelButton: true,
@@ -108,16 +103,13 @@ $('.unarchiveBtn').click(function () {
    
 })
 
-//when update button is click, set default value
+//when update button is click, set default value inside the update produtct modal
 function updateProduct(id, name, price, category, img) {
 
     $('#updateProductModal .productId').val(id); 
-    $('#updateProductModal .updateProductInputName').val(name);
+    $('#updateProductModal .updateProductInputName').val(name.trim());
     $('#updateProductModal .updateProductInputPrice').val(price);
     $('#updateProductModal .selectProductCategory option[value="' + category + '"]').prop('selected', true);
-
-    
-  
   
     if (img) {
         const base64Image = 'data:image/jpeg;base64,' + img;
@@ -126,13 +118,13 @@ function updateProduct(id, name, price, category, img) {
         // If there's no image, set a default placeholder image
         $('#updateProductModal .photo-wrapper img').attr('src', '/images/noimage.jpg');
     }
-   
-
 }
+//clear the value of input photo when the update modal is hidden
 $('#updateProductModal').on('hidden.bs.modal', function () {
    
     $('#updateProductModal .inputPhoto').val('');
 });
+//when the upload photo button is click it will fire the input photo to select an image file
 $('#updateProductModal .uploadPhoto').click(function () {
 
     $('#updateProductModal .inputPhoto').click();
@@ -150,6 +142,7 @@ $('#updateProductModal .inputPhoto').change(function (e) {
     reader.readAsDataURL(file);
 });
 
+//validate the price input
 function validatePrice(input) {
 
     let value = input.value;
@@ -158,35 +151,44 @@ function validatePrice(input) {
 
     if (validValue) {
         input.value = validValue[0];
-    } else {
+    }
+    else {
        
-        popUpMessageProduct("Only numbers are allowed","error")
+        popUpMessageProduct("Invalid input","error")
         input.value = "";
     }
 }
 
+//call the function when submit button is click
 $('.addProductSubmit').click(function () {
-    
-    AddProduct();
+
+    if ($('.selectCat option').length == 0) {
+        popUpMessageProduct("Create new category first", "error")
+    }
+    else {
+        AddProduct();
+    }
+  
 });
 function AddProduct() {
     let productName = document.querySelector('.addProductInputName').value.trim();
     let productPrice = document.querySelector('.addProductInputPrice').value.trim();
     productName = productName.replace(/\s{2,}/g, ' ');
+
     if (productName == '' || productPrice == '') {
 
-        popUpMessageProduct("Fill out all necessary information", "error");
-       
+        popUpMessageProduct("Fill out all necessary information", "error");       
     }
     else {
 
         if (productName.length >= 3 && productName.length <= 15) {
-
+        
             $('.addProductInputName').val(productName);
             Swal.fire({
                 icon: "question",
-                title: "Do you want to add this product?",
-                padding: "1em",
+                title: "Do you want to add this product?",              
+                icon: "question",
+                iconColor: "#1964C5",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
@@ -211,16 +213,19 @@ function AddProduct() {
 
             popUpMessageProduct("Input must be 3-15 characters for product name", "error");
            
-
         }
     }
 
 }
 
-
 $('.updateProductSubmit').click(function () {
-
-    UpdateProduct();
+    if ($('.selectCat option').length == 0) {
+        popUpMessageProduct("Create new category first", "error")
+    }
+    else {
+        UpdateProduct();
+    }
+   
 });
 
 function UpdateProduct() {
@@ -239,7 +244,7 @@ function UpdateProduct() {
             Swal.fire({
                 icon: "question",
                 title: "Do you want to update this product?",
-                padding: "1em",
+                iconColor: "#1964C5",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
@@ -263,7 +268,6 @@ function UpdateProduct() {
         } else {
 
             popUpMessageProduct("Input must be 3-15 characters for product name", "error");
-
 
         }
     }

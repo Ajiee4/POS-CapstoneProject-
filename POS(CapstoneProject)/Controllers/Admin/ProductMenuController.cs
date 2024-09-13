@@ -7,6 +7,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 {
     public class ProductMenuController : Controller
     {
+        //db context
         private readonly POS_CapstoneProject_Context _context;
 
         public ProductMenuController(POS_CapstoneProject_Context context)
@@ -28,8 +29,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         return RedirectToAction("Login", "Authentication");
                     }
                     else
-                    {
-                       
+                    {                     
                         var productList = await _context.Product.Include(s => s.Category).ToListAsync();                       
                         var getCategoryProduct = await _context.Category.ToListAsync();
                        
@@ -49,10 +49,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 return RedirectToAction("Login", "Authentication");
             }
 
-
-
-
-
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,7 +65,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     
                     //save to database
-                    _context.Add(prod);
+                    await _context.AddAsync(prod);
                     await _context.SaveChangesAsync();
 
                     TempData["ProductAdded"] = "Added new product";
@@ -111,42 +107,54 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> UpdateProduct(Product prod, IFormFile file)
         {
             var checkProduct = await _context.Product.Where(s => s.ProductId == prod.ProductId).FirstOrDefaultAsync();
-            if (checkProduct == null)
-            {
-
-            }
-            else
+            if (checkProduct != null)
             {
                 if (file == null)
                 {
-                    checkProduct.Name = prod.Name;
-                    checkProduct.Price = prod.Price;
-                    checkProduct.ProdCategoryId = prod.ProdCategoryId;
-                    _context.Update(checkProduct);
-                    await _context.SaveChangesAsync();
+                    if(checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId)
+                    {
+                        TempData["NoChanges"] = "Product updated";
+                    }
+                    else
+                    {
+                        checkProduct.Name = prod.Name;
+                        checkProduct.Price = prod.Price;
+                        checkProduct.ProdCategoryId = prod.ProdCategoryId;
+                        _context.Update(checkProduct);
+                        await _context.SaveChangesAsync();
 
-                    TempData["ProductUpdated"] = "Product updated";
+                        TempData["ProductUpdated"] = "Product updated";
+                    }
+            
                 }
-
                 else
                 {
                     using (var ms = new MemoryStream())
                     {
                         await file.CopyToAsync(ms);
-                        checkProduct.ImageData = ms.ToArray();
+                        prod.ImageData = ms.ToArray();
                     }
-                    checkProduct.Name = prod.Name;
-                    checkProduct.Price = prod.Price;
-                    checkProduct.ProdCategoryId = prod.ProdCategoryId;
-                    _context.Update(checkProduct);
-                    await _context.SaveChangesAsync();
 
-                    TempData["ProductUpdated"] = "Product updated";
+                    if (checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId && checkProduct.ImageData == prod.ImageData)
+                    {
+                        TempData["NoChanges"] = "Product updated";
+                    }
+                    else
+                    {
+                        checkProduct.Name = prod.Name;
+                        checkProduct.Price = prod.Price;
+                        checkProduct.ProdCategoryId = prod.ProdCategoryId;
+                        checkProduct.ImageData = prod.ImageData;
+                        _context.Update(checkProduct);
+                        await _context.SaveChangesAsync();
+
+                        TempData["ProductUpdated"] = "Product updated";
+                    }
+                  
+                 
                 }
-
             }
-
-
+           
             return RedirectToAction("Index");
 
         }
@@ -157,21 +165,13 @@ namespace POS_CapstoneProject_.Controllers.Admin
         {
 
             var checkProduct = await _context.Product.Where(s => s.ProductId == product.ProductId).FirstOrDefaultAsync();
-            if (checkProduct == null)
+            if (checkProduct != null)
             {
-                TempData["Error"] = " ";
-            }
-            else
-            {
-
-
                 checkProduct.IsArchive = true;
                 _context.Update(checkProduct);
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessArchived"] = " ";
-
-
             }
 
             return RedirectToAction("Index");
@@ -180,24 +180,16 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UnarchiveProduct(Product product)
         {
-
             var checkProduct = await _context.Product.Where(s => s.ProductId == product.ProductId).FirstOrDefaultAsync();
-            if (checkProduct == null)
+            if (checkProduct != null)
             {
-                TempData["Error"] = " ";
-            }
-            else
-            {
-
-
                 checkProduct.IsArchive = false;
                 _context.Update(checkProduct);
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessUnarchived"] = " ";
-
-
             }
+          
 
             return RedirectToAction("Index");
         }

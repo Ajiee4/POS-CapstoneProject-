@@ -12,9 +12,9 @@
     position: relative;
 }
 
-/*add product button*/
+
 .addProductBtn {
-  
+    cursor: pointer;
     padding: 10px 15px;
     background-color: #693D29;
     color: white;
@@ -30,7 +30,7 @@
 }
 
 
-/* Product Table */
+
 .product-table {
     border-collapse: collapse !important;
     border: 1px solid black;
@@ -39,9 +39,7 @@
 }
 .product-table thead {
     background-color: #693D29;
-    color: white;
-
-       
+    color: white;     
 }  
 
 .product-table thead th {
@@ -60,6 +58,7 @@
     text-align: left !important;
 }
 
+/*Responsive table */
  
 @media (max-width: 770px) {
     .product-table thead {
@@ -135,20 +134,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*Data table library*/
 .dt-search label {
     color: black;
@@ -202,7 +187,8 @@
     padding: 10px 30px;
     border: none;
     color: white;
-    transition: 0.3s ease-in-out
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 #addProductModal .addProductSubmit:hover, #updateProductModal .updateProductSubmit:hover {
@@ -235,24 +221,13 @@
     background-color: #F71F1F;
     color: white;
 }
-/*
-.action-wrapper{
-   
-    display: flex;
-   
-    gap: 5px;
-    flex-direction: row;
-   
-   
-}*/
-
 input::placeholder {
     color: dimgrey;
     font-weight: lighter;
     font-size: 0.9rem;
 }
 
-/*sweetaker custom class*/
+/*sweetalert custom class*/
 .custom-icon {
     font-size: 8px !important; 
 }
@@ -264,7 +239,7 @@ input::placeholder {
 }
 
 .swal-archive-title::after{
-    content: "(Product will not be available for sale)";
+    content: "This product will not be available for sale";
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;
@@ -278,7 +253,7 @@ input::placeholder {
 }
 
 .swal-unarchive-title::after {
-    content: "(Product will be available for sale)";
+    content: "This product will be available for sale";
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;

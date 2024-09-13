@@ -622,7 +622,7 @@ input::placeholder {
     color: black !important;
 }
 .swal-sales-title::after {
-    content: "(Cannot be undone)";
+    content: "Cannot be undone";
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;
@@ -654,9 +654,14 @@ input::placeholder {
     top: 1px;
     right: 1px;
     border-radius: 50%;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
  
 }
 
+.exitCheckout:hover {
+    transform: scale(1.5)
+}
 
 @media (max-width: 768px) {
     .product-list-wrapper {

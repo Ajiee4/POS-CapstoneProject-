@@ -6,9 +6,25 @@
         background-color: #C6976C !important;
     }
 </style>
+<div class="stock-movement-header">
 
-<div class="inventory-wrapper">
-  
+    <form asp-action="DisplayStockMovement" method="post" id="stockMovementForm">
+        <div class="transactionType-wrapper">
+            <label>Transaction Type</label>
+            <select class="selectTransactionType" name="transactionType">
+                <option selected disabled>Select a type</option>
+                <option value="All">All</option>
+                <option value="Stock In">Stock In</option>
+                <option value="Stock Out">Stock Out</option>
+            </select>
+        </div>
+            <button type="button" class="generateRecordBtn">View</button>
+      
+    </form>
+</div>
+
+<div class="stock-movement-wrapper">
+   
 
     <table class="stock-movement-table">
 
@@ -21,28 +37,88 @@
                 <th>Quantity</th>
                 <th>Date</th>
                 <th>Remarks</th>
-
-
-
             </tr>
         </thead>
 
-        <tbody>
-
-
-            @foreach (var item in ViewData["InventoryTransactDetail"] as List<InventoryTransactionDetail>)
-            {
-                <tr>
-                   <td>@item.InventoryTransactId</td>
-                   <td>@item.InventoryTransaction.User.UserId</td>
-                   <td>@item.InventoryTransaction.TransactionType</td>
-                   <td>@item.Ingredient.Name</td>
-                   <td>@item.Quantity</td>
-                   <td>@item.InventoryTransaction.TransactionDate.ToString("MM/dd/yyyy")</td>
-                   <td>@item.Remarks</td>
-                </tr>
-            }
+        <tbody id="stock-movement-body">
+        
         </tbody>
     </table>
 </div>
+
+
+@if (TempData["inventoryAll"] != null)
+{
+  
+
+    @foreach (var item in ViewData["All"] as List<InventoryTransactionDetail>)
+    {
+        <script>
+            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.selectTransactionType').value = "All"
+            var tableBody = document.getElementById("stock-movement-body");
+            var tableRow = document.createElement("tr");
+            tableRow.innerHTML = `
+                                    <td>@item.InventoryTransactId</td>
+                                    <td>@item.InventoryTransaction.User.UserId</td>
+                                    <td>@item.InventoryTransaction.TransactionType</td>
+                                    <td>@item.Ingredient.Name</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.InventoryTransaction.TransactionDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.Remarks</td>
+                                `;
+            tableBody.appendChild(tableRow);
+        </script>
+    }
+} 
+@if (TempData["inventoryStockIn"] != null)
+{
+
+    @foreach (var item in ViewData["StockIn"] as List<InventoryTransactionDetail>)
+    {
+        <script>
+            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.selectTransactionType').value = "Stock In"
+            var tableBody = document.getElementById("stock-movement-body");
+            var tableRow = document.createElement("tr");
+            tableRow.innerHTML = `
+                                                <td>@item.InventoryTransactId</td>
+                                                <td>@item.InventoryTransaction.User.UserId</td>
+                                                <td>@item.InventoryTransaction.TransactionType</td>
+                                                <td>@item.Ingredient.Name</td>
+                                                <td>@item.Quantity</td>
+                                                <td>@item.InventoryTransaction.TransactionDate.ToString("yyyy-MM-dd")</td>
+                                                <td>@item.Remarks</td>
+                                            `;
+            tableBody.appendChild(tableRow);
+        </script>
+    }
+}
+
+@if (TempData["inventoryStockOut"] != null)
+{
+
+    @foreach (var item in ViewData["StockOut"] as List<InventoryTransactionDetail>)
+    {
+        <script>
+            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.selectTransactionType').value = "Stock Out"
+            var tableBody = document.getElementById("stock-movement-body");
+            var tableRow = document.createElement("tr");
+            tableRow.innerHTML = `
+                                                <td>@item.InventoryTransactId</td>
+                                                <td>@item.InventoryTransaction.User.UserId</td>
+                                                <td>@item.InventoryTransaction.TransactionType</td>
+                                                <td>@item.Ingredient.Name</td>
+                                                <td>@item.Quantity</td>
+                                                <td>@item.InventoryTransaction.TransactionDate.ToString("yyyy-MM-dd")</td>
+                                                <td>@item.Remarks</td>
+                                            `;
+            tableBody.appendChild(tableRow);
+        </script>
+    }
+}
+
+
+
 

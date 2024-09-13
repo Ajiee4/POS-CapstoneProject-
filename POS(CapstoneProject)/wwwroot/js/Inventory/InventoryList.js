@@ -60,10 +60,15 @@ $('.addIngredientSubmit').click(function () {
     AddIngredient();
 });
 
+$('#addIngredientModal').on('hidden.bs.modal', function () {
+    $('#addIngredientModal .inputIngredientName').val('');
+    $('#addIngredientModal .inputMeasurement').val('');
+    $('#addIngredientModal .inputThreshold').val('');
+});
+
 function AddIngredient() {
-    let ingredientName = document.querySelector('#addIngredientModal .inputIngredientName').value;
-    let unitMeasurement = document.querySelector('#addIngredientModal .inputMeasurement').value;
-   
+    let ingredientName = document.querySelector('#addIngredientModal .inputIngredientName').value.trim();
+    let unitMeasurement = document.querySelector('#addIngredientModal .inputMeasurement').value.trim();  
     let lowStockThreshold = document.querySelector('#addIngredientModal .inputThreshold').value;
     ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
 
@@ -125,8 +130,8 @@ $('.updateIngredientSubmit').click(function () {
 });
 
 function updateIngredient() {
-    let ingredientName = document.querySelector('#updateIngredientModal .inputIngredientName').value;
-    let unitMeasurement = document.querySelector('#updateIngredientModal .inputMeasurement').value;   
+    let ingredientName = document.querySelector('#updateIngredientModal .inputIngredientName').value.trim();
+    let unitMeasurement = document.querySelector('#updateIngredientModal .inputMeasurement').value.trim();   
     let lowStockThreshold = document.querySelector('#updateIngredientModal .inputThreshold').value;
     ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
     if (ingredientName === '' || unitMeasurement === '' || lowStockThreshold === '') {
@@ -277,11 +282,13 @@ function AddIngredientList() {
 
             let ingredient = ingredientList.find(item => item.ingredientId == row.dataset.id)
             if (ingredient) {
-                popUpMessageInventory("Ingredient is already in the list", "error")
-                //ingredient.ingredientQty++;
-                //DisplayRequest();
+              
+                popUpMessageInvenotryTop('Ingredient is already in the list', 'info', 365)
             }
             else {
+               
+
+                popUpMessageInvenotryTop('Added in the list', 'success', 260)
                 ingredientList.push({
                     ingredientId: Number(row.dataset.id),
                     ingredientName: row.dataset.name,
@@ -318,7 +325,7 @@ function DisplayIngredientList() {
                     <td class="table-data-quantity">
                         <div class="quantity-table-data">
                             
-                            <input data-id="${item.ingredientId}" onchange="qtyChange(this)" class="quantityInput" oninput="validateQuantity(this)" value="${item.ingredientQty}" />
+                            <input data-id="${item.ingredientId}" maxlength="6" onchange="qtyChange(this)" class="quantityInput" oninput="validateQuantity(this)" value="${item.ingredientQty}" />
                           
 
                         </div>
@@ -376,10 +383,26 @@ $('.processIngredientListBtn').click(function () {
 
 });
 
+function popUpMessageInvenotryTop(message, icon, mywidth) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        width: mywidth,
+        showConfirmButton: false,
+        timer: 1500,
+
+    });
+    Toast.fire({
+        icon: icon,
+        title: message
+    });
+}
+
 //Set Process Details Modal Default Values
 function ProcessDetails() {
     if (ingredientList.length == 0) {
-        popUpMessageInventory("List is empty", "error")
+
+        popUpMessageInvenotryTop('List is empty', 'error', 260)
        
     }
     else {
@@ -410,25 +433,27 @@ function ProcessDetails() {
         tableBody.innerHTML = html;
 
         $('#processDetailsModal').modal('show');
-    }
-
-   
+    }  
 }
 
 
-
+//when the submit button is click
 $('.processSubmit').click(function () {
 
+    //create an array to store the insufficient ingredients
     const insufficientList = []
     if ($('.selectProcess').val() == "Stock Out") {
         let ingredient = ingredientListQuanti
 
+        //check every ingredients if they are greater than or equal to the stock out quantity
+        //if every iteration is true the result is true
         let result = ingredientList.every(item => {
             let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);         
             return findIngredient.quantity >= item.ingredientQty
 
         });
 
+        //iterate the ingredients list and add the ingredients to the array if it is insufficient
         ingredientList.forEach(item => {
             let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);
             if (!(findIngredient.quantity >= item.ingredientQty)) {
@@ -436,8 +461,9 @@ $('.processSubmit').click(function () {
             }
         });
 
-
+        //check if the result
         if (result) {
+            //submit if the result is true
             let jsonData = JSON.stringify(ingredientList);
 
             $('.listData').val(jsonData);
@@ -445,11 +471,12 @@ $('.processSubmit').click(function () {
             $('#formProcess').submit();
         }
         else {
+            //show a pop up message if some ingredients are insufficient
             let insufficientListText = insufficientList.map(item => `<li>${item}</li>`).join('');
-            console.log(insufficientList);
+           
             Swal.fire({
                 icon: "error",
-                title: "Insufficient Ingredients Quantity <br>",
+                title: "Insufficient Quantity <br>",
                 html: `
                    <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
                 showConfirmButton: false,
@@ -474,16 +501,15 @@ $('.processSubmit').click(function () {
 
         $('#formProcess').submit();
     }
-   
-
-   
+    
 })
 
+//call the function when the select process value changed
 $('.selectProcess').change(function () {
     selectedProcess();
    
 });
-
+//shows the remarks when the selected process is stock out
 function selectedProcess() {
     if ($('.selectProcess').val() == "Stock Out") {
 

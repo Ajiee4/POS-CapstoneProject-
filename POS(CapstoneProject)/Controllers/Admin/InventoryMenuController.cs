@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+
 using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
 
@@ -92,16 +93,26 @@ namespace POS_CapstoneProject_.Controllers.Admin
             var checkIngredient = _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefault();
             if (checkIngredient != null)
             {
+
+                if(checkIngredient.Name == ingredient.Name && checkIngredient.UnitOfMeasurement == ingredient.UnitOfMeasurement
+                    && checkIngredient.LowStockThreshold == ingredient.LowStockThreshold)
+                {
+                    TempData["NoChanges"] = " ";
+                }
+                else
+                {
+                    checkIngredient.Name = ingredient.Name;
+                    checkIngredient.UnitOfMeasurement = ingredient.UnitOfMeasurement;
+
+                    checkIngredient.LowStockThreshold = ingredient.LowStockThreshold;
+
+                    _context.Ingredient.Update(checkIngredient);
+                    await _context.SaveChangesAsync();
+
+                    TempData["UpdateIngredient"] = " ";
+                }
                 //update the ingredient
-                checkIngredient.Name = ingredient.Name;
-                checkIngredient.UnitOfMeasurement = ingredient.UnitOfMeasurement;
-
-                checkIngredient.LowStockThreshold = ingredient.LowStockThreshold;
-
-                _context.Ingredient.Update(checkIngredient);
-                await _context.SaveChangesAsync();
-
-                TempData["UpdateIngredient"] = " ";
+            
             }
 
 
@@ -313,8 +324,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
             await _context.SaveChangesAsync();
             //add transaction details and save to db
 
-          
-
+         
             if (myList! != null)
             {
                 foreach (var item in myList)
@@ -360,105 +370,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             return RedirectToAction("RequestList");
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]  
-        //public async Task<IActionResult> StockInIngredient(Ingredient ingredient, string StockInType)
-        //{   
-        ////    //get and store the use rid
-        ////    int id = (int)HttpContext.Session.GetInt32("UserID");
-        ////    //check the id if it exist
-        ////    var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
-        ////    if (checkIngredient != null)
-        ////    {
-        ////        //update the quantity of ingredient
-        ////        checkIngredient.Quantity += ingredient.Quantity;
-        ////        _context.Ingredient.Update(checkIngredient);
-        ////        await _context.SaveChangesAsync();
-
-        ////    }
-        ////    //add new inventory transaction and save to db
-        ////    var inventTransact = new InventoryTransaction()
-        ////    {
-        ////        UserId = id,
-        ////        TransactionDate = DateTime.Now.Date,
-        ////        TransactionType = StockInType
-        ////    };
-
-        ////    _context.InventoryTransaction.Add(inventTransact);
-        ////    await _context.SaveChangesAsync();
-        ////    //add transaction details and save to db
-        ////    var inventTransactDetails = new InventoryTransactionDetail()
-        ////    {
-        ////        InventoryTransactId = inventTransact.InventoryTransactId,
-        ////        IngredientId = checkIngredient.IngredientId,
-        ////        Quantity = ingredient.Quantity,
-        ////        Remarks = "Purchased"
-
-        ////    };
-
-        //    _context.InventoryTransactionDetail.Add(inventTransactDetails);
-        //    await _context.SaveChangesAsync();
-
-        //    TempData["StockIn"] = " ";
-
-        //    return RedirectToAction("InventoryList");
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> StockOutIngredient(Ingredient ingredient, string StockInType, string remarks)
-        //{
-        //    //get and store the user id
-        //    int id = (int)HttpContext.Session.GetInt32("UserID");
-        //    //check the id of the ingredient if it exist
-        //    var checkIngredient = await _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefaultAsync();
-        //    if (checkIngredient != null)
-        //    {
-        //        //check if the quantity is greaten than the input quanty
-        //        if (checkIngredient.Quantity >= ingredient.Quantity)
-        //        {
-        //            //update the records
-        //            checkIngredient.Quantity -= ingredient.Quantity;
-        //            _context.Ingredient.Update(checkIngredient);
-        //            await _context.SaveChangesAsync();
-
-        //            TempData["StockOut"] = " ";
-
-        //            //add new inventory transaction
-        //            var inventTransact = new InventoryTransaction()
-        //            {
-        //                UserId = id,
-        //                TransactionDate = DateTime.Now.Date,
-        //                TransactionType = StockInType
-        //            };
-
-        //            _context.InventoryTransaction.Add(inventTransact);
-        //            await _context.SaveChangesAsync();
-
-        //            //add inventory transaction details
-        //            var inventTransactDetails = new InventoryTransactionDetail()
-        //            {
-        //                InventoryTransactId = inventTransact.InventoryTransactId,
-        //                IngredientId = checkIngredient.IngredientId,
-        //                Quantity = ingredient.Quantity,
-        //                Remarks = remarks
-
-        //            };
-        //            _context.InventoryTransactionDetail.Add(inventTransactDetails);
-        //            await _context.SaveChangesAsync();
-
-        //        }
-        //        else
-        //        {
-        //            TempData["Insufficient"] = " ";
-        //        }
-
-
-        //    }
-
-        //    return RedirectToAction("InventoryList");
-        //}
-        public IActionResult StockMovement()
+     
+        public async Task <IActionResult> StockMovement()
         {
             //check if there's an ongoing session
             var UserId = HttpContext.Session.GetInt32("UserID");
@@ -475,8 +388,14 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-                        var inventoryDetails = _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).ToList();
-                        ViewData["InventoryTransactDetail"] = inventoryDetails;
+                        var inventoryAll = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).ToListAsync();
+                        var inventoryStockIn = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).Where(s => s.InventoryTransaction.TransactionType == "Stock In").ToListAsync();
+                        var inventoryStockOut = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).Where(s => s.InventoryTransaction.TransactionType == "Stock Out").ToListAsync();
+
+                        ViewData["All"] = inventoryAll;
+                        ViewData["StockIn"] = inventoryStockIn;
+                        ViewData["StockOut"] = inventoryStockOut;
+
                         return View();
                     }
                 }
@@ -490,6 +409,30 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 return RedirectToAction("Login", "Authentication");
             }
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DisplayStockMovement(string transactionType)
+        {
+            var inventoryAll = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).ToListAsync();
+            var inventoryStockIn = await  _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).Where(s => s.InventoryTransaction.TransactionType == "Stock In").ToListAsync();        
+            var inventoryStockOut = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).Where(s => s.InventoryTransaction.TransactionType == "Stock In").ToListAsync();
+
+            switch (transactionType)
+            {
+                case "All":
+                    TempData["inventoryAll"] = "";
+                    break;
+                case "Stock In":
+                    TempData["inventoryStockIn"] = "";
+                    break;
+                case "Stock Out":
+                    TempData["inventoryStockOut"] = "";
+                    break;
+            }
+
+            return RedirectToAction("StockMovement");
         }
         public IActionResult RequestList()
         {

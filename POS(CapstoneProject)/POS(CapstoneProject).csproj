@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\Inventory\StockMovement.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,6 +29,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,10 +40,12 @@
     <_ContentIncludedByDefault Remove="wwwroot\css\ProductMenu.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\SalesReport.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\UserManagement.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\Inventory\StockMovement.js" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="C:\Users\Admin\source\repos\POS(CapstoneProject)\POS(CapstoneProject)\Controllers\.editorconfig" />
+    <None Include="wwwroot\js\Inventory\StockMovement.js" />
   </ItemGroup>
 
 </Project>
