@@ -1,7 +1,6 @@
-﻿let ingredientList = [];
-
-
-
+﻿//array of ingredients
+let requestList = [];
+let stockOutList = [];
 
 //setting up the data table
 $(document).ready(function () {
@@ -24,19 +23,9 @@ $(document).ready(function () {
 
     });
 })
-$(document).ready(function () {
-    $('.request-details-table').DataTable({
-        "paging": true,
-
-        "searching": true,
-        "ordering": false,
-        "pageLength": 5,
-
-    });
-})
 
 
-//function for showing pop up message
+//pop up message
 function popUpMessageInventory(message, icon) {
     Swal.fire({
         text: message,
@@ -46,31 +35,39 @@ function popUpMessageInventory(message, icon) {
         timer: 2000
     });
 }
+function popUpMessageInvenotryTop(message, icon, mywidth) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        width: mywidth,
+        showConfirmButton: false,
+        timer: 1500,
 
-//cost per unit validation
-function validateInput(input) {
-    const value = input.value;
-    if (!/^[0-9]+(\.[0-9])?$/.test(value)) {
-        input.value = value.replace(/[^\d\.]/g, ''); 
-    }
+    });
+    Toast.fire({
+        icon: icon,
+        title: message
+    });
 }
 
-
-$('.addIngredientSubmit').click(function () {
-    AddIngredient();
-});
-
+//clear the inputs when Add Ingredient Modal disappeared
 $('#addIngredientModal').on('hidden.bs.modal', function () {
     $('#addIngredientModal .inputIngredientName').val('');
     $('#addIngredientModal .inputMeasurement').val('');
     $('#addIngredientModal .inputThreshold').val('');
 });
 
+//call the function when the add ingrediet is click
+$('.addIngredientSubmit').click(function () {
+    AddIngredient();
+});
+
+//function for validating the ingredient and submission of form
 function AddIngredient() {
     let ingredientName = document.querySelector('#addIngredientModal .inputIngredientName').value.trim();
     let unitMeasurement = document.querySelector('#addIngredientModal .inputMeasurement').value.trim();  
     let lowStockThreshold = document.querySelector('#addIngredientModal .inputThreshold').value;
-    ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
+    ingredientName = ingredientName.replace(/\s{2,}/g, ' '); //trims the space
 
     if (ingredientName === '' || unitMeasurement === ''|| lowStockThreshold === '') {
         popUpMessageInventory('Fill out all information', 'error');
@@ -81,8 +78,8 @@ function AddIngredient() {
         return;
     }
    
-
     $('#addIngredientModal .inputIngredientName').val(ingredientName);
+
     Swal.fire({
         icon: "question",
         title: "Do you want to add this ingredient?",
@@ -104,8 +101,8 @@ function AddIngredient() {
     });
     
 }
-//check if the name is valid
 
+//check if the name is valid
 function isValidName(name) {
 
     if (name.length >= 3 && name.length <= 15) {
@@ -113,8 +110,7 @@ function isValidName(name) {
     }
 }
 
-
-//set the default value when the modal is showed
+//set the default value when the update modal is showed
 function DefaultUpdateIngredientModal(id, name, measurement, threshold) {
   
     $('#updateIngredientModal .inputIngredientId').val(id);
@@ -124,16 +120,20 @@ function DefaultUpdateIngredientModal(id, name, measurement, threshold) {
   
         
 }
-//call the function when button is click
+
+//call the function when update submit button is click
 $('.updateIngredientSubmit').click(function () {
     updateIngredient();
 });
 
+//function for validating the updated ingredient and submission of form
 function updateIngredient() {
     let ingredientName = document.querySelector('#updateIngredientModal .inputIngredientName').value.trim();
     let unitMeasurement = document.querySelector('#updateIngredientModal .inputMeasurement').value.trim();   
     let lowStockThreshold = document.querySelector('#updateIngredientModal .inputThreshold').value;
+
     ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
+
     if (ingredientName === '' || unitMeasurement === '' || lowStockThreshold === '') {
         popUpMessageInventory('Fill out all information', 'error');
         return;
@@ -165,362 +165,264 @@ function updateIngredient() {
     });
 }
 
-function IngredientListToggle() {
-    $('.ingredient-list-wrapper').slideToggle(1000, function () {
+//function for toggling the ingredient-list-wrapper
+//function IngredientListToggle() {
+//    $('.ingredient-list-wrapper').slideToggle(1000, function () {
 
-        const ingredientListWrapper = $('.ingredient-list-wrapper');
-        ingredientListWrapper.toggleClass('closeIngredientList');
+//        const ingredientListWrapper = $('.ingredient-list-wrapper');
+//        ingredientListWrapper.toggleClass('closeIngredientList');
 
-        if (ingredientListWrapper.hasClass('closeIngredientList')) {
-            $('.inventory-wrapper').css({
-                'width': '100%'
-            })
-        } else {
-            $('.inventory-wrapper').css({
-                'width': "calc(100% - 320px)"
-            })
-        }
+//        if (ingredientListWrapper.hasClass('closeIngredientList')) {
+//            $('.inventory-wrapper').css({
+//                'width': '100%'
+//            })
+//        } else {
+//            $('.inventory-wrapper').css({
+//                'width': "calc(100% - 320px)"
+//            })
+//        }
 
-    });
-}
-$('.selectProcess').change(function () {
-    
-})
-
-$('.requestIngredientBtn').click(function () {
-  
-    
-    let wrapper = document.querySelector('.ingredient-list-wrapper');
-    if (wrapper.classList.contains('closeIngredientList')) {
-        $('.selectProcess').val('Request')
-        selectedProcess();
-        IngredientListToggle();
-    }
-    else {
-
-        if ($('.selectProcess').val() == "Request") {
-            IngredientListToggle();
-          
-        }
-        else {
-            $('.selectProcess').val('Request')
-            selectedProcess();
-
-        }
-        //else {
-        //    $('.selectProcess').val('Request')
-        //    selectedProcess();
-        //}
-  
-    }
-  
-  
-});
-$('.stockInBtn').click(function () {
-
-    let wrapper = document.querySelector('.ingredient-list-wrapper');
-    if (wrapper.classList.contains('closeIngredientList')) {
-        $('.selectProcess').val('Stock In')
-        selectedProcess();
-        IngredientListToggle();
-    }
-    else {
-
-        if ($('.selectProcess').val() == "Stock In") {
-            IngredientListToggle();
-
-        }
-        else {
-            $('.selectProcess').val('Stock In')
-            selectedProcess();
-
-        }
-      
-       
-       
-      
-    }
-   
-});
-$('.stockOutBtn').click(function () {
-
-    let wrapper = document.querySelector('.ingredient-list-wrapper');
-    if (wrapper.classList.contains('closeIngredientList')) {
-        $('.selectProcess').val('Stock Out')
-        selectedProcess();
-        IngredientListToggle();
-    }
-    else {
-        if ($('.selectProcess').val() == "Stock Out") {
-            IngredientListToggle();
-
-        }
-        else {
-            $('.selectProcess').val('Stock Out')
-            selectedProcess();
-
-        }
-      
-       
-    }
-});
+//    });
+//}
 
 
 
-$('.exitIngredientList').click(function () {
-   
-    IngredientListToggle();
-})
+//$('.exitIngredientList').click(function () {
 
-AddIngredientList();
-function AddIngredientList() {
-    let tableBody = document.querySelector('.inventory-table tbody');
+//  /*  IngredientListToggle();*/
+//})
 
-    tableBody.addEventListener('click', function (event) {
-        let row = event.target.closest('tr');
-        if (row && event.target.tagName !== 'BUTTON') {
+//add the selected ingredients to the array
+//AddIngredientList();
+//function AddIngredientList() {
+//    let tableBody = document.querySelector('.inventory-table tbody');
 
-            let ingredient = ingredientList.find(item => item.ingredientId == row.dataset.id)
-            if (ingredient) {
-              
-                popUpMessageInvenotryTop('Ingredient is already in the list', 'info', 365)
-            }
-            else {
-               
+//    tableBody.addEventListener('click', function (event) {
+//        let row = event.target.closest('tr');
+//        if (row && event.target.tagName !== 'BUTTON') {
 
-                popUpMessageInvenotryTop('Added in the list', 'success', 260)
-                ingredientList.push({
-                    ingredientId: Number(row.dataset.id),
-                    ingredientName: row.dataset.name,
-                    ingredientQty: 1
+//            let ingredient = ingredientList.find(item => item.ingredientId == row.dataset.id)
+//            if (ingredient) {
 
-                });
-
-                DisplayIngredientList();
-            }
-         
-            console.log(ingredientList);
-        }
-    });
-
-}
+//                popUpMessageInvenotryTop('Ingredient is already in the list', 'info', 365)
+//            }
+//            else {
 
 
-function DisplayIngredientList() {
+//                popUpMessageInvenotryTop('Added in the list', 'success', 260)
+//                ingredientList.push({
+//                    ingredientId: Number(row.dataset.id),
+//                    ingredientName: row.dataset.name,
+//                    ingredientQty: 1
 
-    const tableBody = document.querySelector('.ingredient-list-table tbody');
-    let html = '';
-    ingredientList.forEach((item) => {
+//                });
 
-        const truncatedName = item.ingredientName.length > 10 ? `${item.ingredientName.substring(0, 10)}...` : item.ingredientName;
-        html +=
-            `
-             <tr >
-                    <td>
-                            <img src="/images/delete-black.png" class="delete-ingredient-img d-block mx-auto" onclick="deleteItemIngredient(${item.ingredientId})"/>
-                    </td>
-                    <td class="table-data-name">
-                        ${truncatedName}
-                    </td>
-                    <td class="table-data-quantity">
-                        <div class="quantity-table-data">
+//                DisplayIngredientList();
+//            }
+
+
+//        }
+//    });
+
+//}
+
+//displayign the ingredients in the table
+
+//function DisplayIngredientList() {
+
+//    const tableBody = document.querySelector('.ingredient-list-table tbody');
+//    let html = '';
+//    ingredientList.forEach((item) => {
+
+//        const truncatedName = item.ingredientName.length > 10 ? `${item.ingredientName.substring(0, 10)}...` : item.ingredientName;
+//        html +=
+//            `
+//             <tr >
+//                    <td>
+//                            <img src="/images/delete-black.png" class="delete-ingredient-img d-block mx-auto" onclick="deleteItemIngredient(${item.ingredientId})"/>
+//                    </td>
+//                    <td class="table-data-name">
+//                        ${truncatedName}
+//                    </td>
+//                    <td class="table-data-quantity">
+//                        <div class="quantity-table-data">
                             
-                            <input data-id="${item.ingredientId}" maxlength="6" onchange="qtyChange(this)" class="quantityInput" oninput="validateQuantity(this)" value="${item.ingredientQty}" />
+//                            <input data-id="${item.ingredientId}" maxlength="6" onchange="qtyChange(this)" class="quantityInput" oninput="validateQuantity(this)" value="${item.ingredientQty}" />
                           
 
-                        </div>
+//                        </div>
 
-                    </td>
+//                    </td>
 
                    
-                </tr>
+//                </tr>
                                  
-            `
-    });
+//            `
+//    });
 
-    tableBody.innerHTML = html;
-
-   
-}
-
-function qtyChange(input) {
-    let idIngredient = Number(input.dataset.id);
-    const ingredient = ingredientList.find((item) => item.ingredientId === idIngredient);
-    const inputValue = input.value.trim();
+//    tableBody.innerHTML = html;
 
    
-    if (!inputValue || inputValue == 0) {
-        input.value = 1;
-    }
-    ingredient.ingredientQty = Number(input.value);
+//}
+//when the quantity change
+//function qtyChange(input) {
+//    let idIngredient = Number(input.dataset.id);
+//    const ingredient = ingredientList.find((item) => item.ingredientId === idIngredient);
+//    const inputValue = input.value.trim();
+
+   
+//    if (!inputValue || inputValue == 0) {
+//        input.value = 1;
+//    }
+//    ingredient.ingredientQty = Number(input.value);
   
-}
+//}
 
 
-function validateQuantity(input) {
+//function validateQuantity(input) {
 
-    input.value = input.value.replace(/[^0-9]/g, '');
+//    input.value = input.value.replace(/[^0-9]/g, '');
    
-}
+//}
 
 
+//detele item
+//function deleteItemIngredient(id) {
+//    let indexIngrediet = ingredientList.findIndex(item => item.ingredientId === id);
 
-function deleteItemIngredient(id) {
-    let indexIngrediet = ingredientList.findIndex(item => item.ingredientId === id);
+//    if (indexIngrediet !== -1) {
+//        ingredientList.splice(indexIngrediet, 1);
+//        DisplayIngredientList();
 
-    if (indexIngrediet !== -1) {
-        ingredientList.splice(indexIngrediet, 1);
-        DisplayIngredientList();
+//        console.log(ingredientList)
+//    }
+//}
 
-        console.log(ingredientList)
-    }
-}
 
-$('.processIngredientListBtn').click(function () {
-  
-    
-    ProcessDetails();
-
-});
-
-function popUpMessageInvenotryTop(message, icon, mywidth) {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        width: mywidth,
-        showConfirmButton: false,
-        timer: 1500,
-
-    });
-    Toast.fire({
-        icon: icon,
-        title: message
-    });
-}
 
 //Set Process Details Modal Default Values
-function ProcessDetails() {
-    if (ingredientList.length == 0) {
+//function ProcessDetails() {
+//    if (ingredientList.length == 0) {
 
-        popUpMessageInvenotryTop('List is empty', 'error', 260)
+//        popUpMessageInvenotryTop('List is empty', 'error', 260)
        
-    }
-    else {
+//    }
+//    else {
 
-        let selectedProcess = document.querySelector('.selectProcess');
-        let selectedVal = selectedProcess.value;
-
-
-        $('#processDetailsModal .modal-title').text(selectedVal.toUpperCase());
+//        let selectedProcess = document.querySelector('.selectProcess');
+//        let selectedVal = selectedProcess.value;
 
 
-        let tableBody = document.querySelector('.process-detail-table tbody');
-        let html = ``;
+//        $('#processDetailsModal .modal-title').text(selectedVal.toUpperCase());
 
-        ingredientList.forEach(item => {
-            html += `          
-                      <tr >                  
-                            <td class="table-data-name">
-                                ${item.ingredientName}
-                            </td>
-                            <td class="table-data-quantity">
-                                ${item.ingredientQty}
-                            </td>                   
-                       </tr>       
-                    `
-        });
 
-        tableBody.innerHTML = html;
+//        let tableBody = document.querySelector('.process-detail-table tbody');
+//        let html = ``;
 
-        $('#processDetailsModal').modal('show');
-    }  
-}
+//        ingredientList.forEach(item => {
+//            html += `          
+//                      <tr >                  
+//                            <td class="table-data-name">
+//                                ${item.ingredientName}
+//                            </td>
+//                            <td class="table-data-quantity">
+//                                ${item.ingredientQty}
+//                            </td>                   
+//                       </tr>       
+//                    `
+//        });
+
+//        tableBody.innerHTML = html;
+
+//        $('#processDetailsModal').modal('show');
+//    }  
+//}
 
 
 //when the submit button is click
-$('.processSubmit').click(function () {
+//$('.processSubmit').click(function () {
 
-    //create an array to store the insufficient ingredients
-    const insufficientList = []
-    if ($('.selectProcess').val() == "Stock Out") {
-        let ingredient = ingredientListQuanti
+//    //create an array to store the insufficient ingredients
+//    const insufficientList = []
+//    if ($('.selectProcess').val() == "Stock Out") {
+//        let ingredient = ingredientListQuanti
 
-        //check every ingredients if they are greater than or equal to the stock out quantity
-        //if every iteration is true the result is true
-        let result = ingredientList.every(item => {
-            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);         
-            return findIngredient.quantity >= item.ingredientQty
+//        //check every ingredients if they are greater than or equal to the stock out quantity
+//        //if every iteration is true the result is true
+//        let result = ingredientList.every(item => {
+//            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);         
+//            return findIngredient.quantity >= item.ingredientQty
 
-        });
+//        });
 
-        //iterate the ingredients list and add the ingredients to the array if it is insufficient
-        ingredientList.forEach(item => {
-            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);
-            if (!(findIngredient.quantity >= item.ingredientQty)) {
-                insufficientList.push(item.ingredientName)
-            }
-        });
+//        //iterate the ingredients list and add the ingredients to the array if it is insufficient
+//        ingredientList.forEach(item => {
+//            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);
+//            if (!(findIngredient.quantity >= item.ingredientQty)) {
+//                insufficientList.push(item.ingredientName)
+//            }
+//        });
 
-        //check if the result
-        if (result) {
-            //submit if the result is true
-            let jsonData = JSON.stringify(ingredientList);
+//        //check if the result
+//        if (result) {
+//            //submit if the result is true
+//            let jsonData = JSON.stringify(ingredientList);
 
-            $('.listData').val(jsonData);
+//            $('.listData').val(jsonData);
 
-            $('#formProcess').submit();
-        }
-        else {
-            //show a pop up message if some ingredients are insufficient
-            let insufficientListText = insufficientList.map(item => `<li>${item}</li>`).join('');
+//            $('#formProcess').submit();
+//        }
+//        else {
+//            //show a pop up message if some ingredients are insufficient
+//            let insufficientListText = insufficientList.map(item => `<li>${item}</li>`).join('');
            
-            Swal.fire({
-                icon: "error",
-                title: "Insufficient Quantity <br>",
-                html: `
-                   <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
-                showConfirmButton: false,
-                timer: 2000,
-                padding: "1em",
-                customClass: {
-                    icon: 'custom-icon',
-                    title: 'swal-stockOutInsufficient-title',
+//            Swal.fire({
+//                icon: "error",
+//                title: "Insufficient Quantity <br>",
+//                html: `
+//                   <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
+//                showConfirmButton: false,
+//                timer: 2000,
+//                padding: "1em",
+//                customClass: {
+//                    icon: 'custom-icon',
+//                    title: 'swal-stockOutInsufficient-title',
                    
 
-                }
+//                }
 
-            })
+//            })
           
-        }
+//        }
 
-    }
-    else {
-        let jsonData = JSON.stringify(ingredientList);
+//    }
+//    else {
+//        let jsonData = JSON.stringify(ingredientList);
 
-        $('.listData').val(jsonData);
+//        $('.listData').val(jsonData);
 
-        $('#formProcess').submit();
-    }
+//        $('#formProcess').submit();
+//    }
     
-})
+//})
 
 //call the function when the select process value changed
-$('.selectProcess').change(function () {
-    selectedProcess();
+//$('.selectProcess').change(function () {
+//    selectedProcess();
    
-});
-//shows the remarks when the selected process is stock out
-function selectedProcess() {
-    if ($('.selectProcess').val() == "Stock Out") {
+//});
+////shows the remarks when the selected process is stock out
+//function selectedProcess() {
+//    if ($('.selectProcess').val() == "Stock Out") {
 
-        $('.select-remarks-wrapper').show();
-    }
-    else {
+//        $('.select-remarks-wrapper').show();
+//    }
+//    else {
 
-        $('.select-remarks-wrapper').hide();
-    }
+//        $('.select-remarks-wrapper').hide();
+//    }
 
-}
+//}
 
        
 

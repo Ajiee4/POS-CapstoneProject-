@@ -55,6 +55,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
 
         }
+
+        //From Inventory List
+        //Adding new Ingredient
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddIngredient(Ingredient ingredient)
@@ -85,6 +88,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             return RedirectToAction("InventoryList");
         }
+
+        //From Inventory List
+        //Updating the Inventory
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateIngredient(Ingredient ingredient)
@@ -118,32 +124,12 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             return RedirectToAction("InventoryList");
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddProcess(string listData, string selectProcess, string stockOutRemarks)
+
+       
+        public async Task AddRequest(string requestData)
         {
             int id = (int)HttpContext.Session.GetInt32("UserID");
-
-            switch (selectProcess)
-            {
-                case "Request":
-                    await AddRequest(listData, id);
-                    TempData["AddRequest"] = " ";
-                    break;
-                case "Stock In":
-                    await StockIn(listData, id);
-                    TempData["StockIn"] = " ";
-                    break;
-                case "Stock Out":
-                    await StockOut(listData, id, stockOutRemarks);
-                    TempData["StockOut"] = " ";
-                    break;
-            }
-            return RedirectToAction("InventoryList");
-        }
-        public async Task AddRequest(string data, int id)
-        {
-            var myList = JsonConvert.DeserializeObject<List<IngredientList>>(data);
+            var myList = JsonConvert.DeserializeObject<List<IngredientList>>(requestData);
 
 
             Request req = new Request()
@@ -172,61 +158,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 await _context.SaveChangesAsync();
             }
         }
-        public async Task StockIn(string data, int id)
-        {
-            var myList = JsonConvert.DeserializeObject<List<IngredientList>>(data);
-            if (myList! != null)
-            {
-                foreach (var item in myList)
-                {
-                    var ingredient = await _context.Ingredient.Where(s => s.IngredientId == item.ingredientId).FirstOrDefaultAsync();
-                    if (ingredient != null)
-                    {
-                        ingredient.Quantity += item.ingredientQty;
-                        _context.Ingredient.Update(ingredient);
-                    }
 
-                    await _context.SaveChangesAsync();
-                }
+        //From Inventory List
 
-            }
-
-            var inventTransact = new InventoryTransaction()
-            {
-                UserId = id,
-                TransactionDate = DateTime.Now.Date,
-                TransactionType = "Stock In"
-            };
-
-
-            await _context.InventoryTransaction.AddAsync(inventTransact);
-            await _context.SaveChangesAsync();
-
-
-            if (myList! != null)
-            {
-                foreach (var item in myList)
-                {
-                    if (item.ingredientQty > 0)
-                    {
-                        var inventDetails = new InventoryTransactionDetail()
-                        {
-                            InventoryTransactId = inventTransact.InventoryTransactId,
-                            IngredientId = item.ingredientId,
-                            Quantity = item.ingredientQty,
-                            Remarks = "Delivered"
-
-                        };
-                        await _context.InventoryTransactionDetail.AddAsync(inventDetails);
-                    }
-
-                }
-
-                await _context.SaveChangesAsync();
-            }
-        }
-
-       
         public async Task StockOut(string data, int id, string remarks)
         {
             var myList = JsonConvert.DeserializeObject<List<IngredientList>>(data);
@@ -282,6 +216,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 await _context.SaveChangesAsync();
             }
         }
+
+        //from Request List
+        //Complete Request
         [HttpPost]
         [ValidateAntiForgeryToken]  
         public async Task<IActionResult> UpdateRequest(string requestData, int requestId)
@@ -322,7 +259,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             await _context.InventoryTransaction.AddAsync(inventTransact);
             await _context.SaveChangesAsync();
-            //add transaction details and save to db
+            
 
          
             if (myList! != null)
