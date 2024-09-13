@@ -267,8 +267,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 foreach (var item in myList)
                 {
                     if(item.Quantity > 0)
-                    { 
-
+                    {
                         var inventDetails = new InventoryTransactionDetail()
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
