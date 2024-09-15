@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         "searching": true,
         "ordering": false,
-        "pageLength": 5,
+        "pageLength": 10,
 
     });
 })

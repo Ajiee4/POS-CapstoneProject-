@@ -141,7 +141,7 @@ function checkoutProduct(id, name, quantity, price) {
         });
 
         product.prodQty += quantity;
-    } else {
+    } else {    
         const Toast = Swal.mixin({
             toast: true,
             position: "top-end",

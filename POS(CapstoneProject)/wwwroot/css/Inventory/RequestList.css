@@ -6,15 +6,11 @@
 }
 
 
-/*.request-list-wrapper{
-    position: relative;
-    width: 100%; 
-    
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
- 
+.container{
+    width:100%;
+    border: 1px red solid;
 }
+
 
 .request-list-wrapper .request-header {
     text-align: left;
@@ -74,12 +70,12 @@
     padding: 10px;
     width: 100%;
     background-color: #693D29;
-    border: 1px solid black;
     border-radius: 5px;
-    gap: 5px;
+    gap: 20px;
 }
 
     .request-list-header form {
+        font-size: 1rem;
         margin: 0;
         padding: 0;
         display: flex;
@@ -95,9 +91,7 @@
     border-radius: 5px;
 }
 
-.request-list-header form label {
-    font-weight: bolder;
-}
+
 
 .request-list-header input {
     border-radius: 5px;
@@ -113,7 +107,6 @@
     background-color: white;
     margin-left: 5px;
 }
-*/
 
 
 

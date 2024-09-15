@@ -152,7 +152,7 @@
 
     .inventory-table td:before {
         content: attr(data-label);
-        position: absolute;
+        position: fixed;
         left: 0;
         padding-left: 10px;
         font-size: 15px;
@@ -321,26 +321,40 @@ input::placeholder {
     .exitRequest:hover, .exitStockOut:hover {
         transform: scale(1.5)
     }
+
+
+
 .request-list-wrapper, .stock-out-wrapper {
-  /*  position: fixed;
-    top: 80px;
-    right: 10px;*/
+    border: 1px red solid;
+    visibility: hidden;
+    position:fixed;
+   top:90px;
+  right:15px;
     background-color: #F1DCC8;
-    width: 300px;
+    width:550px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items:center;
     align-content: center;
     flex-direction: column;
     border: 1px solid grey;
     border-radius: 5px;
     box-shadow: 1px 1px 5px grey;
     z-index: 990;
-    height: 300px
+}
+
+@media only screen and (max-width: 900px) {
+    .request-list-wrapper, .stock-out-wrapper {
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+        width: 50%; 
+    }
 }
 
 .request-list-header, .stock-out-header {
     text-align: center;
-    color: black;
+    color: #693D29;
     margin: 0;
     font-weight: bold;
     font-size: 2rem;
@@ -348,132 +362,94 @@ input::placeholder {
     padding: 5px 0px;
 }
 
-.request-list-wrapper .request-list-th, .stock-out-wrapper .stock-out-th {
-    display: flex;
-    justify-content: space-between;
-    background-color: #693D29;
-    padding: 5px 0px;
-    color: white;
-    font-weight: bolder;
-}
-.request-list-table-wrapper{
-
-}
-
-
-
- 
-
-
-
-.ingredient-list-wrapper .ingredient-list-th .th-delete {
-    flex: 1;
-}
-
-.ingredient-list-wrapper .ingredient-list-th .th-name {
-    flex: 2;
-}
-
-.ingredient-list-wrapper .ingredient-list-th .th-quantity {
-    flex: 2;
-    text-align: left;
-}
-
-.quantityInput {
-    width: 50%;
+.description {
+    margin-top:30px;
+    justify-content:center;
     text-align: center;
-}
-.ingredient-list-table-wrapper {
-    flex-grow: 1;
-    overflow-y: auto;
-    height: 180px;
-
-}
-
-.ingredient-list-footer {
-    background-color: rgba(0,0,0,0.1);
-    border-top: 1px solid black;
-    padding: 10px;
-}
-.ingredient-list-footer .processIngredientListBtn {
-    margin-top: 5px;
-    padding: 10px;
-    background-color: #693D29;
-    color: white;
-    border: none;
-    outline: none;
-    font-size: 0.8rem;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    font-weight: bolder;
-}
-
-.ingredient-list-table {
-    width: 100%;
-}
-.ingredient-list-table tbody tr td {
-    font-size: 0.8rem;
-}
-
-    .ingredient-list-table td {
-        border: none;
-        padding: 10px;
-    }
-
-    .ingredient-list-table tr {
-        border-bottom: 1px solid grey;
-    }
-.ingredient-list-table-wrapper::-webkit-scrollbar, .process-detail-table-wrapper::-webkit-scrollbar{
-    width: 4px;
-}
-
-.ingredient-list-table-wrapper::-webkit-scrollbar-track, .process-detail-table-wrapper::-webkit-scrollbar-track {
-    background: #F1DCC8;
-}
-
-.ingredient-list-table-wrapper::-webkit-scrollbar-thumb, .process-detail-table-wrapper::-webkit-scrollbar-thumb {
-    background-color: black;
-}
-
-.ingredient-list-table-wrapper::-webkit-scrollbar-thumb:hover, .process-detail-table-wrapper::-webkit-scrollbar-thumb:hover {
-    background-color: white;
-}
-
-.delete-ingredient-img {
-    width: 12px;
-    height: 12px;
-    transition: 0.4s;
-    cursor: pointer;
-}
-
-.table-data-name {
-    text-align: left;
-}
-
-.table-data-quantity {
-    text-align: center;
-}
-
-
-.quantity-table-data {
+    font-size: 1.2em;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    gap: 50px;
     flex-direction: row;
-    gap: 5px;
 }
 
-.quantity-table-data .button {
-    border-radius: 50%;
-    background-color: white;
-    border: 1px solid black;
-    display: flex;
+.styled-table-container {
+    padding:0px;
+    height: 300px;
+    width:100%;
+    overflow-y: scroll;
+}
+.styled-table {
+   
+    border-collapse: collapse;
+    font-size: 1em;
+    font-family: sans-serif;
+    width: 100%; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    overflow-y: scroll;
+}
+
+    .styled-table thead tr {
+        position: sticky;
+        top: 0;
+        background-color: #683c29;
+        color: #ffffff;
+        z-index: 1;
+    }
+  
+    .styled-table th, .styled-table tr td {
+        padding: 12px 15px;
+        text-align: left;
+        height:10px;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #683c29;
+        }
+
+
+.request-list-footer, 
+.stock-out-footer {
+    width: 300px;
     justify-content: center;
-    align-items: center;
-    padding: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px;
 }
+    .request-list-footer .requestSubmit, .stock-out-footer .stockOutSubmit {
+        width: 100px;
+        height: 50px;
+        background: #683c29;
+        font-size: 1rem;
+        font-weight: bolder;
+        color: white;
+        border: 1px groove white;
+        border-radius: 10px;
+        transition: .3ms ease-in-out;
+    }
+    .request-list-footer .cancelrequest, .stock-out-footer .cancelrequest {
+        width: 100px;
+        height: 50px;
+        background: gray;
+        font-size: 1rem;
+        font-weight: bolder;
+        color: white;
+        border: 1px groove white;
+        border-radius: 10px;
+        transition: .3ms ease-in-out;
+    }
+    .request-list-footer button:hover, .stock-out-footer  button:hover{
+        color: #683c29;
+        background: white
+    }
 
-.quantity-table-data span img {
-    height: 8px;
-    width: 8px;
-}
+
+
+

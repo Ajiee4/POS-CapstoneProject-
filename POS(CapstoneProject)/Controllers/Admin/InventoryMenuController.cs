@@ -125,38 +125,41 @@ namespace POS_CapstoneProject_.Controllers.Admin
             return RedirectToAction("InventoryList");
         }
 
-       
-        public async Task AddRequest(string requestData)
+        [HttpPost]
+        public async Task<IActionResult> AddRequest(string requestData)
         {
-            int id = (int)HttpContext.Session.GetInt32("UserID");
-            var myList = JsonConvert.DeserializeObject<List<IngredientList>>(requestData);
+
+                int id = (int)HttpContext.Session.GetInt32("UserID");
+                var myList = JsonConvert.DeserializeObject<List<IngredientList>>(requestData);
 
 
-            Request req = new Request()
-            {
-                UserId = id,
-                RequestDate = DateTime.Now.Date,
-                Status = "Pending"
-            };
-
-            await _context.Request.AddAsync(req);
-            await _context.SaveChangesAsync();
-
-            if (myList! != null)
-            {
-                foreach (var item in myList)
+                Request req = new Request()
                 {
-                    RequestDetails details = new RequestDetails
-                    {
-                        RequestId = req.RequestId,
-                        IngredientId = item.ingredientId,
-                        Quantity = item.ingredientQty,
-                    };
+                    UserId = id,
+                    RequestDate = DateTime.Now.Date,
+                    Status = "Pending"
+                };
 
-                    await _context.RequestDetails.AddAsync(details);
-                }
+                await _context.Request.AddAsync(req);
                 await _context.SaveChangesAsync();
-            }
+
+                if (myList != null)
+                {
+                    foreach (var item in myList)
+                    {
+                        RequestDetails details = new RequestDetails
+                        {
+                            RequestId = req.RequestId,
+                            IngredientId = item.ingredientId,
+                            Quantity = item.ingredientQty,
+                        };
+
+                        await _context.RequestDetails.AddAsync(details);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            TempData["PostRequest"] = "Request Complete";
+            return RedirectToAction("InventoryList");
         }
 
         //From Inventory List
