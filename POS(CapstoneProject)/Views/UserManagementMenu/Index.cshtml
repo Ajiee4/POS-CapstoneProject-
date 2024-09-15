@@ -48,7 +48,7 @@
                                         </form>
                                         <button class="btn detailsUserBtn" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">Details</button>
                                         <button class="btn archiveUserBtn" onclick="ArchiveUser(@item.UserId)">Archive</button>
-                                        <button class="btn updateUserBtn" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password',@item.User.RoleId)">Update</button>
+                                        <button class="btn updateUserBtn" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">Update</button>
                                     </div>
                                 </td>
                             }
@@ -61,7 +61,7 @@
                                         </form>
                                         <button class="btn detailsUserBtn" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User?.Username','@item.User?.Password')" data-toggle="modal" data-target="#detailsUserModal">Details</button>
                                         <button class="btn unarchiveUserBtn" onclick="UnarchiveUser(@item.UserId)">Unarchive</button>
-                                        <button class="btn updateUserBtn" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User?.Username', '@item.User?.Password',@item.User?.RoleId)">Update</button>
+                                        <button class="btn updateUserBtn" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User?.Username', '@item.User?.Password')">Update</button>
                                     </div>
                                 </td>
                             }
@@ -271,6 +271,17 @@
 
     </script>
 
+}
+@if (TempData["NoChanges"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "No changes have been made",
+            icon: "info",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
 }
 @if (TempData["SuccessUnarchived"] != null)
 {

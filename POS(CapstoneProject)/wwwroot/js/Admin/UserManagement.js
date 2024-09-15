@@ -30,9 +30,9 @@ $('#addUserModal').on('hidden.bs.modal', function () {
 
 });
 $('.addUserSubmit').click(function () {
+    alert('hi')
     AddNewUser();
 });
-
 
 function AddNewUser() {
     let firstname = document.querySelector('#addUserModal .inputFirstName').value;
@@ -41,7 +41,7 @@ function AddNewUser() {
     let cellphone = document.querySelector('#addUserModal .inputCellphone').value;
     let username = document.querySelector('#addUserModal .inputUsername').value;
     let password = document.querySelector('#addUserModal .inputPassword').value;
-    let role = document.querySelector('#addUserModal .selectRole').value;
+    /*let role = document.querySelector('#addUserModal .selectRole').value;*/
 
     if (firstname === '' || lastname === '' || email === '' || cellphone === '' || username === '' || password === '') {
         popUpMessageUser('Fill out all information', 'error');
@@ -114,16 +114,16 @@ function isValidCellphone(cellphone) {
 }
 
 //Set default value when clicking the update button
-function updateUser(userId,firstname, lastname, email, contact, username, password, roleid)
+function updateUser(userId,firstname, lastname, email, contact, username, password)
 {
-    $('#updateUserModal .inputUserId').val(userId),
-    $('#updateUserModal .inputFirstName').val(firstname),
-    $('#updateUserModal .inputLastName').val(lastname),
-    $('#updateUserModal .inputEmail').val(email),
-    $('#updateUserModal .inputCellphone').val(contact),
-    $('#updateUserModal .inputUsername').val(username),
-    $('#updateUserModal .inputPassword').val(password),
-    $('#updateUserModal .selectRole option[value="' + roleid + '"]').prop('selected', true);
+    $('#updateUserModal .inputUserId').val(userId)
+    $('#updateUserModal .inputFirstName').val(firstname)
+    $('#updateUserModal .inputLastName').val(lastname)
+    $('#updateUserModal .inputEmail').val(email)
+    $('#updateUserModal .inputCellphone').val(contact)
+    $('#updateUserModal .inputUsername').val(username)
+    $('#updateUserModal .inputPassword').val(password)
+  /*  $('#updateUserModal .selectRole option[value="' + roleid + '"]').prop('selected', true);*/
     
 }
 
@@ -138,7 +138,7 @@ function UpdateUser() {
     let cellphone = document.querySelector('#updateUserModal .inputCellphone').value;
     let username = document.querySelector('#updateUserModal .inputUsername').value;
     let password = document.querySelector('#updateUserModal .inputPassword').value;
-    let role = document.querySelector('#updateUserModal .selectRole').value;
+  /*  let role = document.querySelector('#updateUserModal .selectRole').value;*/
 
     if (firstname === '' || lastname === '' || email === '' || cellphone === '' || username === '' || password === '') {
         popUpMessageUser('Fill out all information', 'error');
@@ -188,6 +188,7 @@ function UpdateUser() {
 
         }
     });
+
 }
 
 function ArchiveUser(id) {

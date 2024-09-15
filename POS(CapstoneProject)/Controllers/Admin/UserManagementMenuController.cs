@@ -101,34 +101,40 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> UpdateUser(int userid, string firstname, string lastname, string email, string cellnumber, string username, string password)
         {
 
-            var findUser = await _context.User.Where(s => s.UserId == userid).FirstOrDefaultAsync();
-            if (findUser != null)
-            {
-                findUser.Username = username;
-                findUser.Password = password;
-                _context.User.Update(findUser);
-                await _context.SaveChangesAsync();
-            }
-
+            var findUser = await _context.User.Where(s => s.UserId == userid).FirstOrDefaultAsync(); 
             var findUserDetail = await _context.UserDetail.Where(s => s.UserId == userid).FirstOrDefaultAsync();
 
-            if (findUserDetail != null)
+           
+            if (findUser != null && findUserDetail != null)
             {
-                findUserDetail.Firstname = firstname;
-                findUserDetail.Lastname = lastname;
-                findUserDetail.EmailAddress = email;
-                findUserDetail.ContactNumber = cellnumber;
+                if (findUser?.Username == username && findUser.Password == password && findUserDetail?.Firstname == firstname &&
+               findUserDetail.Lastname == lastname && findUserDetail.EmailAddress == email && findUserDetail.ContactNumber == cellnumber)
+                {
+                    TempData["NoChanges"] = "";
+                }
+                else
+                {
+                    findUser.Username = username;
+                    findUser.Password = password;
+                    _context.User.Update(findUser);
+                    await _context.SaveChangesAsync();
 
-                _context.UserDetail.Update(findUserDetail);
-                await _context.SaveChangesAsync();
+                    findUserDetail.Firstname = firstname;
+                    findUserDetail.Lastname = lastname;
+                    findUserDetail.EmailAddress = email;
+                    findUserDetail.ContactNumber = cellnumber;
+
+                    _context.UserDetail.Update(findUserDetail);
+                    await _context.SaveChangesAsync();
+
+                    TempData["UpdateUser"] = "";
+                }
+               
             }
-
-            TempData["UpdateUser"] = "";
+     
             return RedirectToAction("Index");
 
-
         }
-
 
 
         [HttpPost]

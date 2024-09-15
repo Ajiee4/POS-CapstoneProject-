@@ -244,15 +244,15 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         var inventoryStockIn = await _context.InventoryTransactionDetail
                             .Include(d => d.Ingredient)
                             .Include(s => s.InventoryTransaction)
-                            .ThenInclude(x => x.User != null)
-                            .Where(s => s.InventoryTransaction != null && s.InventoryTransaction.TransactionType  == "Stock In")
+                            .ThenInclude(x => x.User)
+                            .Where(s =>  s.InventoryTransaction.TransactionType  == "Stock In")
                             .ToListAsync();
 
                         var inventoryStockOut = await _context.InventoryTransactionDetail
                             .Include(d => d.Ingredient)
                             .Include(s => s.InventoryTransaction)
                             .ThenInclude(x => x.User)
-                            .Where(s => s.InventoryTransaction != null && s.InventoryTransaction.TransactionType == "Stock Out")
+                            .Where(s => s.InventoryTransaction.TransactionType == "Stock Out")
                             .ToListAsync();
                         
                         ViewData["All"] = inventoryAll;
