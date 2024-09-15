@@ -2,17 +2,21 @@
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
     var productList = ViewData["productList"] as List<Product>;
+    var productCategory = ViewData["productCategory"] as List<Category>;
 }
+
 <style>
     .link-product {
         background-color: #C6976C !important;
     }
 </style>
 
+
+<!--Product Wrapper-->
  <div class="product-wrapper">
     <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">Add Product</button>
-    <br />
-
+  
+    <!--Product Table-->
     <table class="product-table">
         <thead>
             <tr>
@@ -24,61 +28,68 @@
                 <th>Actions</th>
             </tr>          
         </thead>
-        <tbody>        
-            @foreach (var item in productList)
-            {  
-                <tr >
-                    <td data-label="ID">@item.ProductId</td>
-                    <td data-label="Name">@item.Name</td>
-                    <td data-label="Category">@item.Category?.CategoryName</td>
-                    <td data-label="Price">₱@item.Price</td>                    
-                    @if (item.ImageData == null)
-                    {
-                        <td data-label="Image">
-                            <div>No Image</div>
-                        </td>
-                    }
-                    else
-                    {
-                        <td data-label="Image" class="product-photo-wrapper">
-                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto" alt="Image" />
-                        </td>
-                    }
-                    @if (item.IsArchive)
-                    {
-                        <td data-label="Actions">
-                            <div class="action-wrapper">
+        <tbody>
+            @if(productList != null)
+            {
+                @foreach (var item in productList)
+                {
+                    <tr>
+                        <td data-label="ID">@item.ProductId</td>
+                        <td data-label="Name">@item.Name</td>
+                        <td data-label="Category">@item.Category?.CategoryName</td>
+                        <td data-label="Price">₱@item.Price</td>
+                        @if (item.ImageData == null)
+                        {
+                            <td data-label="Image">
+                                <div>No Image</div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td data-label="Image" class="product-photo-wrapper">
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto" alt="Image" />
+                            </td>
+                        }
+                        @if (item.IsArchive)
+                        {
+                            <td data-label="Actions">
                                 <form class="unarchiveForm" asp-action="UnarchiveProduct">
                                     <input asp-for="ProductId" value="@item.ProductId" class="unarchiveInput" hidden />
                                 </form>
-                                <button class="btn unarchiveBtn">Unarchive</button>
-                                <button class="btn updateProductBtn" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">Update</button>
-                            </div>
-                        </td>
-                    }
-                    else
-                    {
-                        <td data-label="Actions">
-                            <div class="action-wrapper">
+                                <div class="action-wrapper">
+
+                                    <button class="btn unarchiveBtn">Unarchive</button>
+                                    <button class="btn updateProductBtn" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">Update</button>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td data-label="Actions">
                                 <form class="archiveForm" asp-action="ArchiveProduct">
                                     <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden />
                                 </form>
-                                <button class="btn archiveBtn">Archive</button>
-                                <button class="btn updateProductBtn" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">Update</button>
-                            </div>
-                        </td>
-                    }
-                </tr>
-            }           
+                                <div class="action-wrapper">
+
+                                    <button class="btn archiveBtn">Archive</button>
+                                    <button class="btn updateProductBtn" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">Update</button>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+              
+            }
+            else
+            {
+
+            }
+                  
         </tbody>
     </table> 
 </div>
 
-
-
-
-
-<!--Update New Product-->
+<!--Update Product Modal-->
 <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -116,10 +127,19 @@
                         <label asp-for="ProdCategoryId" class="control-label">Category</label>
 
                         <select asp-for="ProdCategoryId" class="form-control selectProductCategory" required>
-                            @foreach (var item in ViewData["productCategory"] as List<Category>)
+                            
+                            @if(productCategory != null)
                             {
-                                <option value="@item.CategoryId">@item.CategoryName</option>
-                            }                          
+                                @foreach (var item in productCategory)
+                                {
+                                    <option value="@item.CategoryId">@item.CategoryName</option>
+                                }
+                            }
+                            else
+                            {
+                                
+                            }
+
                         </select>
                     </div> 
 
@@ -132,7 +152,7 @@
     </div>
 </div>
 
-<!--Add new Product-->
+<!--Add new Product Modal-->
 <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -167,9 +187,16 @@
                     <div class="form-group">
                         <label asp-for="ProdCategoryId" class="control-label">Category</label>
                         <select asp-for="ProdCategoryId" class="form-control selectCat" required>
-                            @foreach (var item in ViewData["productCategory"] as List<Category>)
+                            @if (productCategory != null)
                             {
-                                <option value="@item.CategoryId">@item.CategoryName</option>
+                                @foreach (var item in productCategory)
+                                {
+                                    <option value="@item.CategoryId">@item.CategoryName</option>
+                                }
+                            }
+                            else
+                            {
+
                             }
                         </select>
                     </div>
@@ -182,8 +209,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!--Pop up message when new product was added-->
 @if (TempData["ProductAdded"] != null)
@@ -225,7 +250,6 @@
     </script>
 
 }
-
 
 <!--Pop up message when product was unarchived-->
 @if (TempData["SuccessUnarchived"] != null)

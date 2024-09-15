@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\js\Inventory\StockMovement.js" />
+    <Content Remove="wwwroot\js\Admin\Inventory\StockMovement.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,12 +40,12 @@
     <_ContentIncludedByDefault Remove="wwwroot\css\ProductMenu.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\SalesReport.css" />
     <_ContentIncludedByDefault Remove="wwwroot\css\UserManagement.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\Inventory\StockMovement.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\Admin\Inventory\StockMovement.js" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="C:\Users\Admin\source\repos\POS(CapstoneProject)\POS(CapstoneProject)\Controllers\.editorconfig" />
-    <None Include="wwwroot\js\Inventory\StockMovement.js" />
+    <None Include="wwwroot\js\Admin\Inventory\StockMovement.js" />
   </ItemGroup>
 
 </Project>

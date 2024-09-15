@@ -1,21 +1,14 @@
-﻿
-@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data;
+﻿@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data;
 @{
-    Layout = "/Views/Shared/_ManagerLayout.cshtml";
-    var categoryList = ViewData["CategoryList"] as List<Category>;
-    var productList = ViewData["ProductList"] as List<Product>;
+    Layout = "/Views/Shared/_CashierLayout.cshtml";
 }
 
 <style>
     .header .right-section .checkout-icon {
-        display: block ;
+        display: block;
     }
-
-    .link-sales {
-        background-color: #C6976C !important;
-    }
-
 </style>
+
 <!--Checkout Wrapper-->
 <div class="checkout-wrapper checkHide">
     <div class="checkout-content-wrapper">
@@ -32,7 +25,6 @@
             <table class="checkout-table">
 
                 <tbody>
-
                 </tbody>
 
             </table>
@@ -65,77 +57,61 @@
             </div>
         </div>
     </div>
- 
-</div> 
+
+</div>
 
 <!--Porduct List Wrapper-->
 <div class="product-list-wrapper">
-       <div class="search-wrapper">
-             
-           <div class="searchProd">
-                <input type="search" class="searchProductInput" onkeyup="searchProduct()" placeholder="Search...">
-                <label>
-                    <img src="~/images/search.png" />
-                </label>
-            </div>
-        
-       </div>
+    <div class="search-wrapper">
+
+        <div class="searchProd">
+            <input type="search" class="searchProductInput" onkeyup="searchProduct()" placeholder="Search...">
+            <label>
+                <img src="~/images/search.png" />
+            </label>
+        </div>
+
+    </div>
 
 
 
-       <div class="category-list-wrapper">
-            <button class="category-item active" data-category="All" onclick="FilterProduct('All')">
-                All
+    <div class="category-list-wrapper">
+        <button class="category-item active" data-category="All" onclick="FilterProduct('All')">
+            All
+        </button>
+
+        @foreach (var item in ViewData["CategoryList"] as List<Category>)
+        {
+            <button class="category-item" data-category="@item.CategoryName" onclick="FilterProduct('@item.CategoryName')">
+                @item.CategoryName
             </button>
-            @if(categoryList != null)
-            {
-                @foreach (var item in categoryList)
-                {
-                    <button class="category-item" data-category="@item.CategoryName" onclick="FilterProduct('@item.CategoryName')">
-                        @item.CategoryName
-                    </button>
-                }
-            }
-            else
-            {
-            
-            }
-      
-       </div>
+        }
+    </div>
 
-       <div class="product-catalog">
+    <div class="product-catalog">
 
-       <div class="noResult">Nothing Found...</div>
-            
-            @if(productList != null)
-            {
-                @foreach (var prod in productList)
-                {
-                    <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category?.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
-                        <div class="product-item-img">
-                            @if (prod.ImageData != null)
-                            {
-                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
-                            }
-                            else
-                            {
-                                <span></span>
-                            }
-                        </div>
+        <div class="noResult">Nothing Found...</div>
+        @foreach (var prod in ViewData["ProductList"] as List<Product>)
+        {
+            <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
+                <div class="product-item-img">
+                    @if (prod.ImageData != null)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
+                    }
+                    else
+                    {
+                        <span></span>
+                    }
+                </div>
 
-                        <div class="product-item-name" data-category="@prod.Category?.CategoryName">
-                            <span>@prod.Name</span>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-            
-            }
-         
-        
-       </div>
+                <div class="product-item-name" data-category="@prod.Category.CategoryName">
+                    <span>@prod.Name</span>
+                </div>
+            </div>
+        }
+
+    </div>
 
 </div>
 
@@ -152,19 +128,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            
+
             <div class="modal-body">
 
                 <div class="form-group">
                     <label class="control-label">Amount Due</label>
-                    <input class="form-control totalAmountInputReadOnly" readonly/>
+                    <input class="form-control totalAmountInputReadOnly" readonly />
 
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Cash Tendered</label>
                     <input class="form-control amountInput" placeholder="Enter Cash Tendered" oninput="inputAmountChange()" onchange="validateAndCalculateAmount()" />
-                       
+
                 </div>
 
                 <div class="form-group">
@@ -172,7 +148,7 @@
                     <input class="form-control changeAmountText" readonly />
 
                 </div>
-                                     
+
                 <form asp-action="AddOrder" method="post" id="formPay">
                     <input class="" name="checkoutList" id="checkOutListInput" hidden />
                     <input name="checkoutTotal" id="checkOutTotalInput" hidden />
@@ -186,7 +162,7 @@
                 <div class="form-group">
                     <button type="button" class="calculateBtn">Pay</button>
                 </div>
-               
+
             </div>
 
         </div>
@@ -195,9 +171,9 @@
 
 
 <!--Show Receipt after the transaction-->
-@if (TempData["TransactionComplete"] != null)   
-{      
-    int? orderId = TempData["orderID"] as int?;
+@if (TempData["TransactionComplete"] != null)
+{
+    int orderId = int.Parse(TempData["orderID"].ToString());
     var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
 
     <script>
@@ -210,7 +186,7 @@
             document.querySelector(".receipt").classList.add("showReceipt");
             window.print();
             document.querySelector(".receipt").classList.remove("showReceipt");
-        });             
+        });
     </script>
 
     <!--Receipt-->
@@ -235,8 +211,8 @@
                 {
                     <div class="item-list">
                         <span>@item.Quantity</span>
-                        <span>@item.Product?.Name</span>
-                        <span>₱@item.Product?.Price</span>
+                        <span>@item.Product.Name</span>
+                        <span>₱@item.Product.Price</span>
                     </div>
                 }
             </div>
@@ -275,5 +251,5 @@
 
             <h3 class="footer">THANK YOU</h3>
         </div>
-    </div>  
+    </div>
 }

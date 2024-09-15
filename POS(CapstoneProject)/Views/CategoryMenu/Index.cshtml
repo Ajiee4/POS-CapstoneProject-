@@ -1,7 +1,8 @@
 ﻿@model POS_CapstoneProject_.Models.Category
+
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
-
+    var categoryList = ViewData["CategoryList"] as List<Category>;
 }
 <style>
     .link-category {
@@ -14,7 +15,6 @@
     <button type="button" class="addCategoryBtn" data-toggle="modal" data-target="#addCategoryModal" >Add Category</button>
     <!--Category Table-->
     <table class="category-table">
-
         <thead>
             <tr>
                 <th>ID</th>          
@@ -23,19 +23,26 @@
             </tr>
         </thead>
         <tbody>           
-            @foreach (var item in ViewData["CategoryList"] as List<Category>)
-            {
-                <tr>
-                    <td data-label="ID">@item.CategoryId</td>
-                    <td data-label="Category">@item.CategoryName</td>
-                    <td data-label="Actions">
-                        <div class="action-wrapper">
-                            <button class="btn updateCategoryBtn" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">Update</button>
-                        </div>
-                      
-                    </td>
-                </tr>
+            @if(categoryList != null){
+                @foreach (var item in categoryList)
+                {
+                    <tr>
+                        <td data-label="ID">@item.CategoryId</td>
+                        <td data-label="Category">@item.CategoryName</td>
+                        <td data-label="Actions">
+                            <div class="action-wrapper">
+                                <button class="btn updateCategoryBtn" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">Update</button>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
             }
+            else
+            {
+                
+            }
+        
         </tbody>
     </table>
 </div>
@@ -55,13 +62,10 @@
             <br />
             <div class="modal-body">
                 <form asp-action="AddCategory" id="addForm" asp-controller="CategoryMenu" method="post">
-                   
-
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" onkeydown="pressEnterAdd(event)" class="form-control addInputName" placeholder="Enter Category Name" required />
-                    </div>
-                   
+                        <input asp-for="CategoryName" class="form-control addInputName" placeholder="Enter Category Name" required />
+                    </div>               
                     <br />
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto addSubmitBtn" >ADD</button>
@@ -83,26 +87,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-             <br />
-            
+            <br />           
             <div class="modal-body">
-                <form asp-action="UpdateCategory" id="updateForm" method="post">
-                   
+                <form asp-action="UpdateCategory" id="updateForm" method="post">                 
                     <input asp-for="CategoryId" class="form-control input-id" hidden/>
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" onkeydown="pressEnterUpdate(event)" placeholder="Enter Category Name" class="form-control updateInputName" required />
-                        
+                        <input asp-for="CategoryName" placeholder="Enter Category Name" class="form-control updateInputName" required />                       
                     </div>
-
                     <br />
-
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto updateSubmitBtn">UPDATE</button>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -111,16 +109,13 @@
 @if (TempData["CategoryExist"] != null)
 {
     <script>
-
         Swal.fire({
             text: "Category already exists",
             icon: "error",
             showConfirmButton: false,
             timer: 2000
-        });
-       
+        });      
     </script>
-
 }
 
 <!--Pop up message when new category has been added-->
@@ -133,10 +128,9 @@
             showConfirmButton: false,
             timer: 2000
         });
-
     </script>
-
 }
+<!--Pop up message if there's no cahnges-->
 @if (TempData["NoChanges"] != null)
 {
     <script>
@@ -146,9 +140,7 @@
             showConfirmButton: false,
             timer: 2000
         });
-
     </script>
-
 }
 <!--Pop up message when category has been update-->
 @if (TempData["UpdatedCategory"] != null)
@@ -160,9 +152,7 @@
             showConfirmButton: false,
             timer: 2000
         });
-
     </script>
-
 }
 
 

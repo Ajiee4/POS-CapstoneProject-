@@ -24,8 +24,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     if (check.RoleId != 1)
                     {
-                        HttpContext.Session.Clear();
-                        return RedirectToAction("Login", "Authentication");
+                        //HttpContext.Session.Clear();
+                        return RedirectToAction("Index", "Sales");
                     }
                     else
                     {
@@ -52,7 +52,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> AddUser(string firstname, string lastname, string email, string cellnumber, string username, string password, int roleId)
+        public async Task<IActionResult> AddUser(string firstname, string lastname, string email, string cellnumber, string username, string password)
         {
             var checkUser = _context.User.Where(s => s.Username == username).FirstOrDefault();
             if (checkUser != null)
@@ -65,7 +65,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     Username = username,
                     Password = password,
-                    RoleId = roleId,
+                    RoleId = 2,
                     isActive = true
                 };
 
@@ -98,7 +98,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> UpdateUser(int userid, string firstname, string lastname, string email, string cellnumber, string username, string password, int roleId)
+        public async Task<IActionResult> UpdateUser(int userid, string firstname, string lastname, string email, string cellnumber, string username, string password)
         {
 
             var findUser = await _context.User.Where(s => s.UserId == userid).FirstOrDefaultAsync();
@@ -106,8 +106,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
             {
                 findUser.Username = username;
                 findUser.Password = password;
-                findUser.RoleId = roleId;
-
                 _context.User.Update(findUser);
                 await _context.SaveChangesAsync();
             }

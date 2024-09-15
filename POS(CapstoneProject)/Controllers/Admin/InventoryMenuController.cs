@@ -29,10 +29,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     if (check.RoleId != 1)
                     {
-                        HttpContext.Session.Clear();
+                        //HttpContext.Session.Clear();
 
 
-                        return RedirectToAction("Login", "Authentication");
+                        return RedirectToAction("Index", "Sales");
                     }
                     else
                     {
@@ -125,7 +125,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
             return RedirectToAction("InventoryList");
         }
 
-       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task AddRequest(string requestData)
         {
             int id = (int)HttpContext.Session.GetInt32("UserID");
@@ -217,10 +218,147 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
         }
 
-        //from Request List
-        //Complete Request
+        public async Task<IActionResult> StockMovement()
+        {
+            //check if there's an ongoing session
+            var UserId = HttpContext.Session.GetInt32("UserID");
+            if (UserId != null)
+            {
+
+                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                if (check != null)
+                {
+                    if (check.RoleId != 1)
+                    {
+                        //HttpContext.Session.Clear();
+                        return RedirectToAction("Index", "Sales");
+                    }
+                    else
+                    {
+                        var inventoryAll = await _context.InventoryTransactionDetail
+                            .Include(d => d.Ingredient)
+                            .Include(s => s.InventoryTransaction)
+                            .ThenInclude(x => x.User)
+                            .ToListAsync();
+
+                        var inventoryStockIn = await _context.InventoryTransactionDetail
+                            .Include(d => d.Ingredient)
+                            .Include(s => s.InventoryTransaction)
+                            .ThenInclude(x => x.User != null)
+                            .Where(s => s.InventoryTransaction != null && s.InventoryTransaction.TransactionType  == "Stock In")
+                            .ToListAsync();
+
+                        var inventoryStockOut = await _context.InventoryTransactionDetail
+                            .Include(d => d.Ingredient)
+                            .Include(s => s.InventoryTransaction)
+                            .ThenInclude(x => x.User)
+                            .Where(s => s.InventoryTransaction != null && s.InventoryTransaction.TransactionType == "Stock Out")
+                            .ToListAsync();
+                        
+                        ViewData["All"] = inventoryAll;
+                        ViewData["StockIn"] = inventoryStockIn;
+                        ViewData["StockOut"] = inventoryStockOut;
+
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]  
+        [ValidateAntiForgeryToken]
+        public IActionResult DisplayStockMovement(string transactionType)
+        {
+
+            switch (transactionType)
+            {
+                case "All":
+                    TempData["inventoryAll"] = "";
+                    break;
+                case "Stock In":
+                    TempData["inventoryStockIn"] = "";
+                    break;
+                case "Stock Out":
+                    TempData["inventoryStockOut"] = "";
+                    break;
+            }
+
+            return RedirectToAction("StockMovement");
+        }
+        public IActionResult RequestList()
+        {
+            //get and store the session
+            var UserId = HttpContext.Session.GetInt32("UserID");
+            //check if there's an ongoing session
+            if (UserId != null)
+            {
+                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                if (check != null)
+                {
+                    if (check.RoleId != 1)
+                    {
+                        //HttpContext.Session.Clear();
+                        return RedirectToAction("Index", "Sales");
+                    }
+                    else
+                    {
+                        //var requestList = _context.Request.Include(s );
+                        var requesComplete = _context.Request.Include(s => s.User).Where(s => s.Status == "Completed").ToList();
+                        var requesPending = _context.Request.Include(s => s.User).Where(s => s.Status == "Pending").ToList();
+                        var requesCanceled = _context.Request.Include(s => s.User).Where(s => s.Status == "Canceled").ToList();
+                        var requestDetails = _context.RequestDetails.Include(s => s.Ingredient).ToList();
+                        ViewData["RequestCompleted"] = requesComplete;
+                        ViewData["RequestPending"] = requesPending;
+                        ViewData["RequestCanceled"] = requesCanceled;
+                        ViewData["RequestDetails"] = JsonConvert.SerializeObject(requestDetails);
+
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DisplayRequestList(string requestStatus)
+        {
+       
+
+            switch (requestStatus)
+            {
+                case "Pending":
+                    TempData["RequestPending"] = "";
+                    break;
+                case "Completed":
+                    TempData["RequestCompleted"] = "";
+                    break;
+                case "Canceled":
+                    TempData["RequestCanceled"] = "";
+                    break;
+            }
+
+            return RedirectToAction("RequestList");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateRequest(string requestData, int requestId)
         {
             int userId = (int)HttpContext.Session.GetInt32("UserID");
@@ -228,7 +366,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
             if (checkRequest != null)
             {
                 checkRequest.Status = "Completed";
-                
+
 
                 _context.Request.Update(checkRequest);
                 await _context.SaveChangesAsync();
@@ -259,15 +397,15 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             await _context.InventoryTransaction.AddAsync(inventTransact);
             await _context.SaveChangesAsync();
-            
 
-         
+
+
             if (myList! != null)
             {
                 foreach (var item in myList)
                 {
-                    if(item.Quantity > 0)
-                    { 
+                    if (item.Quantity > 0)
+                    {
 
                         var inventDetails = new InventoryTransactionDetail()
                         {
@@ -279,7 +417,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         };
                         await _context.InventoryTransactionDetail.AddAsync(inventDetails);
                     }
-                  
+
                 }
 
                 await _context.SaveChangesAsync();
@@ -297,7 +435,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
             if (checkRequest != null)
             {
                 checkRequest.Status = "Canceled";
-               
+
 
                 _context.Request.Update(checkRequest);
                 await _context.SaveChangesAsync();
@@ -307,112 +445,5 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             return RedirectToAction("RequestList");
         }
-     
-        public async Task <IActionResult> StockMovement()
-        {
-            //check if there's an ongoing session
-            var UserId = HttpContext.Session.GetInt32("UserID");
-            if (UserId != null)
-            {
-
-                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
-                if (check != null)
-                {
-                    if (check.RoleId != 1)
-                    {
-                        HttpContext.Session.Clear();
-                        return RedirectToAction("Login", "Authentication");
-                    }
-                    else
-                    {
-                        var inventoryAll = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).ToListAsync();
-                        var inventoryStockIn = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).Where(s => s.InventoryTransaction.TransactionType == "Stock In").ToListAsync();
-                        var inventoryStockOut = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).Where(s => s.InventoryTransaction.TransactionType == "Stock Out").ToListAsync();
-
-                        ViewData["All"] = inventoryAll;
-                        ViewData["StockIn"] = inventoryStockIn;
-                        ViewData["StockOut"] = inventoryStockOut;
-
-                        return View();
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Authentication");
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
-
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DisplayStockMovement(string transactionType)
-        {
-            var inventoryAll = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).ToListAsync();
-            var inventoryStockIn = await  _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).Where(s => s.InventoryTransaction.TransactionType == "Stock In").ToListAsync();        
-            var inventoryStockOut = await _context.InventoryTransactionDetail.Include(d => d.Ingredient).Include(s => s.InventoryTransaction).ThenInclude(x => x.User).Where(s => s.InventoryTransaction.TransactionType == "Stock In").ToListAsync();
-
-            switch (transactionType)
-            {
-                case "All":
-                    TempData["inventoryAll"] = "";
-                    break;
-                case "Stock In":
-                    TempData["inventoryStockIn"] = "";
-                    break;
-                case "Stock Out":
-                    TempData["inventoryStockOut"] = "";
-                    break;
-            }
-
-            return RedirectToAction("StockMovement");
-        }
-        public IActionResult RequestList()
-        {
-            //get and store the session
-            var UserId = HttpContext.Session.GetInt32("UserID");
-            //check if there's an ongoing session
-            if (UserId != null)
-            {
-                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
-                if (check != null)
-                {
-                    if (check.RoleId != 1)
-                    {
-                        HttpContext.Session.Clear();
-                        return RedirectToAction("Login", "Authentication");
-                    }
-                    else
-                    {
-                        //var requestList = _context.Request.Include(s );
-                        var requesComplete = _context.Request.Include(s => s.User).Where(s => s.Status == "Completed").ToList();
-                        var requesPending = _context.Request.Include(s => s.User).Where(s => s.Status == "Pending").ToList();
-                        var requesCanceled = _context.Request.Include(s => s.User).Where(s => s.Status == "Canceled").ToList();
-                        var requestDetails = _context.RequestDetails.Include(s => s.Ingredient).ToList();
-                        ViewData["RequestComplete"] = requesComplete;
-                        ViewData["RequestPending"] = requesPending;
-                        ViewData["RequestCanceled"] = requesCanceled;
-                        ViewData["RequestDetails"] = JsonConvert.SerializeObject(requestDetails);
-
-                        return View();
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Authentication");
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
-
-        }
-
-
     }
 }

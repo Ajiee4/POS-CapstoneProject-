@@ -7,38 +7,35 @@
         background-color: #C6976C !important;
     }
 </style>
-            <div class="report-header">
+<div class="report-header">
+    <form asp-action="Index" method="post" id="salesReportForm">
 
-                <form asp-action="Index" method="post" id="salesReportForm">
-                    <div class="reportType-wrapper">
-                        <label>Report Type</label>
-                        <select class="selectReportType" name="reportType">
-                            <option value="Sales">Sales Report</option>
-                            <option value="Inventory">Inventory Report</option>
-                        </select>
-                    </div>
-                    <div class="filter-wrapper">
-                        <label>Filter</label>
-                        <select class="selectFilter" name="filter">
-                            <option value="Daily">Daily</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Yearly">Yearly</option>
-                        </select>
-                    </div>
-                   
-       
-       
-                     <button type="button" class="generateReportBtn">Generate</button>
-                </form>
-            </div>
-        <br />
+        <div class="reportType-wrapper">
+            <label>Report Type</label>
+            <select class="selectReportType" name="reportType">
+                <option value="Sales">Sales Report</option>
+                <option value="Inventory">Inventory Report</option>
+            </select>
+        </div>
+
+        <div class="filter-wrapper">
+            <label>Filter</label>
+            <select class="selectFilter" name="filter">
+                <option value="Daily">Daily</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+            </select>
+        </div>    
+
+        <button type="button" class="generateReportBtn">Generate</button>
+    </form>
+</div>
+ <br/>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 @if (ViewData["Sales"] != null)
-{
-
-    
+{   
     <h1>@TempData["SalesFilter"]</h1>
     <br />
     <canvas id="bar"></canvas>

@@ -1,4 +1,5 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
+@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,17 +8,19 @@
     <title>@ViewData["Title"] - POS_CapstoneProject_</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
-    <link rel="stylesheet" href="~/css/CashierLayout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/Cashier/CashierLayout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Cashier/Sales.css" asp-append-version="true" />
+   
 </head>
 <body>
     <header>
-
         <div class="header">
             <div class="left-section">
                 <div class="brand-logo">
                     <img src="~/images/logo.jpg" />
                 </div>
+
                 <span class="brand-name">
                     Don <br />Macchiatos
                 </span>
@@ -25,32 +28,43 @@
 
             <div class="right-section">
                 <div class="checkout-icon">
-                    <img src="~/images/check-out.png" />
+                    <div class="cart-count">0</div>
+                    <img src="~/images/trolley.png" />
                 </div>
 
-                <div class="user">
-                    <span class="name-user">@HttpContextAccessor.HttpContext.Session.GetString("Name")</span>
+                @{
+                    var userId = HttpContextAccessor.HttpContext?.Session.GetInt32("UserID");
+                    var user = data.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
+                    var firstName = user?.Firstname;
+                }
+                <div class="user" data-toggle="tooltip" data-placement="bottom" title="@firstName">
+
+                    <span class="name-user">@firstName</span>
+
                     <div class="user-icon">
                         <img src="~/images/person.png" />
                     </div>
-                </div>   
-                
+                </div>
+
                 <div class="logout-link">
                     <a asp-action="Logout" asp-controller="Authentication">Logout</a>
-                </div>              
+                </div>
             </div>
+
         </div>
 
     </header>
 
     @RenderBody()
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>  
-    <script src="~/js/CashierLayout.js" asp-append-version="true" async></script>
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+    <script src="~/js/Cashier/Sales.js" asp-append-version="true" async></script>
+   
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

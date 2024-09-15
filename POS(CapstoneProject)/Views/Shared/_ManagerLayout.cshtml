@@ -6,22 +6,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - POS_CapstoneProject_</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/css/ManagerLayout.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/CategoryMenu.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/ProductMenu.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/SalesMenu.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/UserManagement.css" asp-append-version="true" />
-   
-    <link rel="stylesheet" href="~/css/DashboardMenu.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Inventory/InventoryList.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Inventory/RequestList.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Inventory/StockMovement.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/SalesReport.css" asp-append-version="true" />
-
-
+    <link rel="stylesheet" href="~/css/Admin/ManagerLayout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin/CategoryMenu.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/Admin/ProductMenu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin/SalesMenu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin/UserManagement.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin/DashboardMenu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin/Inventory/InventoryList.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin/Inventory/RequestList.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin/Inventory/StockMovement.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Admin/SalesReport.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -37,17 +34,15 @@
           </div>
 
           <div class="right-section">
-                <div class="checkout-icon">
-                   
-                        <div class="cart-count">0</div>                             
-                        <img src="~/images/trolley.png" />
-                                     
+                <div class="checkout-icon">                 
+                    <div class="cart-count">0</div>                             
+                    <img src="~/images/trolley.png" />
                 </div>
                
                 @{
-                    var userId = HttpContextAccessor.HttpContext.Session.GetInt32("UserID");
+                    var userId = HttpContextAccessor.HttpContext?.Session.GetInt32("UserID");
                     var user = data.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
-                    var firstName = user.Firstname;
+                    var firstName = user?.Firstname;
                 }
                 <div class="user" data-toggle="tooltip" data-placement="bottom" title="@firstName">
                    
@@ -140,21 +135,21 @@
     </div>
 
     @RenderBody()
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
     <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>   
-    <script src="~/js/ManagerLayout.js" asp-append-version="true" async></script>
-    <script src="~/js/SalesMenu.js" asp-append-version="true" async></script>
-    <script src="~/js/SalesReport.js" asp-append-version="true" async></script>
-    <script src="~/js/Inventory/InventoryList.js" asp-append-version="true" async></script>
-    <script src="~/js/Inventory/RequestList.js" asp-append-version="true" async></script>
-    <script src="~/js/Inventory/StockMovement.js" asp-append-version="true" async></script>
-    <script src="~/js/UserManagement.js" asp-append-version="true" async></script>
-    <script src="~/js/CategoryMenu.js" asp-append-version="true" async></script>
-    <script src="~/js/ProductMenu.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/ManagerLayout.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/SalesMenu.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/SalesReport.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/Inventory/InventoryList.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/Inventory/RequestList.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/Inventory/StockMovement.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/UserManagement.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/CategoryMenu.js" asp-append-version="true" async></script>
+    <script src="~/js/Admin/ProductMenu.js" asp-append-version="true" async></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

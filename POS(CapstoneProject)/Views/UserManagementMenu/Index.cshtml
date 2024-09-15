@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
+    var userList = ViewData["UserList"] as List<UserDetail>;
 }
 <style>
     .link-usermanagement {
@@ -13,41 +14,37 @@
     <button type="button" class="addUserBtn" data-toggle="modal" data-target="#addUserModal">Add User</button>
 
     <table class="user-table">
-
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Role</th>
                 <th>First Name</th>
-                <th>Last Name</th>
-               
+                <th>Last Name</th>              
                 <th>Actions</th>
-
-
             </tr>
-
         </thead>
-
         <tbody>
-
-
-            @foreach (var item in ViewData["UserList"] as List<UserDetail>)
+            @if (userList == null)
+            {
+               <p>No Result</p>
+            }
+            else
+            {
+                @foreach (var item in userList)
                 {
-                    @if((item.User.Role.RoleName != "Manager"))
+                    @if ((item.User?.Role?.RoleName != "Manager"))
                     {
                         <tr>
                             <td data-label="ID">@item.UserId</td>
-                            <td data-label="Role">@item.User.Role.RoleName</td>
+                            <td data-label="Role">@item.User?.Role?.RoleName</td>
                             <td data-label="First Name">@item.Firstname</td>
                             <td data-label="Last Name">@item.Lastname</td>
-                            
-
-                            @if (@item.User.isActive)
+                            @if (@item.User?.isActive  == true)
                             {
                                 <td data-label="Actions">
                                     <div class="action-wrapper">
                                         <form asp-action="ArchiveUser" class="archiveUserForm">
-                                            <input name="userid" class="inputArchiveUserId"  hidden/>
+                                            <input name="userid" class="inputArchiveUserId" hidden />
                                         </form>
                                         <button class="btn detailsUserBtn" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">Details</button>
                                         <button class="btn archiveUserBtn" onclick="ArchiveUser(@item.UserId)">Archive</button>
@@ -62,24 +59,19 @@
                                         <form asp-action="UnarchiveUser" class="unarchiveUserForm">
                                             <input name="userid" class="inputUnrchiveUserId" hidden />
                                         </form>
-                                         <button class="btn detailsUserBtn" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">Details</button>
-                                        <button class="btn unarchiveUserBtn" onclick="UnarchiveUser(@item.UserId)" >Unarchive</button>
-                                        <button class="btn updateUserBtn" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password',@item.User.RoleId)">Update</button>
+                                        <button class="btn detailsUserBtn" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User?.Username','@item.User?.Password')" data-toggle="modal" data-target="#detailsUserModal">Details</button>
+                                        <button class="btn unarchiveUserBtn" onclick="UnarchiveUser(@item.UserId)">Unarchive</button>
+                                        <button class="btn updateUserBtn" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User?.Username', '@item.User?.Password',@item.User?.RoleId)">Update</button>
                                     </div>
                                 </td>
                             }
-
                         </tr>
                     }
-              
                 }
-            
+            }
+           
         </tbody>
-
-
     </table>
-
-
 </div>
 
 
@@ -107,7 +99,7 @@
                             <input class="form-control inputLastName" name="lastname" placeholder="Enter Last Name" type="text" required />
                         </div>
                     </div>
-                    <br />
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Email</label>
@@ -119,7 +111,7 @@
                             <input class="form-control inputCellphone" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
                         </div>
                     </div>
-                    <br />
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Username</label>
@@ -131,18 +123,13 @@
                             <input class="form-control inputPassword" name="password"  placeholder="Enter Password" type="password" required />
                         </div>
                     </div>
-                    <br />
+                    
 
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Role</label><br />
-                            <select name="roleId" class="selectRole">
-                                @foreach (var item in ViewData["RoleList"] as List<Role>)
-                                {
-
-                                    <option value="@item.RoleId">@item.RoleName</option>
-                                }
-                            </select>
+                            <input class="form-control" value="Cashier" readonly/>                           
+                            
                         </div>
                     </div>
                                      
@@ -182,7 +169,7 @@
                             <input class="form-control inputLastName" name="lastname" placeholder="Enter Last Name" type="text" required />
                         </div>
                     </div>
-                    <br />
+                   
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Email</label>
@@ -194,7 +181,7 @@
                             <input class="form-control inputCellphone" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
                         </div>
                     </div>
-                    <br />
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Username</label>
@@ -206,18 +193,12 @@
                             <input class="form-control inputPassword" name="password" placeholder="Enter Password" type="password" required />
                         </div>
                     </div>
-                    <br />
+                    
 
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Role</label><br />
-                            <select name="roleId" class="selectRole">
-                                @foreach (var item in ViewData["RoleList"] as List<Role>)
-                                {
-
-                                    <option value="@item.RoleId">@item.RoleName</option>
-                                }
-                            </select>
+                            <input class="form-control" value="Cashier" readonly/>
                         </div>
                     </div>
 
@@ -281,7 +262,7 @@
 {
     <script>
         Swal.fire({
-            text: "Product Archived",
+            text: "User Deactivated",
             icon: "success",
             showConfirmButton: false,
             timer: 2000
@@ -295,7 +276,7 @@
 {
     <script>
         Swal.fire({
-            text: "Product Unarchived",
+            text: "User Activated",
             icon: "success",
             showConfirmButton: false,
             timer: 2000
@@ -310,7 +291,7 @@
 {
     <script>
         Swal.fire({
-            text: "User Added",
+            text: "New User Added",
             icon: "success",
             showConfirmButton: false,
             timer: 2000

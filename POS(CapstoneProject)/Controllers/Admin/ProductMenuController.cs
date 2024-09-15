@@ -25,8 +25,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     if (check.RoleId != 1)
                     {
-                        HttpContext.Session.Clear();
-                        return RedirectToAction("Login", "Authentication");
+                        //HttpContext.Session.Clear();
+                        return RedirectToAction("Index", "Sales");
                     }
                     else
                     {                     

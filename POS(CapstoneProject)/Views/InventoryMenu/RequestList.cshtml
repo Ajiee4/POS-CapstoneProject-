@@ -8,24 +8,24 @@
         background-color: #C6976C !important;
     }
 </style>
-<div class="request-list-header">
 
-
-    <form asp-action="DisplayRequest" method="post" id="requestListForm">
+<!--Filter Request-->
+<div class="request-filter-header"> 
+    <form asp-action="DisplayRequestList" method="post" id="requestFilterForm">
         <div class="request-status-wrapper">
             <label>Status</label>
-            <select class="selectRequestStatus" name="requestStatus">             
+            <select class="selectRequestStatus" name="requestStatus">
+                <option selected disabled>Select a type</option>
                 <option value="Pending">Pending</option>
                 <option value="Completed">Completed</option>
                 <option value="Canceled">Canceled</option>
             </select>
         </div>
         <button type="button" class="viewRequestBtn">View</button>
-
     </form>
 </div>
-
-<div class="request-list-wrapper"> 
+<!--Request List-->
+<div class="list-request-wrapper">
     <div class="note">
         <p>
             <b>Note</b>:
@@ -33,36 +33,135 @@
         <ul>
             <li>Ingredients with a quantity of zero will not be recorded in the Stock Movement.</li>
             <li>Inventory Level will be updated once the request is complete.</li>
-        </ul>     
+        </ul>
     </div>
-   
-    <div class="request-completed-wrapper">
-        <h1 class="request-header">UNKNOWN</h1>
-        <div class="request-grid">
-            @foreach (var item in ViewData["RequestComplete"] as List<Request>)
-            { 
-                var employeeName = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-                <div class="request-card" data-id="@item.RequestId" data-status="Completed">
-                    <div class="card-id">
-                        <b>Request Id:</b> 
-                        @item.RequestId
-                    </div>
-                    <div class="card-date">
-                        <b>Request Date:</b> 
-                        @item.RequestDate.ToString("yyyy-MM-dd")
-                    </div>
-                    <div class="card-name">
-                        <b>Requested By:</b>
-                        @employeeName.Firstname @employeeName.Lastname
-                    </div>
-                  
-                </div>
+    <h1 class="list-request-header"></h1>
+    <div class="list-request-grid">
+        <!-- Completed Requests -->
+        @if (TempData["RequestCompleted"] != null)
+        {
+            <script>
+                document.querySelector('.selectRequestStatus').value = "Completed";
+                document.querySelector('.list-request-header').textContent = "COMPLETED";
+            </script>
+            var requestList = ViewData["RequestCompleted"] as List<Request>;
+            if(requestList != null)
+            {
+                if (requestList.Count == 0)
+                {
+                    <p class="noResultPara">No Completed Requests Found</p>
+                }
+                else
+                {
+                    foreach (var item in requestList)
+                    {
+                        var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
+
+                        <div class="request-card" data-id="@item.RequestId" data-status="Completed">
+                            <div class="card-id">
+                                <b>Request Id:</b> @item.RequestId
+                            </div>
+                            <div class="card-date">
+                                <b>Request Date:</b> @item.RequestDate.ToString("yyyy-MM-dd")
+                            </div>
+                            <div class="card-name">
+                                <b>Requested By:</b> @employee?.Firstname @employee?.Lastname
+                            </div>
+                        </div>
+                    }
+                }
             }
-        </div>
+            else
+            {
+                
+            }
+
+        }
+        <!--Pending Requests-->
+        @if (TempData["RequestPending"] != null)
+        {
+            <script>
+                document.querySelector('.selectRequestStatus').value = "Pending";
+                document.querySelector('.list-request-header').textContent = "PENDING";
+            </script>
+            var requestList = ViewData["RequestPending"] as List<Request>;
+            if(requestList != null)
+            {
+                if (requestList.Count == 0)
+                {
+                    <p class="noResultPara">No Pending Requests Found</p>
+                }
+                else
+                {
+                    foreach (var item in requestList)
+                    {
+                        var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
+
+                        <div class="request-card" data-id="@item.RequestId" data-status="Pending">
+                            <div class="card-id">
+                                <b>Request Id:</b> @item.RequestId
+                            </div>
+                            <div class="card-date">
+                                <b>Request Date:</b> @item.RequestDate.ToString("yyyy-MM-dd")
+                            </div>
+                            <div class="card-name">
+                                <b>Requested By:</b> @employee?.Firstname @employee?.Lastname
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                
+            }
+
+        }
+        <!--Canceled Requests-->
+        @if (TempData["RequestCanceled"] != null)
+        {
+            <script>
+                document.querySelector('.selectRequestStatus').value = "Canceled";
+                document.querySelector('.list-request-header').textContent = "CANCELED";
+            </script>
+            var requestList = ViewData["RequestCanceled"] as List<Request>;
+
+            if(requestList != null)
+            {
+                if (requestList.Count == 0)
+                {
+                    <p class="noResultPara">No Canceled Requests Found</p>
+                }
+                else
+                {
+                    foreach (var item in requestList)
+                    {
+                        var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
+
+                        <div class="request-card" data-id="@item.RequestId" data-status="Canceled">
+                            <div class="card-id">
+                                <b>Request Id:</b> @item.RequestId
+                            </div>
+                            <div class="card-date">
+                                <b>Request Date:</b> @item.RequestDate.ToString("yyyy-MM-dd")
+                            </div>
+                            <div class="card-name">
+                                <b>Requested By:</b> @employee?.Firstname @employee?.Lastname
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                
+            }
+
+        }
     </div>
-   
 </div>
 
+<!---Request Detail Modal-->
 <div class="modal fade" id="requestCardModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -71,41 +170,41 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>          
+            </div>
             <div class="modal-body">
                 <div class="request-card-modal-header">
-                   <div class="request-card-modal-name">Ingredient</div>
-                   <div class="request-card-modal-quantity">Quantity</div>
-                  
-                </div> 
-               <div class="request-card-table-wrapper">
-                   <table class="request-card-table">
-                       <form asp-action="UpdateRequest" method="post" id="FormRequestUpdate">
-                           <input name="requestData" class="inputRequestUpdate" hidden />
-                           <input name="requestId" class="inputRequestId" hidden />
-                       </form>
+                    <div class="request-card-modal-name">Ingredient</div>
+                    <div class="request-card-modal-quantity">Quantity</div>
+
+                </div>
+                <div class="request-card-table-wrapper">
+                    <table class="request-card-table">
+                        <form asp-action="UpdateRequest" method="post" id="FormRequestUpdate">
+                            <input name="requestData" class="inputRequestUpdate" hidden />
+                            <input name="requestId" class="inputRequestId" hidden />
+                        </form>
                         <form asp-action="CancelRequest" method="post" id="FormRequestCancel">
-                            
+
                             <input name="requestId" class="inputRequestIdcancel" hidden />
                         </form>
                         <tbody id="requestDetailsTableBody">
-                            <!-- Dynamic content will go here -->
+                         
                         </tbody>
-                   </table>
-               </div>
-               <br />
+                    </table>
+                </div>
+                <br />
 
-               <div class="request-modal-buttons">
+                <div class="request-modal-buttons">
                     <button class="completeRequestBtn">Complete Request</button>
                     <button class="cancelRequestBtn">Cancel Request</button>
-               </div>
-              
+                </div>
+
             </div>
         </div>
     </div>
-
 </div>
 
+<!--Pop up messages-->
 @if (TempData["UpdateRequest"] != null)
 {
     <script>
@@ -129,47 +228,7 @@
     </script>
 }
 
-
 <script>
-    function showCardModal() {
-        let cards = document.querySelectorAll('.request-card');
-        let allDetails = @Html.Raw(ViewData["RequestDetails"]);
-
-        cards.forEach(card => {
-            card.addEventListener('click', function () {
-                let requestID = card.dataset.id;
-
-               
-                let tableBody = document.getElementById('requestDetailsTableBody');
-                tableBody.innerHTML = '';
-
-              
-                let filteredDetails = allDetails.filter(detail => detail.RequestId == requestID);
-
-               
-                filteredDetails.forEach(deta => {
-
-                    const truncatedName = deta.Ingredient.Name.length > 5 ? `${deta.Ingredient.Name.substring(0, 5)}...` : deta.Ingredient.Name;
-                    let row = `<tr>
-                                  <td>${truncatedName}</td>
-                                  <td>
-                                       <input class="inputQtyRequest" data-id="${deta.IngredientId}" onchange="changeQtyRequest(this)" oninput="validateQtyRequest(this)" value="${deta.Quantity}" />
-                                  </td>
-                                 
-                                  
-                               </tr>`;
-                    tableBody.innerHTML += row;
-                });
-
-                localStorage.setItem('requestList', JSON.stringify(filteredDetails));
-              
-
-               
-                $('#requestCardModal').modal('show');
-            });
-        });
-    }
-
-    showCardModal();
-
+    let requestDetails = @Html.Raw(ViewData["RequestDetails"]);
 </script>
+

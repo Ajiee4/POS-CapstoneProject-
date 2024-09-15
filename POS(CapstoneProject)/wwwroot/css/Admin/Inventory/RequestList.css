@@ -1,0 +1,268 @@
+﻿*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  
+}
+
+
+/*Request filter */
+.request-filter-header {
+    padding: 10px;
+    width: 100%;
+    background-color: #693D29;
+    border: 1px solid black;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.request-filter-header form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    color: white;
+    gap: 10px;
+}
+
+.selectRequestStatus {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.request-filter-header form label {
+    font-weight: bolder;
+}
+
+.request-filter-header input {
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+}
+
+.viewRequestBtn {
+    cursor: pointer;
+    padding: 8px 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    margin-left: 5px;
+}
+
+/*Note*/
+
+.list-request-wrapper .note {
+    padding: 5px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.list-request-wrapper .note ul {
+    margin-left: 20px;
+}
+
+.list-request-wrapper {
+    position: relative;
+    width: 100%;    
+}
+
+/*Main*/
+.list-request-wrapper .list-request-header {
+    text-align: left;
+    margin-top: 10px;
+    font-weight: bolder;
+}
+
+.list-request-wrapper .list-request-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 500px;
+    gap: 20px 20px;
+}
+
+.list-request-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.list-request-grid::-webkit-scrollbar-track {
+    background: #F1DCC8;
+}
+
+.list-request-grid::-webkit-scrollbar-thumb {
+    background-color: black;
+    cursor: pointer;
+}
+
+.list-request-grid::-webkit-scrollbar-thumb:hover {
+    background-color: white;
+}
+
+/*Request Card*/
+.request-card {
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #F1DCC8;
+    padding: 5px;
+    height: 150px;
+    transition: 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 3px 0px 5px rgba(0,0,0,0.2);
+    text-wrap: nowrap;
+}
+.request-card > div{
+    border-bottom: 1px solid grey;
+
+}
+.request-card:hover{
+    transform: scale(1.04);
+}
+
+/*Request Modal*/
+#requestCardModal .completeRequestBtn, .cancelRequestBtn {
+    background-color: #693D29;
+    border-radius: 20px;
+    padding: 10px 30px;
+    border: none;
+    color: white;
+    transition: 0.5s ease-in-out;
+}
+
+#requestCardModal .completeRequestBtn:hover, .cancelRequestBtn:hover {
+    background-color: black;
+    color: white;
+}
+
+#updateCategoryModal .updateSubmitBtn:hover {
+    background-color: black;
+    color: white;
+}
+
+#requestCardModal .modal-content {
+    background-color: rgba(197, 172, 148,0.9) !important;
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px black;
+}
+
+#requestCardModal .modal-header {
+    border: none;
+}
+
+#requestCardModal .modal-title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+#requestCardModal label {
+    font-weight: bold;
+}
+
+#requestCardModal .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    outline: none;
+    transition: 0.5s;
+}
+
+#requestCardModal .close:hover {
+    transform: scale(1.2);
+}
+#requestCardModal .request-card-modal-header {
+    display: flex;
+    border: 1px solid black;
+    background-color: #693D29;
+    color: white;
+    justify-content: space-between;
+    padding: 5px;
+    font-weight: bold;
+}
+#requestCardModal .request-card-modal-header > div{
+    padding: 5px;
+    flex: 1;
+}
+#requestCardModal .request-card-table-wrapper {
+    border: 1px solid black;
+    height: 150px;
+    overflow-y: auto;
+    background-color: #F1DCC8;
+}
+#requestCardModal .request-card-table {
+    width: 100%;
+   
+   
+}
+
+#requestCardModal .request-card-table td{
+    padding: 5px 10px;
+    text-align:center;
+}
+.inputQtyRequest{
+    width: 50%;
+    text-align: center;
+}
+
+.request-card-table-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+.request-card-table-wrapper::-webkit-scrollbar-track {
+    background: #F1DCC8;
+}
+
+.request-card-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: black;
+}
+
+.request-card-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: white;
+}
+
+.custom-icon {
+    font-size: 8px !important;
+}
+
+.swal-updaterequest-title {
+    font-size: 30px;
+    font-weight: bolder !important;
+    color: black !important;
+}
+
+.swal-updaterequest-title::after {
+    content: "Cannot be undone";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+}
+
+.request-modal-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 50px;
+}
+
+/*Reponsive Filter*/
+@media (max-width: 450px) {
+
+    .request-filter-header form {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .selectRequestStatus {
+        width: 100%;
+    }
+
+    .viewRequestBtn {
+        width: 50%;
+    }
+} 

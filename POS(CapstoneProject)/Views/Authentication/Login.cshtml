@@ -1,18 +1,14 @@
 ﻿@model POS_CapstoneProject_.Models.User
+
 @{
     Layout =  "/Views/Shared/_AuthLayout.cshtml";
 }
-    
-
-
      
 <div class="login-wrapper">
-
     <div class="form-content">
         <h1 class="login-text-header">LOGIN</h1>
 
         <form asp-action="Login" id="form" method="post" >
-
             <div class="username-wrapper">
                 <label asp-for="Username">Username:</label><br />
                 <input asp-for="Username" type="text" class="Username" required />
@@ -24,23 +20,10 @@
             </div>
 
             <button type="submit" id="submitbTN">LOGIN</button>
-
         </form>
-
     </div>
-
 </div>
-     
-
-
-
-
-
-
-
-
-
-
+<!--Pop up messages-->
 @if (TempData["NotExist"] != null)
 {
 
@@ -52,9 +35,7 @@
             icon: "error",   
             showConfirmButton: false,
             timer: 2000
-        });
-
-        
+        });       
       
     </script>
 }

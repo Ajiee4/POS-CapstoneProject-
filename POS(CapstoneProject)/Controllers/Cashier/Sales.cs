@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using NuGet.Protocol;
 using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
 
-namespace POS_CapstoneProject_.Controllers.Admin
+namespace POS_CapstoneProject_.Controllers.Cashier
 {
-    public class SalesMenuController : Controller
+    public class Sales : Controller
     {
+
         private readonly POS_CapstoneProject_Context _context;
-        public SalesMenuController(POS_CapstoneProject_Context context)
+        public Sales(POS_CapstoneProject_Context context)
         {
             _context = context;
         }
         public async Task<IActionResult> Index()
         {
+           
 
             var UserId = HttpContext.Session.GetInt32("UserID");
             if (UserId != null)
@@ -23,10 +24,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
                 if (check != null)
                 {
-                    if (check.RoleId != 1)
+                    if (check.RoleId != 2)
                     {
                         //HttpContext.Session.Clear();
-                        return RedirectToAction("Index", "Sales");
+                        return RedirectToAction("Index", "DashboardMenu");
                     }
                     else
                     {
@@ -86,6 +87,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     await _context.SaveChangesAsync();
                 }
 
+                //save change to db
+
                 TempData["OrderDate"] = order.OrderDate.ToString("MM/dd/yyyy");
                 TempData["TransactionComplete"] = " ";
                 TempData["UserName"] = user.Firstname + " " + user.Lastname;
@@ -100,10 +103,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
             {
 
             }
-     
+          
+
             return RedirectToAction("Index");
         }
-
-
     }
 }

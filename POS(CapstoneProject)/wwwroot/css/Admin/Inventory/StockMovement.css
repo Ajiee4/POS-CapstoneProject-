@@ -1,0 +1,166 @@
+﻿*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+   
+}
+
+.stock-movement-header {
+    padding: 10px;
+    width: 100%;
+    background-color: #693D29;
+    border: 1px solid black;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.stock-movement-header form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    color: white;
+    gap: 10px;
+}
+
+.selectTransactionType {
+
+    padding: 10px;
+    border-radius: 5px;
+}
+ 
+.stock-movement-header form label {
+    font-weight: bolder;
+}
+
+.stock-movement-header input {
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+}
+
+.generateRecordBtn {
+    cursor: pointer;
+    padding: 8px 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    margin-left: 5px;
+}
+
+
+stock-movement-wrapper {
+    display: none;
+    position: relative;
+    width: 100%;
+}
+
+.stock-movement-table {
+   
+    border-collapse: collapse !important;
+    border: 1px solid black;
+    z-index: 2 !important;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+}
+
+    .stock-movement-table thead {
+        background-color: #693D29;
+        color: white;
+    }
+
+    .stock-movement-table thead th {
+        text-align: left !important;
+    }
+
+    .stock-movement-table tr {
+        border: 1px solid black !important;
+    }
+
+    .stock-movement-table tbody {
+        background-color: #F7F7F7;
+        color: black;
+    }
+
+    .stock-movement-table tbody td {
+        text-align: left !important;
+    }
+
+@media (max-width: 770px) {
+    .stock-movement-table thead {
+        display: none;
+    }
+
+    .stock-movement-table {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: 100%;
+        max-width: 550px;
+
+    }
+
+    .stock-movement-table tbody {
+        background-color: transparent !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    .stock-movement-table, .stock-movement-table tbody, .stock-movement-table tr, .stock-movement-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .stock-movement-table tbody td {
+        text-align: right !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    .stock-movement-table tr {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ccc;
+        padding: 5px;
+        border-radius: 10px;
+        background-color: #f1f1f1 !important;
+    }
+
+    .stock-movement-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .stock-movement-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 10px;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+}
+
+@media (max-width: 450px){
+
+    .stock-movement-header form{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .selectTransactionType {
+        width: 100%;
+    }
+    .generateRecordBtn{
+        width: 50%;
+    }
+    
+} 
