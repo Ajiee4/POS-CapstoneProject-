@@ -127,7 +127,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task AddRequest(string requestData)
+        public async Task<IActionResult> AddRequest(string requestData)
         {
             int id = (int)HttpContext.Session.GetInt32("UserID");
             var myList = JsonConvert.DeserializeObject<List<IngredientList>>(requestData);
@@ -158,6 +158,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 }
                 await _context.SaveChangesAsync();
             }
+            TempData["PostRequest"] = "Request Complete";
+
+            return RedirectToAction("InventoryList");
         }
 
         //From Inventory List

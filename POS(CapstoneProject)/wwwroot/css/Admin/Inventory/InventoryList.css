@@ -242,11 +242,11 @@ input::placeholder {
     transition: 0.3s ease-in-out
 }
 
-    #addIngredientModal .addIngredientSubmit:hover, #updateIngredientModal .updateIngredientSubmit:hover,
-    #processDetailsModal .processSubmit:hover {
-        background-color: black;
-        color: white;
-    }
+#addIngredientModal .addIngredientSubmit:hover, #updateIngredientModal .updateIngredientSubmit:hover,
+#processDetailsModal .processSubmit:hover {
+    background-color: black;
+    color: white;
+}
 
 
 
@@ -301,35 +301,46 @@ input::placeholder {
     height: 15px;
     width: 15px;
     position: absolute;
-    top: 1px;
-    right: 1px;
+    top: 5px;
+    right: 5px;
     border-radius: 50%;
     transition: 0.5s ease-in-out
 }
 
-    .exitRequest:hover, .exitStockOut:hover {
-        transform: scale(1.5)
-    }
-.request-list-wrapper, .stock-out-wrapper {
-  /*  position: fixed;
+.exitRequest:hover, .exitStockOut:hover {
+    transform: scale(1.5)
+}
+
+
+.request-list-wrapper {
+    border: 1px red solid;
+   /* visibility: hidden;*/
+    position: fixed;
     top: 80px;
-    right: 10px;*/
+    right: 15px;
+    bottom: 10px;
     background-color: #F1DCC8;
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    flex-direction: column;
+    width: 350px;
     border: 1px solid grey;
     border-radius: 5px;
     box-shadow: 1px 1px 5px grey;
     z-index: 990;
-    height: 300px
+    transition: 0.5s ease-in-out
+}
+.closeRequestList{
+    display: none;
+}
+.request-content-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+   
 }
 
-.request-list-header, .stock-out-header {
+.request-list-header h1 {
     text-align: center;
-    color: black;
+    color: #693D29;
     margin: 0;
     font-weight: bold;
     font-size: 2rem;
@@ -337,132 +348,154 @@ input::placeholder {
     padding: 5px 0px;
 }
 
-.request-list-wrapper .request-list-th, .stock-out-wrapper .stock-out-th {
+.request-list-header .description {
+  
+    margin-top: 30px;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.2em;
     display: flex;
-    justify-content: space-between;
-    background-color: #693D29;
-    padding: 5px 0px;
-    color: white;
-    font-weight: bolder;
-}
-.request-list-table-wrapper{
-
+    gap: 50px;
+    flex-direction: row;
 }
 
-
-
- 
-
-
-
-.ingredient-list-wrapper .ingredient-list-th .th-delete {
+.styled-table-container {
     flex: 1;
+    padding: 0px;
+    width: 100%;
+   
 }
 
-.ingredient-list-wrapper .ingredient-list-th .th-name {
-    flex: 2;
+.request-list-footer {
+    border-top: 1px solid black;
+    justify-content: center;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px;
+
+}
+.styled-table-container {
+    overflow-y: auto;
+}
+.styled-table {
+    /* border-collapse: collapse;*/
+    /* font-size: 1em;*/
+    font-family: sans-serif;
+    width: 100%;
+   
+    
 }
 
-.ingredient-list-wrapper .ingredient-list-th .th-quantity {
-    flex: 2;
-    text-align: left;
+.styled-table thead tr {
+    position: sticky;
+    background-color: #683c29;
+    color: #ffffff;
+    z-index: 1;
+    top: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
-
-.quantityInput {
-    width: 50%;
+.styled-table thead th {
+    padding: 10px 0px;
+}
+.styled-table tbody td {
+   
+    padding: 10px 0px;
+   
+}
+.styled-table tbody td #ingQuantity{
+    width: 80%;
     text-align: center;
 }
-.ingredient-list-table-wrapper {
-    flex-grow: 1;
-    overflow-y: auto;
-    height: 180px;
-
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
 }
 
-.ingredient-list-footer {
-    background-color: rgba(0,0,0,0.1);
-    border-top: 1px solid black;
-    padding: 10px;
-}
-.ingredient-list-footer .processIngredientListBtn {
-    margin-top: 5px;
-    padding: 10px;
-    background-color: #693D29;
-    color: white;
-    border: none;
-    outline: none;
-    font-size: 0.8rem;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    font-weight: bolder;
-}
-
-.ingredient-list-table {
-    width: 100%;
-}
-.ingredient-list-table tbody tr td {
-    font-size: 0.8rem;
-}
-
-    .ingredient-list-table td {
-        border: none;
-        padding: 10px;
-    }
-
-    .ingredient-list-table tr {
-        border-bottom: 1px solid grey;
-    }
-.ingredient-list-table-wrapper::-webkit-scrollbar, .process-detail-table-wrapper::-webkit-scrollbar{
+.styled-table-container::-webkit-scrollbar {
     width: 4px;
 }
 
-.ingredient-list-table-wrapper::-webkit-scrollbar-track, .process-detail-table-wrapper::-webkit-scrollbar-track {
+.styled-table-container::-webkit-scrollbar-track {
     background: #F1DCC8;
 }
 
-.ingredient-list-table-wrapper::-webkit-scrollbar-thumb, .process-detail-table-wrapper::-webkit-scrollbar-thumb {
+.styled-table-container::-webkit-scrollbar-thumb {
     background-color: black;
 }
 
-.ingredient-list-table-wrapper::-webkit-scrollbar-thumb:hover, .process-detail-table-wrapper::-webkit-scrollbar-thumb:hover {
+.styled-table-container::-webkit-scrollbar-thumb:hover {
     background-color: white;
 }
+    
 
-.delete-ingredient-img {
-    width: 12px;
-    height: 12px;
-    transition: 0.4s;
-    cursor: pointer;
+/*.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
 }
 
-.table-data-name {
-    text-align: left;
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #683c29;
+}
+*/
+
+.request-list-footer .requestSubmit {
+    width: 100px;
+    height: 50px;
+    background: #683c29;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+    border: 1px groove white;
+    border-radius: 10px;
+    transition: .3ms ease-in-out;
 }
 
-.table-data-quantity {
-    text-align: center;
+.request-list-footer .cancelrequest, .stock-out-footer .cancelrequest {
+    width: 100px;
+    height: 50px;
+    background: gray;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+    border: 1px groove white;
+    border-radius: 10px;
+    transition: .3ms ease-in-out;
+}
+
+.request-list-footer button:hover, .stock-out-footer button:hover {
+    color: #683c29;
+    background: white
 }
 
 
-.quantity-table-data {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 5px;
+@media (max-width: 950px) {
+
+    .inventory-wrapper {
+        width: 100% !important;
+    }
+
+    .request-list-wrapper {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        max-height: 450px;
+        height: 100%;
+        transform: translate(-50%, -50%) !important;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+     
+    }
 }
 
-.quantity-table-data .button {
-    border-radius: 50%;
-    background-color: white;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-}
 
-.quantity-table-data span img {
-    height: 8px;
-    width: 8px;
-}
+
+
+
+
+
+
+
+
+
+
+
+

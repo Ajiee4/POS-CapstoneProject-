@@ -201,7 +201,18 @@ function decrementQty(id) {
 //delete a specific item from the checklist
 function deleteItem(id) {
    
-   
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        width: 300,
+        showConfirmButton: false,
+        timer: 1500,
+
+    });
+    Toast.fire({
+        icon: "success",
+        title: "Product deleted"
+    });
     let indexItem = checkOutList.findIndex(item => item.prodID === id);
 
     if (indexItem !== -1) {
@@ -277,7 +288,7 @@ document.querySelector('#inputDiscount').addEventListener('change', function() {
 
 $('.cancelBtn').click(function (){
     
-    CheckOutToggle();
+  /*  CheckOutToggle();*/
 
     checkOutList.splice(0);
 

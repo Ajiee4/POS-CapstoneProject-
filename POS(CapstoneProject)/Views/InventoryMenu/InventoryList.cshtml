@@ -13,8 +13,8 @@
 <div class="inventory-wrapper">
  
     <button type="button" class="addIngredientBtn" data-toggle="modal" data-target="#addIngredientModal">Add Item</button>
-    <button class="btn requestBtn"type="button">Request</button>
-    <button type="button" class="stockOutBtn">Stock Out</button>
+    <button class="btn requestBtn" onclick="displayModal('Request')" type="button">Request</button>
+    <button type="button" class="stockOutBtn" onclick="displayModal('StockOut')">Stock Out</button>
 
   
     <table class="inventory-table">
@@ -33,8 +33,8 @@
             {
              
                 var checkRequest = data.RequestDetails.Where(s => s.IngredientId == item.IngredientId && s.Request.Status == "Pending").FirstOrDefault();
-              
-                <tr data-id="@item.IngredientId" data-name="@item.Name">
+
+                <tr  data-id="@item.IngredientId" data-name="@item.Name" onclick="requestitem(@item.IngredientId,'@item.Name',1)">
 
                     <td data-label="ID">@item.IngredientId</td>
                     <td data-label="Name">@item.Name</td>
@@ -85,47 +85,92 @@
 </div>
 <br />
 
-
 <!--Request-->
 @{
-    var requestid = data.Request.Max(s => s.RequestId + 1);
+    // var requestid = data.Request.Max(s => s.RequestId);
     var dateNow = DateTime.Now.Date.ToString("yyyy-MM-dd");
+    var user = data.UserDetail.FirstOrDefault(s => s.UserId == HttpContextAccessor.HttpContext.Session.GetInt32("UserID"));
+
 }
-<div class="request-list-wrapper">
-    <img src="~/images/no.png" class="exitRequest"/>
-  
-    <h1 class="request-list-header">Request</h1>
-   
-   
-        <p class="">Request Id: @requestid</p>
-    <p class="">date : @dateNow</p>
-    
+<div class="request-list-wrapper closeRequestList">
 
-    <div class="request-list-th">
-        <div class="th-delete"style="color: transparent">s</div>
-        <div class="th-name">Name</div>
-        <div class="th-quantity">Qty</div>       
-    </div>
+    <div class="request-content-wrapper">
+        <img src="~/images/close.png" class="exitRequest" />
 
-    <div class="request-list-table-wrapper">
+        <div class="request-list-header">
+            <h1 class="">Request</h1>
+
+            <div class="description">
+                <p><strong>Date: </strong> @dateNow</p>
+                <p><strong>Requested By: </strong> @user.Firstname @user.Lastname</p>
+            </div>
+        </div>
        
-        <table class="request-list-table">
-            <tbody>
-               
-            </tbody>
-        </table>
+
+        <div class="styled-table-container">
+            <table class="styled-table text-center">
+                <thead>
+                    <tr>
+                        <th style="width: 10%"></th>
+                        <th style="width: 50%">Name</th>
+                        <th style="width: 40%">Quantity</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="request-list-footer">
+            <form asp-action="AddRequest" method="post" id="requestForm">
+                <input name="requestData" class="requestInput" hidden />
+            </form>
+
+            <button class="d-block mx-auto requestSubmit">Request</button>
+            <button class="d-block mx-auto cancelrequest">Cancel</button>
+        </div>
     </div>
-   
-    <div class="request-list-footer">
-        <form asp-action="AddRequest" method="post" id="requestForm">               
-            <input name="requestData" class="requestInput" hidden />
-        </form>
-     
-        <button class="d-block mx-auto requestSubmit">Request</button>
-    </div>
+    
 </div>
 
+
+<br /><br />
+
+
 <!--Stock Out-->
+@* 
+<div class="stock-out-wrapper">
+    <img src="~/images/no.png" class="exitStockOut" />
+
+    <h1 class="stock-out-header">Stock Out</h1>
+
+
+
+    <table class="styled-table text-center">
+        <thead>
+            <tr>
+                <th style="width: 20%"></th>
+                <th style="width: 50%">Ingredients Name</th>
+                <th style="width: 40%">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+    <div class="stock-out-footer">
+        <form asp-action="StockIn" method="post" id="stockInForm">
+            <input name="stockInData" class="stockInInput" hidden />
+        </form>
+
+        <button class="d-block mx-auto stockOutSubmit">Stock Out</button>
+        <button class="d-block mx-auto cancelrequest">Cancel</button>
+    </div>
+</div>
+ *@
+@* <!--Stock Out-->
 
 <div class="stock-out-wrapper">
     <img src="~/images/no.png" class="exitStockOut" />
@@ -156,7 +201,7 @@
         <button class="d-block mx-auto stockOutSubmit">Stock Out</button>
     </div>
 </div>
-
+ *@
 
 
 
@@ -255,6 +300,19 @@
 
 }
 
+
+@if (TempData["AddIngredient"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "Ingredient Added",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+
+}
 @if (TempData["Exist"] != null)
 {
     <script>

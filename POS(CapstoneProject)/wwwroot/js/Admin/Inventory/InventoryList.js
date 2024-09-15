@@ -1,6 +1,12 @@
-﻿//array of ingredients
-let requestList = [];
-let stockOutList = [];
+﻿let RequestList = [];
+
+window.addEventListener('load', () => {
+    const storedList = localStorage.getItem('RequestList');
+    if (storedList) {
+        RequestList = JSON.parse(storedList);
+        DisplayRequest();
+    }
+});
 
 //setting up the data table
 $(document).ready(function () {
@@ -155,25 +161,317 @@ function updateIngredient() {
     });
 }
 
-//function for toggling the ingredient-list-wrapper
-//function IngredientListToggle() {
-//    $('.ingredient-list-wrapper').slideToggle(1000, function () {
+/*function for toggling the ingredient-list-wrapper*/
 
-//        const ingredientListWrapper = $('.ingredient-list-wrapper');
-//        ingredientListWrapper.toggleClass('closeIngredientList');
+function displayModal(name) {
+    if (name === 'Request') {
+        RequestListToggle();
+    }
+    if (name === 'StockOut') {
 
-//        if (ingredientListWrapper.hasClass('closeIngredientList')) {
-//            $('.inventory-wrapper').css({
-//                'width': '100%'
-//            })
-//        } else {
-//            $('.inventory-wrapper').css({
-//                'width': "calc(100% - 320px)"
-//            })
-//        }
+    }
+}
+function RequestListToggle() {
+     
+    const ingredientListWrapper = $('.request-list-wrapper');
+    ingredientListWrapper.toggleClass('closeRequestList');
 
-//    });
-//}
+  /*  $('.request-list-wrapper').toggle();*/
+    if (ingredientListWrapper.hasClass('closeRequestList')) {
+        $('.inventory-wrapper').css({
+            'width': '100%'
+        });
+
+        $('.request-list-wrapper').css({
+            'opacity': '1',
+            'transform': 'translateY(0)',
+                
+        });
+          
+        setTimeout(() => {
+            $('.request-list-wrapper').css({
+                'opacity': '0',
+                'transform': 'translateY(-20)',
+
+            });
+                
+        }, 10);
+
+    }
+    else {
+        $('.inventory-wrapper').css({
+            'width': "calc(100% - 370px)"
+        });
+
+        $('.request-list-wrapper').css({
+            'opacity': '0',
+            'transform': 'translateY(-20)',
+
+        });
+
+        setTimeout(() => {
+            $('.request-list-wrapper').css({
+                'opacity': '1',
+                'transform': 'translateY(0)',
+
+            });
+
+        }, 10);         
+    }
+}
+function StockOutListToggle() {
+
+    const ingredientListWrapper = $('.request-list-wrapper');
+    ingredientListWrapper.toggleClass('closeRequestList');
+
+    if (ingredientListWrapper.hasClass('closeRequestList')) {
+        $('.inventory-wrapper').css({
+            'width': '100%'
+        });
+
+        $('.request-list-wrapper').css({
+            'opacity': '1',
+            'transform': 'translateY(0)',
+
+        });
+
+        setTimeout(() => {
+            $('.request-list-wrapper').css({
+                'opacity': '0',
+                'transform': 'translateY(-20)',
+
+            });
+
+        }, 10);
+
+    }
+    else {
+        $('.inventory-wrapper').css({
+            'width': "calc(100% - 370px)"
+        });
+
+        $('.request-list-wrapper').css({
+            'opacity': '0',
+            'transform': 'translateY(-20)',
+
+        });
+
+        setTimeout(() => {
+            $('.request-list-wrapper').css({
+                'opacity': '1',
+                'transform': 'translateY(0)',
+
+            });
+
+        }, 10);
+    }
+}
+
+function requestitem(id, name, quantity) {
+
+    //const requestListWrapper = document.querySelector('.request-list-wrapper');
+    //const stockOutWrapper = document.querySelector('.stock-out-wrapper');  
+    let product = RequestList.find(item => item.ingredientId === id);
+
+    if (product) {
+
+        product.ingredientQty += quantity;
+        popUpMessageInvenotryTop("Ingredient Quantity Updated", "success", 300)
+    }
+    else {
+      
+        popUpMessageInvenotryTop("Ingredient Added", "success", 300)
+
+        RequestList.push({
+            ingredientId: id,
+            ingredientName: name,
+            ingredientQty: quantity
+        });
+
+        // Add the item to the request list
+      /*  const row = document.querySelector(`tr[data-id="${id}"]`);*/
+            
+    }
+    localStorage.setItem('RequestList', JSON.stringify(RequestList));
+ 
+    DisplayRequest();
+   
+}
+
+function DisplayRequest() {
+    const tableBody = document.querySelector('.styled-table tbody');
+    let html = '';
+    const storedList = localStorage.getItem('RequestList');
+    const RequestList = JSON.parse(storedList); // Parse the stored list
+
+    if (RequestList === null) {
+        html +=
+            `
+             <tr >
+                    <td class="table-data-quantity text-center"> Please Click the Desired Ingredients to be Requested</td>
+                </tr> 
+                                 
+            `
+    } else {
+        RequestList.forEach((item) => {
+            const truncatedName = item.ingredientName.length > 10 ? `${item.ingredientName.substring(0, 10)}...` : item.ingredientName;
+            html +=
+                `
+                 <tr >
+                        <td style="padding: 10px">
+                                <img src="/images/delete-black.png"
+                                 onmouseover="hoverElement(this)"
+                                onmouseout="leaveElement(this)"
+                                class="delete-checkout-img d-block mx-auto" onclick="deleteItem(${item.ingredientId})"/>
+                        </td>
+                        <td>
+                            ${truncatedName}
+                        </td>
+                        <td> 
+                            <input id="ingQuantity" data-prod-id="${item.ingredientId}" value="${item.ingredientQty}"/> 
+                            &nbsp;
+                        </td>
+                    </tr> 
+                                 
+                `
+        });
+    }
+
+    tableBody.innerHTML = html;
+
+    // Add event listener to input fields to save quantity to localStorage
+    $('input[id="ingQuantity"]').on('keypress', function (event) {
+        if (event.which !== 8 && isNaN(String.fromCharCode(event.which))) {
+            event.preventDefault();
+        }
+    });
+
+    $('input[id="ingQuantity"]').on('change', function () {
+        if ($(this).val() === null || $(this).val() === '') {
+            $(this).val('0');
+        }
+        const ingredientId = $(this).data('prod-id');
+        const newQuantity = parseInt($(this).val());
+        const storedList = localStorage.getItem('RequestList');
+        const RequestList = JSON.parse(storedList);
+
+        const index = RequestList.findIndex(item => item.ingredientId === ingredientId);
+        if (index !== -1) {
+            RequestList[index].ingredientQty = newQuantity;
+            
+            popUpMessageInvenotryTop("Product Quantity Updated", "success", 300);
+
+            localStorage.setItem('RequestList', JSON.stringify(RequestList));
+        }
+    });
+}
+
+function hoverElement(img) {
+    img.src = '/images/delete-red.png';
+}
+
+function leaveElement(img) {
+    img.src = '/images/delete-black.png';
+}
+
+
+$('.requestSubmit').click(function () {
+    Swal.fire({
+        icon: "question",
+        title: "Confirm Request? <br>",
+
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        customClass: {
+            icon: 'custom-icon',
+            title: 'Confirm',
+
+        }
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            let jSonData = JSON.stringify(RequestList);
+            
+            $('.requestInput').val(jSonData);
+
+            $('#requestForm').submit();
+
+            RequestList.splice(0);
+            localStorage.setItem('RequestList', JSON.stringify(RequestList));
+
+        }
+    });
+
+
+});
+function deleteItem(id) {
+
+    popUpMessageInvenotryTop('Ingredient deleted', "success", 300)
+    // Implement the logic to delete the item from the RequestList and update the UI
+    const index = RequestList.findIndex(item => item.ingredientId === id);
+    if (index !== -1) {
+        RequestList.splice(index, 1);
+        localStorage.setItem('RequestList', JSON.stringify(RequestList));
+        DisplayRequest(); // Update the UI
+    }
+}
+
+
+
+function cancelRequest() {
+    const cancelButton = document.querySelector('.cancelrequest');
+
+    cancelButton.addEventListener('click', () => {
+        RequestList.splice(0)
+        localStorage.setItem('RequestList', JSON.stringify(RequestList));
+        //reset the RequestList array 
+        RequestList = [];
+        document.querySelector('.request-list-wrapper table tbody').innerHTML = '';
+        document.querySelector('.stock-out-wrapper table tbody').innerHTML = '';
+    });
+}
+cancelRequest();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
