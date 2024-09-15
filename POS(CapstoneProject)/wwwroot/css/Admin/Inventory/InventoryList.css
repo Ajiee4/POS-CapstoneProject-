@@ -278,6 +278,24 @@ input::placeholder {
     font-weight: bolder !important;
     color: black !important;
 }
+.swal-stockOutInsufficient-title-many:after {
+    content: "The following ingredients are:";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+}
+.swal-stockOutInsufficient-title-one:after {
+    content: "The following ingredient is:";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+}
+.swal-stockOutInsufficient-html {
+    list-style: none;
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+}
 
 @keyframes glowing {
     0% {
@@ -312,9 +330,9 @@ input::placeholder {
 }
 
 
-.request-list-wrapper {
+.request-list-wrapper, .stock-out-wrapper {
     border: 1px red solid;
-   /* visibility: hidden;*/
+    /* visibility: hidden;*/
     position: fixed;
     top: 80px;
     right: 15px;
@@ -327,18 +345,17 @@ input::placeholder {
     z-index: 990;
     transition: 0.5s ease-in-out
 }
-.closeRequestList{
+.closeRequestList, .closeStockOutList {
     display: none;
 }
-.request-content-wrapper {
+.request-content-wrapper, .stock-out-content-wrapper {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-   
 }
 
-.request-list-header h1 {
+.request-list-header h1, .stock-out-header h1 {
     text-align: center;
     color: #693D29;
     margin: 0;
@@ -348,8 +365,7 @@ input::placeholder {
     padding: 5px 0px;
 }
 
-.request-list-header .description {
-  
+.request-list-header .description, .stock-out-header .description {
     margin-top: 30px;
     justify-content: center;
     text-align: center;
@@ -363,7 +379,7 @@ input::placeholder {
     flex: 1;
     padding: 0px;
     width: 100%;
-   
+    overflow-y: auto;
 }
 
 .request-list-footer {
@@ -372,11 +388,8 @@ input::placeholder {
     display: flex;
     flex-direction: row-reverse;
     padding: 10px;
+}
 
-}
-.styled-table-container {
-    overflow-y: auto;
-}
 .styled-table {
     /* border-collapse: collapse;*/
     /* font-size: 1em;*/
@@ -427,14 +440,14 @@ input::placeholder {
 }
     
 
-/*.styled-table tbody tr:nth-of-type(even) {
+.styled-table tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
 
 .styled-table tbody tr:last-of-type {
     border-bottom: 2px solid #683c29;
 }
-*/
+
 
 .request-list-footer .requestSubmit {
     width: 100px;
@@ -448,7 +461,7 @@ input::placeholder {
     transition: .3ms ease-in-out;
 }
 
-.request-list-footer .cancelrequest, .stock-out-footer .cancelrequest {
+.request-list-footer .cancelrequest{
     width: 100px;
     height: 50px;
     background: gray;
@@ -460,7 +473,7 @@ input::placeholder {
     transition: .3ms ease-in-out;
 }
 
-.request-list-footer button:hover, .stock-out-footer button:hover {
+.request-list-footer button:hover{
     color: #683c29;
     background: white
 }
@@ -484,6 +497,47 @@ input::placeholder {
         margin: 0 auto;
      
     }
+}
+.stock-out-footer {
+    display: flex;
+    border-top: 1px solid black;
+    flex-direction: column;
+    padding: 5px;
+}
+.footer-buttons-wrapper{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    padding: 10px;
+    gap: 20px;
+   
+}
+.footer-buttons-wrapper .stockOutSubmit {
+   
+    padding: 10px 15px;
+    background: #683c29;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+    border: 1px groove white;
+    border-radius: 10px;
+    transition: .3ms ease-in-out;
+}
+
+    .footer-buttons-wrapper .cancelStockOut {
+        padding: 10px 15px;
+        border-top: 1px solid black;
+        background: gray;
+        font-size: 1rem;
+        font-weight: bolder;
+        color: white;
+        border: 1px groove white;
+        border-radius: 10px;
+        transition: .3ms ease-in-out;
+    }
+.stockOutRemarks {
+    width: 100%;
+    padding: 5px;
 }
 
 

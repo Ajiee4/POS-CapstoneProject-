@@ -165,10 +165,21 @@ function updateIngredient() {
 
 function displayModal(name) {
     if (name === 'Request') {
+
         RequestListToggle();
+
+        const stockOutListWrapper = $('.stock-out-wrapper');
+        if (!(stockOutListWrapper.hasClass('closeStockOutList'))) {
+            stockOutListWrapper.addClass('closeStockOutList')
+        }
     }
     if (name === 'StockOut') {
+        StockOutListToggle();
 
+        const requestListWrapper = $('.request-list-wrapper');
+        if (!(requestListWrapper.hasClass('closeRequestList'))) {
+            requestListWrapper.addClass('closeRequestList')
+        }
     }
 }
 function RequestListToggle() {
@@ -221,22 +232,22 @@ function RequestListToggle() {
 }
 function StockOutListToggle() {
 
-    const ingredientListWrapper = $('.request-list-wrapper');
-    ingredientListWrapper.toggleClass('closeRequestList');
+    const stockOutListWrapper = $('.stock-out-wrapper');
+    stockOutListWrapper.toggleClass('closeStockOutList');
 
-    if (ingredientListWrapper.hasClass('closeRequestList')) {
+    if (stockOutListWrapper.hasClass('closeStockOutList')) {
         $('.inventory-wrapper').css({
             'width': '100%'
         });
 
-        $('.request-list-wrapper').css({
+        $('.stock-out-wrapper').css({
             'opacity': '1',
             'transform': 'translateY(0)',
 
         });
 
         setTimeout(() => {
-            $('.request-list-wrapper').css({
+            $('.stock-out-wrapper').css({
                 'opacity': '0',
                 'transform': 'translateY(-20)',
 
@@ -250,14 +261,14 @@ function StockOutListToggle() {
             'width': "calc(100% - 370px)"
         });
 
-        $('.request-list-wrapper').css({
+        $('.stock-out-wrapper').css({
             'opacity': '0',
             'transform': 'translateY(-20)',
 
         });
 
         setTimeout(() => {
-            $('.request-list-wrapper').css({
+            $('.stock-out-wrapper').css({
                 'opacity': '1',
                 'transform': 'translateY(0)',
 
@@ -267,10 +278,13 @@ function StockOutListToggle() {
     }
 }
 
-function requestitem(id, name, quantity) {
+function requestitem(event, id, name, quantity) {
 
-    //const requestListWrapper = document.querySelector('.request-list-wrapper');
-    //const stockOutWrapper = document.querySelector('.stock-out-wrapper');  
+   
+    if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
+        return; 
+    }
+
     let product = RequestList.find(item => item.ingredientId === id);
 
     if (product) {
@@ -299,7 +313,8 @@ function requestitem(id, name, quantity) {
 }
 
 function DisplayRequest() {
-    const tableBody = document.querySelector('.styled-table tbody');
+    const tableBodyRequest = document.querySelector('.request-content-wrapper .styled-table tbody');
+    const tableBodyStockOut = document.querySelector('.stock-out-wrapper .styled-table tbody');
     let html = '';
     const storedList = localStorage.getItem('RequestList');
     const RequestList = JSON.parse(storedList); // Parse the stored list
@@ -328,7 +343,7 @@ function DisplayRequest() {
                             ${truncatedName}
                         </td>
                         <td> 
-                            <input id="ingQuantity" data-prod-id="${item.ingredientId}" value="${item.ingredientQty}"/> 
+                            <input id="ingQuantity" onchange="qtyChange(this)" oninput="validateQuantity(this)" data-id="${item.ingredientId}" value="${item.ingredientQty}"/> 
                             &nbsp;
                         </td>
                     </tr> 
@@ -337,34 +352,58 @@ function DisplayRequest() {
         });
     }
 
-    tableBody.innerHTML = html;
+    tableBodyRequest.innerHTML = html;
+    tableBodyStockOut.innerHTML = html;
 
-    // Add event listener to input fields to save quantity to localStorage
-    $('input[id="ingQuantity"]').on('keypress', function (event) {
-        if (event.which !== 8 && isNaN(String.fromCharCode(event.which))) {
-            event.preventDefault();
-        }
-    });
+    ///* Add event listener to input fields to save quantity to localStorage*/
+    //$('input[id="ingQuantity"]').on('keypress', function (event) {
+    //    if (event.which !== 8 && isNaN(String.fromCharCode(event.which))) {
+    //        event.preventDefault();
+    //    }
+    //});
 
-    $('input[id="ingQuantity"]').on('change', function () {
-        if ($(this).val() === null || $(this).val() === '') {
-            $(this).val('0');
-        }
-        const ingredientId = $(this).data('prod-id');
-        const newQuantity = parseInt($(this).val());
-        const storedList = localStorage.getItem('RequestList');
-        const RequestList = JSON.parse(storedList);
+    //$('input[id="ingQuantity"]').on('change', function () {
+    //    if ($(this).val() === null || $(this).val() === '') {
+    //        $(this).val('0');
+    //    }
+    //    const ingredientId = $(this).data('prod-id');
+    //    const newQuantity = parseInt($(this).val());
+    //    const storedList = localStorage.getItem('RequestList');
+    //    const RequestList = JSON.parse(storedList);
 
-        const index = RequestList.findIndex(item => item.ingredientId === ingredientId);
-        if (index !== -1) {
-            RequestList[index].ingredientQty = newQuantity;
+    //    const index = RequestList.findIndex(item => item.ingredientId === ingredientId);
+    //    if (index !== -1) {
+    //        RequestList[index].ingredientQty = newQuantity;
             
-            popUpMessageInvenotryTop("Product Quantity Updated", "success", 300);
+    //        popUpMessageInvenotryTop("Product Quantity Updated", "success", 300);
 
-            localStorage.setItem('RequestList', JSON.stringify(RequestList));
-        }
-    });
+    //        localStorage.setItem('RequestList', JSON.stringify(RequestList));
+    //    }
+    //});
 }
+
+function qtyChange(input) {
+    let idIngredient = Number(input.dataset.id);
+    const ingredient = RequestList.find((item) => item.ingredientId === idIngredient);
+    const inputValue = input.value.trim();
+
+
+    if (!inputValue || inputValue == 0) {
+        input.value = 1;
+    }
+    ingredient.ingredientQty = Number(input.value);
+    localStorage.setItem('RequestList', JSON.stringify(RequestList));
+
+}
+
+
+function validateQuantity(input) {
+
+    input.value = input.value.replace(/[^0-9]/g, '');
+
+}
+
+
 
 function hoverElement(img) {
     img.src = '/images/delete-red.png';
@@ -376,36 +415,43 @@ function leaveElement(img) {
 
 
 $('.requestSubmit').click(function () {
-    Swal.fire({
-        icon: "question",
-        title: "Confirm Request? <br>",
 
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'Confirm',
+    if (RequestList.length == 0) {
 
-        }
+        popUpMessageInvenotryTop('Request List is empty', 'error', 290)
 
-    }).then((result) => {
+    }
+    else {
+        Swal.fire({
+            icon: "question",
+            title: "Confirm Request? <br>",
 
-        if (result.isConfirmed) {
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes",
+            customClass: {
+                icon: 'custom-icon',
+                title: 'Confirm',
 
-            let jSonData = JSON.stringify(RequestList);
-            
-            $('.requestInput').val(jSonData);
+            }
 
-            $('#requestForm').submit();
+        }).then((result) => {
 
-            RequestList.splice(0);
-            localStorage.setItem('RequestList', JSON.stringify(RequestList));
+            if (result.isConfirmed) {
 
-        }
-    });
+                let jSonData = JSON.stringify(RequestList);
 
+                $('.requestInput').val(jSonData);
+
+                $('#requestForm').submit();
+
+                RequestList.splice(0);
+                localStorage.setItem('RequestList', JSON.stringify(RequestList));
+
+            }
+        });
+    }
 
 });
 function deleteItem(id) {
@@ -436,12 +482,140 @@ function cancelRequest() {
 }
 cancelRequest();
 
+function cancelRequest() {
+    const cancelButton = document.querySelector('.cancelStockOut');
+
+    cancelButton.addEventListener('click', () => {
+        RequestList.splice(0)
+        localStorage.setItem('RequestList', JSON.stringify(RequestList));
+        //reset the RequestList array 
+        RequestList = [];
+        document.querySelector('.request-list-wrapper table tbody').innerHTML = '';
+        document.querySelector('.stock-out-wrapper table tbody').innerHTML = '';
+    });
+}
+
+$('.exitRequest').click(function () {
+    RequestListToggle();
+});
+$('.exitStockOut').click(function () {
+    StockOutListToggle();
+});
 
 
+$('.stockOutSubmit').click(function () {
+
+   /* alert('hi')*/
+ 
+
+    if (RequestList.length == 0) {
+
+        popUpMessageInvenotryTop('Stock Out List is empty', 'error', 300)
+
+    }
+    else {
+        let insufficientList = []
+        let ingredient = ingredientListQuanti
+
+        //check every ingredients if they are greater than or equal to the stock out quantity
+        //if every iteration is true the result is true
+        let result = RequestList.every(item => {
+            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);
+            return findIngredient.quantity >= item.ingredientQty
+
+        });
+      
+        //iterate the ingredients list and add the ingredients to the array if it is insufficient
+        RequestList.forEach(item => {
+            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);
+            if (!(findIngredient.quantity >= item.ingredientQty)) {
+                insufficientList.push(item.ingredientName)
+            }
+        });
+       
+        //check if the result
+        if (result) {
 
 
+            Swal.fire({
+                icon: "question",
+                title: "Confirm Stock Out? <br>",
+
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes",
+                customClass: {
+                    icon: 'custom-icon',
+                    title: 'Confirm',
+
+                }
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    /*  submit if the result is true*/
+                    let jsonData = JSON.stringify(RequestList);
+
+                    $('.stockOutInput').val(jsonData);
+
+                    $('#stockOutForm').submit();
+
+                    RequestList.splice(0);
+                    localStorage.setItem('RequestList', JSON.stringify(RequestList));
+
+                }
+            });
+         
+        }
+        else {
+            //show a pop up message if some ingredients are insufficient
+            let insufficientListText = insufficientList.map(item => `<li>${item}</li>`).join('');
+
+            if (insufficientList.length > 1) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Insufficient Quantity <br>",
+                    html: `
+                   <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    padding: "1em",
+                    customClass: {
+                        icon: 'custom-icon',
+                        title: 'swal-stockOutInsufficient-title-many',
 
 
+                    }
+
+                })
+            }
+            else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Insufficient Quantity <br>",
+                    html: `
+                   <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    padding: "1em",
+                    customClass: {
+                        icon: 'custom-icon',
+                        title: 'swal-stockOutInsufficient-title-one',
+
+
+                    }
+
+                })
+            }
+          
+
+        }
+        
+    }
+   
+});
 
 
 
@@ -627,7 +801,7 @@ cancelRequest();
 //}
 
 
-//when the submit button is click
+///*when the submit button is click*/
 //$('.processSubmit').click(function () {
 
 //    //create an array to store the insufficient ingredients

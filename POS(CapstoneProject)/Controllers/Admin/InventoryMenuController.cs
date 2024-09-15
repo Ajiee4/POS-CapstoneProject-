@@ -165,9 +165,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         //From Inventory List
 
-        public async Task StockOut(string data, int id, string remarks)
+        public async Task<IActionResult> StockOut(string stockOutData, string remarks)
         {
-            var myList = JsonConvert.DeserializeObject<List<IngredientList>>(data);
+            int id = (int)HttpContext.Session.GetInt32("UserID");
+            var myList = JsonConvert.DeserializeObject<List<IngredientList>>(stockOutData);
             if (myList! != null)
             {
                 foreach (var item in myList)
@@ -219,6 +220,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
                 await _context.SaveChangesAsync();
             }
+            TempData["StockOut"] = " ";
+            return RedirectToAction("InventoryList");
         }
 
         public async Task<IActionResult> StockMovement()

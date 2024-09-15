@@ -34,7 +34,7 @@
              
                 var checkRequest = data.RequestDetails.Where(s => s.IngredientId == item.IngredientId && s.Request.Status == "Pending").FirstOrDefault();
 
-                <tr  data-id="@item.IngredientId" data-name="@item.Name" onclick="requestitem(@item.IngredientId,'@item.Name',1)">
+                <tr  data-id="@item.IngredientId" data-name="@item.Name" onclick="requestitem(event,@item.IngredientId,'@item.Name',1)">
 
                     <td data-label="ID">@item.IngredientId</td>
                     <td data-label="Name">@item.Name</td>
@@ -101,8 +101,8 @@
             <h1 class="">Request</h1>
 
             <div class="description">
-                <p><strong>Date: </strong> @dateNow</p>
-                <p><strong>Requested By: </strong> @user.Firstname @user.Lastname</p>
+                <p><strong>Date: <br /></strong> @dateNow</p>
+                <p><strong>Requested By:<br /> </strong> @user.Firstname @user.Lastname</p>
             </div>
         </div>
        
@@ -139,37 +139,58 @@
 
 
 <!--Stock Out-->
-@* 
-<div class="stock-out-wrapper">
-    <img src="~/images/no.png" class="exitStockOut" />
 
-    <h1 class="stock-out-header">Stock Out</h1>
+<div class="stock-out-wrapper closeStockOutList">
 
+    <div class="stock-out-content-wrapper">
+        <img src="~/images/no.png" class="exitStockOut" />
 
+        <div class="stock-out-header">
+            <h1 class="">Stock Out</h1>
 
-    <table class="styled-table text-center">
-        <thead>
-            <tr>
-                <th style="width: 20%"></th>
-                <th style="width: 50%">Ingredients Name</th>
-                <th style="width: 40%">Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+            <div class="description">
+                <p><strong>Date: <br /></strong> @dateNow</p>
+                <p><strong>Stock Out By:<br /> </strong> @user.Firstname @user.Lastname</p>
+            </div>
+        </div>
+        <div class="styled-table-container">
+            <table class="styled-table text-center">
+                <thead>
+                    <tr>
+                        <th style="width: 10%"></th>
+                        <th style="width: 50%">Name</th>
+                        <th style="width: 40%">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+     
+        <div class="stock-out-footer">
+         
+            <form asp-action="StockOut" method="post" id="stockOutForm">
+                <input name="stockOutData" class="stockOutInput" hidden />
+                <label>Remarks</label>
+                <select name="remarks" class="stockOutRemarks">
+                    <option value="Disposed">Disposed</option>
+                    <option value="Damaged">Damaged</option>
+                    <option value="Sold">Sold</option>
+                </select>
+            </form>
+            <div class="footer-buttons-wrapper">
 
+                <button class="stockOutSubmit">Stock Out</button>
+                <button class="cancelStockOut">Cancel</button>
+            </div>
 
-    <div class="stock-out-footer">
-        <form asp-action="StockIn" method="post" id="stockInForm">
-            <input name="stockInData" class="stockInInput" hidden />
-        </form>
-
-        <button class="d-block mx-auto stockOutSubmit">Stock Out</button>
-        <button class="d-block mx-auto cancelrequest">Cancel</button>
+        </div>
     </div>
+   
+
+   
 </div>
- *@
+
 @* <!--Stock Out-->
 
 <div class="stock-out-wrapper">
