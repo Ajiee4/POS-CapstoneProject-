@@ -29,9 +29,10 @@ function popUpMessageInventoryRequest(message, icon) {
 
 $('.viewRequestBtn').click(function () {
    
-    if ($('.selectRequestStatus').val() == null) {
+    if ($('.selectRequestStatus').val() == null || $('.fromDate').val() == '' ||
+        $('.toDate').val() == '') {
         Swal.fire({
-            text: 'Select a type',
+            text: 'Fill out all information',
             icon: 'error',
             padding: "1em",
             showConfirmButton: false,
@@ -46,6 +47,11 @@ $('.viewRequestBtn').click(function () {
 
     }
     else {
+        let toDate = $('.toDate').val();
+        let fromDate = $('.fromDate').val()
+
+        localStorage.setItem('toDateRequest', toDate);
+        localStorage.setItem('fromDateRequest', fromDate);
         $('#requestFilterForm').submit();
     }
 });

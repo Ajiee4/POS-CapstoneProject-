@@ -38,7 +38,10 @@
 {   
     <h1>@TempData["SalesFilter"]</h1>
     <br />
-    <canvas id="bar"></canvas>
+    <div class="bar-wrapper">
+        <canvas id="bar"></canvas>
+    </div>
+ 
 
     <script>
         var chartData = @Json.Serialize(ViewData["Sales"]);

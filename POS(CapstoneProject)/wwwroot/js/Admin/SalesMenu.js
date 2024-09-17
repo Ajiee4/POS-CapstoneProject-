@@ -14,8 +14,6 @@ window.addEventListener('load', () => {
         DisplayCheckOut(); 
         cartCount();
     }
-
-
 });
 
 function cartCount() {
@@ -287,14 +285,57 @@ document.querySelector('#inputDiscount').addEventListener('change', function() {
 //cancel order
 
 $('.cancelBtn').click(function (){
-    
+
+    if (checkOutList.length == 0) {
+
+        popUpMessageSales("Check Out list is empty", "error");
+    }
+    else {
+        Swal.fire({
+            icon: "question",
+            title: "Are you sure you want to cancel? <br>",
+
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes",
+            customClass: {
+                icon: 'custom-icon',
+                title: 'swal-salesCancel-title',
+
+            }
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    width: 300,
+                    showConfirmButton: false,
+                    timer: 1500,
+
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Check Out Canceled"
+                });
+
+                checkOutList.splice(0);
+
+                DisplayCheckOut();
+                cartCount();
+                localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+            }
+        });
+    }
   /*  CheckOutToggle();*/
 
-    checkOutList.splice(0);
+    //checkOutList.splice(0);
 
-    DisplayCheckOut();
-    cartCount();
-    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+    //DisplayCheckOut();
+    //cartCount();
+    //localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     
 })
 
@@ -302,7 +343,7 @@ $('.cancelBtn').click(function (){
 $('.payBtn').click(function () {
    
     if (checkOutList.length === 0) {
-        popUpMessageSales("Your check out list is empty", "error");
+        popUpMessageSales("Check Out list is empty", "error");
 
     } else {
         $('#paymentModal').modal('toggle')

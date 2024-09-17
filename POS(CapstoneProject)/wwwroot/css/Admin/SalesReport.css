@@ -44,18 +44,25 @@ input {
 }
 
 
-#bar{
+#bar {
     background-color: white;
     border: 1px solid black;
     border-radius: 5px;
+    max-width: 90%;
+ 
    
-    overflow-x: auto;
+}
+.bar-wrapper{
+    /*background-color: black;*/display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
-#bar{
-    max-width: 90%;
+/*#bar{
+  
     display: block;
     margin: auto;
     height: 450px !important;
     overflow-x: scroll;
-}
+}*/

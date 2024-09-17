@@ -1,9 +1,10 @@
 ﻿$('.generateRecordBtn').click(function (event) {
   
-    event.preventDefault();
-    if ($('.selectTransactionType').val() == null) {
+   
+    if ($('.selectTransactionType').val() == null || $('.fromDateStockMove').val() == '' ||
+        $('.toDateStockMove').val() == '' ) {
         Swal.fire({
-            text: 'Select a type',
+            text: 'Fill out all information',
             icon: 'error',
             padding: "1em",
             showConfirmButton: false,
@@ -18,6 +19,13 @@
       
     }
     else {
+        alert('hi')
+        let toDate = $('.toDateStockMove').val();
+        let fromDate = $('.fromDateStockMove').val()
+
+        localStorage.setItem('toDateStockMove', toDate);
+        localStorage.setItem('fromDateStockMove', fromDate);
+
         $('#stockMovementForm').submit();
     }
 })

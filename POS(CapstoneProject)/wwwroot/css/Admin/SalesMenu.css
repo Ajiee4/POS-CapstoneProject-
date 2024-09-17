@@ -631,6 +631,20 @@ input::placeholder {
     font-size: 0.9rem;
    
 }
+
+.swal-salesCancel-title {
+    font-size: 30px;
+    font-weight: bolder !important;
+    color: black !important;
+}
+
+.swal-salesCancel-title::after {
+    content: "Cannot be undone";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+}
+
 /*Window Print*/
 @media print {
     body * {

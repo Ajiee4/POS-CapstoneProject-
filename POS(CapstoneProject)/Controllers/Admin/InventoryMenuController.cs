@@ -158,7 +158,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 }
                 await _context.SaveChangesAsync();
             }
-            TempData["PostRequest"] = "Request Complete";
+            TempData["AddRequest"] = "Request Complete";
 
             return RedirectToAction("InventoryList");
         }
@@ -241,26 +241,33 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
+                        //// Retrieve the date values from TempData
+                        DateTime? retrievedFromDate = (DateTime?)TempData["FromDateStock"] ?? null;
+                        DateTime? retrievedToDate = (DateTime?)TempData["ToDateStock"] ?? null;
+
+
+
                         var inventoryAll = await _context.InventoryTransactionDetail
                             .Include(d => d.Ingredient)
                             .Include(s => s.InventoryTransaction)
                             .ThenInclude(x => x.User)
+                            .Where(s => s.InventoryTransaction.TransactionDate >= retrievedFromDate && s.InventoryTransaction.TransactionDate <= retrievedToDate)
                             .ToListAsync();
 
                         var inventoryStockIn = await _context.InventoryTransactionDetail
                             .Include(d => d.Ingredient)
                             .Include(s => s.InventoryTransaction)
                             .ThenInclude(x => x.User)
-                            .Where(s =>  s.InventoryTransaction.TransactionType  == "Stock In")
+                            .Where(s => s.InventoryTransaction.TransactionType == "Stock In" && s.InventoryTransaction.TransactionDate >= retrievedFromDate && s.InventoryTransaction.TransactionDate <= retrievedToDate)
                             .ToListAsync();
 
                         var inventoryStockOut = await _context.InventoryTransactionDetail
                             .Include(d => d.Ingredient)
                             .Include(s => s.InventoryTransaction)
                             .ThenInclude(x => x.User)
-                            .Where(s => s.InventoryTransaction.TransactionType == "Stock Out")
+                            .Where(s => s.InventoryTransaction.TransactionType == "Stock Out" && s.InventoryTransaction.TransactionDate >= retrievedFromDate && s.InventoryTransaction.TransactionDate <= retrievedToDate)
                             .ToListAsync();
-                        
+
                         ViewData["All"] = inventoryAll;
                         ViewData["StockIn"] = inventoryStockIn;
                         ViewData["StockOut"] = inventoryStockOut;
@@ -282,8 +289,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DisplayStockMovement(string transactionType)
+        public IActionResult DisplayStockMovement(string transactionType, DateTime fromDate, DateTime toDate)
         {
+            TempData["FromDateStock"] = fromDate;
+            TempData["ToDateStock"] = toDate;
 
             switch (transactionType)
             {
@@ -299,7 +308,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
 
             return RedirectToAction("StockMovement");
-        }
+        } 
+      
         public IActionResult RequestList()
         {
             //get and store the session
@@ -317,11 +327,27 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-                        //var requestList = _context.Request.Include(s );
-                        var requesComplete = _context.Request.Include(s => s.User).Where(s => s.Status == "Completed").ToList();
-                        var requesPending = _context.Request.Include(s => s.User).Where(s => s.Status == "Pending").ToList();
-                        var requesCanceled = _context.Request.Include(s => s.User).Where(s => s.Status == "Canceled").ToList();
-                        var requestDetails = _context.RequestDetails.Include(s => s.Ingredient).ToList();
+                        // Retrieve the date values from TempData
+                        DateTime? retrievedFromDate = (DateTime?)TempData["FromDate"] ?? null;
+                        DateTime? retrievedToDate = (DateTime?)TempData["ToDate"]  ?? null;
+
+                        //var requestList = _context.Request.Include(s);
+                        var requesComplete = _context.Request
+                                            .Include(s => s.User)
+                                            .Where(s => s.Status == "Completed" && s.RequestDate >= retrievedFromDate && s.RequestDate <= retrievedToDate)
+                                            .ToList();
+                        var requesPending = _context.Request
+                                            .Include(s => s.User)
+                                            .Where(s => s.Status == "Pending" && s.RequestDate >= retrievedFromDate && s.RequestDate <= retrievedToDate)
+                                            .ToList();
+                        var requesCanceled = _context.Request
+                                            .Include(s => s.User)
+                                            .Where(s => s.Status == "Canceled" && s.RequestDate >= retrievedFromDate && s.RequestDate <= retrievedToDate)
+                                            .ToList();
+                        var requestDetails = _context.RequestDetails
+                                            .Include(s => s.Ingredient)
+                                            .ToList();
+
                         ViewData["RequestCompleted"] = requesComplete;
                         ViewData["RequestPending"] = requesPending;
                         ViewData["RequestCanceled"] = requesCanceled;
@@ -343,23 +369,27 @@ namespace POS_CapstoneProject_.Controllers.Admin
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DisplayRequestList(string requestStatus)
+        public IActionResult DisplayRequestList(string requestStatus, DateTime fromDate, DateTime toDate)
         {
-       
+            TempData["FromDate"] = fromDate;
+            TempData["ToDate"] = toDate;
 
             switch (requestStatus)
             {
                 case "Pending":
+                    
                     TempData["RequestPending"] = "";
                     break;
                 case "Completed":
+                 
                     TempData["RequestCompleted"] = "";
+                   
                     break;
                 case "Canceled":
                     TempData["RequestCanceled"] = "";
+                  
                     break;
-            }
-
+            };
             return RedirectToAction("RequestList");
         }
 

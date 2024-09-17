@@ -20,6 +20,10 @@
                 <option value="Completed">Completed</option>
                 <option value="Canceled">Canceled</option>
             </select>
+            <label>From</label>
+            <input type="date" class="fromDate" name="fromDate"/>
+            <label>To</label>
+            <input type="date" class="toDate" name="toDate" />
         </div>
         <button type="button" class="viewRequestBtn">View</button>
     </form>
@@ -37,13 +41,62 @@
     </div>
     <h1 class="list-request-header"></h1>
     <div class="list-request-grid">
+        <!--Pending Requests-->
+        @if (TempData["RequestPending"] != null)
+        {
+
+            <script>
+                document.querySelector('.fromDate').value = localStorage.getItem('fromDateRequest');
+                document.querySelector('.toDate').value = localStorage.getItem('toDateRequest');
+                document.querySelector('.selectRequestStatus').value = "Pending";
+                document.querySelector('.list-request-header').textContent = "PENDING";
+
+            </script>
+
+            var requestList = ViewData["RequestPending"] as List<Request>;
+            if (requestList != null)
+            {
+                if (requestList.Count == 0)
+                {
+                    <p class="noResultPara">No Pending Requests Found</p>
+                }
+                else
+                {
+                    foreach (var item in requestList)
+                    {
+                        var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
+
+                        <div class="request-card" data-id="@item.RequestId" data-status="Pending">
+                            <div class="card-id">
+                                <b>Request Id:</b> @item.RequestId
+                            </div>
+                            <div class="card-date">
+                                <b>Request Date:</b> @item.RequestDate.ToString("yyyy-MM-dd")
+                            </div>
+                            <div class="card-name">
+                                <b>Requested By:</b> @employee?.Firstname @employee?.Lastname
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+
+            }
+
+        }
         <!-- Completed Requests -->
         @if (TempData["RequestCompleted"] != null)
         {
+         
             <script>
+                document.querySelector('.fromDate').value = localStorage.getItem('fromDateRequest');
+                document.querySelector('.toDate').value = localStorage.getItem('toDateRequest');
                 document.querySelector('.selectRequestStatus').value = "Completed";
-                document.querySelector('.list-request-header').textContent = "COMPLETED";
+                document.querySelector('.list-request-header').textContent = "COMPLETED";                        
             </script>
+
             var requestList = ViewData["RequestCompleted"] as List<Request>;
             if(requestList != null)
             {
@@ -77,52 +130,18 @@
             }
 
         }
-        <!--Pending Requests-->
-        @if (TempData["RequestPending"] != null)
-        {
-            <script>
-                document.querySelector('.selectRequestStatus').value = "Pending";
-                document.querySelector('.list-request-header').textContent = "PENDING";
-            </script>
-            var requestList = ViewData["RequestPending"] as List<Request>;
-            if(requestList != null)
-            {
-                if (requestList.Count == 0)
-                {
-                    <p class="noResultPara">No Pending Requests Found</p>
-                }
-                else
-                {
-                    foreach (var item in requestList)
-                    {
-                        var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
 
-                        <div class="request-card" data-id="@item.RequestId" data-status="Pending">
-                            <div class="card-id">
-                                <b>Request Id:</b> @item.RequestId
-                            </div>
-                            <div class="card-date">
-                                <b>Request Date:</b> @item.RequestDate.ToString("yyyy-MM-dd")
-                            </div>
-                            <div class="card-name">
-                                <b>Requested By:</b> @employee?.Firstname @employee?.Lastname
-                            </div>
-                        </div>
-                    }
-                }
-            }
-            else
-            {
-                
-            }
-
-        }
+      
         <!--Canceled Requests-->
         @if (TempData["RequestCanceled"] != null)
         {
+            
             <script>
+                document.querySelector('.fromDate').value = localStorage.getItem('fromDate');
+                document.querySelector('.toDate').value = localStorage.getItem('toDate');
                 document.querySelector('.selectRequestStatus').value = "Canceled";
                 document.querySelector('.list-request-header').textContent = "CANCELED";
+              
             </script>
             var requestList = ViewData["RequestCanceled"] as List<Request>;
 

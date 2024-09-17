@@ -20,6 +20,10 @@
                 <option value="Stock In">Stock In</option>
                 <option value="Stock Out">Stock Out</option>
             </select>
+            <label>From</label>
+            <input type="date" class="fromDateStockMove" name="fromDate" />
+            <label>To</label>
+            <input type="date" class="toDateStockMove" name="toDate" />
         </div>
         <button type="button" class="generateRecordBtn">View</button>    
     </form>
@@ -131,6 +135,8 @@
 @if (TempData["InventoryAll"] != null)
 {
     <script>
+        document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
+        document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
         document.querySelector('.stock-movement-wrapper').style.display = "block";
         document.querySelector('.selectTransactionType').value = "All"
     </script>
@@ -138,6 +144,8 @@
 @if (TempData["InventoryStockOut"] != null)
 {
     <script>
+        document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
+        document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
         document.querySelector('.stock-movement-wrapper').style.display = "block";
         document.querySelector('.selectTransactionType').value = "Stock Out"
     </script>
@@ -145,6 +153,8 @@
 @if (TempData["InventoryStockIn"] != null)
 {
      <script>
+        document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
+        document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
         document.querySelector('.stock-movement-wrapper').style.display = "block";
         document.querySelector('.selectTransactionType').value = "Stock In"
     </script>

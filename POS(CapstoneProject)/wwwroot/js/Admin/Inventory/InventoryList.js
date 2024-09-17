@@ -354,32 +354,7 @@ function DisplayRequest() {
 
     tableBodyRequest.innerHTML = html;
     tableBodyStockOut.innerHTML = html;
-
-    ///* Add event listener to input fields to save quantity to localStorage*/
-    //$('input[id="ingQuantity"]').on('keypress', function (event) {
-    //    if (event.which !== 8 && isNaN(String.fromCharCode(event.which))) {
-    //        event.preventDefault();
-    //    }
-    //});
-
-    //$('input[id="ingQuantity"]').on('change', function () {
-    //    if ($(this).val() === null || $(this).val() === '') {
-    //        $(this).val('0');
-    //    }
-    //    const ingredientId = $(this).data('prod-id');
-    //    const newQuantity = parseInt($(this).val());
-    //    const storedList = localStorage.getItem('RequestList');
-    //    const RequestList = JSON.parse(storedList);
-
-    //    const index = RequestList.findIndex(item => item.ingredientId === ingredientId);
-    //    if (index !== -1) {
-    //        RequestList[index].ingredientQty = newQuantity;
-            
-    //        popUpMessageInvenotryTop("Product Quantity Updated", "success", 300);
-
-    //        localStorage.setItem('RequestList', JSON.stringify(RequestList));
-    //    }
-    //});
+  
 }
 
 function qtyChange(input) {
@@ -467,31 +442,47 @@ function deleteItem(id) {
 }
 
 
-
+//clear the request list 
 function cancelRequest() {
     const cancelButton = document.querySelector('.cancelrequest');
 
     cancelButton.addEventListener('click', () => {
-        RequestList.splice(0)
-        localStorage.setItem('RequestList', JSON.stringify(RequestList));
-        //reset the RequestList array 
-        RequestList = [];
-        document.querySelector('.request-list-wrapper table tbody').innerHTML = '';
-        document.querySelector('.stock-out-wrapper table tbody').innerHTML = '';
+
+        if (RequestList.length == 0) {
+            popUpMessageInventory('Request List is empty', 'error')
+        }
+        else {
+            popUpMessageInvenotryTop('Request List Canceled', 'info', 300)
+            RequestList.splice(0)
+            localStorage.setItem('RequestList', JSON.stringify(RequestList));
+
+            document.querySelector('.request-list-wrapper table tbody').innerHTML = '';
+            document.querySelector('.stock-out-wrapper table tbody').innerHTML = '';
+        }
+      
     });
 }
+
 cancelRequest();
 
-function cancelRequest() {
+cancelStockOut();
+function cancelStockOut() {
     const cancelButton = document.querySelector('.cancelStockOut');
 
     cancelButton.addEventListener('click', () => {
-        RequestList.splice(0)
-        localStorage.setItem('RequestList', JSON.stringify(RequestList));
-        //reset the RequestList array 
-        RequestList = [];
-        document.querySelector('.request-list-wrapper table tbody').innerHTML = '';
-        document.querySelector('.stock-out-wrapper table tbody').innerHTML = '';
+        if (RequestList.length == 0) {
+            
+            popUpMessageInventory('Stock Out List is empty', 'error')
+        }
+        else {
+            popUpMessageInvenotryTop('Stock Out List Canceled', 'info', 340)
+            RequestList.splice(0)
+            localStorage.setItem('RequestList', JSON.stringify(RequestList));
+
+            document.querySelector('.request-list-wrapper table tbody').innerHTML = '';
+            document.querySelector('.stock-out-wrapper table tbody').innerHTML = '';
+        }
+       
     });
 }
 
@@ -504,10 +495,7 @@ $('.exitStockOut').click(function () {
 
 
 $('.stockOutSubmit').click(function () {
-
-   /* alert('hi')*/
  
-
     if (RequestList.length == 0) {
 
         popUpMessageInvenotryTop('Stock Out List is empty', 'error', 300)
@@ -578,7 +566,8 @@ $('.stockOutSubmit').click(function () {
                     icon: "error",
                     title: "Insufficient Quantity <br>",
                     html: `
-                   <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
+                            <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>
+                          `,
                     showConfirmButton: false,
                     timer: 2000,
                     padding: "1em",
@@ -596,295 +585,24 @@ $('.stockOutSubmit').click(function () {
                     icon: "error",
                     title: "Insufficient Quantity <br>",
                     html: `
-                   <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
+                             <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>
+                          `,
                     showConfirmButton: false,
                     timer: 2000,
                     padding: "1em",
                     customClass: {
                         icon: 'custom-icon',
                         title: 'swal-stockOutInsufficient-title-one',
-
-
                     }
 
                 })
             }
-          
-
+  
         }
         
     }
    
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//$('.exitIngredientList').click(function () {
-
-//  /*  IngredientListToggle();*/
-//})
-
-//add the selected ingredients to the array
-//AddIngredientList();
-//function AddIngredientList() {
-//    let tableBody = document.querySelector('.inventory-table tbody');
-
-//    tableBody.addEventListener('click', function (event) {
-//        let row = event.target.closest('tr');
-//        if (row && event.target.tagName !== 'BUTTON') {
-
-//            let ingredient = ingredientList.find(item => item.ingredientId == row.dataset.id)
-//            if (ingredient) {
-
-//                popUpMessageInvenotryTop('Ingredient is already in the list', 'info', 365)
-//            }
-//            else {
-
-
-//                popUpMessageInvenotryTop('Added in the list', 'success', 260)
-//                ingredientList.push({
-//                    ingredientId: Number(row.dataset.id),
-//                    ingredientName: row.dataset.name,
-//                    ingredientQty: 1
-
-//                });
-
-//                DisplayIngredientList();
-//            }
-
-
-//        }
-//    });
-
-//}
-
-//displayign the ingredients in the table
-
-//function DisplayIngredientList() {
-
-//    const tableBody = document.querySelector('.ingredient-list-table tbody');
-//    let html = '';
-//    ingredientList.forEach((item) => {
-
-//        const truncatedName = item.ingredientName.length > 10 ? `${item.ingredientName.substring(0, 10)}...` : item.ingredientName;
-//        html +=
-//            `
-//             <tr >
-//                    <td>
-//                            <img src="/images/delete-black.png" class="delete-ingredient-img d-block mx-auto" onclick="deleteItemIngredient(${item.ingredientId})"/>
-//                    </td>
-//                    <td class="table-data-name">
-//                        ${truncatedName}
-//                    </td>
-//                    <td class="table-data-quantity">
-//                        <div class="quantity-table-data">
-                            
-//                            <input data-id="${item.ingredientId}" maxlength="6" onchange="qtyChange(this)" class="quantityInput" oninput="validateQuantity(this)" value="${item.ingredientQty}" />
-                          
-
-//                        </div>
-
-//                    </td>
-
-                   
-//                </tr>
-                                 
-//            `
-//    });
-
-//    tableBody.innerHTML = html;
-
-   
-//}
-//when the quantity change
-//function qtyChange(input) {
-//    let idIngredient = Number(input.dataset.id);
-//    const ingredient = ingredientList.find((item) => item.ingredientId === idIngredient);
-//    const inputValue = input.value.trim();
-
-   
-//    if (!inputValue || inputValue == 0) {
-//        input.value = 1;
-//    }
-//    ingredient.ingredientQty = Number(input.value);
-  
-//}
-
-
-//function validateQuantity(input) {
-
-//    input.value = input.value.replace(/[^0-9]/g, '');
-   
-//}
-
-
-//detele item
-//function deleteItemIngredient(id) {
-//    let indexIngrediet = ingredientList.findIndex(item => item.ingredientId === id);
-
-//    if (indexIngrediet !== -1) {
-//        ingredientList.splice(indexIngrediet, 1);
-//        DisplayIngredientList();
-
-//        console.log(ingredientList)
-//    }
-//}
-
-
-
-//Set Process Details Modal Default Values
-//function ProcessDetails() {
-//    if (ingredientList.length == 0) {
-
-//        popUpMessageInvenotryTop('List is empty', 'error', 260)
-       
-//    }
-//    else {
-
-//        let selectedProcess = document.querySelector('.selectProcess');
-//        let selectedVal = selectedProcess.value;
-
-
-//        $('#processDetailsModal .modal-title').text(selectedVal.toUpperCase());
-
-
-//        let tableBody = document.querySelector('.process-detail-table tbody');
-//        let html = ``;
-
-//        ingredientList.forEach(item => {
-//            html += `          
-//                      <tr >                  
-//                            <td class="table-data-name">
-//                                ${item.ingredientName}
-//                            </td>
-//                            <td class="table-data-quantity">
-//                                ${item.ingredientQty}
-//                            </td>                   
-//                       </tr>       
-//                    `
-//        });
-
-//        tableBody.innerHTML = html;
-
-//        $('#processDetailsModal').modal('show');
-//    }  
-//}
-
-
-///*when the submit button is click*/
-//$('.processSubmit').click(function () {
-
-//    //create an array to store the insufficient ingredients
-//    const insufficientList = []
-//    if ($('.selectProcess').val() == "Stock Out") {
-//        let ingredient = ingredientListQuanti
-
-//        //check every ingredients if they are greater than or equal to the stock out quantity
-//        //if every iteration is true the result is true
-//        let result = ingredientList.every(item => {
-//            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);         
-//            return findIngredient.quantity >= item.ingredientQty
-
-//        });
-
-//        //iterate the ingredients list and add the ingredients to the array if it is insufficient
-//        ingredientList.forEach(item => {
-//            let findIngredient = ingredient.find(s => s.ingredientId == item.ingredientId);
-//            if (!(findIngredient.quantity >= item.ingredientQty)) {
-//                insufficientList.push(item.ingredientName)
-//            }
-//        });
-
-//        //check if the result
-//        if (result) {
-//            //submit if the result is true
-//            let jsonData = JSON.stringify(ingredientList);
-
-//            $('.listData').val(jsonData);
-
-//            $('#formProcess').submit();
-//        }
-//        else {
-//            //show a pop up message if some ingredients are insufficient
-//            let insufficientListText = insufficientList.map(item => `<li>${item}</li>`).join('');
-           
-//            Swal.fire({
-//                icon: "error",
-//                title: "Insufficient Quantity <br>",
-//                html: `
-//                   <ul class="swal-stockOutInsufficient-html">${insufficientListText}</ul>`,
-//                showConfirmButton: false,
-//                timer: 2000,
-//                padding: "1em",
-//                customClass: {
-//                    icon: 'custom-icon',
-//                    title: 'swal-stockOutInsufficient-title',
-                   
-
-//                }
-
-//            })
-          
-//        }
-
-//    }
-//    else {
-//        let jsonData = JSON.stringify(ingredientList);
-
-//        $('.listData').val(jsonData);
-
-//        $('#formProcess').submit();
-//    }
-    
-//})
-
-//call the function when the select process value changed
-//$('.selectProcess').change(function () {
-//    selectedProcess();
-   
-//});
-////shows the remarks when the selected process is stock out
-//function selectedProcess() {
-//    if ($('.selectProcess').val() == "Stock Out") {
-
-//        $('.select-remarks-wrapper').show();
-//    }
-//    else {
-
-//        $('.select-remarks-wrapper').hide();
-//    }
-
-//}
 
        
 

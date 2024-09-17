@@ -122,8 +122,11 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             else if (reportType == "Inventory")
             {
-                
-            }
+                if (filter == "Daily")
+                {
+
+                   
+                }
             return View();
         }
        
