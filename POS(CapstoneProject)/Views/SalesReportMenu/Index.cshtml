@@ -7,35 +7,28 @@
         background-color: #C6976C !important;
     }
 </style>
+
 <div class="report-header">
     <form asp-action="Index" method="post" id="salesReportForm">
-
-        <div class="reportType-wrapper">
+        <div class="transactionType-wrapper">
             <label>Report Type</label>
-            <select class="selectReportType" name="reportType">
+            <select class="selectTransactionType" name="transactionType">
+                <option selected disabled hidden>Select a type</option>
                 <option value="Sales">Sales Report</option>
                 <option value="Inventory">Inventory Report</option>
             </select>
+            <label>From</label>
+            <input type="date" class="fromDate" name="fromDate" />
+            <label>To</label>
+            <input type="date" class="toDate" name="toDate" />
         </div>
-
-        <div class="filter-wrapper">
-            <label>Filter</label>
-            <select class="selectFilter" name="filter">
-                <option value="Daily">Daily</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Yearly">Yearly</option>
-            </select>
-        </div>    
-
         <button type="button" class="generateReportBtn">Generate</button>
     </form>
 </div>
  <br/>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-@if (ViewData["Sales"] != null)
-{   
+  
     <h1>@TempData["SalesFilter"]</h1>
     <br />
     <div class="bar-wrapper">
@@ -43,30 +36,5 @@
     </div>
  
 
-    <script>
-        var chartData = @Json.Serialize(ViewData["Sales"]);
-        var chart = document.getElementById('bar').getContext('2d');
-        var mychart = new Chart(chart, {
-            type: 'bar',
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    label: 'Total Sales',
-                    data: chartData.data,
-                    backgroundColor: 'rgba(6,128,250)'
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
-}
 
 <br /> <br />

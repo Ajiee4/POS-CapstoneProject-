@@ -8,4 +8,5 @@
         public int TotalStockOut {get; set;}
         public int CurrentStock {  get; set;}
     }
+
 }
