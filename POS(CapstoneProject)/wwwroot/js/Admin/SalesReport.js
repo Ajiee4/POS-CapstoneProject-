@@ -2,7 +2,7 @@
 let selectedFilter = localStorage.getItem('filterReport');
 let todate = localStorage.getItem('toDate');
 let fromdate = localStorage.getItem('fromdate');
-
+var mychart;
 $('.generateReportBtn').click(function (event) {
 
 
@@ -27,6 +27,7 @@ $('.generateReportBtn').click(function (event) {
         let toDate = $('.toDate').val();
         let fromDate = $('.fromDate').val()
         let transactiontype = $('.selectTransactionType').val()
+        var chart = document.getElementById('bar').getContext('2d');
 
         localStorage.setItem('toDate', toDate);
         localStorage.setItem('fromDate', fromDate);
@@ -38,14 +39,16 @@ $('.generateReportBtn').click(function (event) {
         };
         console.log(data);
         if (transactiontype === 'Sales') {
+            if (mychart) {
+                mychart.destroy();
+            }
             $.ajax({
                 type: 'POST',
                 url: '/SalesReportMenu/GetChartData',
                 data: data,
                 success: function (result) {
                     var chartData = result;
-                    var chart = document.getElementById('bar').getContext('2d');
-                    var mychart = new Chart(chart, {
+                     mychart = new Chart(chart, {
                         type: 'bar',
                         data: {
                             labels: chartData.labels,
@@ -65,21 +68,25 @@ $('.generateReportBtn').click(function (event) {
                             }
                         }
                     });
+                    $('#bar').show();
                 },
                 error: function (xhr, status, error) {
                    alert("Error: " + error + " Error Laoading the data ");
                 }
+               
             });
 
         }
         else if (transactiontype === 'Inventory') {
+            if (mychart) {
+                mychart.destroy();
+            }
             $.ajax({
                 type: 'POST',
                 url: '/SalesReportMenu/GetChartData',
                 data: data,
                 success: function (result) {
                     var chartData = result;
-                    var chart = document.getElementById('bar').getContext('2d');
                     var mychart = new Chart(chart, {
                         type: 'bar',
                         data: {
@@ -105,6 +112,7 @@ $('.generateReportBtn').click(function (event) {
                             }
                         }
                     });
+                    $('#bar').show();
                 },
                 error: function (xhr, status, error) {
                     alert("Error: " + error + " Error Laoading the data ");
