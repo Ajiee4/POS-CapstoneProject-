@@ -2,10 +2,11 @@
 {
     public class InventoryReport
     {
+        public string Name { get; set; }
 
-        public DateTime Date { get; set; }
-        public int TotalStockIn {get; set;}
-        public int TotalStockOut {get; set;}
-        public int CurrentStock {  get; set;}
+        public DateTime TransactionDate { get; set; }
+        public string TransactionType { get; set; }
+        public int TotalQuantity { get; set;}
+      
     }
 }

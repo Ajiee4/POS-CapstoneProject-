@@ -7,36 +7,34 @@
 
 
 /*Request filter */
-.request-filter-header {
-    padding: 10px;
+.request-filter-wrapper {  
     width: 100%;
+    padding: 8px;
     background-color: #693D29;
     border: 1px solid black;
-    gap: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
-
-.request-filter-header form {
-    margin: 0;
-    padding: 0;
+.request-filter-wrapper form{
+   
     display: flex;
-    flex-direction: row;
-    align-items: center;
+   
     justify-content: start;
+   
+    gap: 5px;
+    flex-wrap: wrap;
+}
+.request-filter-wrapper label {
     color: white;
-    gap: 10px;
-}
-
-.selectRequestStatus {
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.request-filter-header form label {
     font-weight: bolder;
 }
 
-.request-filter-header input {
+    
+.selectRequestStatus {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.request-filter-wrapper input {
     border-radius: 5px;
     padding: 5px;
     border: none;
@@ -44,11 +42,35 @@
 
 .viewRequestBtn {
     cursor: pointer;
-    padding: 8px 15px;
+    padding: 5px 15px;
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
-    margin-left: 5px;
+    
+}
+@media (max-width: 710px){
+    .request-filter-wrapper form{
+       
+      
+      
+        
+    }
+}
+@media (max-width: 700px) {
+    .request-filter-wrapper form {
+       justify-content: center;
+    }
+}
+@media (max-width: 460px) {
+    .request-filter-wrapper form > div{
+        width: 100%;
+    }
+    .request-filter-wrapper form div > * {
+        width: 100%;
+    }
+    .viewRequestBtn{
+        margin-top: 10px;
+    }
 }
 
 /*Note*/
@@ -250,7 +272,7 @@
 }
 
 /*Reponsive Filter*/
-@media (max-width: 450px) {
+/*@media (max-width: 450px) {
 
     .request-filter-header form {
         text-align: center;
@@ -265,4 +287,4 @@
     .viewRequestBtn {
         width: 50%;
     }
-} 
+} */

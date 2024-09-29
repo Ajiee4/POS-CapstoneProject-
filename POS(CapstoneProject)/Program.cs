@@ -3,7 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using POS_CapstoneProject_.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<POS_CapstoneProject_Context>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("POS_CapstoneProject_Context") ?? throw new InvalidOperationException("Connection string 'POS_CapstoneProject_Context' not found.")));
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("POS_CapstoneProject_Context")
+        ?? throw new InvalidOperationException("Connection string 'POS_CapstoneProject_Context' not found."));
+    options.EnableSensitiveDataLogging(true);
+    options.LogTo(Console.WriteLine, LogLevel.Information);
+});
+   
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpContextAccessor();

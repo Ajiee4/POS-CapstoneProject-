@@ -534,6 +534,7 @@ $('.stockOutSubmit').click(function () {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Yes",
                 customClass: {
+
                     icon: 'custom-icon',
                     title: 'Confirm',
 

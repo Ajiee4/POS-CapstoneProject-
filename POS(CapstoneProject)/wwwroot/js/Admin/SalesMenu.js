@@ -3,7 +3,20 @@
 let checkOutList =  [];
 
 
+function popUpMessageToast(icon, title,width) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        width: width,
+        showConfirmButton: false,
+        timer: 1500,
 
+    });
+    Toast.fire({
+        icon: icon,
+        title: title
+    });
+}
 
 
 //get the data from the locale storage and store it in the checkoutlist array
@@ -129,34 +142,13 @@ function checkoutProduct(id, name, quantity, price) {
     let product = checkOutList.find(item => item.prodID === id);
 
     if (product) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            width: 300,
-            showConfirmButton: false,
-            timer: 1500,
-
-        });
-        Toast.fire({
-            icon: "success",
-            title: "Quantity incremented"
-        });
-
+       
         product.prodQty += quantity;
+
+        popUpMessageToast('success', 'Quantity incremented', 300);
+
     } else {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            width: 250,
-            showConfirmButton: false,
-            timer: 1500,
-
-        });
-        Toast.fire({
-            icon: "success",
-            title: "Product Added"
-        });
-
+            
         checkOutList.push({
             prodID: id,
             prodName: name,
@@ -164,8 +156,10 @@ function checkoutProduct(id, name, quantity, price) {
             prodPrice: price
         });
 
+        popUpMessageToast('success', 'Product Added', 250);
         
     }
+
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     DisplayCheckOut();
     cartCount();
@@ -199,28 +193,19 @@ function decrementQty(id) {
 //delete a specific item from the checklist
 function deleteItem(id) {
    
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        width: 300,
-        showConfirmButton: false,
-        timer: 1500,
-
-    });
-    Toast.fire({
-        icon: "success",
-        title: "Product deleted"
-    });
     let indexItem = checkOutList.findIndex(item => item.prodID === id);
 
     if (indexItem !== -1) {
         checkOutList.splice(indexItem, 1);
+
         DisplayCheckOut();
         cartCount();
+        
        
     }  
     
-    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+    localStorage.setItem('checkoutList', JSON.stringify(checkOutList)); 
+    popUpMessageToast('success', 'Product Deleted', 300);
 }
 
 function hoverElement(img) {
@@ -308,35 +293,17 @@ $('.cancelBtn').click(function (){
         }).then((result) => {
 
             if (result.isConfirmed) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    width: 300,
-                    showConfirmButton: false,
-                    timer: 1500,
-
-                });
-                Toast.fire({
-                    icon: "success",
-                    title: "Check Out Canceled"
-                });
 
                 checkOutList.splice(0);
 
                 DisplayCheckOut();
                 cartCount();
+                popUpMessageToast('success', 'Check Out Canceled', 300);
+
                 localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
             }
         });
-    }
-  /*  CheckOutToggle();*/
-
-    //checkOutList.splice(0);
-
-    //DisplayCheckOut();
-    //cartCount();
-    //localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-    
+    }   
 })
 
 
@@ -353,47 +320,60 @@ $('.payBtn').click(function () {
     }
 
 });
-function inputAmountChange() {
+
+
+function onInputCash(e) {
+
+    if (e.value == '') {
+        $('.changeAmountText').val(null);
+        return;
+    }
     $('#paymentModal .calculateBtn').css({
         "display": "none",
-
     })
-    $('.changeAmountText').val('');
-}
-function validateAndCalculateAmount() {
-   
+  
+    $('.changeAmountText').val(null);
+
     let input = $('.amountInput');
-    let value = input.val(); 
+    let value = input.val();
     let validValue = value.match(/^\d+(\.\d{0,2})?$/);
 
     if (validValue) {
-       
         let totalAmo = CalculateTotalAmount();
-        let money = Number(validValue[0]);
-        let changeAmount = money - totalAmo;
+        let money = Number(value);
+
 
         if (money >= totalAmo) {
+            let changeAmount = money - totalAmo;
+
             $('.changeAmountText').val(changeAmount.toFixed(2));
 
             $('#paymentModal .calculateBtn').css({
                 "display": "block",
                 "margin": "0px auto"
-
             })
+          
+
+
         } else {
             $('#paymentModal .calculateBtn').css({
                 "display": "none",
             })
-            popUpMessageSales("Insufficient Amount", "error");
-            input.val('').focus();
-            $('.changeAmountText').val('');
+           /* popUpMessageSales("Insufficient Amount", "error");*/
+            /*   input.val('').focus();*/
+            $('.changeAmountText').val('Insufficient Amount');
+            /*console.log(previousValue);*/
         }
+    
     } else {
-       
+
         popUpMessageSales("Only numbers are allowed", "error");
-        input.val('');
+      
+        input.val(null);
     }
+    
 }
+
 //validates the cash tendered
 
 $('.calculateBtn').click(function () {

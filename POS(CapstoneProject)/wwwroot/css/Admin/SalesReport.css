@@ -1,68 +1,178 @@
-﻿*, *::after, *::before {
+﻿
+*, *::after, *::before {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-  
 }
-.report-header {
-    padding: 10px;
+.report-filter-wrapper {
     width: 100%;
+    padding: 8px;
     background-color: #693D29;
     border: 1px solid black;
-    border-radius: 5px;
-    gap: 5px;
+    margin-bottom: 5px;
 }
-.report-header form{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    color: white;
 
-    gap: 10px;
+    .report-filter-wrapper form {
+        display: flex;
+        justify-content: start;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .report-filter-wrapper label {
+        color: white;
+        font-weight: bolder;
+    }
+
+
+.selectReportType {
+    padding: 5px;
+    border-radius: 5px;
 }
-.report-header form label{
-    font-weight: bolder;
-}
-input {
+
+.report-filter-wrapper input {
     border-radius: 5px;
     padding: 5px;
-    border: none;   
+    border: none;
 }
-.selectReportType,.selectFilter{
-    padding: 10px;
-    border-radius: 5px;
-}
+
 .generateReportBtn {
-    padding: 6px 20px;
+    cursor: pointer;
+    padding: 5px 15px;
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
-    margin-left: 5px;
+}
+
+@media (max-width: 700px) {
+    .report-filter-wrapper form {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 460px) {
+    .report-filter-wrapper form > div {
+        width: 100%;
+    }
+
+    .report-filter-wrapper form div > * {
+        width: 100%;
+    }
+
+    .generateReportBtn {
+        margin-top: 10px;
+    }
 }
 
 
-#bar {
+.report-wrapper {
+    display: none;
+    position: relative;
+    width: 100%;
+}
+
+.report-table {
+    border-collapse: collapse !important;
+    border: 1px solid black;
+    z-index: 2 !important;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+}
+
+    .report-table thead {
+        background-color: #693D29;
+        color: white;
+    }
+
+        .report-table thead th {
+            text-align: left !important;
+        }
+
+    .report-table tr {
+        border: 1px solid black !important;
+    }
+
+    .report-table tbody {
+        background-color: #F7F7F7;
+        color: black;
+    }
+
+        .report-table tbody td {
+            text-align: left !important;
+        }
+
+@media (max-width: 770px) {
+    .report-table thead {
+        display: none;
+    }
+
+    .report-table {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: 100%;
+        max-width: 550px;
+    }
+
+        .report-table tbody {
+            background-color: transparent !important;
+            border: none !important;
+            outline: none !important;
+        }
+
+        .report-table, .report-table tbody, .report-table tr, .report-table td {
+            display: block;
+            width: 100%;
+        }
+
+            .report-table tbody td {
+                text-align: right !important;
+                border: none !important;
+                outline: none !important;
+            }
+
+            .report-table tr {
+                margin-bottom: 20px;
+                border-bottom: 2px solid #ccc;
+                padding: 5px;
+                border-radius: 10px;
+                background-color: #f1f1f1 !important;
+            }
+
+            .report-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border: 1px solid #ccc;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+                .report-table td:before {
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 0;
+                    width: 50%;
+                    padding-left: 10px;
+                    font-size: 15px;
+                    font-weight: bold;
+                    text-align: left;
+                }
+}
+
+/*#bar {
     background-color: white;
     border: 1px solid black;
     border-radius: 5px;
-    max-width: 90%;
+  
  
-   
-}
-.bar-wrapper{
-    /*background-color: black;*/display: flex;
-    justify-content: center;
-    align-items: center;
     
 }
 
-/*#bar{
-  
-    display: block;
-    margin: auto;
-    height: 450px !important;
-    overflow-x: scroll;
+.bar-wrapper {*/
+    /*background-color: black;*/ /*display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 370px !important;
 }*/

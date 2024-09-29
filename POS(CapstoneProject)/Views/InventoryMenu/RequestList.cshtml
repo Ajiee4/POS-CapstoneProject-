@@ -10,22 +10,31 @@
 </style>
 
 <!--Filter Request-->
-<div class="request-filter-header"> 
-    <form asp-action="DisplayRequestList" method="post" id="requestFilterForm">
-        <div class="request-status-wrapper">
-            <label>Status</label>
-            <select class="selectRequestStatus" name="requestStatus">
-                <option selected disabled>Select a type</option>
-                <option value="Pending">Pending</option>
-                <option value="Completed">Completed</option>
-                <option value="Canceled">Canceled</option>
-            </select>
-            <label>From</label>
-            <input type="date" class="fromDate" name="fromDate"/>
-            <label>To</label>
-            <input type="date" class="toDate" name="toDate" />
-        </div>
-        <button type="button" class="viewRequestBtn">View</button>
+<div class="request-filter-wrapper"> 
+    <form asp-action="DisplayRequestList" method="post" id="requestFilterForm">      
+            <div class="request-status-wrapper">
+                <label>Status</label>
+                <select class="selectRequestStatus" name="requestStatus">
+                    <option selected disabled>Select a type</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Canceled">Canceled</option>
+                </select>
+            </div>
+
+            <div class="request-fromdate-wrapper">
+                 <label>From</label>
+                 <input type="date" class="fromDate" name="fromDate"/>
+            </div>
+
+            <div class="request-todate-wrapper">
+                <label>To</label>
+                <input type="date" class="toDate" name="toDate" />
+            </div> 
+
+            <div class="request-button-wrapper">
+                <button type="button" class="viewRequestBtn">View</button>
+            </div>      
     </form>
 </div>
 <!--Request List-->

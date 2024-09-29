@@ -1,72 +1,137 @@
-﻿
+﻿@using Newtonsoft.Json;
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
+    var salesReportJson = TempData["SalesReport"] as string;
+    var salesReport = string.IsNullOrEmpty(salesReportJson) ? null : JsonConvert.DeserializeObject<List<SalesReport>>(salesReportJson);
+
+    var inventoryReportJson = TempData["InventoryReport"] as string;
+    var inventoryReport = string.IsNullOrEmpty(inventoryReportJson) ? null : JsonConvert.DeserializeObject<List<InventoryReport>>(inventoryReportJson);
+
+     
 }
 <style>
     .link-salesreport {
         background-color: #C6976C !important;
     }
 </style>
-<div class="report-header">
-    <form asp-action="Index" method="post" id="salesReportForm">
 
-        <div class="reportType-wrapper">
+<div class="report-filter-wrapper">
+    <form asp-action="DisplayReport" method="post" id="salesReportForm">
+        <div class="report-type-wrapper">
             <label>Report Type</label>
             <select class="selectReportType" name="reportType">
-                <option value="Sales">Sales Report</option>
-                <option value="Inventory">Inventory Report</option>
+                <option selected disabled hidden>Select a type</option>
+                <option value="Sales Report">Sales Report</option>
+                <option value="Inventory Report">Inventory Report</option>
             </select>
         </div>
+        <div class="report-fromdate-wrapper">
+            <label>From</label>
+            <input type="date" class="fromDateReport" name="fromDate" />
+        </div>
 
-        <div class="filter-wrapper">
-            <label>Filter</label>
-            <select class="selectFilter" name="filter">
-                <option value="Daily">Daily</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Yearly">Yearly</option>
-            </select>
-        </div>    
+        <div class="report-todate-wrapper">
+            <label>To</label>
+            <input type="date" class="toDateReport" name="toDate" />
+        </div>
 
-        <button type="button" class="generateReportBtn">Generate</button>
+        <div class="report-button-wrapper">
+            <button type="button" class="generateReportBtn">Generate</button>
+        </div>
     </form>
 </div>
- <br/>
+<br />
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js" integrity="sha512-wUYbRPLV5zs6IqvWd88HIqZU/b8TBx+I8LEioQ/UC0t5EMCLApqhIAnUg7EsAzdbhhdgW07TqYDdH3QEXRcPOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-@if (ViewData["Sales"] != null)
-{   
-    <h1>@TempData["SalesFilter"]</h1>
-    <br />
-    <div class="bar-wrapper">
-        <canvas id="bar"></canvas>
-    </div>
- 
 
-    <script>
-        var chartData = @Json.Serialize(ViewData["Sales"]);
-        var chart = document.getElementById('bar').getContext('2d');
-        var mychart = new Chart(chart, {
-            type: 'bar',
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    label: 'Total Sales',
-                    data: chartData.data,
-                    backgroundColor: 'rgba(6,128,250)'
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
+
+
+<div class="report-wrapper">
+    <table class="report-table">
+        @if (salesReport != null)
+        {
+          
+            <thead>
+                <tr>
+                    <th >
+                        Name
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th >
+                        Total Sales
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in salesReport)
+                {
+                    <tr>
+                        <td data-label="Name">@item.Name</td>
+                        <td data-label="Date">@item.OrderDate.ToString("yyyy-MM-dd")</td>
+                        <td data-label="Total Sales">@Math.Round((item.TotalSales), 2)</td>
+                    </tr>
                 }
-            }
-        });
+            </tbody>
+        }
+        @if (inventoryReport != null)
+        {
+            
+
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Transaction Type
+                    </th>
+                    <th>
+                        Transaction Date
+                    </th>
+                    <th >
+                        Total Quantity
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in inventoryReport)
+                {
+                    <tr>
+                        <td data-label="Name">@item.Name</td>
+                        <td data-label="Type">@item.TransactionType</td>
+                        <td data-label="Date">@item.TransactionDate.ToString("yyyy-MM-dd")</td>
+                        <td data-label="Total Quantity">@item.TotalQuantity</td>
+                      
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+</div>
+
+@if(salesReport != null)
+{
+    <script>
+        document.querySelector('.report-wrapper').style.display = "block";
+        document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
+        document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
+        document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
+       
     </script>
 }
-
-<br /> <br />
+@if(inventoryReport != null)
+{
+    <script>
+        document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
+        document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
+        document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
+        document.querySelector('.report-wrapper').style.display = "block";
+       
+    </script>
+}

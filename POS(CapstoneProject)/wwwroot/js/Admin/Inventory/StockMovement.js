@@ -19,7 +19,7 @@
       
     }
     else {
-        alert('hi')
+     
         let toDate = $('.toDateStockMove').val();
         let fromDate = $('.fromDateStockMove').val()
 

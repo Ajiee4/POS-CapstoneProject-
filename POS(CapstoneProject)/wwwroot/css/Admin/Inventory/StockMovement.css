@@ -5,37 +5,33 @@
    
 }
 
-.stock-movement-header {
-    padding: 10px;
+.stock-movement-filter-wrapper {
     width: 100%;
+    padding: 8px;
     background-color: #693D29;
     border: 1px solid black;
-    gap: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
-.stock-movement-header form {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    color: white;
-    gap: 10px;
-}
+    .stock-movement-filter-wrapper form {
+        display: flex;
+        justify-content: start;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .stock-movement-filter-wrapper label {
+        color: white;
+        font-weight: bolder;
+    }
+
 
 .selectTransactionType {
-
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
 }
- 
-.stock-movement-header form label {
-    font-weight: bolder;
-}
 
-.stock-movement-header input {
+.stock-movement-filter-wrapper input {
     border-radius: 5px;
     padding: 5px;
     border: none;
@@ -43,12 +39,32 @@
 
 .generateRecordBtn {
     cursor: pointer;
-    padding: 8px 15px;
+    padding: 5px 15px;
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
-    margin-left: 5px;
 }
+
+@media (max-width: 700px) {
+    .stock-movement-filter-wrapper form {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 460px) {
+    .stock-movement-filter-wrapper form > div {
+        width: 100%;
+    }
+
+    .stock-movement-filter-wrapper form div > * {
+        width: 100%;
+    }
+
+    .generateRecordBtn {
+        margin-top: 10px;
+    }
+}
+
 
 
 stock-movement-wrapper {

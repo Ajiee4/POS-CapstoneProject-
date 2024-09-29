@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using POS_CapstoneProject_.Data;
@@ -45,91 +46,68 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
         }
         [HttpPost]
-        public IActionResult Index(string reportType, string filter)
+        public async Task<IActionResult> DisplayReport(string reportType, DateTime fromDate, DateTime toDate)
         {
-            if (reportType == "Sales")
+            if(reportType == "Sales Report")
             {
-
-                if (filter == "Daily")
-                {
-
-
-                    var Daily = _context.Order
-                        .GroupBy(o => o.OrderDate)
-                        .Select(g => new SalesReport
-                        {
-                            Date = g.Key,
-                            TotalSales = g.Sum(o => o.TotalAmount)
-                        })
-                        .OrderBy(g => g.Date)
-                        .ToList();
-
-                    var chartData = new
+                var salesRep = await _context.Order
+                    .Join(_context.OrderDetails,
+                            o => o.OrderId,
+                            od => od.OrderId,
+                            (o, od) => new { o, od })
+                    .Join(_context.Product,
+                            o_od => o_od.od.ProductId,
+                            p => p.ProductId,
+                            (o_od, p) => new { o_od.o, o_od.od, p })
+                    .Where(s => s.o.OrderDate >= fromDate && s.o.OrderDate <= toDate)
+                    .GroupBy(g => new { g.p.Name, g.o.OrderDate })
+                    .Select(g => new SalesReport
                     {
-                        labels = Daily.Select(d => d.Date.ToString("MMMM dd, yyyy")),
-                        data = Daily.Select(d => d.TotalSales)
-                    };
-                    TempData["SalesFilter"] = "Daily Sales";
-                    ViewData["Sales"] = chartData;
-                }
-                else if (filter == "Monthly")
-                {
-                  
-                    var orders = _context.Order.ToList();
+                        Name = g.Key.Name,
+                        OrderDate = g.Key.OrderDate,
+                        TotalSales = g.Sum(x => x.od.Quantity * x.p.Price)
+                    })
+                    .OrderBy(result => result.OrderDate)
+                    .ThenBy(result => result.Name)
+                    .ToListAsync();
 
-                    var monthlySalesData = orders
-                        .GroupBy(o => new { Year = o.OrderDate.Year, Month = o.OrderDate.Month })
-                        .Select(g => new SalesReport
-                        {
-                            Date = new DateTime(g.Key.Year, g.Key.Month, 1),
-                            TotalSales = g.Sum(o => o.TotalAmount)
-                        })
-                        .OrderBy(g => g.Date)
-                        .ToList();
+                TempData["SalesReport"] = JsonConvert.SerializeObject(salesRep);
 
-                    var chartData = new
+            }
+            else if(reportType == "Inventory Report")
+            {
+                var inventoryRep = await _context.InventoryTransaction
+                    .Join(_context.InventoryTransactionDetail,
+                          i => i.InventoryTransactId,
+                          itd => itd.InventoryTransactId,
+                          (i, itd) => new { i, itd })
+                    .Join(_context.Ingredient,
+                          i_itd => i_itd.itd.IngredientId,
+                          id => id.IngredientId,
+                          (i_itd, id) => new { i_itd.i, i_itd.itd, id })
+                     .Where(s => s.i.TransactionDate >= fromDate && s.i.TransactionDate <= toDate)
+                    .GroupBy(g => new { g.i.TransactionDate, g.i.TransactionType, g.id.Name })
+                    .Select(g => new InventoryReport
                     {
-                        labels = monthlySalesData.Select(d => d.Date.ToString("MMMM yyyy")),
-                        data = monthlySalesData.Select(d => d.TotalSales)
-                    };
-                    TempData["SalesFilter"] = "Monthly Sales";
-                    ViewData["Sales"] = chartData;
-                }
-                else if (filter == "Yearly")
-                {
-                    var orders = _context.Order.ToList();
+                        Name = g.Key.Name,
+                        TransactionType = g.Key.TransactionType,
+                        TransactionDate = g.Key.TransactionDate,
+                        TotalQuantity = g.Sum(x => x.itd.Quantity)
+                    })
+                    .OrderBy(result => result.TransactionDate)
+                    .ToListAsync();
 
-                    var yearlySalesData = orders
-                        .GroupBy(o => o.OrderDate.Year)
-                        .Select(g => new SalesReport
-                        {
-                            Date = new DateTime(g.Key, 1, 1), 
-                            TotalSales = g.Sum(o => o.TotalAmount)
-                        })
-                        .OrderBy(g => g.Date)
-                        .ToList();
-
-                    var chartData = new
-                    {
-                        labels = yearlySalesData.Select(d => d.Date.ToString("yyyy")),
-                        data = yearlySalesData.Select(d => d.TotalSales)
-                    };
-                    TempData["SalesFilter"] = "Yearly Sales";
-                    ViewData["Sales"] = chartData;
-                }
+                TempData["InventoryReport"] = JsonConvert.SerializeObject(inventoryRep);
               
             }
 
-            else if (reportType == "Inventory")
-            {
-                if (filter == "Daily")
-                {
 
-                   
-                }
-            return View();
-        }
+            return RedirectToAction("Index");
        
-     
+        }
+
+
+
     }
+
 }

@@ -10,22 +10,30 @@
 </style>
 
 <!--Transaction Type Filter-->
-<div class="stock-movement-header">
+<div class="stock-movement-filter-wrapper">
     <form asp-action="DisplayStockMovement" method="post" id="stockMovementForm">
-        <div class="transactionType-wrapper">
-            <label>Transaction Type</label>
+        <div class="stock-movement-type-wrapper">
+            <label>Type</label>
             <select class="selectTransactionType" name="transactionType">
                 <option selected disabled>Select a type</option>
                 <option value="All">All</option>
                 <option value="Stock In">Stock In</option>
                 <option value="Stock Out">Stock Out</option>
             </select>
+        </div>
+
+        <div class="stock-movement-fromdate-wrapper">
             <label>From</label>
             <input type="date" class="fromDateStockMove" name="fromDate" />
+        </div>
+        <div class="stock-movement-todate-wrapper">
             <label>To</label>
             <input type="date" class="toDateStockMove" name="toDate" />
         </div>
-        <button type="button" class="generateRecordBtn">View</button>    
+
+        <div class="stock-movement-button-wrapper">
+            <button type="button" class="generateRecordBtn">View</button>
+        </div>      
     </form>
 </div>
 
@@ -132,7 +140,7 @@
     </table>
 </div>
 
-@if (TempData["InventoryAll"] != null)
+@if (TempData["inventoryAll"] != null)
 {
     <script>
         document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
@@ -141,7 +149,7 @@
         document.querySelector('.selectTransactionType').value = "All"
     </script>
 }
-@if (TempData["InventoryStockOut"] != null)
+@if (TempData["inventoryStockOut"] != null)
 {
     <script>
         document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
@@ -150,7 +158,7 @@
         document.querySelector('.selectTransactionType').value = "Stock Out"
     </script>
 }
-@if (TempData["InventoryStockIn"] != null)
+@if (TempData["inventoryStockIn"] != null)
 {
      <script>
         document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
