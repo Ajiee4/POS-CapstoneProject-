@@ -87,18 +87,18 @@
 
 <!--Request-->
 @{
-    // var requestid = data.Request.Max(s => s.RequestId);
+    var requestid = data.Request.ToList();
     var dateNow = DateTime.Now.Date.ToString("yyyy-MM-dd");
     var user = data.UserDetail.FirstOrDefault(s => s.UserId == HttpContextAccessor.HttpContext.Session.GetInt32("UserID"));
-
 }
+
 <div class="request-list-wrapper closeRequestList">
 
     <div class="request-content-wrapper">
         <img src="~/images/close.png" class="exitRequest" />
 
         <div class="request-list-header">
-            <h1 class="">Request</h1>
+            <h1 class="">@(requestid.Count != 0 ? $"Request #{requestid.Count + 1}" : "Request #1")</h1>
 
             <div class="description">
                 <p><strong>Date: <br /></strong> @dateNow</p>
@@ -174,8 +174,9 @@
                 <label>Remarks</label>
                 <select name="remarks" class="stockOutRemarks">
                     <option value="Disposed">Disposed</option>
+                    <option value="Expired">Expired</option>
                     <option value="Damaged">Damaged</option>
-                    <option value="Sold">Sold</option>
+                    <option value="Out for Production">Out for Production</option>
                 </select>
             </form>
             <div class="footer-buttons-wrapper">

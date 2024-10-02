@@ -43,6 +43,7 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Request ID</th>
                 <th>User</th>
                 <th>Type</th>
                 <th>Ingredient</th>
@@ -65,6 +66,7 @@
 
                         <tr>
                             <td data-label="ID">@item.InventoryTransactId</td>
+                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
                             <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>
@@ -92,6 +94,7 @@
 
                         <tr>
                             <td data-label="ID">@item.InventoryTransactId</td>
+                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
                             <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>
@@ -120,6 +123,7 @@
                         
                         <tr>
                             <td data-label="ID">@item.InventoryTransactId</td>
+                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
                             <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>

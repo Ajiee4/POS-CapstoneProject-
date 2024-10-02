@@ -485,7 +485,7 @@ input::placeholder {
         width: 100% !important;
     }
 
-    .request-list-wrapper {
+    .request-list-wrapper, .stock-out-wrapper {
         position: fixed;
         top: 50%;
         left: 50%;
@@ -495,7 +495,6 @@ input::placeholder {
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
-     
     }
 }
 .stock-out-footer {

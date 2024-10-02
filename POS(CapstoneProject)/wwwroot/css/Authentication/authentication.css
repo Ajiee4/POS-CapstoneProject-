@@ -6,7 +6,7 @@
 }
 
 /*Wrapper*/
-.login-wrapper {
+/*.login-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +78,7 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: black;
     color: white;
-}
+}*/
 
 
 

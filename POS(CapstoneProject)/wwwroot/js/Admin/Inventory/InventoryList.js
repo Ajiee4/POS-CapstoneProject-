@@ -556,7 +556,6 @@ $('.stockOutSubmit').click(function () {
 
                 }
             });
-         
         }
         else {
             //show a pop up message if some ingredients are insufficient

@@ -427,7 +427,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
             {
                 UserId = userId,
                 TransactionDate = DateTime.Now.Date,
-                TransactionType = "Stock In"
+                TransactionType = "Stock In",
+                RequestId = requestId,
             };
 
 
