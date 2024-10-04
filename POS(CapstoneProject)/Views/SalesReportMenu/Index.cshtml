@@ -11,9 +11,14 @@
 }
 <style>
     .link-salesreport {
-        background-color: #C6976C !important;
+        background-color: #747474 !important;
     }
 </style>
+
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
 
 <div class="report-filter-wrapper">
     <form asp-action="DisplayReport" method="post" id="salesReportForm">
@@ -118,20 +123,27 @@
 @if(salesReport != null)
 {
     <script>
-        document.querySelector('.report-wrapper').style.display = "block";
-        document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
-        document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
-        document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
+        window.addEventListener('load', function () {
+            document.querySelector('.report-wrapper').style.display = "block";
+            document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
+            document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
+            document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
+        });
+       
        
     </script>
 }
 @if(inventoryReport != null)
 {
     <script>
-        document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
-        document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
-        document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
-        document.querySelector('.report-wrapper').style.display = "block";
+
+        window.addEventListener('load', function () {
+            document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
+            document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
+            document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
+            document.querySelector('.report-wrapper').style.display = "block";
+        });
+      
        
     </script>
 }

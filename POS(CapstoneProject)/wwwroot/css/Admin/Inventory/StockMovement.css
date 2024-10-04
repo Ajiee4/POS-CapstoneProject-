@@ -8,23 +8,23 @@
 .stock-movement-filter-wrapper {
     width: 100%;
     padding: 8px;
-    background-color: #693D29;
+    background-color: black;
     border: 1px solid black;
     margin-bottom: 5px;
+    visibility: hidden;
 }
 
-    .stock-movement-filter-wrapper form {
-        display: flex;
-        justify-content: start;
-        gap: 5px;
-        flex-wrap: wrap;
-    }
+.stock-movement-filter-wrapper form {
+    display: flex;
+    justify-content: start;
+    gap: 5px;
+    flex-wrap: wrap;
+}
 
-    .stock-movement-filter-wrapper label {
-        color: white;
-        font-weight: bolder;
-    }
-
+.stock-movement-filter-wrapper label {
+    color: white;
+    font-weight: bolder;
+}
 
 .selectTransactionType {
     padding: 5px;
@@ -81,27 +81,27 @@ stock-movement-wrapper {
     box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
 }
 
-    .stock-movement-table thead {
-        background-color: #693D29;
-        color: white;
-    }
+.stock-movement-table thead {
+    background-color: black;
+    color: white;
+}
 
-    .stock-movement-table thead th {
-        text-align: left !important;
-    }
+.stock-movement-table thead th {
+    text-align: left !important;
+}
 
-    .stock-movement-table tr {
-        border: 1px solid black !important;
-    }
+.stock-movement-table tr {
+    border: 1px solid black !important;
+}
 
-    .stock-movement-table tbody {
-        background-color: #F7F7F7;
-        color: black;
-    }
+.stock-movement-table tbody {
+    background-color: #F7F7F7;
+    color: black;
+}
 
-    .stock-movement-table tbody td {
-        text-align: left !important;
-    }
+.stock-movement-table tbody td {
+    text-align: left !important;
+}
 
 @media (max-width: 770px) {
     .stock-movement-table thead {

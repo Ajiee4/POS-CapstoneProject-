@@ -8,14 +8,18 @@ $(document).ready(function () {
         "pageLength": 5,
 
     });
+
+    $('.loader-wrapper').hide();
+    $('.request-filter-wrapper').css({
+        "visibility": "visible"
+    });
+    $('.list-request-wrapper').css({
+        "visibility": "visible"
+    });
+
+    requestListUpdate = requestDetails;
 })
 
-
-$(document).ready(function () {
-    requestListUpdate = requestDetails;
-    console.log(requestListUpdate)
-  
-});
 
 function popUpMessageInventoryRequest(message, icon) {
     Swal.fire({

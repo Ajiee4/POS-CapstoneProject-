@@ -1,15 +1,14 @@
 ﻿let RequestList = [];
 
-window.addEventListener('load', () => {
+//setting up the data table
+$(document).ready(function () {
+
     const storedList = localStorage.getItem('RequestList');
     if (storedList) {
         RequestList = JSON.parse(storedList);
         DisplayRequest();
     }
-});
 
-//setting up the data table
-$(document).ready(function () {
     $('.inventory-table').DataTable({
         "paging": true,
 
@@ -17,6 +16,16 @@ $(document).ready(function () {
         "ordering": false,
         "pageLength": 5,
 
+    });
+    $('.loader-wrapper').hide();
+    $('.inventory-wrapper').css({
+        "visibility": "visible"
+    });
+
+    $('.updateIngredientBtn').tooltip({
+        title: function () {
+            return $(this).attr('data-tooltip');
+        }
     });
 });
 
@@ -189,7 +198,10 @@ function RequestListToggle() {
 
   /*  $('.request-list-wrapper').toggle();*/
     if (ingredientListWrapper.hasClass('closeRequestList')) {
-        $('.inventory-wrapper').css({
+        //$('.inventory-wrapper').css({
+        //    'width': '100%'
+        //});
+        $('.container-all').css({
             'width': '100%'
         });
 
@@ -210,8 +222,8 @@ function RequestListToggle() {
 
     }
     else {
-        $('.inventory-wrapper').css({
-            'width': "calc(100% - 370px)"
+        $('.container-all').css({
+            'width': "calc(100% - 340px)"
         });
 
         $('.request-list-wrapper').css({
@@ -236,7 +248,7 @@ function StockOutListToggle() {
     stockOutListWrapper.toggleClass('closeStockOutList');
 
     if (stockOutListWrapper.hasClass('closeStockOutList')) {
-        $('.inventory-wrapper').css({
+        $('.container-all').css({
             'width': '100%'
         });
 
@@ -257,8 +269,8 @@ function StockOutListToggle() {
 
     }
     else {
-        $('.inventory-wrapper').css({
-            'width': "calc(100% - 370px)"
+        $('.container-all').css({
+            'width': "calc(100% - 340px)"
         });
 
         $('.stock-out-wrapper').css({

@@ -33,14 +33,14 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-                        var userCount = _context.User.Where(s => s.RoleId != 1).Count();
-                        ViewData["CountUser"] = userCount;
-                        var totalSales = _context.Order.Where(s => s.OrderDate == DateTime.Now.Date).Sum(s => s.TotalAmount);
-                        ViewData["TotalSales"] = totalSales;
-                        var productCount = _context.Product.Where(s => s.IsArchive == false).Count();
-                        ViewData["CountProduct"] = productCount;
-                        var categoryCount = _context.Category.Count();
-                        ViewData["CountCategory"] = categoryCount;
+                        //var userCount = _context.User.Where(s => s.RoleId != 1).Count();
+                        //ViewData["CountUser"] = userCount;
+                        //var totalSales = _context.Order.Where(s => s.OrderDate == DateTime.Now.Date).Sum(s => s.TotalAmount);
+                        //ViewData["TotalSales"] = totalSales;
+                        //var productCount = _context.Product.Where(s => s.IsArchive == false).Count();
+                        //ViewData["CountProduct"] = productCount;
+                        //var categoryCount = _context.Category.Count();
+                        //ViewData["CountCategory"] = categoryCount;
                         return View();
                     }
                 }

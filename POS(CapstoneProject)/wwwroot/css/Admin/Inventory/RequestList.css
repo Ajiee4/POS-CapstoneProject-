@@ -4,22 +4,19 @@
     margin: 0;
   
 }
-
-
 /*Request filter */
 .request-filter-wrapper {  
     width: 100%;
     padding: 8px;
-    background-color: #693D29;
+    background-color: black;
     border: 1px solid black;
     margin-bottom: 5px;
+    visibility: hidden;
 }
 .request-filter-wrapper form{
    
-    display: flex;
-   
-    justify-content: start;
-   
+    display: flex;  
+    justify-content: start; 
     gap: 5px;
     flex-wrap: wrap;
 }
@@ -48,19 +45,13 @@
     background-color: white;
     
 }
-@media (max-width: 710px){
-    .request-filter-wrapper form{
-       
-      
-      
-        
-    }
-}
+
 @media (max-width: 700px) {
     .request-filter-wrapper form {
        justify-content: center;
     }
 }
+
 @media (max-width: 460px) {
     .request-filter-wrapper form > div{
         width: 100%;
@@ -87,7 +78,8 @@
 
 .list-request-wrapper {
     position: relative;
-    width: 100%;    
+    width: 100%;
+    visibility: hidden;
 }
 
 /*Main*/
@@ -217,8 +209,7 @@
 }
 #requestCardModal .request-card-table {
     width: 100%;
-   
-   
+    
 }
 
 #requestCardModal .request-card-table td{
@@ -270,21 +261,3 @@
     gap: 10px;
     padding: 10px 50px;
 }
-
-/*Reponsive Filter*/
-/*@media (max-width: 450px) {
-
-    .request-filter-header form {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .selectRequestStatus {
-        width: 100%;
-    }
-
-    .viewRequestBtn {
-        width: 50%;
-    }
-} */

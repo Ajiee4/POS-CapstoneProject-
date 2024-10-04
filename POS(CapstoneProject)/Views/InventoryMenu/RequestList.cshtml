@@ -5,9 +5,14 @@
 
 <style>
     .link-requestlist, .inventoryMenu {
-        background-color: #C6976C !important;
+        background-color: #747474 !important;
     }
 </style>
+
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
 
 <!--Filter Request-->
 <div class="request-filter-wrapper"> 
@@ -55,10 +60,13 @@
         {
 
             <script>
-                document.querySelector('.fromDate').value = localStorage.getItem('fromDateRequest');
-                document.querySelector('.toDate').value = localStorage.getItem('toDateRequest');
-                document.querySelector('.selectRequestStatus').value = "Pending";
-                document.querySelector('.list-request-header').textContent = "PENDING";
+                window.addEventListener('load', function () {
+                    document.querySelector('.fromDate').value = localStorage.getItem('fromDateRequest');
+                    document.querySelector('.toDate').value = localStorage.getItem('toDateRequest');
+                    document.querySelector('.selectRequestStatus').value = "Pending";
+                    document.querySelector('.list-request-header').textContent = "PENDING";
+                });
+              
 
             </script>
 
@@ -100,10 +108,15 @@
         {
          
             <script>
-                document.querySelector('.fromDate').value = localStorage.getItem('fromDateRequest');
-                document.querySelector('.toDate').value = localStorage.getItem('toDateRequest');
-                document.querySelector('.selectRequestStatus').value = "Completed";
-                document.querySelector('.list-request-header').textContent = "COMPLETED";                        
+
+                window.addEventListener('load', function () {
+                    document.querySelector('.fromDate').value = localStorage.getItem('fromDateRequest');
+                    document.querySelector('.toDate').value = localStorage.getItem('toDateRequest');
+                    document.querySelector('.selectRequestStatus').value = "Completed";
+                    document.querySelector('.list-request-header').textContent = "COMPLETED";
+                });
+
+                                      
             </script>
 
             var requestList = ViewData["RequestCompleted"] as List<Request>;
@@ -146,10 +159,14 @@
         {
             
             <script>
-                document.querySelector('.fromDate').value = localStorage.getItem('fromDate');
-                document.querySelector('.toDate').value = localStorage.getItem('toDate');
-                document.querySelector('.selectRequestStatus').value = "Canceled";
-                document.querySelector('.list-request-header').textContent = "CANCELED";
+
+                window.addEventListener('load', function () {
+                    document.querySelector('.fromDate').value = localStorage.getItem('fromDate');
+                    document.querySelector('.toDate').value = localStorage.getItem('toDate');
+                    document.querySelector('.selectRequestStatus').value = "Canceled";
+                    document.querySelector('.list-request-header').textContent = "CANCELED";
+                });
+              
               
             </script>
             var requestList = ViewData["RequestCanceled"] as List<Request>;

@@ -5,13 +5,19 @@
 }
 <style>
     .link-usermanagement {
-        background-color: #C6976C !important;
+        background-color: #747474 !important;
     }
-
 </style>
 
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
 <div class="user-wrapper">
-    <button type="button" class="addUserBtn" data-toggle="modal" data-target="#addUserModal">Add User</button>
+    <button type="button" class="addUserBtn" data-toggle="modal" data-target="#addUserModal">
+        <img src="~/images/add.png" />
+        <span>Add User</span>
+    </button>
 
     <table class="user-table">
         <thead>
@@ -46,9 +52,15 @@
                                         <form asp-action="ArchiveUser" class="archiveUserForm">
                                             <input name="userid" class="inputArchiveUserId" hidden />
                                         </form>
-                                        <button class="btn detailsUserBtn" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">Details</button>
-                                        <button class="btn archiveUserBtn" onclick="ArchiveUser(@item.UserId)">Archive</button>
-                                        <button class="btn updateUserBtn" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">Update</button>
+                                        <button class="btn detailsUserBtn"  data-placement="bottom" title="Details" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">
+                                            <img src="~/images/details.png" />
+                                        </button>
+                                        <button class="btn archiveUserBtn" data-toggle="tooltip" data-placement="bottom" title="Archive" onclick="ArchiveUser(@item.UserId)">
+                                            <img src="~/images/inbox.png" />
+                                        </button>
+                                        <button class="btn updateUserBtn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">
+                                            <img src="~/images/edit.png" />
+                                        </button>
                                     </div>
                                 </td>
                             }
@@ -59,9 +71,16 @@
                                         <form asp-action="UnarchiveUser" class="unarchiveUserForm">
                                             <input name="userid" class="inputUnrchiveUserId" hidden />
                                         </form>
-                                        <button class="btn detailsUserBtn" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User?.Username','@item.User?.Password')" data-toggle="modal" data-target="#detailsUserModal">Details</button>
-                                        <button class="btn unarchiveUserBtn" onclick="UnarchiveUser(@item.UserId)">Unarchive</button>
-                                        <button class="btn updateUserBtn" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User?.Username', '@item.User?.Password')">Update</button>
+
+                                        <button class="btn detailsUserBtn" data-placement="bottom" title="Details" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User?.Username','@item.User?.Password')" data-toggle="modal" data-target="#detailsUserModal">
+                                            <img src="~/images/details.png" />
+                                        </button>
+                                        <button class="btn unarchiveUserBtn" data-toggle="tooltip" data-placement="bottom" title="Unarchive" onclick="UnarchiveUser(@item.UserId)">
+                                            <img src="~/images/outbox.png" />
+                                        </button>
+                                        <button class="btn updateUserBtn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User?.Username', '@item.User?.Password')">
+                                            <img src="~/images/edit.png" />
+                                        </button>
                                     </div>
                                 </td>
                             }

@@ -3,10 +3,24 @@ $(document).ready(function () {
     $('.category-table').DataTable({
         "paging": true,
         "searching": true,
-        "ordering": true,
+        "ordering": false,
         "pageLength": 5,
 
     });
+
+    $('.loader-wrapper').hide();
+
+    $('.category-wrapper').css({
+        "visibility": "visible"
+    });
+
+    $('.updateCategoryBtn').tooltip({
+        title: function () {
+            return $(this).attr('data-tooltip');
+        }
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 //function for pop up messages
@@ -141,8 +155,16 @@ function updateCategory(id, name) {
   
 }
 
+function RowClick(url, event) {
 
+    if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
+        return;
+    }
 
+    location.href = url;
 
-
+    var categoryName = event.querySelector('td[data-label="Category"]').textContent;
    
+    localStorage.setItem('categoryName', categoryName);
+    
+}

@@ -14,53 +14,78 @@
     z-index: 100 !important;
 }
 .addCategoryBtn {
- 
-    padding: 10px 15px;
-    background-color: #693D29;
-    color: white;
-    font-size: 0.8rem;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px 10px;
+    gap: 5px;
+    font-size: 0.6rem;
     font-weight: bold;
     border-radius: 20px;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none;
-    transition: 0.3s ease-in-out
-}
-.addCategoryBtn:hover{
-    background-color: black;
+    border: 1.5px solid white;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
 }
 
-.updateCategoryBtn {
-    background-color: #1964C5;
+.addCategoryBtn:focus {
+    outline: 1px solid white;
+}
+
+.addCategoryBtn img {
+    width: 25px;
+    height: 25px;
+}
+
+.addCategoryBtn span {
     color: white;
+}
+
+.addCategoryBtn:hover {
+    transform: scale(1.03);
 }
 
 .category-wrapper {
     position: relative;
     width: 100%;
-   
+    visibility: hidden;
+}
+
+.updateCategoryBtn {
+    background-color: #1964C5;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.updateCategoryBtn img {
+    height: 20px;
+    width: 20px;
 }
 
 /* Category Table */
 .category-table {
-    border-collapse: collapse !important;
-    border: 1px solid black;
-    z-index: 2 !important;
-    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+    border: 1px solid transparent !important;
+    z-index: 1 !important;
 }
 
 .category-table thead {
-    background-color: #693D29;
     color: white;
-
 }
 
 .category-table thead th {
-    text-align: left !important;
+    background-color: #342924;
+    text-align: center !important;
 }
 
-.category-table tr{
-    border: 1px solid black !important;
+.category-table th:first-child {
+    border-radius: 50px 0 0 50px !important;
+}
+
+.category-table th:last-child {
+    border-radius: 0 50px 50px 0 !important;
 }
 
 .category-table tbody {
@@ -68,20 +93,38 @@
     color: black;
 }
 
-.category-table tbody td {
-    text-align: left !important;
-}
-    .category-table .action-wrapper {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        align-items: center;
-    }
 
-        .category-table .action-wrapper > button {
-            flex: 1;
-            max-width: 200px;
-        }
+.category-table tbody tr {
+    border-bottom: 1px solid black;
+}
+
+.category-table tbody td {
+    text-align: center !important;
+}
+.category-table .action-wrapper {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-table .action-wrapper > button {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border: none;
+    outline: none;
+}
+
+.category-table .action-wrapper > button:focus {
+    outline: 1px solid black;
+}
+
+.category-table .action-wrapper > button:hover {
+    transform: scale(1.09);
+}
+
+/* Responsive Table*/
 
 @media (max-width: 770px) {
     .category-table thead {
@@ -149,20 +192,40 @@
         margin-top: 20px;
     }
 
-    .category-table td .btn {
+    /*.category-table td .btn {
         flex: 1;
         margin-top: 5px;
         max-width: 200px;
-    }
+    }*/
 }
 
 
+.add-category-modal-img {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: -60px;
+    left: -20px;
+    z-index: 10;
+}
+
+.update-category-modal-img {
+    height: 180px;
+    width: 180px;
+    position: absolute;
+    bottom: -15px;
+    right: -25px;
+    z-index: 10;
+}
+
 #addCategoryModal .addSubmitBtn, #updateCategoryModal .updateSubmitBtn {
-    background-color: #693D29;
+    background-color: #342924;
     border-radius: 20px;
     padding: 10px 30px;
     border: none;
     color: white;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
 }
 #addCategoryModal .addSubmitBtn:hover {
     background-color: black;
@@ -176,11 +239,17 @@
 
 #addCategoryModal .modal-content, #updateCategoryModal .modal-content {
 
-    background-color: rgba(197, 172, 148,0.9) !important;
+  background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
 
 }
+
+    #addCategoryModal .modal-content input, #updateCategoryModal .modal-content input {
+        background-color: #D1D6D2;
+        border-radius: 10px !important;
+    }
+
 #addCategoryModal .modal-header, #updateCategoryModal .modal-header {
     border: none;
 }
@@ -212,23 +281,31 @@
 
 /*Data Table*/
 .dt-search label {
-    color: black;
-    font-weight: lighter;
-
+    color: white !important;
+    font-weight: lighter !important;
 }
 
 .dt-search .dt-input {
-    border: 1px solid black !important;
-
+    border: 1px solid white !important;
+    outline: 1px solid white !important;
+    border-radius: 10px !important;
 }
 
 .dt-length, .dt-info {
     display: none;
 
 }
+.dt-paging {
+    color: white !important;
+}
+
+    .dt-paging button {
+        border: 1px solid white !important;
+    }
+
 
 input::placeholder{
-    color: dimgrey;
+    color: black !important;
     font-weight: lighter;
     font-size: 0.9rem;
 }

@@ -5,14 +5,21 @@
     var categoryList = ViewData["CategoryList"] as List<Category>;
 }
 <style>
-    .link-category {
-        background-color: #C6976C !important;
+    .link-category{
+        background-color: #747474 !important;
     }
 </style>
 
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
  <!--Wrapper-->
 <div class="category-wrapper">
-    <button type="button" class="addCategoryBtn" data-toggle="modal" data-target="#addCategoryModal" >Add Category</button>
+    <button type="button" class="addCategoryBtn" data-toggle="modal" data-target="#addCategoryModal">
+        <img src="~/images/add.png" />
+        <span>Add Category</span>
+        </button>
     <!--Category Table-->
     <table class="category-table">
         <thead>
@@ -26,12 +33,14 @@
             @if(categoryList != null){
                 @foreach (var item in categoryList)
                 {
-                    <tr>
+                    <tr onclick="RowClick('@Url.Action("Index", "SalesMenu")', this)">
                         <td data-label="ID">@item.CategoryId</td>
                         <td data-label="Category">@item.CategoryName</td>
                         <td data-label="Actions">
                             <div class="action-wrapper">
-                                <button class="btn updateCategoryBtn" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">Update</button>
+                                <button class="btn updateCategoryBtn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
+                                    <img src="~/images/edit.png" />
+                                </button>
                             </div>
 
                         </td>
@@ -52,6 +61,7 @@
 <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="add-category-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">ADD CATEGORY</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -81,6 +91,7 @@
  <div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="update-category-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE CATEGORY</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

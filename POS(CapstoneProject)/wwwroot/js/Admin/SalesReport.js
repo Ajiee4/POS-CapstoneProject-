@@ -6,6 +6,12 @@ $(document).ready(function () {
         "ordering": false,
         "pageLength": 5
     });
+
+    $('.loader-wrapper').hide();
+    $('.report-filter-wrapper').css({
+        "visibility": "visible"
+    });
+
 });
 function popUpMessageReport(message, icon) {
     Swal.fire({

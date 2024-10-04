@@ -3,19 +3,28 @@ $(document).ready(function () {
     $('.product-table').DataTable({
         "paging": true,       
         "searching": true,
-        "ordering": true,
+        "ordering": false,
         "pageLength": 5
+    });
+
+    $('.updateProductBtn').tooltip({
+        title: function () {
+            return $(this).attr('data-tooltip');
+        }
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('.loader-wrapper').hide();
+    $('.product-wrapper').css({
+        "visibility": "visible"
     });
 });
 
 
-$(document).ready(function () {
-    setTimeout(function () {
-        $('.product-wrapper').show();
-    }, 1)
-});
 
-//pop up message using sweetalert
+
+////pop up message using sweetalert
 function popUpMessageProduct(message, icon) {
     Swal.fire({
         text: message,

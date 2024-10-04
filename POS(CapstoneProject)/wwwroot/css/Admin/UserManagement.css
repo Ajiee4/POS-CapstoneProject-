@@ -4,38 +4,46 @@
     margin: 0;
   
 }
+
 /*header*/
 .header .right-section .checkout-icon {
     display: none;
 }
 
 .addUserBtn {
-    cursor: pointer;
-    padding: 10px 15px;
-    background-color: #693D29;
-    color: white;
-    font-size: 0.8rem;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px 10px;
+    gap: 5px;
+    font-size: 0.6rem;
     font-weight: bold;
     border-radius: 20px;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none;
-    transition: 0.3s ease-in-out
+    border: 1.5px solid white;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
 }
 
-.addCategoryBtn:hover {
-    background-color: black;
+.addUserBtn img {
+    width: 25px;
+    height: 25px;
 }
-
-.updateCategoryBtn {
-    background-color: #1964C5;
+.addUserBtn:hover {
+    transform: scale(1.03);
+}
+.addUserBtn:focus {
+    outline: 1px solid white;
+}
+.addUserBtn span {
     color: white;
 }
 
-Wrapper
 .user-wrapper {
     position: relative;
     width: 100%;
+    visibility: hidden;
 }
 .user-table {
     border-collapse: collapse !important;
@@ -45,7 +53,7 @@ Wrapper
 }
 
 .user-table thead {
-    background-color: #693D29;
+    background-color: black;
     color: white;
 }
 
@@ -65,19 +73,56 @@ Wrapper
 .user-table tbody td {
     text-align: left !important;
 }
+.updateUserBtn {
+    background-color: #1964C5;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.detailsUserBtn {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.unarchiveUserBtn, .archiveUserBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F71F1F;
+}
 
-    .user-table .action-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
-        align-items: center;
-    }
+.archiveUserBtn img, .unarchiveUserBtn img, .updateUserBtn img, .detailsUserBtn img {
+    height: 20px;
+    width: 20px;
+}
 
-        .user-table .action-wrapper > button {
-            flex: 1;
-            max-width: 200px;
-        }
+
+.user-table .action-wrapper {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-table .action-wrapper > button {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border: none;
+    outline: none;
+}
+
+.user-table .action-wrapper > button:focus {
+    outline: 1px solid black;
+}
+
+.user-table .action-wrapper > button:hover {
+    transform: scale(1.09);
+}
+
 @media (max-width: 770px) {
     .user-table thead {
         display: none;
@@ -144,11 +189,11 @@ Wrapper
         margin-top: 20px;
     }
 
-    .user-table td .btn {
+    /*.user-table td .btn {
         flex: 1;
         margin-top: 5px;
         max-width: 200px;
-    }
+    }*/
 }
 
 
@@ -168,26 +213,6 @@ Wrapper
     display: none;
 }
 
-
-.updateUserBtn {
-    background-color: #1964C5;
-    color: white;
-}
-
-.archiveUserBtn, .unarchiveUserBtn {
-    background-color: #F71F1F;
-    color: white;
-}
-
-.action-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-.detailsUserBtn{
-    background-color: black;
-    color: white;
-}
 input::placeholder {
     color: dimgrey;
     font-weight: lighter;
@@ -258,6 +283,7 @@ input::placeholder {
        
     padding: 10px;
     text-align: left;
+   
 
 }
 
@@ -266,10 +292,11 @@ input::placeholder {
     color: white;
 }
 
-    .details-table td {
-        background-color: #C5AC94;
-        font-weight: lighter;
-    }
+.details-table td {
+    background-color: #C5AC94;
+    font-weight: lighter;
+    color: white;
+}
     
 input::placeholder {
     color: dimgrey;

@@ -3,6 +3,65 @@
 let checkOutList =  [];
 
 
+$(document).ready(function () {
+    
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('.loader-wrapper').hide();
+    $('.product-list-wrapper').css({
+        "visibility": "visible"
+    });
+
+   
+
+});
+
+function checkCategory() {
+    let categoryList = document.querySelector('.category-list-wrapper');
+    let items = categoryList.querySelectorAll('.category-item');
+    let localCategory = localStorage.getItem('categoryName');
+    const products = document.querySelectorAll('.product-item');
+    let found = false;
+
+    if (localCategory == null || localCategory == '') {
+        return;
+    };
+
+    items.forEach(item => {
+        let catName = item.dataset.category;
+        item.classList.remove('active');
+        if (catName == localCategory) {
+            item.classList.add('active');
+
+            products.forEach(product => {
+               
+                const productCategory = product.getAttribute('data-category');
+
+
+                const matchesCategory = productCategory == catName;
+               
+
+                if (matchesCategory) {
+                    product.style.display = 'block';
+                    found = true;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+
+            document.querySelector('.noResult').style.display = found ? 'none' : 'block';
+           
+        }
+    });
+
+    localStorage.removeItem('categoryName');
+    truncateName();
+}
+checkCategory();
+
+
 function popUpMessageToast(icon, title,width) {
     const Toast = Swal.mixin({
         toast: true,
@@ -39,6 +98,7 @@ function cartCount() {
    /* alert(sum);*/
 }
 
+
 let selectedCategory = 'All';
 let searchQuery = '';
 
@@ -50,6 +110,7 @@ function FilterProduct(category) {
    
     $('.category-item').removeClass('active');
     $(event.target).addClass('active');
+
    
 }
 
@@ -163,6 +224,8 @@ function checkoutProduct(id, name, quantity, price) {
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     DisplayCheckOut();
     cartCount();
+
+    
    
 }
 
@@ -462,8 +525,14 @@ function CheckOutToggle() {
             $('.product-list-wrapper').css({
                 'width': '100%'
             })
+            $('.container-all').css({
+                'width': "100%"
+            })
         } else {
-            $('.product-list-wrapper').css({
+            //$('.product-list-wrapper').css({
+            //    'width': "calc(100% - 340px)"
+            //})
+            $('.container-all').css({
                 'width': "calc(100% - 340px)"
             })
         }

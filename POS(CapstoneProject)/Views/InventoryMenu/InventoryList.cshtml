@@ -6,15 +6,32 @@
 }
 <style>
     .link-inventorylist, .inventoryMenu {
-        background-color: #C6976C !important;
+        background-color: #747474 !important;
     }
 </style>
 
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
+
 <div class="inventory-wrapper">
  
-    <button type="button" class="addIngredientBtn" data-toggle="modal" data-target="#addIngredientModal">Add Item</button>
-    <button class="btn requestBtn" onclick="displayModal('Request')" type="button">Request</button>
-    <button type="button" class="stockOutBtn" onclick="displayModal('StockOut')">Stock Out</button>
+    <div class="inventory-button-wrapper">
+        <button type="button" class="addIngredientBtn" data-toggle="modal" data-target="#addIngredientModal">
+            <img src="~/images/add.png" />
+            <span>Add Item</span>
+        </button>
+        <button class="btn requestBtn" onclick="displayModal('Request')" type="button">
+            <img src="~/images/requestproduct.png" />
+            <span>Request</span>
+        </button>
+        <button type="button" class="stockOutBtn" onclick="displayModal('StockOut')">
+            <img src="~/images/stockout.png" />
+            <span>Stock Out</span>
+        </button>
+    </div>
+    
 
   
     <table class="inventory-table">
@@ -44,9 +61,9 @@
                     <td data-label="Actions">                     
                     <div class="action-wrapper">
                         <div class="action-button">
-                            <button class="btn updateIngredientBtn" onclick="DefaultUpdateIngredientModal(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"
+                            <button class="updateIngredientBtn" data-placement="bottom" title="Update" onclick="DefaultUpdateIngredientModal(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"
                                 data-toggle="modal" data-target="#updateIngredientModal">
-                                Update
+                                    <img src="~/images/edit.png" />
                             </button>                                  
                         </div>
 
@@ -135,7 +152,7 @@
 </div>
 
 
-<br /><br />
+
 
 
 <!--Stock Out-->

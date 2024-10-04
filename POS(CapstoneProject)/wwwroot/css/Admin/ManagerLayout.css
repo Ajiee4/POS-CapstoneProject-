@@ -5,14 +5,55 @@
   
 
 }
-body {
 
-    padding-top: 90px;
+.loader-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.4);
+    /*  display: none;*/
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+body {
+    padding-top: 70px;
     padding-left: 65px;
     padding-right: 10px;
-    background-color: #C5AC94;
+    background-color: black;
     transition: 0.8s;
-
+    background-image: url('/Images/bg-lower-bright.png');
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+   
 }
 
 /*Header*/
@@ -21,39 +62,58 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    background-color: #923312;
+   
+    
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     min-height: 70px;
-    z-index: 100;
+    z-index: 10;
     padding: 0px 5px;
 }
 .header .left-section{
   
     display: flex;
+    margin-left: 10px;
+    margin-top: 15px;
     justify-content: center;
     align-items: center;
     flex-direction: row;
 
 }
 
-.header .left-section .brand-logo img {
+.header .brand-name {
+      
+    line-height: 18px;
+    margin-left: 5px;
+}
+
+.header .brand-name .brand-first {
+    font-family: "Inika";
+    font-weight: bold;
+    color: white;
+}
+
+.header .brand-name .brand-second {
+    font-family: "Imprima";
+    display: block;
+    font-weight: lighter;
+}
+
+.header .brand-logo {
+    padding: 5px;
+    background-color: white;
     border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+.header .brand-logo img {
     width: 40px;
     height: 40px;
+    border-radius: 50%;
 }
-
-.header .left-section .brand-name{
-    color: white;
-    margin-left: 5px;
-    font-weight: bolder;
-    white-space: nowrap;
-    font-size: 0.8rem;
-    line-height: 19px;
-}
-
+     
 .right-section {
     display: flex;
     justify-content: center;
@@ -63,20 +123,35 @@ body {
    
   
 }
-
-
 .header .right-section .logout-link{
-    padding: 2px 10px;
-    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px;
+    border: 1px solid white;
     border-radius: 20px;
+    transition: 0.3s;
+    gap: 5px;
 }
-.header .right-section .logout-link a {
-    color: black;
+    .header .right-section .logout-link > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .header .right-section .logout-link:hover {
+        transform: scale(1.09);
+    }
+.header .right-section .logout-link img {
+    height: 12px;
+    width: 12px;
+}
+.header .right-section .logout-link span {
+    color: white;
+    font-weight: lighter;
     font-size: 0.7rem;
-   
-    font-weight: bold;
-    
 }
+
 .header .right-section .checkout-icon {
     
     cursor: pointer;
@@ -98,8 +173,6 @@ body {
     width: 32px;
     height: 32px;
 }
-
-
 
 .header .right-section .checkout-icon:hover {
     transform: scale(1.2);
@@ -129,8 +202,10 @@ body {
 /*Sidebar*/
 .sidebar {
     cursor: pointer;
-    background-color: #9E7148;
-    width: 55px;
+ /*   background-color: rgba(250,250,250,0.01);
+    box-shadow: 0px 0px 20px inset rgba(250,250,250,0.1);
+    border: 1px solid rgba(250,250,250,0.2);*/
+    width: 58px;
     position: fixed;
     top: 70px;
     left: 0;
@@ -147,11 +222,15 @@ body {
     top: 50%;
     right: -7px;
     padding: 4px;
-    background-color: #B5875D;
+    background-color: transparent;
     border-radius: 50%;
     transform: translateY(-50%);
     transition: 0.5s;
+    border: 1px solid white;
     transform: rotate(180deg);
+}
+.sidebar .sidebar-toggler:hover {
+    background-color: rgba(250,250,250,0.4) !important;
 }
 
 .sidebar ul {
@@ -172,7 +251,6 @@ body {
     height: 15px;
     margin-left: 5px;
    
-
 }
 
 .sidebar ul li a .sidebar-link-name {
@@ -192,13 +270,14 @@ body {
     justify-content: start;
     padding: 10px 5px;
     align-items: center;
-    background-color: #A37D5A;
+    background-color: transparent;
     width: 100%;
+    border: 1px solid white;
 
 }
 
 .sidebar ul li a:hover {
-    background-color: #C6976C;
+    background-color: #747474;
 }
 
 .sidebar ul li:hover .inventorySubmenu {
@@ -209,33 +288,59 @@ body {
 .sidebar ul ul {
     display: none;
     position: absolute;
-    left: 55px;
+    left: 58px;
     top: 5px;
     z-index: 2000 !important;
-    background-color: #9E7148;
+    background-color: black;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    border-left: 1px solid #C6976C;
-    width: 150px;
+    border-left: 1px solid black;
+    width: 150px; 
     height: auto;
+    
     transition: 0.5s ease-in-out;
 }
 
 .sidebar ul ul li a {
+    border-radius: 10px;
     font-size: 0.6rem;
     display: block;
     text-align: center;
     font-weight: lighter;
     white-space: nowrap;
 }
+.container-all {
+    /* background-color: rgba(250,250,250,0.5);*/
+    background-color: rgba(111,110,110,0.6);
+    height: calc(100vh - 110px);
+    z-index: 1;
+    border-radius: 20px;
+    padding: 10px;
+    overflow-y: auto;
+}
 
 
-@media (max-width: 770px){
+.container-all::-webkit-scrollbar {
+    width: 3px;
+        
+}
+
+.container-all::-webkit-scrollbar-track {
+    background: transparent;
+       
+}
+
+.container-all::-webkit-scrollbar-thumb {
+    background-color: black;
+    cursor: pointer;
+}
+
+@media (max-width: 770px) {
     .sidebar .sidebar-toggler{
         display: none !important;
     }
     .sidebar {
-        width: 55px !important;
+        width: 58px !important;
     }
     .sidebar ul li a .sidebar-link-name{
         display: none !important;
@@ -244,7 +349,7 @@ body {
         padding-left: 65px !important; 
     }
     .sidebar ul ul {
-        left: 55px !important;
+        left: 58px !important;
     }
 }
 
@@ -254,7 +359,7 @@ body {
     }
 
     .sidebar {
-        width: 55px !important;
+        width: 58px !important;
     }
 
     .sidebar ul li a .sidebar-link-name {
@@ -266,7 +371,7 @@ body {
     }
 
     .sidebar ul ul {
-        left: 55px !important;
+        left: 58px !important;
     }
 }
 

@@ -7,6 +7,24 @@
         "pageLength": 5,
 
     });
+
+    $('.loader-wrapper').hide();
+    $('.user-wrapper').css({
+        "visibility": "visible"
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('.updateUserBtn').tooltip({
+        title: function () {
+            return $(this).attr('data-tooltip');
+        }
+    });
+    $('.detailsUserBtn').tooltip({
+        title: function () {
+            return $(this).attr('data-tooltip');
+        }
+    });
 })
 
 function popUpMessageUser(message, icon) {

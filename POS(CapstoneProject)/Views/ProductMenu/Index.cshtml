@@ -3,41 +3,46 @@
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
     var productList = ViewData["productList"] as List<Product>;
     var productCategory = ViewData["productCategory"] as List<Category>;
+    var categoryList = ViewData["CategoryList"] as List<Category>;
 }
-
 <style>
-    .link-product {
-        background-color: #C6976C !important;
+    .link-product{
+        background-color: #747474 !important;
     }
 </style>
 
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
 
 <!--Product Wrapper-->
  <div class="product-wrapper">
-    <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+    <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">
+        <img src="~/images/add.png" />
+        <span>Add Product</span>
+    </button>
   
     <!--Product Table-->
-    <table class="product-table">
+     <table class="product-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Category</th>
-                <th>Price</th>              
-                <th>Image</th>
+                <th>Price</th>           
+                <th>Image</th> 
                 <th>Actions</th>
             </tr>          
         </thead>
         <tbody>
-            @if(productList != null)
-            {
+           
                 @foreach (var item in productList)
                 {
                     <tr>
                         <td data-label="ID">@item.ProductId</td>
                         <td data-label="Name">@item.Name</td>
                         <td data-label="Category">@item.Category?.CategoryName</td>
-                        <td data-label="Price">₱@item.Price</td>
+                        <td data-label="Price">₱@item.Price</td> 
                         @if (item.ImageData == null)
                         {
                             <td data-label="Image">
@@ -49,7 +54,7 @@
                             <td data-label="Image" class="product-photo-wrapper">
                                 <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto" alt="Image" />
                             </td>
-                        }
+                        } 
                         @if (item.IsArchive)
                         {
                             <td data-label="Actions">
@@ -58,44 +63,50 @@
                                 </form>
                                 <div class="action-wrapper">
 
-                                    <button class="btn unarchiveBtn">Unarchive</button>
-                                    <button class="btn updateProductBtn" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">Update</button>
+                                    <button class="unarchiveBtn" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
+                                        <img src="~/images/outbox.png" />
+                                    </button>
+                                    <button class="updateProductBtn" data-placement="bottom" title="Update" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">
+                                        <img src="~/images/edit.png" />
+                                    </button>
                                 </div>
                             </td>
                         }
                         else
                         {
-                            <td data-label="Actions">
+                           <td data-label="Actions">
                                 <form class="archiveForm" asp-action="ArchiveProduct">
                                     <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden />
                                 </form>
                                 <div class="action-wrapper">
 
-                                    <button class="btn archiveBtn">Archive</button>
-                                    <button class="btn updateProductBtn" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">Update</button>
+                                    <button class="archiveBtn" data-toggle="tooltip" data-placement="bottom" title="Archive">
+                                        <img src="~/images/inbox.png" />
+                                     
+                                    </button>
+                                    <button class="updateProductBtn"  data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">
+                                        <img src="~/images/edit.png" />
+                                     
+                                    </button>
                                 </div>
-                            </td>
+                            </td> 
                         }
                     </tr>
                 }
               
-            }
-            else
-            {
-
-            }
-                  
+                          
         </tbody>
-    </table> 
+    </table>  
 </div>
 
 <!--Update Product Modal-->
 <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="update-product-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE PRODUCT</h5>
-
+               
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -156,6 +167,7 @@
 <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="add-product-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">ADD PRODUCT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -202,7 +214,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto addProductSubmit">Submit</button>
+                        <button type="button" class="d-block mx-auto addProductSubmit">ADD</button>
                     </div>
                 </form>
             </div>

@@ -5,9 +5,12 @@
 
 <style>
     .link-stockmovement, .inventoryMenu {
-        background-color: #C6976C !important;
+        background-color: #747474 !important;
     }
 </style>
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
 
 <!--Transaction Type Filter-->
 <div class="stock-movement-filter-wrapper">
@@ -147,27 +150,37 @@
 @if (TempData["inventoryAll"] != null)
 {
     <script>
-        document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
-        document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
-        document.querySelector('.stock-movement-wrapper').style.display = "block";
-        document.querySelector('.selectTransactionType').value = "All"
+
+        window.addEventListener('load', function () {
+            document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
+            document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
+            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.selectTransactionType').value = "All"
+        });
+      
     </script>
 }
 @if (TempData["inventoryStockOut"] != null)
 {
     <script>
-        document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
-        document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
-        document.querySelector('.stock-movement-wrapper').style.display = "block";
-        document.querySelector('.selectTransactionType').value = "Stock Out"
+        window.addEventListener('load', function () {
+            document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
+            document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
+            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.selectTransactionType').value = "Stock Out"
+        });
+      
     </script>
 }
 @if (TempData["inventoryStockIn"] != null)
 {
      <script>
-        document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
-        document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
-        document.querySelector('.stock-movement-wrapper').style.display = "block";
-        document.querySelector('.selectTransactionType').value = "Stock In"
+        window.addEventListener('load', function () {
+            document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
+            document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
+            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.selectTransactionType').value = "Stock In"
+        });
+      
     </script>
 }

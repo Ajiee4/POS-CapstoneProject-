@@ -1,25 +1,22 @@
-﻿
-let toggler = document.querySelector('.sidebar-toggler');
-let sidebar = document.querySelector('.sidebar');
-let sidebarName = document.querySelectorAll('.sidebar-link-name');
-let submenu = document.querySelector('.sidebar ul ul');
-let body = document.querySelector('body');
-
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
-});
 
-window.addEventListener('load', () => {
+  
     const sidebar = document.querySelector('.sidebar');
     const isOpen = localStorage.getItem('sidebarOpen') === 'true' ? true : false;
 
     if (isOpen) {
         sidebar.classList.add('openSidebar');
-        toggleSidebar(); 
+        toggleSidebar();
     }
+   
 });
 
+let toggler = document.querySelector('.sidebar-toggler');
+let sidebar = document.querySelector('.sidebar');
+let sidebarName = document.querySelectorAll('.sidebar-link-name');
+let submenu = document.querySelector('.sidebar ul ul');
+let body = document.querySelector('body');
 
 
 toggler.addEventListener('click', function () {
@@ -59,8 +56,8 @@ function toggleSidebar() {
     else {
 
         body.style.paddingLeft = '65px'
-        sidebar.style.width = "55px"
-        submenu.style.left = '55px'
+        sidebar.style.width = "58px"
+        submenu.style.left = '58px'
         toggler.style.transform = "rotate(180deg)"
         sidebarName.forEach((link) => {
             setTimeout(() => {

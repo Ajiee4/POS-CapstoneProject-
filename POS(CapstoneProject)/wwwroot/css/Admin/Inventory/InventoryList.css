@@ -4,37 +4,62 @@
     margin: 0;
   
 }
+.inventory-button-wrapper{
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
 
 .updateIngredientBtn {
     background-color: #1964C5;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.updateIngredientBtn img {
+    height: 20px;
+    width: 20px;
+}
+
 .addIngredientBtn, .stockOutBtn, .requestBtn {
-    padding: 10px 15px;
-    cursor: pointer;
-    background-color: #693D29;
-    color: white;
-    font-size: 0.8rem;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px 10px;
+    gap: 5px;
+    font-size: 0.6rem;
     font-weight: bold;
     border-radius: 20px;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none;
-    transition: 0.3s ease-in-out
+    border: 1.5px solid white;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
 }
 
-.addCategoryBtn:hover {
-    background-color: black;
+.addIngredientBtn:focus, .stockOutBtn:focus, .requestBtn:focus {
+    outline: 1px solid white;
+}
+.addIngredientBtn:hover, .stockOutBtn:hover, .requestBtn:hover {
+    transform: scale(1.03);
 }
 
-.updateCategoryBtn {
-    background-color: #1964C5;
+.addIngredientBtn img, .stockOutBtn img, .requestBtn img {
+    width: 25px;
+    height: 25px;
+}
+
+.addIngredientBtn span, .stockOutBtn span, .requestBtn span{
     color: white;
 }
+
 
 .inventory-wrapper {
     position: relative;
     width: 100%;
+    visibility: hidden;
 }
 
 
@@ -47,7 +72,7 @@
 }
 
 .inventory-table thead {
-    background-color: #693D29;
+    background-color: black;
     color: white;
 }
 
@@ -84,8 +109,24 @@
     justify-content: space-between;
 }
 
-.warning-icon-wrapper {        
-    padding: 5px;               
+.inventory-table .action-button  button {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border: none;
+    outline: none;
+}
+
+.inventory-table .action-button button:focus {
+    outline: 1px solid black;
+}
+
+.inventory-table .action-button button:hover {
+    transform: scale(1.09);
+}
+
+.warning-icon-wrapper {
+    padding: 5px;
 }
 
 .warning-icon-wrapper .warning-icon {
@@ -227,10 +268,10 @@ input::placeholder {
     transition: 0.5s;
 }
 
-    #addIngredientModal .close:hover, #updateIngredientModal .close:hover,
-    #choiceIngredientModal .close:hover, #processDetailsModal .close:hover {
-        transform: scale(1.2);
-    }
+#addIngredientModal .close:hover, #updateIngredientModal .close:hover,
+#choiceIngredientModal .close:hover, #processDetailsModal .close:hover {
+    transform: scale(1.2);
+}
 
 #addIngredientModal .addIngredientSubmit, #updateIngredientModal .updateIngredientSubmit,
 #processDetailsModal .processSubmit {
@@ -247,8 +288,6 @@ input::placeholder {
     background-color: black;
     color: white;
 }
-
-
 
 /*SweetAlert Custom Class*/
 .custom-icon {
@@ -334,14 +373,14 @@ input::placeholder {
     border: 1px red solid;
     /* visibility: hidden;*/
     position: fixed;
-    top: 80px;
+    top: 70px;
     right: 15px;
-    bottom: 10px;
+    bottom: 40px;
     background-color: #F1DCC8;
-    width: 350px;
+    width: 320px;
     border: 1px solid grey;
     border-radius: 5px;
-    box-shadow: 1px 1px 5px grey;
+   /* box-shadow: 1px 1px 5px grey;*/
     z-index: 990;
     transition: 0.5s ease-in-out
 }
@@ -410,6 +449,7 @@ input::placeholder {
 .styled-table thead th {
     padding: 10px 0px;
 }
+
 .styled-table tbody td {
    
     padding: 10px 0px;
@@ -448,7 +488,6 @@ input::placeholder {
     border-bottom: 2px solid #683c29;
 }
 
-
 .request-list-footer .requestSubmit {
     width: 100px;
     height: 50px;
@@ -479,24 +518,6 @@ input::placeholder {
 }
 
 
-@media (max-width: 950px) {
-
-    .inventory-wrapper {
-        width: 100% !important;
-    }
-
-    .request-list-wrapper, .stock-out-wrapper {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        max-height: 450px;
-        height: 100%;
-        transform: translate(-50%, -50%) !important;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-}
 .stock-out-footer {
     display: flex;
     border-top: 1px solid black;
@@ -523,17 +544,18 @@ input::placeholder {
     transition: .3ms ease-in-out;
 }
 
-    .footer-buttons-wrapper .cancelStockOut {
-        padding: 10px 15px;
-        border-top: 1px solid black;
-        background: gray;
-        font-size: 1rem;
-        font-weight: bolder;
-        color: white;
-        border: 1px groove white;
-        border-radius: 10px;
-        transition: .3ms ease-in-out;
-    }
+.footer-buttons-wrapper .cancelStockOut {
+    padding: 10px 15px;
+    border-top: 1px solid black;
+    background: gray;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+    border: 1px groove white;
+    border-radius: 10px;
+    transition: .3ms ease-in-out;
+}
+
 .stockOutRemarks {
     width: 100%;
     padding: 5px;
@@ -552,3 +574,27 @@ input::placeholder {
 
 
 
+
+@media (max-width:1120px) {
+    .container-all {
+        width: 100% !important;
+    }
+
+    .request-list-wrapper, .stock-out-wrapper {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        max-height: 450px;
+        height: 100%;
+        transform: translate(-50%, -50%) !important;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 400px){
+    .inventory-button-wrapper{
+        justify-content: center;
+    }
+}

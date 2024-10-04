@@ -1,4 +1,16 @@
-﻿$('.generateRecordBtn').click(function (event) {
+﻿//Setup the table
+$(document).ready(function () {
+
+    $('.loader-wrapper').hide();
+    $('.stock-movement-filter-wrapper').css({
+        "visibility": "visible"
+    });
+
+});
+
+
+
+$('.generateRecordBtn').click(function (event) {
   
    
     if ($('.selectTransactionType').val() == null || $('.fromDateStockMove').val() == '' ||
