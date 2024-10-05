@@ -7,10 +7,11 @@
 
 .stock-movement-filter-wrapper {
     width: 100%;
-    padding: 8px;
-    background-color: black;
-    border: 1px solid black;
+    padding: 15px 10px;
+    background-color: #342924;
+    border: 1px solid white;
     margin-bottom: 5px;
+    border-radius: 5px;
     visibility: hidden;
 }
 
@@ -72,8 +73,43 @@ stock-movement-wrapper {
     position: relative;
     width: 100%;
 }
-
 .stock-movement-table {
+    border: 1px solid transparent !important;
+    z-index: 1 !important;
+}
+
+.stock-movement-table thead {
+    color: white;
+}
+
+.stock-movement-table thead th {
+    background-color: #342924;
+    text-align: center !important;
+}
+
+.stock-movement-table th:first-child {
+    border-radius: 50px 0 0 50px !important;
+}
+
+.stock-movement-table th:last-child {
+    border-radius: 0 50px 50px 0 !important;
+}
+
+.stock-movement-table tbody {
+    background-color: #F7F7F7;
+    color: black;
+}
+
+
+.stock-movement-table tbody tr {
+    border-bottom: 1px solid black;
+}
+
+.stock-movement-table tbody td {
+    font-weight: 500;
+    text-align: center !important;
+}
+/*.stock-movement-table {
    
     border-collapse: collapse !important;
     border: 1px solid black;
@@ -101,7 +137,7 @@ stock-movement-wrapper {
 
 .stock-movement-table tbody td {
     text-align: left !important;
-}
+}*/
 
 @media (max-width: 770px) {
     .stock-movement-table thead {

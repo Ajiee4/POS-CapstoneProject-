@@ -46,23 +46,28 @@
     visibility: hidden;
 }
 .user-table {
-    border-collapse: collapse !important;
-    border: 1px solid black;
+    border: 1px solid transparent !important;
     z-index: 1 !important;
-    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+}
+.user-table th:first-child {
+    border-radius: 50px 0 0 50px !important;
 }
 
+.user-table th:last-child {
+    border-radius: 0 50px 50px 0 !important;
+}
 .user-table thead {
-    background-color: black;
+   
     color: white;
 }
 
 .user-table thead th {
-    text-align: left !important;
+    background-color: #342924;
+    text-align: center !important;
 }
 
-.user-table tr{
-    border: 1px solid black !important;
+.user-table tr {
+    border-bottom: 1px solid black;
 }
 
 .user-table tbody {
@@ -71,7 +76,8 @@
 }
 
 .user-table tbody td {
-    text-align: left !important;
+    font-weight: 500;
+    text-align: center !important;
 }
 .updateUserBtn {
     background-color: #1964C5;
@@ -220,10 +226,38 @@ input::placeholder {
 }
 
 /*Modal*/
+
+.add-user-modal-img {
+    height: 180px;
+    width: 180px;
+    position: absolute;
+    bottom: -15px;
+    right: -25px;
+    z-index: 10;
+}
+.detail-user-modal-img {
+    height: 180px;
+    width: 180px;
+    position: absolute;
+    bottom: -15px;
+    right: -25px;
+    z-index: 10;
+}
+.update-user-modal-img {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: -60px;
+    left: -20px;
+    z-index: 10;
+}
+
 #addUserModal .modal-content, #updateUserModal .modal-content, #detailsUserModal .modal-content {
-    background-color: rgba(197, 172, 148,0.9) !important;
+    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
+    padding: 5px 20px;
+    border: 2px solid white;
 }
 
 #addUserModal .modal-header, #updateUserModal .modal-header, #detailsUserModal .modal-header {
@@ -236,7 +270,7 @@ input::placeholder {
     font-weight: bold;
 }
 
-#addUserModal label, #updateUserModal label {
+#addUserModal label, #updateUserModal label, #detailsUserModal label {
     font-weight: bold
 }
 
@@ -253,12 +287,36 @@ input::placeholder {
 }
 
 #addUserModal .addUserSubmit, #updateUserModal .updateUserSubmit, #detailsUserModal .detailUserBack {
-    background-color: #693D29;
+    background-color: #342924;
     border-radius: 20px;
     padding: 10px 30px;
     border: none;
     color: white;
-    transition: 0.3s ease-in-out
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.details-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.details-wrapper .detail-info{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.details-wrapper .detail-info > div{
+    flex: 1;
+}
+#addUserModal input, #updateUserModal input, #detailsUserModal input {
+    background-color: #D1D6D2;
+    border-radius: 10px !important;
+}
+.row-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 #addUserModal .addUserSubmit:hover, #updateUserModal .updateUserSubmit:hover, #detailsUserModal .detailUserBack:hover {
@@ -269,34 +327,7 @@ input::placeholder {
 #detailsUserModal .modal-content{
    padding: 20px;
 }
-
-.details-table {
-    border-collapse: collapse;
-    border: 1px solid black;
-    
-    width: 100%; 
-    background-color: black
-}
-   
-
-.details-table th, .details-table td {
-       
-    padding: 10px;
-    text-align: left;
-   
-
-}
-
-.details-table th {
-    background-color: #693D29;
-    color: white;
-}
-
-.details-table td {
-    background-color: #C5AC94;
-    font-weight: lighter;
-    color: white;
-}
+ 
     
 input::placeholder {
     color: dimgrey;
@@ -328,7 +359,21 @@ input::placeholder {
     font-weight: bolder !important;
     color: black !important;
 }
-
+.swal-unarchive-user-title {
+    font-size: 25px;
+    font-weight: bolder !important;
+    color: black !important;
+}
+.swal-archive-user-title {
+    font-size: 25px;
+    font-weight: bolder !important;
+    color: black !important;
+}
+.custom-confirm-btn,
+.custom-cancel-btn {
+    width: 150px;
+    font-weight: bold;
+}
 .swal-updateUser-title {
     font-size: 25px; 
     font-weight: bolder !important; 

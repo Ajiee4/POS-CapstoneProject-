@@ -54,14 +54,16 @@ function AddCategory() {
             Swal.fire({
                 icon: "question",
                 title: "Do you want to add this category?",
-                padding: "1em",
+                iconColor: "#938F8F",
                 showCancelButton: true,
-                confirmButtonColor: "#1964C5",
-                cancelButtonColor: "#F71F1F",
+                confirmButtonColor: "#006ACD",
+                cancelButtonColor: "#F71900",
                 confirmButtonText: "Yes",
                 customClass: {
                     icon: 'custom-icon',
                     title: 'swal-addCategory-title',
+                    confirmButton: 'custom-confirm-btn',
+                    cancelButton: 'custom-cancel-btn'
 
                 }
 
@@ -99,14 +101,16 @@ function UpdateCategory() {
             Swal.fire({
                 icon: "question",
                 title: "Do you want to update this category?",
-                padding: "1em",
+                iconColor: "#938F8F",
                 showCancelButton: true,
-                confirmButtonColor: "#1964C5",
-                cancelButtonColor: "#F71F1F",
+                confirmButtonColor: "#006ACD",
+                cancelButtonColor: "#F71900",
                 confirmButtonText: "Yes",
                 customClass: {
                     icon: 'custom-icon',
                     title: 'swal-updateCategory-title',
+                    confirmButton: 'custom-confirm-btn',
+                    cancelButton: 'custom-cancel-btn'
 
                 }
 
@@ -155,16 +159,16 @@ function updateCategory(id, name) {
   
 }
 
-function RowClick(url, event) {
+function RowClick(url, row,event) {
 
     if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
         return;
     }
+    var categoryName = row.querySelector('td[data-label="Category"]').textContent;
 
+    localStorage.setItem('categoryName', categoryName);
     location.href = url;
 
-    var categoryName = event.querySelector('td[data-label="Category"]').textContent;
    
-    localStorage.setItem('categoryName', categoryName);
     
 }

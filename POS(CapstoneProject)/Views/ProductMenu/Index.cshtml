@@ -41,7 +41,11 @@
                     <tr>
                         <td data-label="ID">@item.ProductId</td>
                         <td data-label="Name">@item.Name</td>
-                        <td data-label="Category">@item.Category?.CategoryName</td>
+                        <td data-label="Category">
+                            <span class="table-data-category">
+                                @item.Category?.CategoryName
+                            </span>
+                        </td>
                         <td data-label="Price">₱@item.Price</td> 
                         @if (item.ImageData == null)
                         {
@@ -155,7 +159,7 @@
                     </div> 
 
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto updateProductSubmit">Submit </button>
+                        <button type="button" class="d-block mx-auto updateProductSubmit">UPDATE</button>
                     </div>
                 </form>
             </div>
@@ -227,7 +231,7 @@
 {
     <script>
         Swal.fire({
-            text: "New product added",
+            text: "New Product Added",
             icon: "success",
             showConfirmButton: false,
             timer: 2000
@@ -240,7 +244,7 @@
 {
     <script>
         Swal.fire({
-            text: "Product updated",
+            text: "Product Updated",
             icon: "success",
             showConfirmButton: false,
             timer: 2000
@@ -254,7 +258,7 @@
 {
     <script>
         Swal.fire({
-            text: "Product archived",
+            text: "Product Archived",
             icon: "success",
             showConfirmButton: false,
             timer: 2000
@@ -268,7 +272,7 @@
 {
     <script>
         Swal.fire({
-            text: "Product unarchived",
+            text: "Product Unarchived",
             icon: "success",
             showConfirmButton: false,
             timer: 2000
@@ -282,7 +286,7 @@
 {
     <script>
         Swal.fire({
-            text: "Product already exists",
+            text: "Product Already Exists",
             icon: "error",      
             showConfirmButton: false,
             timer: 2000

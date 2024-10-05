@@ -110,10 +110,13 @@
 }
 
 <div class="request-list-wrapper closeRequestList">
-
+    <img src="~/images/coffe-logo-light.png" class="request-ingredient-modal-img" />
     <div class="request-content-wrapper">
-        <img src="~/images/close.png" class="exitRequest" />
+       
 
+        <button type="button" class="close exitRequest">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <div class="request-list-header">
             <h1 class="">@(requestid.Count != 0 ? $"Request #{requestid.Count + 1}" : "Request #1")</h1>
 
@@ -144,8 +147,8 @@
                 <input name="requestData" class="requestInput" hidden />
             </form>
 
-            <button class="d-block mx-auto requestSubmit">Request</button>
-            <button class="d-block mx-auto cancelrequest">Cancel</button>
+            <button class="d-block mx-auto requestSubmit">REQUEST</button>
+            <button class="d-block mx-auto cancelrequest">CANCEL</button>
         </div>
     </div>
     
@@ -158,10 +161,12 @@
 <!--Stock Out-->
 
 <div class="stock-out-wrapper closeStockOutList">
-
+    <img src="~/images/coffe-logo-light.png" class="stockout-ingredient-modal-img" />
     <div class="stock-out-content-wrapper">
-        <img src="~/images/no.png" class="exitStockOut" />
-
+        
+        <button type="button" class="close exitStockOut">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <div class="stock-out-header">
             <h1 class="">Stock Out</h1>
 
@@ -198,8 +203,8 @@
             </form>
             <div class="footer-buttons-wrapper">
 
-                <button class="stockOutSubmit">Stock Out</button>
-                <button class="cancelStockOut">Cancel</button>
+                <button class="stockOutSubmit">STOCK OUT</button>
+                <button class="cancelStockOut">CANCEL</button>
             </div>
 
         </div>
@@ -212,6 +217,7 @@
 <div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" >
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="add-ingredient-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">ADD INGREDIENT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -251,6 +257,7 @@
 <div class="modal fade" id="updateIngredientModal" tabindex="-1" role="dialog">
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="update-ingredient-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE INGREDIENT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -287,21 +294,6 @@
 </div>
 
 <!--Pop up Messages-->
-@if (TempData["AddIngredient"] != null)
-{
-    <script>
-        Swal.fire({
-            text: "Ingredient Added",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 2000
-        });
-
-
-    </script>
-
-}
-
 
 @if (TempData["AddIngredient"] != null)
 {
@@ -319,7 +311,7 @@
 {
     <script>
         Swal.fire({
-            text: "Ingredient already exist",
+            text: "Ingredient Already Exists",
             icon: "error",
             showConfirmButton: false,
             timer: 2000

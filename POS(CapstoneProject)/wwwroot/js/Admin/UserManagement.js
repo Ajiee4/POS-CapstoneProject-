@@ -3,7 +3,7 @@
         "paging": true,
 
         "searching": true,
-        "ordering": true,
+        "ordering": false,
         "pageLength": 5,
 
     });
@@ -72,10 +72,10 @@ function AddNewUser() {
         return;
     }
 
-    if (!isValidCredentials(username) || !isValidCredentials(password)) {
-        popUpMessageUser('Email must be valid and between 2 and 15 characters long', 'error');
-        return;
-    }
+    //if (!isValidCredentials(username) || !isValidCredentials(password)) {
+    //    popUpMessageUser('Email must be valid and between 2 and 15 characters long', 'error');
+    //    return;
+    //}
 
     // Check for valid email address
     if (!isValidEmail(email)) {
@@ -93,14 +93,16 @@ function AddNewUser() {
     Swal.fire({
         icon: "question",
         title: "Do you want to add this user?",
-        padding: "1em",
+        iconColor: "#938F8F",
         showCancelButton: true,
-        confirmButtonColor: "#1964C5",
-        cancelButtonColor: "#F71F1F",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
             title: 'swal-addUser-title',
+            confirmButton: 'custom-confirm-btn',
+            cancelButton: 'custom-cancel-btn'
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -190,14 +192,16 @@ function UpdateUser() {
     Swal.fire({
         icon: "question",
         title: "Do you want to update this user?",
-        padding: "1em",
+        iconColor: "#938F8F", 
         showCancelButton: true,
-        confirmButtonColor: "#1964C5",
-        cancelButtonColor: "#F71F1F",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
             title: 'swal-updateUser-title',
+            confirmButton: 'custom-confirm-btn',
+            cancelButton: 'custom-cancel-btn'
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -210,17 +214,71 @@ function UpdateUser() {
 }
 
 function ArchiveUser(id) {
-    $('.inputArchiveUserId').val(id);
-    $('.archiveUserForm').submit();
+    Swal.fire({
+
+        title: "Are you sure you want to deactivate this user? <br/>",
+        icon: "question",
+        iconColor: "#938F8F",
+        showCancelButton: true,
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
+        confirmButtonText: "Yes",
+        customClass: {
+            icon: 'custom-icon',
+            title: 'swal-archive-user-title',
+            confirmButton: 'custom-confirm-btn',
+            cancelButton: 'custom-cancel-btn'
+
+        }
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $('.inputArchiveUserId').val(id);
+            $('.archiveUserForm').submit();
+
+        }
+    });
+
+    
+   
 }
 function UnarchiveUser(id) {
-    $('.inputUnrchiveUserId').val(id);
-    $('.unarchiveUserForm').submit();
+    Swal.fire({
+        title: "Are you sure you want to activate this user? <br/>",
+        icon: "question",
+        iconColor: "#938F8F",
+        showCancelButton: true,
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
+        confirmButtonText: "Yes",
+        customClass: {
+            icon: 'custom-icon',
+            title: 'swal-unarchive-user-title',
+            confirmButton: 'custom-confirm-btn',
+            cancelButton: 'custom-cancel-btn'
+
+        }
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $('.inputUnrchiveUserId').val(id);
+            $('.unarchiveUserForm').submit();
+
+        }
+    });
+  
 }
 function ViewDetails(email, contact, username, password) {
    
-    $('#detailsUserModal .email').text(email);
-    $('#detailsUserModal .cellphone').text(contact)
-    $('#detailsUserModal .username').text(username);
-    $('#detailsUserModal .password').text(password)
+    $('#detailsUserModal .detailEmail').val(email);
+    $('#detailsUserModal .detailCellNum').val(contact)
+    $('#detailsUserModal .detailUsername').val(username);
+    $('#detailsUserModal .detailPassword').val(password)
 }
+
+
+

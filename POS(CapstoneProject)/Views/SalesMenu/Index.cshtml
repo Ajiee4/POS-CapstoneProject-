@@ -25,18 +25,25 @@
 <!--Checkout Wrapper-->
 <div class="checkout-wrapper checkHide">
     <div class="checkout-content-wrapper">
-        <img src="~/images/no.png" class="exitCheckout" />
+       
+        <button type="button" class="close exitCheckout">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
         <h1 class="checkout-title">Check Out</h1>
-        <div class="table-header">
-            <div style="color: transparent"></div>
-            <div class="table-header-name">Name &nbsp;&nbsp;&nbsp;</div>
-            <div class="table-header-quantity">Qty</div>
-            <div class="table-header-price">Price &nbsp;</div>
-        </div>
+      
         <div class="checkout-table-wrapper">
             <!--Checkout Table-->
             <table class="checkout-table">
-
+                <thead>
+                    <tr>
+                        <th style="color: transparent"></th>
+                        <th class="table-header-name">Name &nbsp;&nbsp;&nbsp;</th>
+                        <th class="table-header-quantity">Qty</th>
+                        <th class="table-header-coffee">w/coffee</th>
+                        <th class="table-header-price">Price &nbsp;</th>
+                    </tr>
+                </thead>
                 <tbody>
 
                 </tbody>
@@ -67,7 +74,7 @@
 
             <div class="checkout-btn">
                 <button class="cancelBtn">Cancel</button>
-                <button class="payBtn">Pay (₱0.00)</button>
+                <button class="payBtn">Buy</button>
             </div>
         </div>
     </div>
@@ -79,10 +86,13 @@
        <div class="search-wrapper">
              
            <div class="searchProd">
-                <input type="search" class="searchProductInput" onkeyup="searchProduct()" placeholder="Search...">
-                <label>
-                    <img src="~/images/search.png" />
-                </label>
+               <div>
+                    <span>Search: </span>
+               </div>
+             
+                <div>
+                    <input type="search" class="searchProductInput" onkeyup="searchProduct()">
+                </div>              
             </div>
         
        </div>
@@ -152,6 +162,7 @@
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="payment-sales-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">PAYMENT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

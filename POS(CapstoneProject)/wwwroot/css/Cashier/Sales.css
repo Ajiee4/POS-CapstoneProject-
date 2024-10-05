@@ -1,4 +1,4 @@
-﻿*, *::after, *::before {
+﻿/**, *::after, *::before {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -105,10 +105,10 @@
 }
 
 .totalamount-wrapper {
-    width: 100%;
+    width: 100%;*/
     /*  background-color: #F1DCC8;*/
 
-    padding: 10px 5px;
+    /*padding: 10px 5px;
     margin: 0;
     font-size: 1rem;
     display: flex;
@@ -117,9 +117,9 @@
     flex-direction: row
 }
 
-.checkout-footer .checkout-btn {
+.checkout-footer .checkout-btn {*/
     /*  background-color: #F1DCC8;  */
-    width: 100%;
+    /*width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -567,10 +567,10 @@ input::placeholder {
     align-items: center;
     flex-direction: row;
     font-size: 0.8em;
-}
+}*/
 
 /*SweetAlert Custom Class*/
-.custom-icon {
+/*.custom-icon {
     font-size: 8px !important;
 }
 
@@ -597,9 +597,9 @@ input::placeholder {
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;
-}
+}*/
     /*Window Print*/
-@media print {
+/*@media print {
     body * {
         visibility: hidden;
     }
@@ -648,4 +648,4 @@ input::placeholder {
         max-width: 300px;
         margin: 0 auto;
     }
-}
+}*/

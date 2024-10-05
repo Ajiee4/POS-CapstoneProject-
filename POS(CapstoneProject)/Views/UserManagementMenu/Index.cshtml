@@ -99,6 +99,8 @@
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
+
+            <img src="~/images/coffe-logo-light.png" class="add-user-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">ADD USER</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -107,54 +109,56 @@
             </div>
             <div class="modal-body">
                 <form asp-action="AddUser" id="addUserForm" method="post">
-                    <div class="row">
-                        <div class="col-md-6">                        
-                            <label class="control-label">First Name</label>
-                            <input class="form-control inputFirstName" name="firstname" placeholder="Enter First Name" type="text" required />
+                    <div class="row-wrapper">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">First Name</label>
+                                <input class="form-control inputFirstName" name="firstname" placeholder="Enter First Name" type="text" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Last Name</label>
+                                <input class="form-control inputLastName" name="lastname" placeholder="Enter Last Name" type="text" required />
+                            </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="control-label">Last Name</label>
-                            <input class="form-control inputLastName" name="lastname" placeholder="Enter Last Name" type="text" required />
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label">Email</label>
-                            <input class="form-control inputEmail" name="email" placeholder="Enter Email Address" type="email" required />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">Email</label>
+                                <input class="form-control inputEmail" name="email" placeholder="Enter Email Address" type="email" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Cellphone No.</label>
+                                <input class="form-control inputCellphone" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
+                            </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="control-label">Cellphone No.</label>
-                            <input class="form-control inputCellphone" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label">Username</label>
-                            <input class="form-control inputUsername" name="username" placeholder="Enter Username" type="text" required />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">Username</label>
+                                <input class="form-control inputUsername" name="username" placeholder="Enter Username" type="text" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Password</label>
+                                <input class="form-control inputPassword" name="password" placeholder="Enter Password" type="password" required />
+                            </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="control-label">Password</label>
-                            <input class="form-control inputPassword" name="password"  placeholder="Enter Password" type="password" required />
-                        </div>
-                    </div>
-                    
+                        <div class="row">
+                            <div class="col-md-6 d-block mx-auto">
+                                <label class="control-label">Role</label><br />
+                                <input class="form-control" value="Cashier" readonly />
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label">Role</label><br />
-                            <input class="form-control" value="Cashier" readonly/>                           
-                            
+                            </div>
                         </div>
                     </div>
+                 
                                      
                     <br />
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto addUserSubmit">Submit</button>
+                        <button type="button" class="d-block mx-auto addUserSubmit">ADD</button>
                     </div>
                 </form>
             </div>
@@ -167,6 +171,7 @@
 <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="update-user-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE USER</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -177,53 +182,56 @@
                 <form asp-action="UpdateUser" id="updateUserForm" method="post">
 
                     <input class="inputUserId" name="userid" hidden />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label">First Name</label>
-                            <input class="form-control inputFirstName" name="firstname" placeholder="Enter First Name" type="text" required />
+                    <div class="row-wrapper">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">First Name</label>
+                                <input class="form-control inputFirstName" name="firstname" placeholder="Enter First Name" type="text" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Last Name</label>
+                                <input class="form-control inputLastName" name="lastname" placeholder="Enter Last Name" type="text" required />
+                            </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="control-label">Last Name</label>
-                            <input class="form-control inputLastName" name="lastname" placeholder="Enter Last Name" type="text" required />
-                        </div>
-                    </div>
-                   
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label">Email</label>
-                            <input class="form-control inputEmail" name="email" placeholder="Enter Email Address" type="email" required />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">Email</label>
+                                <input class="form-control inputEmail" name="email" placeholder="Enter Email Address" type="email" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Cellphone No.</label>
+                                <input class="form-control inputCellphone" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
+                            </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="control-label">Cellphone No.</label>
-                            <input class="form-control inputCellphone" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">Username</label>
+                                <input class="form-control inputUsername" name="username" placeholder="Enter Username" type="text" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Password</label>
+                                <input class="form-control inputPassword" name="password" placeholder="Enter Password" type="password" required />
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 d-block mx-auto">
+                                <label class="control-label">Role</label><br />
+                                <input class="form-control" value="Cashier" readonly />
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label">Username</label>
-                            <input class="form-control inputUsername" name="username" placeholder="Enter Username" type="text" required />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="control-label">Password</label>
-                            <input class="form-control inputPassword" name="password" placeholder="Enter Password" type="password" required />
-                        </div>
-                    </div>
-                    
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="control-label">Role</label><br />
-                            <input class="form-control" value="Cashier" readonly/>
-                        </div>
-                    </div>
 
                     <br />
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto updateUserSubmit">Submit</button>
+                        <button type="button" class="d-block mx-auto updateUserSubmit">UPDATE</button>
                     </div>
                 </form>
             </div>
@@ -231,9 +239,11 @@
     </div>
 </div>
 
+<!--User Details-->
 <div class="modal fade" id="detailsUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="detail-user-modal-img" />
             <div class="modal-header">
                 <h5 class="modal-title">USER DETAILS</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -242,34 +252,34 @@
             </div>
             <div class="modal-body">              
                      <div class="details-wrapper">
+                            
+                            <div class="detail-info">
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input class="form-control detailEmail" readonly/>
+                                </div>
 
-                         <table class="details-table">
-                                 <tr>
-                                     <th>Email</th>
-                                     <td class="email"></td>
-                                 </tr>
+                                <div class="form-group">
+                                    <label class="control-label">Cellphone Number</label>
+                                    <input class="form-control detailCellNum" readonly/>
+                                </div>
+                            </div>
+                            
 
-                                <tr>
-                                    <th>Cellphone Number</th>
-                                    <td class="cellphone"></td>
-                                </tr>
+                            <div class="form-group">
+                                <label class="control-label">Username</label>
+                                <input class="form-control detailUsername" readonly/>
+                            </div>
 
-                                <tr>
-                                    <th>Username</th>
-                                    <td class="username"></td>
-                                </tr>
-
-                                <tr>
-                                    <th>Password</th>
-                                    <td class="password"></td>
-                                </tr>
-                         </table>
-                           
+                            <div class="form-group"">
+                                <label class="control-label">Password</label>
+                                <input class="form-control detailPassword" readonly />
+                            </div>
+                            
                      </div>                                             
-                <br />
-                <br />
+               
                 <div class="form-group">
-                    <button type="button" data-dismiss="modal" class="d-block mx-auto detailUserBack">Back</button>
+                    <button type="button" data-dismiss="modal" class="d-block mx-auto detailUserBack">BACK</button>
                 </div>
             </div>
         </div>

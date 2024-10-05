@@ -5,13 +5,14 @@
   
 }
 /*Request filter */
-.request-filter-wrapper {  
+.request-filter-wrapper {
     width: 100%;
-    padding: 8px;
-    background-color: black;
-    border: 1px solid black;
+    padding: 15px 10px;
+    background-color: #342924;
+    border: 1px solid white;
     margin-bottom: 5px;
     visibility: hidden;
+    border-radius: 5px;
 }
 .request-filter-wrapper form{
    
@@ -87,6 +88,7 @@
     text-align: left;
     margin-top: 10px;
     font-weight: bolder;
+    color: white;
 }
 
 .list-request-wrapper .list-request-grid {
@@ -120,18 +122,25 @@
 .request-card {
     cursor: pointer;
     border-radius: 5px;
-    background-color: #F1DCC8;
+    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
     padding: 5px;
     height: 150px;
+    border-radius: 20px;
     transition: 0.5s ease-in-out;
     display: flex;
     flex-direction: column;
     box-shadow: 3px 0px 5px rgba(0,0,0,0.2);
     text-wrap: nowrap;
+    border: 2px solid white;
 }
-.request-card > div{
-    border-bottom: 1px solid grey;
 
+
+
+
+
+
+.request-card > div {
+    border-bottom: 1px solid grey;
 }
 .request-card:hover{
     transform: scale(1.04);
@@ -139,12 +148,14 @@
 
 /*Request Modal*/
 #requestCardModal .completeRequestBtn, .cancelRequestBtn {
-    background-color: #693D29;
+    background-color: #342924;
     border-radius: 20px;
     padding: 10px 30px;
     border: none;
     color: white;
-    transition: 0.5s ease-in-out;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 #requestCardModal .completeRequestBtn:hover, .cancelRequestBtn:hover {
@@ -152,15 +163,20 @@
     color: white;
 }
 
+#requestCardModal .modal-content {
+   
+}
 #updateCategoryModal .updateSubmitBtn:hover {
     background-color: black;
     color: white;
 }
 
 #requestCardModal .modal-content {
-    background-color: rgba(197, 172, 148,0.9) !important;
+    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
+    padding: 5px 20px;
+    border: 2px solid white;
 }
 
 #requestCardModal .modal-header {
@@ -188,30 +204,35 @@
 #requestCardModal .close:hover {
     transform: scale(1.2);
 }
-#requestCardModal .request-card-modal-header {
-    display: flex;
-    border: 1px solid black;
-    background-color: #693D29;
-    color: white;
-    justify-content: space-between;
-    padding: 5px;
-    font-weight: bold;
-}
-#requestCardModal .request-card-modal-header > div{
-    padding: 5px;
-    flex: 1;
-}
+
 #requestCardModal .request-card-table-wrapper {
+    
     border: 1px solid black;
-    height: 150px;
     overflow-y: auto;
-    background-color: #F1DCC8;
+  
 }
 #requestCardModal .request-card-table {
     width: 100%;
     
 }
+#requestCardModal .request-card-table tbody {
+   background-color: white;
+}
+#requestCardModal .request-card-table thead {
+    background-color: #342924;
+    color: white;
 
+}
+#requestCardModal .request-card-table tr {
+    border-bottom: 1px solid black;
+}
+
+
+
+#requestCardModal .request-card-table thead th{
+    padding: 10px 5px;
+    text-align: center;
+}
 #requestCardModal .request-card-table td{
     padding: 5px 10px;
     text-align:center;

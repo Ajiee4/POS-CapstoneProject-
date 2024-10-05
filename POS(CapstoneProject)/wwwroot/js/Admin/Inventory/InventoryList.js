@@ -346,10 +346,13 @@ function DisplayRequest() {
                 `
                  <tr >
                         <td style="padding: 10px">
+                            <div class="x">
                                 <img src="/images/delete-black.png"
-                                 onmouseover="hoverElement(this)"
-                                onmouseout="leaveElement(this)"
-                                class="delete-checkout-img d-block mx-auto" onclick="deleteItem(${item.ingredientId})"/>
+                                     onmouseover="hoverElement(this)"
+                                    onmouseout="leaveElement(this)"
+                                    class="delete-checkout-img" onclick="deleteItem(${item.ingredientId})"/>
+                            </div>
+                                
                         </td>
                         <td>
                             ${truncatedName}

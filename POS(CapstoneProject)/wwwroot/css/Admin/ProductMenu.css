@@ -81,10 +81,15 @@
     border-bottom: 1px solid black;
 }
 .product-table tbody td{
- 
+    font-weight: 500;
     text-align: center !important;
 }
-.product-table .action-wrapper{
+.product-table .table-data-category {
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: rgba(183, 183, 183,0.5);
+}
+.product-table .action-wrapper {
     display: flex;
     gap: 5px;
     justify-content: center;
@@ -108,79 +113,7 @@
     transform: scale(1.09);      
 }
 
-/*Responsive table */
-@media (max-width: 770px) {
-    .product-table thead {
-        display: none;
-    }
-    .product-table{
-        width: 100%;
-        max-width: 550px;
 
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important; 
-    }
-
-    .product-table tbody {
-        background-color: transparent !important;
-        border: none !important;
-        outline: none !important;
-    }
-
-    .product-table, .product-table tbody, .product-table tr, .product-table td {
-        display: block;
-        width: 100%;
-    }
-    .product-table tbody td {
-        text-align: right !important;
-        border: none !important;
-        outline: none !important;
-    }
-    .product-table tr {
-        margin-bottom: 20px;  
-        border-bottom: 2px solid #ccc;
-        padding: 5px;
-        border-radius: 10px; 
-       
-        background-color: #f1f1f1 !important;  
-    }
-
-    .product-table td {
-        text-align: right;
-        padding-left: 50%;     
-        position: relative;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border: 1px solid #ccc; 
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);  
-    }
-
-    .product-table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 10px;
-        font-size: 15px;
-        font-weight: bold;
-        text-align: left;
-    }
-    .product-table td .action-wrapper {
-        display: flex;
-        flex-wrap: wrap; 
-       
-        margin-top: 20px;
-    }
-
-    .product-table td .btn {
-        flex: 1;
-        margin-top: 5px;
-        max-width: 200px;
-       
-    }
-
-}
 
 
 /*Data table library*/
@@ -195,7 +128,7 @@
     border-radius: 10px !important;
     
 }
-.dt-paging{
+/*.dt-paging{
     color: white !important;
    
 
@@ -204,7 +137,7 @@
 .dt-paging button {
     border: 1px solid white !important;
 }
-
+*/
 
 .dt-length, .dt-info {
     display: none;
@@ -232,6 +165,8 @@
     background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
     border-radius: 20px;
     box-shadow: 1px 2px 5px black;
+    padding: 5px 20px;
+    border: 2px solid white;
 }
 
 #addProductModal .modal-header, #updateProductModal .modal-header {
@@ -271,6 +206,7 @@
     color: white;
     transition: 0.3s ease-in-out;
     cursor: pointer;
+    font-weight: bold;
 }
 
 #addProductModal .addProductSubmit:hover, #updateProductModal .updateProductSubmit:hover {
@@ -324,12 +260,20 @@ input::placeholder {
 
 /*sweetalert custom class*/
 .custom-icon {
-    font-size: 8px !important; 
+    font-size: 15px !important; 
+    font-weight: 500;
+    padding: 5px;
 }
 
-.swal-archive-title {
-    font-size: 25px ; 
-    font-weight: bolder !important; 
+.custom-confirm-btn,
+.custom-cancel-btn {
+    width: 150px; 
+    font-weight: bold;
+}
+
+.swal-unarchive-title, .swal-archive-title {
+    font-size: 25px;
+    font-weight: bolder !important;
     color: black !important;
 }
 
@@ -340,13 +284,6 @@ input::placeholder {
     font-size: 0.9rem;
     white-space: pre-wrap
 }
-
-.swal-unarchive-title {
-    font-size: 25px; 
-    font-weight: bolder !important; 
-    color: black !important;
-}
-
 .swal-unarchive-title::after {
     content: "This product will be available for sale";
     font-weight: lighter;
@@ -355,18 +292,122 @@ input::placeholder {
     white-space: pre-wrap
 }
 
-.swal-addProd-title {
-    font-size: 25px; 
-    font-weight: bolder !important; 
-    color: black !important;
-}
 
-.swal-updateProd-title {
-    font-size: 25px; 
-    font-weight: bolder !important; 
+
+
+.swal-addProd-title, .swal-updateProd-title {
+    font-size: 25px;
+    font-weight: bolder !important;
     color: black !important;
 }
 
 .archived-product {
     background-color: rgba(0,0,0,0.2) !important; 
+}
+@media (max-width: 350px){
+    .addProductBtn{
+        display: block;
+        margin: 0 auto;
+    }
+    #addProductModal .modal-content, #updateProductModal .modal-content {        
+        padding: 5px;
+        
+    }
+    .add-product-modal-img{
+        width: 120px;
+        height: 120px;
+        top: -40px;
+    }
+    .update-product-modal-img {
+        width: 150px;
+        height: 150px;
+        
+    }
+
+    .custom-confirm-btn,
+    .custom-cancel-btn {
+        width: 80px !important;
+       
+    }
+    .swal-unarchive-title, .swal-archive-title, .swal-addProd-title, .swal-updateProd-title {
+        font-size: 17px;
+    }
+    .swal-archive-title::after {
+        
+        
+        font-size: 0.7rem;
+       
+    }
+}
+/*Responsive table */
+@media (max-width: 770px) {
+    .product-table thead {
+        display: none;
+    }
+
+    .product-table {
+        width: 100%;
+        max-width: 550px;
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .product-table tbody {
+        background-color: transparent !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    .product-table, .product-table tbody, .product-table tr, .product-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .product-table tbody td {
+        text-align: right !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    .product-table tr {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ccc;
+        padding: 5px;
+        border-radius: 10px;
+        background-color: #f1f1f1 !important;
+    }
+
+    .product-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .product-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 10px;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .product-table td .action-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .product-table td .btn {
+        flex: 1;
+        margin-top: 5px;
+        max-width: 200px;
+    }
 }

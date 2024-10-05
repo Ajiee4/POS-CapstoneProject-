@@ -69,14 +69,16 @@ $('.archiveBtn').click(function () {
        
         title: "Are you sure you want to archive this product? <br/>",
         icon: "question",    
-        iconColor: "#1964C5", 
+        iconColor: "#938F8F", 
         showCancelButton: true,
-        confirmButtonColor: "#1964C5",
-        cancelButtonColor: "#F71F1F",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
             icon:  'custom-icon',
             title: 'swal-archive-title',
+            confirmButton: 'custom-confirm-btn',
+            cancelButton: 'custom-cancel-btn'
            
         }
 
@@ -94,17 +96,18 @@ $('.archiveBtn').click(function () {
 $('.unarchiveBtn').click(function () {
 
     Swal.fire({
-        title: "Are you sure you want to unarchive this product? <br/>",
-       
+        title: "Are you sure you want to unarchive this product? <br/>",    
         icon: "question",
-        iconColor: "#1964C5",
+        iconColor: "#938F8F",
         showCancelButton: true,
-        confirmButtonColor: "#1964C5",
-        cancelButtonColor: "#F71F1F",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
             title: 'swal-unarchive-title',
+            confirmButton: 'custom-confirm-btn',
+            cancelButton: 'custom-cancel-btn'
 
         }
 
@@ -206,16 +209,20 @@ function AddProduct() {
                 icon: "question",
                 title: "Do you want to add this product?",              
                 icon: "question",
-                iconColor: "#1964C5",
+                iconColor: "#938F8F",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
+                confirmButtonColor: "#006ACD",
+                cancelButtonColor: "#F71900",
                 confirmButtonText: "Yes",
                 customClass: {
                     icon: 'custom-icon',
                     title: 'swal-addProd-title',
+                    confirmButton: 'custom-confirm-btn',
+                    cancelButton: 'custom-cancel-btn'
 
                 }
+
+               
 
             }).then((result) => {
 
@@ -263,14 +270,16 @@ function UpdateProduct() {
             Swal.fire({
                 icon: "question",
                 title: "Do you want to update this product?",
-                iconColor: "#1964C5",
+                iconColor: "#938F8F",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
+                confirmButtonColor: "#006ACD",
+                cancelButtonColor: "#F71900",
                 confirmButtonText: "Yes",
                 customClass: {
                     icon: 'custom-icon',
                     title: 'swal-updateProd-title',
+                    confirmButton: 'custom-confirm-btn',
+                    cancelButton: 'custom-cancel-btn'
 
                 }
 
@@ -282,6 +291,8 @@ function UpdateProduct() {
 
                 }
             });
+
+           
 
 
         } else {

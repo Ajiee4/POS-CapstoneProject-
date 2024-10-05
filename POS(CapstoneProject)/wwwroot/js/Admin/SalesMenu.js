@@ -25,13 +25,15 @@ function checkCategory() {
     let found = false;
 
     if (localCategory == null || localCategory == '') {
+        localStorage.removeItem('categoryName');
         return;
     };
 
     items.forEach(item => {
         let catName = item.dataset.category;
         item.classList.remove('active');
-        if (catName == localCategory) {
+     
+        if (catName.trim() == localCategory.trim()) {
             item.classList.add('active');
 
             products.forEach(product => {
@@ -151,12 +153,12 @@ function DisplayCheckOut() {
     const storedList = localStorage.getItem('checkOutList');
     checkOutList.forEach((item) => {
 
-        const truncatedName = item.prodName.length > 10 ? `${item.prodName.substring(0, 10)}...` : item.prodName;
+        const truncatedName = item.prodName.length > 5 ? `${item.prodName.substring(0, 6)}...` : item.prodName;
         html +=
             `
              <tr >
                     <td style="padding: 10px">
-                            <img src="/images/delete-black.png"
+                            <img src="/images/delete.png"
                             onmouseover="hoverElement(this)"
                             onmouseout="leaveElement(this)"
                             class="delete-checkout-img d-block mx-auto"
@@ -168,16 +170,19 @@ function DisplayCheckOut() {
                     <td class="table-data-quantity">
                         <div class="quantity-table-data">
                             <span class="button decrementBtn" onclick="decrementQty(${item.prodID})">
-                                <img src="/images/minus-sign.png" />
+                                <img src="/images/minus.png" />
                             </span>
 
                             <span class="quantity">${item.prodQty}</span>
 
                             <span class="button incrementBtn" onclick="incrementQty(${item.prodID})">
-                                <img src="/images/plus.png" />
+                                <img src="/images/plus-white.png" />
                            </span>
                         </div>
 
+                    </td>
+                     <td class="table-data-coffee">
+                       <input type="checkbox"/>
                     </td>
 
                     <td class="table-data-price">₱${item.prodPrice} &nbsp;</td>
@@ -190,7 +195,7 @@ function DisplayCheckOut() {
 
     let subTotalText = document.querySelector('.subTotalValue');
     let totalAmountText = document.querySelector('.TotalAmount');
-    $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)
+  /*  $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)*/
     subTotalText.innerHTML = `₱${CalculateSubtotal().toFixed(2)}`;
     totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
 
@@ -268,7 +273,7 @@ function deleteItem(id) {
     }  
     
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList)); 
-    popUpMessageToast('success', 'Product Deleted', 300);
+   /* popUpMessageToast('success', 'Product Deleted', 300);*/
 }
 
 function hoverElement(img) {
@@ -276,7 +281,7 @@ function hoverElement(img) {
 }
 
 function leaveElement(img) {
-    img.src = '/images/delete-black.png';
+    img.src = '/images/delete.png';
 }
 
 
@@ -309,7 +314,7 @@ function ApplyDiscount() {
     let totalAmountText = document.querySelector('.TotalAmount');
 
     CalculateTotalAmount();  
-    $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)
+   /* $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)*/
     totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
 }
 
@@ -342,14 +347,16 @@ $('.cancelBtn').click(function (){
         Swal.fire({
             icon: "question",
             title: "Are you sure you want to cancel? <br>",
-
+            iconColor: "#938F8F",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#006ACD",
+            cancelButtonColor: "#F71900",
             confirmButtonText: "Yes",
             customClass: {
                 icon: 'custom-icon',
                 title: 'swal-salesCancel-title',
+                confirmButton: 'custom-confirm-btn',
+                cancelButton: 'custom-cancel-btn'
 
             }
 
@@ -381,6 +388,9 @@ $('.payBtn').click(function () {
         $('.totalAmountInputReadOnly').val(total.toFixed(2))
        
     }
+
+   
+   
 
 });
 
@@ -437,21 +447,29 @@ function onInputCash(e) {
     
 }
 
-//validates the cash tendered
+$('#paymentModal').on('hidden.bs.modal', function () {
+    $('.amountInput').val(null);
+    $('.changeAmountText').val(null);
+    $('.calculateBtn').hide();
+});
+
+/*validates the cash tendered*/
 
 $('.calculateBtn').click(function () {
   
     Swal.fire({
         icon: "question",
         title: "Confirm payment? <br>",
-
+        iconColor: "#938F8F",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
             title: 'swal-sales-title',
+            confirmButton: 'custom-confirm-btn',
+            cancelButton: 'custom-cancel-btn'
 
         }
 
@@ -487,6 +505,7 @@ $('.calculateBtn').click(function () {
    
   
 });
+
 
 //if the name is greater than 8
 function truncateName() {

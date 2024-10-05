@@ -44,7 +44,7 @@
 </div>
 <!--Request List-->
 <div class="list-request-wrapper">
-    <div class="note">
+   @*  <div class="note">
         <p>
             <b>Note</b>:
         </p>
@@ -52,7 +52,7 @@
             <li>Ingredients with a quantity of zero will not be recorded in the Stock Movement.</li>
             <li>Inventory Level will be updated once the request is complete.</li>
         </ul>
-    </div>
+    </div> *@
     <h1 class="list-request-header"></h1>
     <div class="list-request-grid">
         <!--Pending Requests-->
@@ -217,11 +217,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="request-card-modal-header">
-                    <div class="request-card-modal-name">Ingredient</div>
-                    <div class="request-card-modal-quantity">Quantity</div>
-
-                </div>
+             
                 <div class="request-card-table-wrapper">
                     <table class="request-card-table">
                         <form asp-action="UpdateRequest" method="post" id="FormRequestUpdate">
@@ -232,6 +228,12 @@
 
                             <input name="requestId" class="inputRequestIdcancel" hidden />
                         </form>
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
                         <tbody id="requestDetailsTableBody">
                          
                         </tbody>
