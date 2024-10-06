@@ -13,6 +13,35 @@
 .dt-length, .dt-info {
     display: none;
 }
+.dt-paging{
+    margin: 0px !important;
+    padding: 0px !important;
+    background-color: white;
+    border: 1px solid black !important;
+}
+.dt-paging nav {
+    margin: 0px !important;
+    padding: 0px !important;
+    display: flex !important;
+    gap: 0px !important;
+}
+.dt-paging nav > .dt-paging-button {
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    margin-left: 0 !important;
+    border-radius: 0px !important;
+}
+div.dt-container .dt-paging .dt-paging-button.current {
+    background: linear-gradient(to bottom, #585858 0%, #111 100%) !important;
+    border: none !important;
+    outline: none !important;
+    color: white !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current:hover {
+    color: white !important;
+    border: none !important;
+    outline: none !important
+}
 
 /*General Table*/
 .general-table {
