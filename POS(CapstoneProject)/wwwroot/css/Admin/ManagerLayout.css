@@ -134,21 +134,22 @@ body {
     transition: 0.3s;
     gap: 5px;
 }
-    .header .right-section .logout-link > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .header .right-section .logout-link:hover {
-        transform: scale(1.09);
-    }
+.header .right-section .logout-link > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header .right-section .logout-link:hover {
+    transform: scale(1.09);
+}
 .header .right-section .logout-link img {
     height: 12px;
     width: 12px;
 }
 .header .right-section .logout-link span {
     color: white;
-    font-weight: lighter;
+    font-weight: 500;
+    font-family: "Inter";
     font-size: 0.7rem;
 }
 

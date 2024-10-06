@@ -4,23 +4,11 @@
     margin: 0;
   
 }
+/*Button Wrapper*/
 .inventory-button-wrapper{
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
-}
-
-.updateIngredientBtn {
-    background-color: #1964C5;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.updateIngredientBtn img {
-    height: 20px;
-    width: 20px;
 }
 
 .addIngredientBtn, .stockOutBtn, .requestBtn {
@@ -55,60 +43,28 @@
     color: white;
 }
 
-
+/*Inventory Wrapper*/
 .inventory-wrapper {
     position: relative;
     width: 100%;
     visibility: hidden;
 }
 
-.inventory-table {
-    border: 1px solid transparent !important;
-    z-index: 1 !important;
-}
-
-.inventory-table thead {
-    color: white;
-}
-
-.inventory-table thead th {
-    font-size: 0.8rem;
-    background-color: #342924;
-    text-align: center !important;
-}
-
-.inventory-table th:first-child {
-    border-radius: 50px 0 0 50px !important;
-}
-
-.inventory-table th:last-child {
-    border-radius: 0 50px 50px 0 !important;
-}
-
-.inventory-table tbody {
-    background-color: #F7F7F7;
-    color: black;
-}
-
-
-.inventory-table tbody tr {
-    cursor: pointer;
-    border-bottom: 1px solid black;
+/*Inventory Table*/
+.inventory-table thead th{
+    font-size: 0.7rem;
 }
 .inventory-table tbody tr:hover {
     background-color: rgba(0,0,0,0.1);
 }
 
-.inventory-table tbody td {
-    font-weight: 500;
-    text-align: center !important;
-}
+
 .inventory-table .action-wrapper{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
 }
 
-.inventory-table .action-button  button {
+.inventory-table .action-button button {
     padding: 10px;
     cursor: pointer;
     transition: 0.3s ease-in-out;
@@ -135,214 +91,16 @@
     animation: glowing 1s infinite;
 }
 
-/*Responsive Inventory Table*/
-@media (max-width: 770px) {
-    .inventory-table thead {
-        display: none;
-    }
 
-    .inventory-wrapper {
-        width: 100% !important;
-    }
 
-    .inventory-table {
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        width: 100% ;
-        max-width: 550px;
-    }
-
-    .inventory-table tbody {
-        background-color: transparent !important;
-        border: none !important;
-        outline: none !important;
-    }
-
-    .inventory-table, .inventory-table tbody, .inventory-table tr, .inventory-table td {
-        display: block;
-        width: 100%;
-    }
-
-    .inventory-table tbody td {
-        text-align: right !important;
-        border: none !important;
-        outline: none !important;      
-    }
-
-    .inventory-table tr {
-        margin-bottom: 20px;
-        border-bottom: 2px solid #ccc;
-        padding: 5px;
-        border-radius: 10px;
-        background-color: #f1f1f1 !important;    
-    }
-
-    .inventory-table td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border: 1px solid #ccc;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    .inventory-table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        padding-left: 10px;
-        font-size: 15px;
-        font-weight: bold;
-        text-align: left;
-    }
-
-    .inventory-table td .action-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        margin-top: 20px;
-    }
-
-    .inventory-table td .btn {
-        flex: 1;
-        margin-top: 5px;
-        max-width: 200px;
-    }
-}
-
-/*Data table Library*/
-.dt-search label {
-    color: black;
-    font-weight: lighter;
-}
-
-.dt-search .dt-input {
-    border: 1px solid black !important;
-}
-
-.dt-length, .dt-info {
-    display: none;
-}
-input::placeholder {
-    color: dimgrey;
-    font-weight: lighter;
-    font-size: 0.9rem;
-}
-
-/*Modal*/
-
-.add-ingredient-modal-img {
-    height: 150px;
-    width: 150px;
-    position: absolute;
-    top: -60px;
-    left: -20px;
-    z-index: 10;
-}
-.update-ingredient-modal-img {
-    height: 180px;
-    width: 180px;
-    position: absolute;
-    bottom: -15px;
-    right: -25px;
-    z-index: 10;
-}
-
-#addIngredientModal .modal-content, #updateIngredientModal
-.modal-content{
-    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px black;
-    padding: 5px 20px;
-    border: 2px solid white;
-}
-#addIngredientModal .modal-content input, #updateIngredientModal
-.modal-content input {
-    background-color: #D1D6D2;
-    border-radius: 10px !important;
-}
-
-#addIngredientModal .modal-header, #updateIngredientModal
-.modal-header{
-    border: none;
-}
-
-#addIngredientModal .modal-title, #updateIngredientModal
-.modal-title{
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#addIngredientModal label, #updateIngredientModal label
-  {
-    font-weight: bold
-}
-
-#addIngredientModal .close, #updateIngredientModal .close,
-#choiceIngredientModal .close{
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    outline: none;
-    transition: 0.5s;
-}
-
-#addIngredientModal .close:hover, #updateIngredientModal .close:hover,
-#choiceIngredientModal .close:hover{
-    transform: scale(1.2);
-}
-
-#addIngredientModal .addIngredientSubmit, #updateIngredientModal .updateIngredientSubmit
-{
-    background-color: #342924;
-    border-radius: 20px;
-    padding: 10px 30px;
-    border: none;
-    color: white;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#addIngredientModal .addIngredientSubmit:hover, #updateIngredientModal .updateIngredientSubmit:hover
-{
-    background-color: black;
-    color: white;
-}
 
 /*SweetAlert Custom Class*/
 .custom-icon {
-    font-size: 8px !important; 
+    font-size: 15px !important;
+    font-weight: 500;
+    padding: 5px;
 }
 
-.swal-addIngredient-title {
-    font-size: 25px;
-    font-weight: bolder !important; 
-    color: black !important;
-}
-
-.swal-updateIngredient-title {
-    font-size: 25px; 
-    font-weight: bolder !important; 
-    color: black !important;
-}
-
-.swal-stockInIngredient-title {
-    font-size: 25px;
-    font-weight: bolder !important;
-    color: black !important;
-}
-
-.swal-stockOutIngredient-title {
-    font-size: 25px;
-    font-weight: bolder !important;
-    color: black !important;
-}
 .swal-stockOutInsufficient-title-many:after {
     content: "The following ingredients are:";
     font-weight: lighter;
@@ -377,8 +135,8 @@ input::placeholder {
         filter: drop-shadow(0px 0px 0px red);
     }
 }
-
-
+/*
+Request & Stock Out*/
 .exitRequest, .exitStockOut {
     position: absolute;
     top: 5px;
@@ -393,9 +151,6 @@ input::placeholder {
 .exitRequest:hover, .exitStockOut:hover {
     transform: scale(1.5)
 }
-
-
-
 
 .request-list-wrapper, .stock-out-wrapper {
     background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
@@ -528,8 +283,7 @@ input::placeholder {
     font-weight: bolder;
     color: white;
     border: none;
-    border-radius: 20px;
-   
+    border-radius: 20px;   
     transition: .3ms ease-in-out;
 }
 
@@ -543,9 +297,8 @@ input::placeholder {
     border: 1px solid black;
     border-radius: 20px;
     transition: .3ms ease-in-out;
+    
 }
-
-
 
 .stock-out-footer {
     display: flex;
@@ -561,6 +314,9 @@ input::placeholder {
     gap: 20px;
    
 }
+.footer-buttons-wrapper > button{
+    cursor: pointer;
+}
 .footer-buttons-wrapper .stockOutSubmit {
     width: 120px;
     height: 50px;
@@ -569,7 +325,7 @@ input::placeholder {
     font-weight: bolder;
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 20px;  
     transition: .3ms ease-in-out;
 }
 

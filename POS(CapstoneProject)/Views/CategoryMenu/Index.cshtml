@@ -21,7 +21,7 @@
         <span>Add Category</span>
         </button>
     <!--Category Table-->
-    <table class="category-table">
+    <table class="category-table general-table">
         <thead>
             <tr>
                 <th>ID</th>          
@@ -42,7 +42,7 @@
                         </td>
                         <td data-label="Actions">
                             <div class="action-wrapper">
-                                <button class="btn updateCategoryBtn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
+                                <button class="btn updateCategoryBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
                                     <img src="~/images/edit.png" />
                                 </button>
                             </div>
@@ -62,10 +62,10 @@
 
 
 <!--Add New Category-->
-<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade general-modal" id="addCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <img src="~/images/coffe-logo-light.png" class="add-category-modal-img" />
+            <img src="~/images/coffe-logo-light.png" class="add-category-modal-img general-coffee-img-bottom" />
             <div class="modal-header">
                 <h5 class="modal-title">ADD CATEGORY</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -77,12 +77,12 @@
             <div class="modal-body">
                 <form asp-action="AddCategory" id="addForm" asp-controller="CategoryMenu" method="post">
                     <div class="form-group">
-                        <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" class="form-control addInputName" placeholder="Enter Category Name" required />
+                        <label asp-for="CategoryName" class="control-label general-modal-label">Category Name</label>
+                        <input asp-for="CategoryName" class="form-control addInputName general-modal-input" placeholder="Enter Category Name" required />
                     </div>               
                     <br />
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto addSubmitBtn" >ADD</button>
+                        <button type="button" class="d-block mx-auto addSubmitBtn general-modal-button">ADD</button>
                     </div>
                 </form>
             </div>
@@ -92,10 +92,10 @@
 </div>
 
 <!--Update Category-->
- <div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade general-modal" id="updateCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <img src="~/images/coffe-logo-light.png" class="update-category-modal-img" />
+            <img src="~/images/coffe-logo-light.png" class="update-category-modal-img general-coffee-img-top" />
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE CATEGORY</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -107,12 +107,12 @@
                 <form asp-action="UpdateCategory" id="updateForm" method="post">                 
                     <input asp-for="CategoryId" class="form-control input-id" hidden/>
                     <div class="form-group">
-                        <label asp-for="CategoryName" class="control-label">Category Name</label>
-                        <input asp-for="CategoryName" placeholder="Enter Category Name" class="form-control updateInputName" required />                       
+                        <label asp-for="CategoryName" class="control-label general-modal-label">Category Name</label>
+                        <input asp-for="CategoryName" placeholder="Enter Category Name" class="form-control updateInputName general-modal-input" required />
                     </div>
                     <br />
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto updateSubmitBtn">UPDATE</button>
+                        <button type="button" class="d-block mx-auto updateSubmitBtn general-modal-button">UPDATE</button>
                     </div>
                 </form>
             </div>

@@ -5,14 +5,7 @@
    
 }
 
-/*Header*/
-.header .right-section .checkout-icon{
-    display: none;
-}
 
-.sidebar ul ul{
-    z-index: 100 !important;
-}
 .addCategoryBtn {
     background-color: transparent;
     display: flex;
@@ -46,283 +39,26 @@
     transform: scale(1.03);
 }
 
+/*Category Wrapper*/
 .category-wrapper {
     position: relative;
     width: 100%;
     visibility: hidden;
 }
 
-.updateCategoryBtn {
-    background-color: #1964C5;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.updateCategoryBtn img {
-    height: 20px;
-    width: 20px;
-}
 
 /* Category Table */
-.category-table {
-    border: 1px solid transparent !important;
-    z-index: 1 !important;
-}
-
-.category-table thead {
-    color: white;
-}
-
-.category-table thead th {
-    background-color: #342924;
-    text-align: center !important;
-}
-
-.category-table th:first-child {
-    border-radius: 50px 0 0 50px !important;
-}
-
-.category-table th:last-child {
-    border-radius: 0 50px 50px 0 !important;
-}
-
-.category-table tbody {
-    background-color: #F7F7F7;
-    color: black;
-}
-
 
 .category-table tbody tr {
-    border-bottom: 1px solid black;
     cursor: pointer;
-}
-
-.category-table tbody td {
-    text-align: center !important;
-    font-weight: 500;
-       
 }
 .category-table tr:hover .table-data-category {
     border-radius: 20px;
     padding: 5px 10px;
     background-color: rgba(183, 183, 183,0.5);
-}
-.category-table .action-wrapper {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
-}
-
-.category-table .action-wrapper > button {
-    padding: 10px;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
-    border: none;
-    outline: none;
 }
 
-.category-table .action-wrapper > button:focus {
-    outline: 1px solid black;
-}
-
-.category-table .action-wrapper > button:hover {
-    transform: scale(1.09);
-}
-
-/* Responsive Table*/
-
-@media (max-width: 770px) {
-    .category-table thead {
-        display: none;
-    }
-
-    .category-table {
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        width: 100%;
-        max-width: 550px;
-    }
-
-    .category-table tbody {
-        background-color: transparent !important;
-        border: none !important;
-        outline: none !important;
-    }
-
-    .category-table, .category-table tbody, .category-table tr, .category-table td {
-        display: block;
-        width: 100%;
-    }
-
-    .category-table tbody td {
-        text-align: right !important;
-        border: none !important;
-        outline: none !important;
-    }
-
-    .category-table tr {
-        margin-bottom: 20px;
-        border-bottom: 2px solid #ccc;
-        padding: 5px;
-        border-radius: 10px;
-        background-color: #f1f1f1 !important;
-    }
-
-    .category-table td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border: 1px solid #ccc;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    .category-table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 10px;
-        font-size: 15px;
-        font-weight: bold;
-        text-align: left;
-    }
-
-    .category-table td .action-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        margin-top: 20px;
-    }
-
-    /*.category-table td .btn {
-        flex: 1;
-        margin-top: 5px;
-        max-width: 200px;
-    }*/
-}
-
-
-.add-category-modal-img {
-    height: 220px;
-    width: 220px;
-    position: absolute;
-    bottom: -15px;
-    right: -25px;
-    z-index: 10;
-}
-
-.update-category-modal-img {
-
-    height: 150px;
-    width: 150px;
-    position: absolute;
-    top: -49px;
-    left: -20px;
-    z-index: 10;
-}
-
-#addCategoryModal .addSubmitBtn, #updateCategoryModal .updateSubmitBtn {
-    background-color: #342924;
-    border-radius: 20px;
-    padding: 10px 30px;
-    border: none;
-    color: white;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-    font-weight: bold;
-}
-#addCategoryModal .addSubmitBtn:hover {
-    background-color: black;
-    color: white;
-}
-
-#updateCategoryModal .updateSubmitBtn:hover {
-    background-color: black;
-    color: white;
-}
-
-#addCategoryModal .modal-content, #updateCategoryModal .modal-content {
-    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px black;
-    padding: 5px 20px;
-    border: 2px solid white;
-}
-
-    #addCategoryModal .modal-content input, #updateCategoryModal .modal-content input {
-        background-color: #D1D6D2;
-        border-radius: 10px !important;
-    }
-
-#addCategoryModal .modal-header, #updateCategoryModal .modal-header {
-    border: none;
-}
-
-#addCategoryModal .modal-title, #updateCategoryModal .modal-title {
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#addCategoryModal label, #updateCategoryModal label {
-
-    font-weight: bold;
-
-}
-
-#addCategoryModal .close, #updateCategoryModal .close {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    outline: none;
-    transition: 0.5s;
-
-}
-#addCategoryModal .close:hover, #updateCategoryModal .close:hover {
-    transform: scale(1.2);
-
-}
-
-/*Data Table*/
-.dt-search label {
-    color: white !important;
-    font-weight: lighter !important;
-}
-
-.dt-search .dt-input {
-    border: 1px solid white !important;
-    outline: 1px solid white !important;
-    border-radius: 10px !important;
-}
-
-.dt-length, .dt-info {
-    display: none;
-
-}
-/*.dt-paging {
-    color: white !important;
-}
-
-    .dt-paging button {
-        border: 1px solid white !important;
-    }
-
-*/
-input::placeholder{
-    color: black !important;
-    font-weight: lighter;
-    font-size: 0.9rem;
-}
-
-input:focus{
-    outline: 1px solid grey !important;
-}
 
 /*SweetAlert Custom Class*/
 .custom-icon {
@@ -331,20 +67,8 @@ input:focus{
 
 
 
-.custom-confirm-btn,
-.custom-cancel-btn {
-    width: 150px;
-    font-weight: bold;
-}
 
-
-.swal-updateCategory-title, .swal-addCategory-title {
-    font-size: 25px;
-    font-weight: bolder !important;
-    color: black !important;
-}
-
-@media (max-width: 390px) {
+/*@media (max-width: 390px) {
     .addCategoryBtn {
         display: block;
         margin: 0 auto;
@@ -375,4 +99,4 @@ input:focus{
     .swal-addCategory-title, .swal-updateCategory-title {
         font-size: 17px;
     }
-}
+}*/

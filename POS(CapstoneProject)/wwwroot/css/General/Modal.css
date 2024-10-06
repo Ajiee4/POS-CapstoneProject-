@@ -1,0 +1,77 @@
+﻿
+
+
+/*Coffee Image*/
+.general-coffee-img-top {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: -60px;
+    left: -20px;
+    z-index: 10;
+}
+.general-coffee-img-bottom {
+    height: 180px;
+    width: 180px;
+    position: absolute;
+    bottom: -15px;
+    right: -25px;
+    z-index: 10;
+}
+
+/*General Modal*/
+.general-modal .modal-content {
+    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
+    border-radius: 20px;
+    box-shadow: 1px 2px 5px black;
+    padding: 5px 20px;
+    border: 2px solid white;
+}
+.general-modal .modal-content .modal-header {
+    border: none;
+}
+
+.general-modal .modal-content .modal-header .modal-title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.general-modal .general-modal-label{
+    font-weight: bold
+}
+
+.general-modal .general-modal-input {
+    background-color: #D1D6D2;
+    border-radius: 10px !important;
+}
+.general-modal .general-modal-input::placeholder {
+    color: black !important;
+    font-weight: lighter;
+    font-size: 0.9rem;
+}
+.general-modal .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    outline: none;
+    transition: 0.5s;
+}
+.general-modal .close:hover {
+    transform: scale(1.2);
+}
+.general-modal .general-modal-button {
+    background-color: #342924;
+    border-radius: 20px;
+    padding: 10px 30px;
+    border: none;
+    color: white;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    font-weight: bold;
+}
+.general-modal .general-modal-button:hover {
+    background-color: black;
+    color: white;
+}
+

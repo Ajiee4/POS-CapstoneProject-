@@ -1,0 +1,181 @@
+﻿/*Data Table JS*/
+
+.dt-search label {
+    color: white !important;
+    font-weight: lighter !important;
+}
+
+.dt-search .dt-input {
+    border: 1px solid white !important;
+    outline: 1px solid white !important;
+    border-radius: 10px !important;
+}
+.dt-length, .dt-info {
+    display: none;
+}
+
+/*General Table*/
+.general-table {
+    border: 1px solid transparent !important;
+    z-index: 1 !important;
+}
+
+.general-table thead {
+    color: white;
+}
+
+.general-table thead th {
+    background-color: #342924;
+    text-align: center !important;
+}
+
+.general-table th:first-child {
+    border-radius: 50px 0 0 50px !important;
+}
+
+.general-table th:last-child {
+    border-radius: 0 50px 50px 0 !important;
+}
+
+.general-table tbody {
+    background-color: #F7F7F7;
+    color: black;
+}
+
+
+.general-table tbody tr {
+    border-bottom: 1px solid black;
+}
+
+.general-table tbody td {
+    font-weight: 500;
+    text-align: center !important;
+}
+
+/*Action Wrapper*/
+
+.general-table .action-wrapper {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.general-table .action-wrapper > button {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border: none;
+    outline: none;
+}
+
+.general-table .action-wrapper > button:focus {
+    outline: 1px solid black;
+}
+
+.general-table .action-wrapper > button:hover {
+    transform: scale(1.09);
+}
+
+/*Action Buttons*/
+
+.general-table .general-update-btn {
+    background-color: #1964C5;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.general-table .general-details-btn {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+.general-table .general-archive-btn, .general-unarchive-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F71F1F;
+    cursor: pointer;
+}
+
+
+.general-table .general-archive-btn img, .general-unarchive-btn img, .general-update-btn img, .general-details-btn img {
+    height: 20px;
+    width: 20px;
+}
+
+/*Responsive table */
+@media (max-width: 770px) {
+    .general-table thead {
+        display: none;
+    }
+
+    .general-table {
+        width: 100%;
+        max-width: 550px;
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .general-table tbody {
+        background-color: transparent !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    .general-table, .general-table tbody, .general-table tr, .general-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .general-table tbody td {
+        text-align: right !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    .general-table tr {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ccc;
+        padding: 5px;
+        border-radius: 10px;
+        background-color: #f1f1f1 !important;
+    }
+
+    .general-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .general-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 10px;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .general-table td .action-wrapper {
+       
+        flex-wrap: wrap;
+        justify-content: center !important;
+        margin-top: 20px;
+    }
+             
+}

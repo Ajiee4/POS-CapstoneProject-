@@ -148,14 +148,16 @@ $('.cancelRequestBtn').click(function () {
     Swal.fire({
         icon: "question",
         title: "Cancel Request? <br>",
-
+        iconColor: "#938F8F",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
-            icon: 'custom-icon',
-            title: 'swal-updaterequest-title',
+            icon: 'general-swal-icon',
+            title: 'swal-update-request-title general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
 
         }
 
@@ -181,20 +183,22 @@ $('.completeRequestBtn').click(function () {
 
     let checkRequest = requestListUpdate.every(item => item.Quantity == 0);
     if (checkRequest) {
-        popUpMessageInventoryRequest("All Ingredients' quantities must not be zero","error")
+        popUpMessageInventoryRequest("All Ingredients' quantities must not be zero", "error")
         return;
     }
     Swal.fire({
         icon: "question",
         title: "Complete Request? <br>",
-
+        iconColor: "#938F8F",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
-            icon: 'custom-icon',
-            title: 'swal-updaterequest-title',
+            icon: 'general-swal-icon',
+            title: 'swal-update-request-title general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
 
         }
 

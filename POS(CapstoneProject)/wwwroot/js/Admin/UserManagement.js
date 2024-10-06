@@ -48,7 +48,7 @@ $('#addUserModal').on('hidden.bs.modal', function () {
 
 });
 $('.addUserSubmit').click(function () {
-    alert('hi')
+  
     AddNewUser();
 });
 
@@ -100,9 +100,9 @@ function AddNewUser() {
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
-            title: 'swal-addUser-title',
-            confirmButton: 'custom-confirm-btn',
-            cancelButton: 'custom-cancel-btn'
+            title: 'general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -199,9 +199,9 @@ function UpdateUser() {
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
-            title: 'swal-updateUser-title',
-            confirmButton: 'custom-confirm-btn',
-            cancelButton: 'custom-cancel-btn'
+            title: 'general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -225,9 +225,9 @@ function ArchiveUser(id) {
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
-            title: 'swal-archive-user-title',
-            confirmButton: 'custom-confirm-btn',
-            cancelButton: 'custom-cancel-btn'
+            title: 'general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
 
         }
 
@@ -255,9 +255,9 @@ function UnarchiveUser(id) {
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
-            title: 'swal-unarchive-user-title',
-            confirmButton: 'custom-confirm-btn',
-            cancelButton: 'custom-cancel-btn'
+            title: 'general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
 
         }
 

@@ -5,11 +5,6 @@
   
 }
 
-/*header*/
-.header .right-section .checkout-icon {
-    display: none;
-}
-
 .addUserBtn {
     background-color: transparent;
     display: flex;
@@ -40,262 +35,15 @@
     color: white;
 }
 
+/*User Wrapper*/
+
 .user-wrapper {
     position: relative;
     width: 100%;
     visibility: hidden;
 }
-.user-table {
-    border: 1px solid transparent !important;
-    z-index: 1 !important;
-}
-.user-table th:first-child {
-    border-radius: 50px 0 0 50px !important;
-}
 
-.user-table th:last-child {
-    border-radius: 0 50px 50px 0 !important;
-}
-.user-table thead {
-   
-    color: white;
-}
-
-.user-table thead th {
-    background-color: #342924;
-    text-align: center !important;
-}
-
-.user-table tr {
-    border-bottom: 1px solid black;
-}
-
-.user-table tbody {
-    background-color: #F7F7F7;
-    color: black;
-}
-
-.user-table tbody td {
-    font-weight: 500;
-    text-align: center !important;
-}
-.updateUserBtn {
-    background-color: #1964C5;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.detailsUserBtn {
-    background-color: black;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.unarchiveUserBtn, .archiveUserBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #F71F1F;
-}
-
-.archiveUserBtn img, .unarchiveUserBtn img, .updateUserBtn img, .detailsUserBtn img {
-    height: 20px;
-    width: 20px;
-}
-
-
-.user-table .action-wrapper {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
-}
-
-.user-table .action-wrapper > button {
-    padding: 10px;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    border: none;
-    outline: none;
-}
-
-.user-table .action-wrapper > button:focus {
-    outline: 1px solid black;
-}
-
-.user-table .action-wrapper > button:hover {
-    transform: scale(1.09);
-}
-
-@media (max-width: 770px) {
-    .user-table thead {
-        display: none;
-    }
-
-    .user-table {
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        width: 100%;
-        max-width: 550px;
-    }
-
-    .user-table tbody {
-        background-color: transparent !important;
-        border: none !important;
-        outline: none !important;
-    }
-
-    .user-table, .user-table tbody, .user-table tr, .user-table td {
-        display: block;
-        width: 100%;
-    }
-
-    .user-table tbody td {
-        text-align: right !important;
-        border: none !important;
-        outline: none !important;
-    }
-
-    .user-table tr {
-        margin-bottom: 20px;
-        border-bottom: 2px solid #ccc;
-        padding: 5px;
-        border-radius: 10px;
-        background-color: #f1f1f1 !important;
-    }
-
-    .user-table td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border: 1px solid #ccc;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    .user-table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 10px;
-        font-size: 15px;
-        font-weight: bold;
-        text-align: left;
-    }
-
-    .user-table td .action-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        margin-top: 20px;
-    }
-
-    /*.user-table td .btn {
-        flex: 1;
-        margin-top: 5px;
-        max-width: 200px;
-    }*/
-}
-
-
-
-
-/*Datatable js*/
-.dt-search label {
-    color: black;
-    font-weight: lighter;
-}
-
-.dt-search .dt-input {
-    border: 1px solid black !important;
-}
-
-.dt-length, .dt-info {
-    display: none;
-}
-
-input::placeholder {
-    color: dimgrey;
-    font-weight: lighter;
-    font-size: 0.9rem;
-}
-
-/*Modal*/
-
-.add-user-modal-img {
-    height: 180px;
-    width: 180px;
-    position: absolute;
-    bottom: -15px;
-    right: -25px;
-    z-index: 10;
-}
-.detail-user-modal-img {
-    height: 180px;
-    width: 180px;
-    position: absolute;
-    bottom: -15px;
-    right: -25px;
-    z-index: 10;
-}
-.update-user-modal-img {
-    height: 150px;
-    width: 150px;
-    position: absolute;
-    top: -60px;
-    left: -20px;
-    z-index: 10;
-}
-
-#addUserModal .modal-content, #updateUserModal .modal-content, #detailsUserModal .modal-content {
-    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px black;
-    padding: 5px 20px;
-    border: 2px solid white;
-}
-
-#addUserModal .modal-header, #updateUserModal .modal-header, #detailsUserModal .modal-header {
-    border: none;
-}
-
-#addUserModal .modal-title, #updateUserModal .modal-title, #detailsUserModal .modal-title {
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#addUserModal label, #updateUserModal label, #detailsUserModal label {
-    font-weight: bold
-}
-
-#addUserModal .close, #updateUserModal .close, #detailsUserModal .close {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    outline: none;
-    transition: 0.5s;
-}
-
-#addUserModal .close:hover, #updateUserModal .close:hover, #detailsUserModal .close:hover {
-    transform: scale(1.2);
-}
-
-#addUserModal .addUserSubmit, #updateUserModal .updateUserSubmit, #detailsUserModal .detailUserBack {
-    background-color: #342924;
-    border-radius: 20px;
-    padding: 10px 30px;
-    border: none;
-    color: white;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-    font-weight: bold;
-}
+/*User Modal*/
 
 .details-wrapper{
     display: flex;
@@ -309,44 +57,11 @@ input::placeholder {
 .details-wrapper .detail-info > div{
     flex: 1;
 }
-#addUserModal input, #updateUserModal input, #detailsUserModal input {
-    background-color: #D1D6D2;
-    border-radius: 10px !important;
-}
+
 .row-wrapper{
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-#addUserModal .addUserSubmit:hover, #updateUserModal .updateUserSubmit:hover, #detailsUserModal .detailUserBack:hover {
-    background-color: black;
-    color: white;
-}
-
-#detailsUserModal .modal-content{
-   padding: 20px;
-}
- 
-    
-input::placeholder {
-    color: dimgrey;
-    font-weight: lighter;
-    font-size: 0.9rem;
-}
-
-.selectRole {
-    display: block;
-    width: 100%;
-    padding: .475rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 /*SweetAlert custom class*/
@@ -354,31 +69,3 @@ input::placeholder {
     font-size: 8px !important; 
 }
 
-.swal-addUser-title {
-    font-size: 25px; 
-    font-weight: bolder !important;
-    color: black !important;
-}
-.swal-unarchive-user-title {
-    font-size: 25px;
-    font-weight: bolder !important;
-    color: black !important;
-}
-.swal-archive-user-title {
-    font-size: 25px;
-    font-weight: bolder !important;
-    color: black !important;
-}
-.custom-confirm-btn,
-.custom-cancel-btn {
-    width: 150px;
-    font-weight: bold;
-}
-.swal-updateUser-title {
-    font-size: 25px; 
-    font-weight: bolder !important; 
-    color: black !important;
-}
-.archived-user {
-    background-color: rgba(0,0,0,0.2) !important;
-}

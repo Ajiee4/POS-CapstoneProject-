@@ -61,9 +61,9 @@ function AddCategory() {
                 confirmButtonText: "Yes",
                 customClass: {
                     icon: 'custom-icon',
-                    title: 'swal-addCategory-title',
-                    confirmButton: 'custom-confirm-btn',
-                    cancelButton: 'custom-cancel-btn'
+                    title: 'general-swal-title',
+                    confirmButton: 'general-swal-confirm-btn',
+                    cancelButton: 'general-swal-cancel-btn'
 
                 }
 
@@ -108,9 +108,9 @@ function UpdateCategory() {
                 confirmButtonText: "Yes",
                 customClass: {
                     icon: 'custom-icon',
-                    title: 'swal-updateCategory-title',
-                    confirmButton: 'custom-confirm-btn',
-                    cancelButton: 'custom-cancel-btn'
+                    title: 'general-swal-title',
+                    confirmButton: 'general-swal-confirm-btn',
+                    cancelButton: 'general-swal-cancel-btn'
 
                 }
 

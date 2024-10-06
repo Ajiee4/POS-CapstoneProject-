@@ -88,14 +88,16 @@ function AddIngredient() {
     Swal.fire({
         icon: "question",
         title: "Do you want to add this ingredient?",
-        padding: "1em",
+        iconColor: "#938F8F", 
         showCancelButton: true,
-        confirmButtonColor: "#1964C5",
-        cancelButtonColor: "#F71F1F",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
-            title: 'swal-addIngredient-title',
+            title: 'general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -151,15 +153,17 @@ function updateIngredient() {
     $('#updateIngredientModal .inputIngredientName').val(ingredientName);
     Swal.fire({
         icon: "question",
-        title: "Do you want to update this ingredient?",
-        padding: "1em",
+        title: "Do you want to update this ingredient?",    
+        iconColor: "#938F8F", 
         showCancelButton: true,
-        confirmButtonColor: "#1964C5",
-        cancelButtonColor: "#F71F1F",
+        confirmButtonColor: "#006ACD",
+        cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
-            title: 'swal-updateIngredient-title',
+            title: 'general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -395,13 +399,13 @@ function validateQuantity(input) {
 
 
 
-function hoverElement(img) {
-    img.src = '/images/delete-red.png';
-}
+//function hoverElement(img) {
+//    img.src = '/images/delete-red.png';
+//}
 
-function leaveElement(img) {
-    img.src = '/images/delete-black.png';
-}
+//function leaveElement(img) {
+//    img.src = '/images/delete-black.png';
+//}
 
 
 $('.requestSubmit').click(function () {
@@ -415,14 +419,17 @@ $('.requestSubmit').click(function () {
         Swal.fire({
             icon: "question",
             title: "Confirm Request? <br>",
-
+            iconColor: "#938F8F", 
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#006ACD",
+            cancelButtonColor: "#F71900",
             confirmButtonText: "Yes",
             customClass: {
                 icon: 'custom-icon',
-                title: 'Confirm',
+                title: 'general-swal-title',
+                confirmButton: 'general-swal-confirm-btn',
+                cancelButton: 'general-swal-cancel-btn'
+
 
             }
 
@@ -467,7 +474,7 @@ function cancelRequest() {
             popUpMessageInventory('Request List is empty', 'error')
         }
         else {
-            popUpMessageInvenotryTop('Request List Canceled', 'info', 300)
+            popUpMessageInvenotryTop('Request List Canceled', 'success', 300)
             RequestList.splice(0)
             localStorage.setItem('RequestList', JSON.stringify(RequestList));
 
@@ -490,7 +497,7 @@ function cancelStockOut() {
             popUpMessageInventory('Stock Out List is empty', 'error')
         }
         else {
-            popUpMessageInvenotryTop('Stock Out List Canceled', 'info', 340)
+            popUpMessageInvenotryTop('Stock Out List Canceled', 'success', 340)
             RequestList.splice(0)
             localStorage.setItem('RequestList', JSON.stringify(RequestList));
 
@@ -543,15 +550,17 @@ $('.stockOutSubmit').click(function () {
             Swal.fire({
                 icon: "question",
                 title: "Confirm Stock Out? <br>",
-
+                iconColor: "#938F8F", 
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
+                confirmButtonColor: "#006ACD",
+                cancelButtonColor: "#F71900",
                 confirmButtonText: "Yes",
                 customClass: {
 
                     icon: 'custom-icon',
-                    title: 'Confirm',
+                    title: 'general-swal-title',
+                    confirmButton: 'general-swal-confirm-btn',
+                    cancelButton: 'general-swal-cancel-btn'
 
                 }
 

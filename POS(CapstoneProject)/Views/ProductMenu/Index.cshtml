@@ -23,7 +23,7 @@
     </button>
   
     <!--Product Table-->
-     <table class="product-table">
+     <table class="product-table general-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -67,10 +67,10 @@
                                 </form>
                                 <div class="action-wrapper">
 
-                                    <button class="unarchiveBtn" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
+                                    <button class="unarchiveBtn general-unarchive-btn" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
                                         <img src="~/images/outbox.png" />
                                     </button>
-                                    <button class="updateProductBtn" data-placement="bottom" title="Update" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">
+                                    <button class="updateProductBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">
                                         <img src="~/images/edit.png" />
                                     </button>
                                 </div>
@@ -84,11 +84,11 @@
                                 </form>
                                 <div class="action-wrapper">
 
-                                    <button class="archiveBtn" data-toggle="tooltip" data-placement="bottom" title="Archive">
+                                    <button class="archiveBtn general-archive-btn" data-toggle="tooltip" data-placement="bottom" title="Archive">
                                         <img src="~/images/inbox.png" />
                                      
                                     </button>
-                                    <button class="updateProductBtn"  data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">
+                                    <button class="updateProductBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateProductModal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId,'@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")' )">
                                         <img src="~/images/edit.png" />
                                      
                                     </button>
@@ -104,10 +104,10 @@
 </div>
 
 <!--Update Product Modal-->
-<div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade general-modal" id="updateProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <img src="~/images/coffe-logo-light.png" class="update-product-modal-img" />
+            <img src="~/images/coffe-logo-light.png" class="update-product-modal-img general-coffee-img-bottom" />
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE PRODUCT</h5>
                
@@ -129,19 +129,19 @@
                     </div>      
                     
                     <div class="form-group">
-                        <label asp-for="Name"  class="control-label">Product Name</label>
-                        <input asp-for="Name" placeholder="Enter Product Name" class="form-control updateProductInputName" required />
+                        <label asp-for="Name" class="control-label general-modal-label">Product Name</label>
+                        <input asp-for="Name" placeholder="Enter Product Name" class="form-control updateProductInputName general-modal-input" required />
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Price" class="control-label">Price</label>
-                        <input asp-for="Price"  maxlength="8" placeholder="Enter Product Price" oninput="validatePrice(this)" class="form-control updateProductInputPrice" required />
+                        <label asp-for="Price" class="control-label general-modal-label">Price</label>
+                        <input asp-for="Price" maxlength="8" placeholder="Enter Product Price" oninput="validatePrice(this)" class="form-control updateProductInputPrice general-modal-input" required />
                     </div>
  
                     <div class="form-group">
-                        <label asp-for="ProdCategoryId" class="control-label">Category</label>
+                        <label asp-for="ProdCategoryId" class="control-label general-modal-label">Category</label>
 
-                        <select asp-for="ProdCategoryId" class="form-control selectProductCategory" required>
+                        <select asp-for="ProdCategoryId" class="form-control selectProductCategory general-modal-input" required>
                             
                             @if(productCategory != null)
                             {
@@ -159,7 +159,7 @@
                     </div> 
 
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto updateProductSubmit">UPDATE</button>
+                        <button type="button" class="d-block mx-auto updateProductSubmit general-modal-button">UPDATE</button>
                     </div>
                 </form>
             </div>
@@ -168,10 +168,10 @@
 </div>
 
 <!--Add new Product Modal-->
-<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade general-modal" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <img src="~/images/coffe-logo-light.png" class="add-product-modal-img" />
+            <img src="~/images/coffe-logo-light.png" class="add-product-modal-img general-coffee-img-top" />
             <div class="modal-header">
                 <h5 class="modal-title">ADD PRODUCT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -190,35 +190,31 @@
                     </div>
                   
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label">Product Name</label>
-                        <input asp-for="Name" placeholder="Enter Product Name" class="form-control addProductInputName" required />                     
+                        <label asp-for="Name" class="control-label general-modal-label">Product Name</label>
+                        <input asp-for="Name" placeholder="Enter Product Name" class="form-control addProductInputName general-modal-input" required />
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Price" class="control-label">Price</label>
-                        <input asp-for="Price" maxlength="8" placeholder="Enter Product Price" oninput="validatePrice(this)" class="form-control addProductInputPrice" required />
-                        <span asp-validation-for="Price" class="text-danger"></span>
+                        <label asp-for="Price" class="control-label general-modal-label">Price</label>
+                        <input asp-for="Price" maxlength="8" placeholder="Enter Product Price" oninput="validatePrice(this)" class="form-control addProductInputPrice general-modal-input" required />
+                       
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="ProdCategoryId" class="control-label">Category</label>
-                        <select asp-for="ProdCategoryId" class="form-control selectCat" required>
+                        <label asp-for="ProdCategoryId" class="control-label general-modal-label">Category</label>
+                        <select asp-for="ProdCategoryId" class="form-control selectCat general-modal-input" required>
                             @if (productCategory != null)
                             {
                                 @foreach (var item in productCategory)
                                 {
                                     <option value="@item.CategoryId">@item.CategoryName</option>
                                 }
-                            }
-                            else
-                            {
-
-                            }
+                            }                          
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto addProductSubmit">ADD</button>
+                        <button type="button" class="d-block mx-auto addProductSubmit general-modal-button">ADD</button>
                     </div>
                 </form>
             </div>

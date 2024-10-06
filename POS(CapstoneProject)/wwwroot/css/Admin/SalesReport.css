@@ -67,107 +67,12 @@
         margin-top: 10px;
     }
 }
-
+/*Report Wrapper*/
 .report-wrapper {
     display: none;
     position: relative;
     width: 100%;
 }
 
-.report-table {
-    border: 1px solid transparent !important;
-    z-index: 1 !important;
-}
 
-.report-table thead {
-    color: white;
-}
-
-.report-table thead th {
-    background-color: #342924;
-    text-align: center !important;
-}
-
-.report-table th:first-child {
-    border-radius: 50px 0 0 50px !important;
-}
-
-.report-table th:last-child {
-    border-radius: 0 50px 50px 0 !important;
-}
-
-.report-table tbody {
-    background-color: #F7F7F7;
-    color: black;
-}
-
-
-    .report-table tbody tr {
-    border-bottom: 1px solid black;
-}
-
-.report-table tbody td {
-    font-weight: 500;
-    text-align: center !important;
-}
-
-@media (max-width: 770px) {
-    .report-table thead {
-        display: none;
-    }
-
-    .report-table {
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        width: 100%;
-        max-width: 550px;
-    }
-
-    .report-table tbody {
-        background-color: transparent !important;
-        border: none !important;
-        outline: none !important;
-    }
-
-    .report-table, .report-table tbody, .report-table tr, .report-table td {
-        display: block;
-        width: 100%;
-    }
-
-    .report-table tbody td {
-        text-align: right !important;
-        border: none !important;
-        outline: none !important;
-    }
-
-    .report-table tr {
-        margin-bottom: 20px;
-        border-bottom: 2px solid #ccc;
-        padding: 5px;
-        border-radius: 10px;
-        background-color: #f1f1f1 !important;
-    }
-
-    .report-table td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border: 1px solid #ccc;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    .report-table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 10px;
-        font-size: 15px;
-        font-weight: bold;
-        text-align: left;
-    }
-}
 

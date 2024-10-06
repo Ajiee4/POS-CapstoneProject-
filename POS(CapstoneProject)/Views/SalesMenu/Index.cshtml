@@ -37,7 +37,7 @@
             <table class="checkout-table">
                 <thead>
                     <tr>
-                        <th style="color: transparent"></th>
+                        <th style="color: transparent">aaa</th>
                         <th class="table-header-name">Name &nbsp;&nbsp;&nbsp;</th>
                         <th class="table-header-quantity">Qty</th>
                         <th class="table-header-coffee">w/coffee</th>
@@ -97,8 +97,6 @@
         
        </div>
 
-
-
        <div class="category-list-wrapper">
             <button class="category-item active" data-category="All" onclick="FilterProduct('All')">
                 All
@@ -145,12 +143,7 @@
                     </div>
                 }
             }
-            else
-            {
-            
-            }
-         
-        
+                         
        </div>
 
 </div>
@@ -159,10 +152,10 @@
 
 
 <!--Payment Modal-->
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade general-modal" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <img src="~/images/coffe-logo-light.png" class="payment-sales-modal-img" />
+            <img src="~/images/coffe-logo-light.png" class="payment-sales-modal-img general-coffee-img-bottom" />
             <div class="modal-header">
                 <h5 class="modal-title">PAYMENT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -173,20 +166,20 @@
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label class="control-label">Amount Due</label>
-                    <input class="form-control totalAmountInputReadOnly" readonly/>
+                    <label class="control-label general-modal-label">Amount Due</label>
+                    <input class="form-control totalAmountInputReadOnly general-modal-input" readonly />
 
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">Cash Tendered</label>
-                    <input class="form-control amountInput" placeholder="Enter Cash Tendered" oninput="onInputCash(this)"/>
+                    <label class="control-label general-modal-label">Cash Tendered</label>
+                    <input class="form-control amountInput general-modal-input" placeholder="Enter Cash Tendered" oninput="onInputCash(this)" />
                        
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">Change Due</label>
-                    <input class="form-control changeAmountText" readonly />
+                    <label class="control-label general-modal-label">Change Due</label>
+                    <input class="form-control changeAmountText general-modal-input" readonly />
 
                 </div>
                                      
@@ -200,8 +193,8 @@
                     <input name="totalString" id="totalString" hidden />
                 </form>
 
-                <div class="form-group">
-                    <button type="button" class="calculateBtn">Pay</button>
+                <div class="form-group calculate-wrapper">
+                    <button type="button" class="d-block mx-auto calculateBtn general-modal-button">Pay</button>
                 </div>
                
             </div>

@@ -134,11 +134,6 @@
     border: 2px solid white;
 }
 
-
-
-
-
-
 .request-card > div {
     border-bottom: 1px solid grey;
 }
@@ -157,53 +152,18 @@
     cursor: pointer;
     font-weight: bold;
 }
-
 #requestCardModal .completeRequestBtn:hover, .cancelRequestBtn:hover {
     background-color: black;
     color: white;
 }
-
-#requestCardModal .modal-content {
-   
-}
-#updateCategoryModal .updateSubmitBtn:hover {
-    background-color: black;
-    color: white;
-}
-
-#requestCardModal .modal-content {
-    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px black;
-    padding: 5px 20px;
-    border: 2px solid white;
+.request-modal-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 50px;
 }
 
-#requestCardModal .modal-header {
-    border: none;
-}
-
-#requestCardModal .modal-title {
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#requestCardModal label {
-    font-weight: bold;
-}
-
-#requestCardModal .close {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    outline: none;
-    transition: 0.5s;
-}
-
-#requestCardModal .close:hover {
-    transform: scale(1.2);
-}
 
 #requestCardModal .request-card-table-wrapper {
     
@@ -226,8 +186,6 @@
 #requestCardModal .request-card-table tr {
     border-bottom: 1px solid black;
 }
-
-
 
 #requestCardModal .request-card-table thead th{
     padding: 10px 5px;
@@ -258,27 +216,19 @@
     background-color: white;
 }
 
+
+/*Sweet Alert*/
 .custom-icon {
-    font-size: 8px !important;
+    font-size: 15px !important;
+    font-weight: 500 !important; 
+    padding: 5px !important;
 }
 
-.swal-updaterequest-title {
-    font-size: 30px;
-    font-weight: bolder !important;
-    color: black !important;
-}
 
-.swal-updaterequest-title::after {
+.swal-update-request-title::after {
     content: "Cannot be undone";
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;
 }
 
-.request-modal-buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px 50px;
-}

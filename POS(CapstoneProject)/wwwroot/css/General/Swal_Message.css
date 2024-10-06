@@ -1,0 +1,16 @@
+﻿/*Swal Icon*/
+
+.general-swal-icon {
+    font-size: 15px !important;
+    font-weight: 500;
+    padding: 5px;
+}
+.general-swal-confirm-btn, .general-swal-cancel-btn {
+    width: 150px;
+    font-weight: bold;
+}
+.general-swal-title {
+    font-size: 25px;
+    font-weight: bolder !important;
+    color: black !important;
+}

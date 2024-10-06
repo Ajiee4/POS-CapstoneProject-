@@ -5,6 +5,7 @@
   
 }
 
+/*Check Out*/
 .checkout-wrapper {
     position: fixed;
     top: 70px;
@@ -26,6 +27,21 @@
 
 .checkHide {
     display: none;
+}
+
+.exitCheckout {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    border-radius: 50%;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    outline: none !important;
+    border: none !important;
+}
+
+.exitCheckout:hover {
+    transform: scale(1.1)
 }
 
 /*Checkout Header/Title*/
@@ -254,13 +270,6 @@
     text-align: center;
 }
 
-/*.checkout-footer .checkout-btn .payBtn {
-    
-       
-}
-*/
-
-
 
 .product-list-wrapper {
     border-radius: 5px;
@@ -398,91 +407,27 @@
     background-color: transparent !important;
 }
 
-
-.payment-sales-modal-img {
-    height: 180px;
-    width: 180px;
+.noResult {
     position: absolute;
-    bottom: -15px;
-    right: -25px;
-    z-index: 10;
-}
-input::placeholder {
-    color: dimgrey;
-    font-weight: lighter;
-    font-size: 0.9rem;
-}
-
-
-
-#paymentModal .modal-content {
-    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
-    border-radius: 20px;
-    box-shadow: 1px 2px 5px black;
-    padding: 5px 20px;
-    border: 2px solid white;
-}
-
-#paymentModal .modal-header {
-    border: none;
-}
-
-#paymentModal .modal-title{
     width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-#paymentModal label{
-    font-weight: bold;
-}
-
-#paymentModal .close {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    outline: none;
-    transition: 0.5s;
-}
-
-#paymentModal .close:hover{
-    transform: scale(1.2);
-}
-
-#paymentModal .calculateBtn {
     display: none;
-    background-color: #342924;
-    border-radius: 20px;
-    padding: 10px 30px;
-    border: none;
-    color: white;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
+    font-size: 2rem;
     font-weight: bold;
-}
-
-#paymentModal .calculateBtn:hover {
-    background-color: black;
-    color: white;
-    }
-
-/*
-#paymentModal .payComplete:hover{
-    background-color: black
-}*/
-
-.noResult{
-    position: absolute;
-    width: 100% ;
-    display: none;
-    font-size: 1.2rem;
-    font-weight: lighter;
     text-align: center;
     margin-top: 5px;
-    
+    color: black;
 }
 
-.receipt{
+
+
+/*Payment Modal*/
+
+.calculate-wrapper{
+    display: none;
+}
+
+/*Receipt*/
+.receipt {
     display: none;
     position: fixed;
     padding: 10px;
@@ -493,9 +438,6 @@ input::placeholder {
     transform: translate(-50%, -50%);
     background-color: white;
     width: 290px;
-  
-   
-
 }
 .receipt .receipt-content {     
     text-align: center;
@@ -565,31 +507,17 @@ input::placeholder {
 
 /*SweetAlert Custom Class*/
 .custom-icon {
-    font-size: 8px !important; 
+    font-size: 15px !important;
+    font-weight: 500;
+    padding: 5px;
 }
 
-.swal-sales-title {
-    font-size: 30px; 
-    font-weight: bolder !important; 
-    color: black !important;
-}
 .swal-sales-title::after {
     content: "Cannot be undone";
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;
    
-}
-.custom-confirm-btn,
-.custom-cancel-btn {
-    width: 150px;
-    font-weight: bold;
-}
-
-.swal-salesCancel-title {
-    font-size: 30px;
-    font-weight: bolder !important;
-    color: black !important;
 }
 
 .swal-salesCancel-title::after {
@@ -600,22 +528,7 @@ input::placeholder {
 }
 
 
-.exitCheckout{
-    
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    border-radius: 50%;
-    transition: 0.5s ease-in-out;
-    cursor: pointer;
-    outline: none !important;
-    border: none !important;
- 
-}
 
-.exitCheckout:hover {
-    transform: scale(1.1)
-}
 
 @media (max-width: 1120px) {
     /*.product-list-wrapper {

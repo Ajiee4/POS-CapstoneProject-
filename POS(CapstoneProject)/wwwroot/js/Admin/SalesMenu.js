@@ -159,9 +159,8 @@ function DisplayCheckOut() {
              <tr >
                     <td style="padding: 10px">
                             <img src="/images/delete.png"
-                            onmouseover="hoverElement(this)"
-                            onmouseout="leaveElement(this)"
-                            class="delete-checkout-img d-block mx-auto"
+                          
+                            class="delete-checkout-img"
                             onclick="deleteItem(${item.prodID})"/>
                     </td>
                     <td class="table-data-name">
@@ -273,15 +272,7 @@ function deleteItem(id) {
     }  
     
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList)); 
-   /* popUpMessageToast('success', 'Product Deleted', 300);*/
-}
-
-function hoverElement(img) {
-    img.src = '/images/delete-red.png';
-}
-
-function leaveElement(img) {
-    img.src = '/images/delete.png';
+  
 }
 
 
@@ -354,9 +345,9 @@ $('.cancelBtn').click(function (){
             confirmButtonText: "Yes",
             customClass: {
                 icon: 'custom-icon',
-                title: 'swal-salesCancel-title',
-                confirmButton: 'custom-confirm-btn',
-                cancelButton: 'custom-cancel-btn'
+                title: 'swal-salesCancel-title general-swal-title',
+                confirmButton: 'general-swal-confirm-btn',
+                cancelButton: 'general-swal-cancel-btn'
 
             }
 
@@ -421,7 +412,7 @@ function onInputCash(e) {
 
             $('.changeAmountText').val(changeAmount.toFixed(2));
 
-            $('#paymentModal .calculateBtn').css({
+            $('#paymentModal .calculate-wrapper').css({
                 "display": "block",
                 "margin": "0px auto"
             })
@@ -429,7 +420,7 @@ function onInputCash(e) {
 
 
         } else {
-            $('#paymentModal .calculateBtn').css({
+            $('#paymentModal .calculate-wrapper').css({
                 "display": "none",
             })
            /* popUpMessageSales("Insufficient Amount", "error");*/
@@ -467,9 +458,9 @@ $('.calculateBtn').click(function () {
         confirmButtonText: "Yes",
         customClass: {
             icon: 'custom-icon',
-            title: 'swal-sales-title',
-            confirmButton: 'custom-confirm-btn',
-            cancelButton: 'custom-cancel-btn'
+            title: 'swal-sales-title general-swal-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
 
         }
 

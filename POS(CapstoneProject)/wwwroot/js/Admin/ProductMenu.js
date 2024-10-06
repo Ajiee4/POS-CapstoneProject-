@@ -75,10 +75,10 @@ $('.archiveBtn').click(function () {
         cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
-            icon:  'custom-icon',
-            title: 'swal-archive-title',
-            confirmButton: 'custom-confirm-btn',
-            cancelButton: 'custom-cancel-btn'
+            icon: 'general-swal-icon',
+            title: 'general-swal-title swal-archive-product-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
            
         }
 
@@ -104,10 +104,10 @@ $('.unarchiveBtn').click(function () {
         cancelButtonColor: "#F71900",
         confirmButtonText: "Yes",
         customClass: {
-            icon: 'custom-icon',
-            title: 'swal-unarchive-title',
-            confirmButton: 'custom-confirm-btn',
-            cancelButton: 'custom-cancel-btn'
+            icon: 'general-swal-icon',
+            title: 'general-swal-title swal-unarchive-product-title',
+            confirmButton: 'general-swal-confirm-btn',
+            cancelButton: 'general-swal-cancel-btn'
 
         }
 
@@ -215,14 +215,12 @@ function AddProduct() {
                 cancelButtonColor: "#F71900",
                 confirmButtonText: "Yes",
                 customClass: {
-                    icon: 'custom-icon',
-                    title: 'swal-addProd-title',
-                    confirmButton: 'custom-confirm-btn',
-                    cancelButton: 'custom-cancel-btn'
+                    icon: 'general-swal-icon',
+                    title: 'general-swal-title',
+                    confirmButton: 'general-swal-confirm-btn',
+                    cancelButton: 'general-swal-cancel-btn'
 
                 }
-
-               
 
             }).then((result) => {
 
@@ -276,10 +274,10 @@ function UpdateProduct() {
                 cancelButtonColor: "#F71900",
                 confirmButtonText: "Yes",
                 customClass: {
-                    icon: 'custom-icon',
-                    title: 'swal-updateProd-title',
-                    confirmButton: 'custom-confirm-btn',
-                    cancelButton: 'custom-cancel-btn'
+                    icon: 'general-swal-icon',
+                    title: 'general-swal-title',
+                    confirmButton: 'general-swal-confirm-btn',
+                    cancelButton: 'general-swal-cancel-btn'
 
                 }
 
@@ -291,10 +289,7 @@ function UpdateProduct() {
 
                 }
             });
-
-           
-
-
+          
         } else {
 
             popUpMessageProduct("Input must be 3-15 characters for product name", "error");

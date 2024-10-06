@@ -34,7 +34,7 @@
     
 
   
-    <table class="inventory-table">
+    <table class="inventory-table general-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -61,7 +61,7 @@
                     <td data-label="Actions">                     
                     <div class="action-wrapper">
                         <div class="action-button">
-                            <button class="updateIngredientBtn" data-placement="bottom" title="Update" onclick="DefaultUpdateIngredientModal(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"
+                                <button class="updateIngredientBtn general-update-btn" data-placement="bottom" title="Update" onclick="DefaultUpdateIngredientModal(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"
                                 data-toggle="modal" data-target="#updateIngredientModal">
                                     <img src="~/images/edit.png" />
                             </button>                                  
@@ -214,10 +214,10 @@
 
 <!--Add New Ingredient Modal-->
 
-<div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" >
+<div class="modal fade general-modal" id="addIngredientModal" tabindex="-1" role="dialog">
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
-            <img src="~/images/coffe-logo-light.png" class="add-ingredient-modal-img" />
+            <img src="~/images/coffe-logo-light.png" class="add-ingredient-modal-img general-coffee-img-top" />
             <div class="modal-header">
                 <h5 class="modal-title">ADD INGREDIENT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -228,22 +228,22 @@
                 <form asp-action="AddIngredient" id="addIngredientForm" method="post">
 
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label">Ingredient Name</label>
-                        <input asp-for="Name" class="form-control inputIngredientName" type="text" placeholder="Enter Ingredient Name" required />                        
+                        <label asp-for="Name" class="control-label general-modal-label">Ingredient Name</label>
+                        <input asp-for="Name" class="form-control inputIngredientName general-modal-input" type="text" placeholder="Enter Ingredient Name" required />
                     </div>
                     <div class="form-group">
-                        <label asp-for="UnitOfMeasurement" class="control-label">Unit of Measurement</label>
-                        <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement" placeholder="Enter Unit of Measurement" required />
+                        <label asp-for="UnitOfMeasurement" class="control-label general-modal-label">Unit of Measurement</label>
+                        <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement general-modal-input" placeholder="Enter Unit of Measurement" required />
                     </div>
                    
                     <div class="form-group">
-                        <label asp-for="LowStockThreshold" class="control-label">Stock Threshold</label>
-                        <input asp-for="LowStockThreshold" step="1" class="form-control inputThreshold" placeholder="Enter Low Stock Threshold" required />
+                        <label asp-for="LowStockThreshold" class="control-label general-modal-label">Stock Threshold</label>
+                        <input asp-for="LowStockThreshold" step="1" class="form-control inputThreshold general-modal-input" placeholder="Enter Low Stock Threshold" required />
                     </div>
 
                     <br />
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto addIngredientSubmit">ADD</button>
+                        <button type="button" class="d-block mx-auto addIngredientSubmit general-modal-button">ADD</button>
                     </div>            
                 </form>
             </div>
@@ -254,10 +254,10 @@
 
 <!--Update Ingredient Modal-->
 
-<div class="modal fade" id="updateIngredientModal" tabindex="-1" role="dialog">
+<div class="modal fade general-modal" id="updateIngredientModal" tabindex="-1" role="dialog">
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
-            <img src="~/images/coffe-logo-light.png" class="update-ingredient-modal-img" />
+            <img src="~/images/coffe-logo-light.png" class="update-ingredient-modal-img general-coffee-img-bottom" />
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE INGREDIENT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -270,22 +270,22 @@
                     <input asp-for="IngredientId" class="inputIngredientId" hidden />
 
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label">Category Name</label>
-                        <input asp-for="Name" class="form-control inputIngredientName" type="text" placeholder="Enter Ingredient Name" required />
+                        <label asp-for="Name" class="control-label general-modal-label">Category Name</label>
+                        <input asp-for="Name" class="form-control inputIngredientName general-modal-input" type="text" placeholder="Enter Ingredient Name" required />
                     </div>
                     <div class="form-group">
-                        <label asp-for="UnitOfMeasurement" class="control-label">Unit of Measurement</label>
-                        <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement" placeholder="Enter Unit of Measurement" required />
+                        <label asp-for="UnitOfMeasurement" class="control-label general-modal-label">Unit of Measurement</label>
+                        <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement general-modal-input" placeholder="Enter Unit of Measurement" required />
                     </div>
                    
                     <div class="form-group">
-                        <label asp-for="LowStockThreshold" class="control-label">Stock Threshold</label>
-                        <input asp-for="LowStockThreshold" class="form-control inputThreshold" placeholder="Enter Low Stock Threshold" required />
+                        <label asp-for="LowStockThreshold" class="control-label general-modal-label">Stock Threshold</label>
+                        <input asp-for="LowStockThreshold" class="form-control inputThreshold general-modal-input" placeholder="Enter Low Stock Threshold" required />
                     </div>
 
                     <br />
                     <div class="form-group">
-                        <button type="button" class="d-block mx-auto updateIngredientSubmit">UPDATE</button>
+                        <button type="button" class="d-block mx-auto updateIngredientSubmit general-modal-button">UPDATE</button>
                     </div>
                 </form>
             </div>
