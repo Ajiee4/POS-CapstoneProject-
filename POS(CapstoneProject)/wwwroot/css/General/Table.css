@@ -30,6 +30,7 @@
     margin-left: 0 !important;
     border-radius: 0px !important;
 }
+
 div.dt-container .dt-paging .dt-paging-button.current {
     background: linear-gradient(to bottom, #585858 0%, #111 100%) !important;
     border: none !important;
