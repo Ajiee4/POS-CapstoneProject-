@@ -38,7 +38,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     else
                     {
                         ////create a list of categories
-                        var categoryList = await _context.Category.ToListAsync();
+                        var categoryList = await _context.Category.OrderBy(s => s.CategoryId).ToListAsync();
                         ViewData["CategoryList"] = categoryList; //store the list in the viewdata to display on the view
 
                         return View();

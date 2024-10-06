@@ -30,31 +30,6 @@ $(document).ready(function () {
 });
 
 
-//pop up message
-function popUpMessageInventory(message, icon) {
-    Swal.fire({
-        text: message,
-        icon: icon,
-        padding: "1em",
-        showConfirmButton: false,
-        timer: 2000
-    });
-}
-function popUpMessageInvenotryTop(message, icon, mywidth) {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        width: mywidth,
-        showConfirmButton: false,
-        timer: 1500,
-
-    });
-    Toast.fire({
-        icon: icon,
-        title: message
-    });
-}
-
 //clear the inputs when Add Ingredient Modal disappeared
 $('#addIngredientModal').on('hidden.bs.modal', function () {
     $('#addIngredientModal .inputIngredientName').val('');
@@ -75,38 +50,19 @@ function AddIngredient() {
     ingredientName = ingredientName.replace(/\s{2,}/g, ' '); //trims the space
 
     if (ingredientName === '' || unitMeasurement === ''|| lowStockThreshold === '') {
-        popUpMessageInventory('Fill out all information', 'error');
+        popUpMessage('Fill out all information', 'error');
         return;
     }
     if (!isValidName(ingredientName)) {
-        popUpMessageInventory("Input ingredient name must be between 3 and 15 characters","error")
+        popUpMessage("Input ingredient name must be between 3 and 15 characters","error")
         return;
     }
    
     $('#addIngredientModal .inputIngredientName').val(ingredientName);
 
-    Swal.fire({
-        icon: "question",
-        title: "Do you want to add this ingredient?",
-        iconColor: "#938F8F", 
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
+    popUpMessageChoice("Do you want to add this ingredient?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $('#addIngredientForm').submit();});
 
-            $('#addIngredientForm').submit();
-
-        }
-    });
-    
+     
 }
 
 //check if the name is valid
@@ -142,36 +98,18 @@ function updateIngredient() {
     ingredientName = ingredientName.replace(/\s{2,}/g, ' ');
 
     if (ingredientName === '' || unitMeasurement === '' || lowStockThreshold === '') {
-        popUpMessageInventory('Fill out all information', 'error');
+        popUpMessage('Fill out all information', 'error');
         return;
     }
     if (!isValidName(ingredientName)) {
-        popUpMessageInventory("Input ingredient name must be between 3 and 15 characters", "error")
+        popUpMessage("Input ingredient name must be between 3 and 15 characters", "error")
         return;
     }
   
     $('#updateIngredientModal .inputIngredientName').val(ingredientName);
-    Swal.fire({
-        icon: "question",
-        title: "Do you want to update this ingredient?",    
-        iconColor: "#938F8F", 
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
 
-            $('#updateIngredientForm').submit();
-
-        }
-    });
+    popUpMessageChoice("Do you want to add this ingredient?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $('#updateIngredientForm').submit(); });
+   
 }
 
 /*function for toggling the ingredient-list-wrapper*/
@@ -306,11 +244,11 @@ function requestitem(event, id, name, quantity) {
     if (product) {
 
         product.ingredientQty += quantity;
-        popUpMessageInvenotryTop("Ingredient Quantity Updated", "success", 300)
+        popUpMessageToast("success", "Quantity Updated", 270)
     }
     else {
       
-        popUpMessageInvenotryTop("Ingredient Added", "success", 300)
+        popUpMessageToast("success", "Ingredient Added", 260)
 
         RequestList.push({
             ingredientId: id,
@@ -318,9 +256,7 @@ function requestitem(event, id, name, quantity) {
             ingredientQty: quantity
         });
 
-        // Add the item to the request list
-      /*  const row = document.querySelector(`tr[data-id="${id}"]`);*/
-            
+                 
     }
     localStorage.setItem('RequestList', JSON.stringify(RequestList));
  
@@ -397,69 +333,36 @@ function validateQuantity(input) {
 
 }
 
-
-
-//function hoverElement(img) {
-//    img.src = '/images/delete-red.png';
-//}
-
-//function leaveElement(img) {
-//    img.src = '/images/delete-black.png';
-//}
-
-
 $('.requestSubmit').click(function () {
 
     if (RequestList.length == 0) {
 
-        popUpMessageInvenotryTop('Request List is empty', 'error', 290)
+        popUpMessageToast('error', 'Request List is empty', 290)
 
     }
     else {
-        Swal.fire({
-            icon: "question",
-            title: "Confirm Request? <br>",
-            iconColor: "#938F8F", 
-            showCancelButton: true,
-            confirmButtonColor: "#006ACD",
-            cancelButtonColor: "#F71900",
-            confirmButtonText: "Yes",
-            customClass: {
-                icon: 'custom-icon',
-                title: 'general-swal-title',
-                confirmButton: 'general-swal-confirm-btn',
-                cancelButton: 'general-swal-cancel-btn'
+        popUpMessageChoice("Confirm Request? <br>", '', 'question', 'general-swal-icon', 'general-swal-title', () => {
+            let jSonData = JSON.stringify(RequestList);
 
+            $('.requestInput').val(jSonData);
+            $('#requestForm').submit();
 
-            }
-
-        }).then((result) => {
-
-            if (result.isConfirmed) {
-
-                let jSonData = JSON.stringify(RequestList);
-
-                $('.requestInput').val(jSonData);
-
-                $('#requestForm').submit();
-
-                RequestList.splice(0);
-                localStorage.setItem('RequestList', JSON.stringify(RequestList));
-
-            }
+            RequestList.splice(0);
+            localStorage.setItem('RequestList', JSON.stringify(RequestList));
         });
+    
     }
 
 });
 function deleteItem(id) {
 
-    popUpMessageInvenotryTop('Ingredient deleted', "success", 300)
-    // Implement the logic to delete the item from the RequestList and update the UI
+    popUpMessageToast("success", 'Ingredient deleted', 300)
+   
     const index = RequestList.findIndex(item => item.ingredientId === id);
     if (index !== -1) {
         RequestList.splice(index, 1);
         localStorage.setItem('RequestList', JSON.stringify(RequestList));
-        DisplayRequest(); // Update the UI
+        DisplayRequest(); 
     }
 }
 
@@ -471,10 +374,10 @@ function cancelRequest() {
     cancelButton.addEventListener('click', () => {
 
         if (RequestList.length == 0) {
-            popUpMessageInventory('Request List is empty', 'error')
+            popUpMessage('Request List is empty', 'error')
         }
         else {
-            popUpMessageInvenotryTop('Request List Canceled', 'success', 300)
+            popUpMessageToast('success','Request List Canceled', 300)
             RequestList.splice(0)
             localStorage.setItem('RequestList', JSON.stringify(RequestList));
 
@@ -494,10 +397,10 @@ function cancelStockOut() {
     cancelButton.addEventListener('click', () => {
         if (RequestList.length == 0) {
             
-            popUpMessageInventory('Stock Out List is empty', 'error')
+            popUpMessage('Stock Out List is empty', 'error')
         }
         else {
-            popUpMessageInvenotryTop('Stock Out List Canceled', 'success', 340)
+            popUpMessageToast('success', 'Stock Out List Canceled', 340)
             RequestList.splice(0)
             localStorage.setItem('RequestList', JSON.stringify(RequestList));
 
@@ -520,7 +423,7 @@ $('.stockOutSubmit').click(function () {
  
     if (RequestList.length == 0) {
 
-        popUpMessageInvenotryTop('Stock Out List is empty', 'error', 300)
+        popUpMessageToast('error', 'Stock Out List is empty', 300)
 
     }
     else {
@@ -546,40 +449,18 @@ $('.stockOutSubmit').click(function () {
         //check if the result
         if (result) {
 
+            popUpMessageChoice("Confirm Stock Out? <br>", '', 'question', 'general-swal-icon', 'general-swal-title', () => {
+                /*  submit if the result is true*/
+                let jsonData = JSON.stringify(RequestList);
 
-            Swal.fire({
-                icon: "question",
-                title: "Confirm Stock Out? <br>",
-                iconColor: "#938F8F", 
-                showCancelButton: true,
-                confirmButtonColor: "#006ACD",
-                cancelButtonColor: "#F71900",
-                confirmButtonText: "Yes",
-                customClass: {
+                $('.stockOutInput').val(jsonData);
 
-                    icon: 'custom-icon',
-                    title: 'general-swal-title',
-                    confirmButton: 'general-swal-confirm-btn',
-                    cancelButton: 'general-swal-cancel-btn'
+                $('#stockOutForm').submit();
 
-                }
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    /*  submit if the result is true*/
-                    let jsonData = JSON.stringify(RequestList);
-
-                    $('.stockOutInput').val(jsonData);
-
-                    $('#stockOutForm').submit();
-
-                    RequestList.splice(0);
-                    localStorage.setItem('RequestList', JSON.stringify(RequestList));
-
-                }
+                RequestList.splice(0);
+                localStorage.setItem('RequestList', JSON.stringify(RequestList));
             });
+      
         }
         else {
             //show a pop up message if some ingredients are insufficient
@@ -596,8 +477,8 @@ $('.stockOutSubmit').click(function () {
                     timer: 2000,
                     padding: "1em",
                     customClass: {
-                        icon: 'custom-icon',
-                        title: 'swal-stockOutInsufficient-title-many',
+                        icon: 'general-swal-icon',
+                        title: 'swal-stockOutInsufficient-title-many general-swal-title',
 
 
                     }
@@ -615,8 +496,8 @@ $('.stockOutSubmit').click(function () {
                     timer: 2000,
                     padding: "1em",
                     customClass: {
-                        icon: 'custom-icon',
-                        title: 'swal-stockOutInsufficient-title-one',
+                        icon: 'general-swal-icon',
+                        title: 'swal-stockOutInsufficient-title-one general-swal-title',
                     }
 
                 })

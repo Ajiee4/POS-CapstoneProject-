@@ -14,7 +14,7 @@
 </div>
 
 <div class="user-wrapper">
-    <button type="button" class="addUserBtn" data-toggle="modal" data-target="#addUserModal">
+    <button type="button" class="addUserBtn general-button" data-toggle="modal" data-target="#addUserModal">
         <img src="~/images/add.png" />
         <span>Add User</span>
     </button>
@@ -32,7 +32,7 @@
         <tbody>
             @if (userList == null)
             {
-               <p>No Result</p>
+             
             }
             else
             {
@@ -40,7 +40,7 @@
                 {
                     @if ((item.User?.Role?.RoleName != "Manager"))
                     {
-                        <tr>
+                        <tr class="@(item.User.isActive == true ? "" :"archived-user")">
                             <td data-label="ID">@item.UserId</td>
                             <td data-label="Role">@item.User?.Role?.RoleName</td>
                             <td data-label="First Name">@item.Firstname</td>

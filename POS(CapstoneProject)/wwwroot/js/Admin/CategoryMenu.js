@@ -23,16 +23,6 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-//function for pop up messages
-function popUpMessageCategory(message, icon) {
-    Swal.fire({
-        text: message,
-        icon: icon,
-        padding: "1em",
-        showConfirmButton: false,
-        timer: 2000
-    });
-}
 //call the function with add category button is click
 $('.addSubmitBtn').click(function () {
     AddCategory();
@@ -45,40 +35,16 @@ function AddCategory() {
 
     if (categoryName == '') {
 
-        popUpMessageCategory("Please input a category name", "error");
+        popUpMessage("Please input a category name", "error");
     }
     else {
 
         if (categoryName.length >= 3 && categoryName.length <= 15) {
 
-            Swal.fire({
-                icon: "question",
-                title: "Do you want to add this category?",
-                iconColor: "#938F8F",
-                showCancelButton: true,
-                confirmButtonColor: "#006ACD",
-                cancelButtonColor: "#F71900",
-                confirmButtonText: "Yes",
-                customClass: {
-                    icon: 'custom-icon',
-                    title: 'general-swal-title',
-                    confirmButton: 'general-swal-confirm-btn',
-                    cancelButton: 'general-swal-cancel-btn'
-
-                }
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    $("#addForm").submit();
-
-                }
-            });
-
+            popUpMessageChoice("Do you want to add this category?",'', 'question', 'general-swal-icon','general-swal-title', () => { $("#addCategoryForm").submit() });
 
         } else {
-            popUpMessageCategory("Input must be 3-15 characters", "error");
+            popUpMessage("Input must be 3-15 characters", "error");
             
         }
     }
@@ -93,40 +59,17 @@ function UpdateCategory() {
 
     if (categoryName == '') {
 
-        popUpMessageCategory("Please input a category name", "error");
+        popUpMessage("Please input a category name", "error");
     }
     else {
         if (categoryName.length >= 3 && categoryName.length <= 15) {
 
-            Swal.fire({
-                icon: "question",
-                title: "Do you want to update this category?",
-                iconColor: "#938F8F",
-                showCancelButton: true,
-                confirmButtonColor: "#006ACD",
-                cancelButtonColor: "#F71900",
-                confirmButtonText: "Yes",
-                customClass: {
-                    icon: 'custom-icon',
-                    title: 'general-swal-title',
-                    confirmButton: 'general-swal-confirm-btn',
-                    cancelButton: 'general-swal-cancel-btn'
-
-                }
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    $("#updateForm").submit();
-
-                }
-            });
+            popUpMessageChoice("Do you want to update this category?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateCategoryForm").submit() });
 
 
         } else {
 
-            popUpMessageCategory("Input must be 3-15 characters", "error");
+            popUpMessage("Input must be 3-15 characters", "error");
 
         }
     }
@@ -168,7 +111,5 @@ function RowClick(url, row,event) {
 
     localStorage.setItem('categoryName', categoryName);
     location.href = url;
-
-   
-    
+  
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 using POS_CapstoneProject_.Data;
+using POS_CapstoneProject_.DTO;
 using POS_CapstoneProject_.Models;
 
 namespace POS_CapstoneProject_.Controllers.Admin
@@ -163,7 +164,95 @@ namespace POS_CapstoneProject_.Controllers.Admin
             return RedirectToAction("InventoryList");
         }
 
-        //From Inventory List
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateRequest(string requestData, int requestId)
+        {
+            int userId = (int)HttpContext.Session.GetInt32("UserID");
+            var checkRequest = await _context.Request.Where(s => s.RequestId == requestId).FirstOrDefaultAsync();
+            if (checkRequest != null)
+            {
+                checkRequest.Status = "Completed";
+
+
+                _context.Request.Update(checkRequest);
+                await _context.SaveChangesAsync();
+            }
+            var myList = JsonConvert.DeserializeObject<List<RequestListUpdated>>(requestData);
+
+            if (myList! != null)
+            {
+                foreach (var item in myList)
+                {
+                    var ingredient = _context.Ingredient.Where(s => s.IngredientId == item.IngredientId).FirstOrDefault();
+                    if (ingredient != null)
+                    {
+                        ingredient.Quantity += item.Quantity;
+                        _context.Ingredient.Update(ingredient);
+                    }
+                }
+                await _context.SaveChangesAsync();
+            }
+
+            var inventTransact = new InventoryTransaction()
+            {
+                UserId = userId,
+                TransactionDate = DateTime.Now.Date,
+                TransactionType = "Stock In",
+                RequestId = requestId,
+            };
+
+
+            await _context.InventoryTransaction.AddAsync(inventTransact);
+            await _context.SaveChangesAsync();
+
+
+
+            if (myList! != null)
+            {
+                foreach (var item in myList)
+                {
+                    if (item.Quantity > 0)
+                    {
+
+                        var inventDetails = new InventoryTransactionDetail()
+                        {
+                            InventoryTransactId = inventTransact.InventoryTransactId,
+                            IngredientId = item.IngredientId,
+                            Quantity = item.Quantity,
+                            Remarks = "Delivered"
+
+                        };
+                        await _context.InventoryTransactionDetail.AddAsync(inventDetails);
+                    }
+
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+            TempData["UpdateRequest"] = "Request Complete";
+            return RedirectToAction("RequestList");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelRequest(int requestId)
+        {
+            int userId = (int)HttpContext.Session.GetInt32("UserID");
+            var checkRequest = await _context.Request.Where(s => s.RequestId == requestId).FirstOrDefaultAsync();
+            if (checkRequest != null)
+            {
+                checkRequest.Status = "Canceled";
+
+
+                _context.Request.Update(checkRequest);
+                await _context.SaveChangesAsync();
+            }
+
+            TempData["CancelRequest"] = "Request Canceled";
+
+            return RedirectToAction("RequestList");
+        }
 
         public async Task<IActionResult> StockOut(string stockOutData, string remarks)
         {
@@ -393,94 +482,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
             return RedirectToAction("RequestList");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateRequest(string requestData, int requestId)
-        {
-            int userId = (int)HttpContext.Session.GetInt32("UserID");
-            var checkRequest = await _context.Request.Where(s => s.RequestId == requestId).FirstOrDefaultAsync();
-            if (checkRequest != null)
-            {
-                checkRequest.Status = "Completed";
-
-
-                _context.Request.Update(checkRequest);
-                await _context.SaveChangesAsync();
-            }
-            var myList = JsonConvert.DeserializeObject<List<RequestListUpdated>>(requestData);
-
-            if (myList! != null)
-            {
-                foreach (var item in myList)
-                {
-                    var ingredient = _context.Ingredient.Where(s => s.IngredientId == item.IngredientId).FirstOrDefault();
-                    if (ingredient != null)
-                    {
-                        ingredient.Quantity += item.Quantity;
-                        _context.Ingredient.Update(ingredient);
-                    }
-                }
-                await _context.SaveChangesAsync();
-            }
-
-            var inventTransact = new InventoryTransaction()
-            {
-                UserId = userId,
-                TransactionDate = DateTime.Now.Date,
-                TransactionType = "Stock In",
-                RequestId = requestId,
-            };
-
-
-            await _context.InventoryTransaction.AddAsync(inventTransact);
-            await _context.SaveChangesAsync();
-
-
-
-            if (myList! != null)
-            {
-                foreach (var item in myList)
-                {
-                    if (item.Quantity > 0)
-                    {
-
-                        var inventDetails = new InventoryTransactionDetail()
-                        {
-                            InventoryTransactId = inventTransact.InventoryTransactId,
-                            IngredientId = item.IngredientId,
-                            Quantity = item.Quantity,
-                            Remarks = "Delivered"
-
-                        };
-                        await _context.InventoryTransactionDetail.AddAsync(inventDetails);
-                    }
-
-                }
-
-                await _context.SaveChangesAsync();
-            }
-
-            TempData["UpdateRequest"] = "Request Complete";
-            return RedirectToAction("RequestList");
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CancelRequest(int requestId)
-        {
-            int userId = (int)HttpContext.Session.GetInt32("UserID");
-            var checkRequest = await _context.Request.Where(s => s.RequestId == requestId).FirstOrDefaultAsync();
-            if (checkRequest != null)
-            {
-                checkRequest.Status = "Canceled";
-
-
-                _context.Request.Update(checkRequest);
-                await _context.SaveChangesAsync();
-            }
-
-            TempData["CancelRequest"] = "Request Canceled";
-
-            return RedirectToAction("RequestList");
-        }
+       
     }
 }

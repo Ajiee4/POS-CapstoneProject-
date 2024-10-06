@@ -27,15 +27,7 @@
     });
 })
 
-function popUpMessageUser(message, icon) {
-    Swal.fire({
-        text: message,
-        icon: icon,
-        padding: "1em",
-        showConfirmButton: false,
-        timer: 2000
-    });
-}
+
 
 $('#addUserModal').on('hidden.bs.modal', function () {
 
@@ -62,55 +54,37 @@ function AddNewUser() {
     /*let role = document.querySelector('#addUserModal .selectRole').value;*/
 
     if (firstname === '' || lastname === '' || email === '' || cellphone === '' || username === '' || password === '') {
-        popUpMessageUser('Fill out all information', 'error');
+        popUpMessage('Fill out all information', 'error');
         return;
     }
 
     // Check for valid names (only letters and one space)
     if (!isValidName(firstname) || !isValidName(lastname)) {
-        popUpMessageUser('First and Last Names must be valid, and between 2 and 15 characters long', 'error');
+        popUpMessage('First and Last Names must be valid, and between 2 and 15 characters long', 'error');
         return;
     }
 
     //if (!isValidCredentials(username) || !isValidCredentials(password)) {
-    //    popUpMessageUser('Email must be valid and between 2 and 15 characters long', 'error');
+    //    popUpMessage('Email must be valid and between 2 and 15 characters long', 'error');
     //    return;
     //}
 
     // Check for valid email address
     if (!isValidEmail(email)) {
-        popUpMessageUser('Invalid email address', 'error');
+        popUpMessage('Invalid email address', 'error');
         $('#addUserModal .inputEmail').focus();
         return;
     }
 
     if (!isValidCellphone(cellphone)) {
-        popUpMessageUser('Please enter a valid 11-digit cellphone number.', 'error');
+        popUpMessage('Please enter a valid 11-digit cellphone number.', 'error');
         $('#addUserModal .inputCellphone').focus();
+
         return;
     }
 
-    Swal.fire({
-        icon: "question",
-        title: "Do you want to add this user?",
-        iconColor: "#938F8F",
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
+    popUpMessageChoice("Do you want to add this user?", '', 'question', 'general-swal-icon', 'general-swal-title', () => {$('#addUserForm').submit();});
 
-            $('#addUserForm').submit();
-
-        }
-    });
 }
 function isValidEmail(email) {
     // You can use a regular expression for more robust validation
@@ -118,18 +92,19 @@ function isValidEmail(email) {
 
     return emailRegex.test(email);
 }
-
+// Check for only letters, one space, and length between 2 and 15
 function isValidName(name) {
-    // Check for only letters, one space, and length between 2 and 15
+   
     return /^[A-Za-z]+\s?[A-Za-z]+$/.test(name) && name.length >= 2 && name.length <= 15;
 }
+// Check for only letters, one space, and length between 2 and 15
 function isValidCredentials(credential) {
-    // Check for only letters, one space, and length between 2 and 15
+   
     return /^[A-Za-z]+\s?[A-Za-z]+$/.test(credential) && credential.length >= 2 && credential.length <= 15;
 }
-
+// Check for 11 digits and only numbers
 function isValidCellphone(cellphone) {
-    // Check for 11 digits and only numbers
+   
     return /^\d{11}$/.test(cellphone);
 }
 
@@ -143,14 +118,14 @@ function updateUser(userId,firstname, lastname, email, contact, username, passwo
     $('#updateUserModal .inputCellphone').val(contact)
     $('#updateUserModal .inputUsername').val(username)
     $('#updateUserModal .inputPassword').val(password)
-  /*  $('#updateUserModal .selectRole option[value="' + roleid + '"]').prop('selected', true);*/
-    
+     
 }
 
 //Update User
 $('.updateUserSubmit').click(function () {
     UpdateUser();
 });
+
 function UpdateUser() {
     let firstname = document.querySelector('#updateUserModal .inputFirstName').value;
     let lastname = document.querySelector('#updateUserModal .inputLastName').value;
@@ -158,120 +133,62 @@ function UpdateUser() {
     let cellphone = document.querySelector('#updateUserModal .inputCellphone').value;
     let username = document.querySelector('#updateUserModal .inputUsername').value;
     let password = document.querySelector('#updateUserModal .inputPassword').value;
-  /*  let role = document.querySelector('#updateUserModal .selectRole').value;*/
+ 
 
     if (firstname === '' || lastname === '' || email === '' || cellphone === '' || username === '' || password === '') {
-        popUpMessageUser('Fill out all information', 'error');
+        popUpMessage('Fill out all information', 'error');
         return;
     }
 
     // Check for valid names (only letters and one space)
     if (!isValidName(firstname) || !isValidName(lastname)) {
-        popUpMessageUser('First and Last Names must be valid, and between 2 and 15 characters long', 'error');
+        popUpMessage('First and Last Names must be valid, and between 2 and 15 characters long', 'error');
         return;
     }
 
-    if (!isValidCredentials(username) || !isValidCredentials(password)) {
-        popUpMessageUser('Email must be valid and between 2 and 15 characters long', 'error');
-        return;
-    }
+    //if (!isValidCredentials(username) || !isValidCredentials(password)) {
+    //    popUpMessage('Email must be valid and between 2 and 15 characters long', 'error');
+    //    return;
+    //}
 
     // Check for valid email address
     if (!isValidEmail(email)) {
-        popUpMessageUser('Invalid email address', 'error');
+        popUpMessage('Invalid email address', 'error');
         $('#updateUserModal .inputEmail').focus();
         return;
     }
 
     if (!isValidCellphone(cellphone)) {
-        popUpMessageUser('Please enter a valid 11-digit cellphone number.', 'error');
+        popUpMessage('Please enter a valid 11-digit cellphone number.', 'error');
         $('#updateUserModal .inputCellphone').focus();
         return;
     }
 
-    Swal.fire({
-        icon: "question",
-        title: "Do you want to update this user?",
-        iconColor: "#938F8F", 
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            $('#updateUserForm').submit();
-
-        }
-    });
+    popUpMessageChoice("Do you want to update this user?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $('#updateUserForm').submit(); });
+  
 
 }
-
+/*Archive user*/
 function ArchiveUser(id) {
-    Swal.fire({
 
-        title: "Are you sure you want to deactivate this user? <br/>",
-        icon: "question",
-        iconColor: "#938F8F",
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
-
-        }
-
-    }).then((result) => {
-
-        if (result.isConfirmed) {
-
-            $('.inputArchiveUserId').val(id);
-            $('.archiveUserForm').submit();
-
-        }
+    popUpMessageChoice("Are you sure you want to deactivate this user? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title', () => {
+        $('.inputArchiveUserId').val(id);
+        $('.archiveUserForm').submit();
     });
-
     
    
 }
+/*unArchive user*/
 function UnarchiveUser(id) {
-    Swal.fire({
-        title: "Are you sure you want to activate this user? <br/>",
-        icon: "question",
-        iconColor: "#938F8F",
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
 
-        }
-
-    }).then((result) => {
-
-        if (result.isConfirmed) {
-
-            $('.inputUnrchiveUserId').val(id);
-            $('.unarchiveUserForm').submit();
-
-        }
+    popUpMessageChoice("Are you sure you want to activate this user? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title', () => {
+        $('.inputUnrchiveUserId').val(id);
+        $('.unarchiveUserForm').submit();
     });
-  
+ 
 }
+
+/*Set default values in the Details Modal*/
 function ViewDetails(email, contact, username, password) {
    
     $('#detailsUserModal .detailEmail').val(email);
@@ -279,6 +196,3 @@ function ViewDetails(email, contact, username, password) {
     $('#detailsUserModal .detailUsername').val(username);
     $('#detailsUserModal .detailPassword').val(password)
 }
-
-
-

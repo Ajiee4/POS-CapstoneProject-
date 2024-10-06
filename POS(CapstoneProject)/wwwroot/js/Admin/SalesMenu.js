@@ -17,6 +17,7 @@ $(document).ready(function () {
 
 });
 
+//check if the category row from the category page is click
 function checkCategory() {
     let categoryList = document.querySelector('.category-list-wrapper');
     let items = categoryList.querySelectorAll('.category-item');
@@ -64,20 +65,7 @@ function checkCategory() {
 checkCategory();
 
 
-function popUpMessageToast(icon, title,width) {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        width: width,
-        showConfirmButton: false,
-        timer: 1500,
 
-    });
-    Toast.fire({
-        icon: icon,
-        title: title
-    });
-}
 
 
 //get the data from the locale storage and store it in the checkoutlist array
@@ -90,6 +78,7 @@ window.addEventListener('load', () => {
     }
 });
 
+
 function cartCount() {
     let sum = 0;
     checkOutList.forEach((item) => {
@@ -97,7 +86,6 @@ function cartCount() {
     });
     $('.cart-count').text(sum);
 
-   /* alert(sum);*/
 }
 
 
@@ -150,7 +138,7 @@ function DisplayCheckOut() {
 
     const tableBody = document.querySelector('.checkout-table tbody');
     let html = '';
-    const storedList = localStorage.getItem('checkOutList');
+  
     checkOutList.forEach((item) => {
 
         const truncatedName = item.prodName.length > 5 ? `${item.prodName.substring(0, 6)}...` : item.prodName;
@@ -194,7 +182,7 @@ function DisplayCheckOut() {
 
     let subTotalText = document.querySelector('.subTotalValue');
     let totalAmountText = document.querySelector('.TotalAmount');
-  /*  $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)*/
+
     subTotalText.innerHTML = `₱${CalculateSubtotal().toFixed(2)}`;
     totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
 
@@ -228,9 +216,7 @@ function checkoutProduct(id, name, quantity, price) {
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     DisplayCheckOut();
     cartCount();
-
-    
-   
+  
 }
 
 //increment the quantity of product
@@ -259,23 +245,18 @@ function decrementQty(id) {
 }
 //delete a specific item from the checklist
 function deleteItem(id) {
-   
+
     let indexItem = checkOutList.findIndex(item => item.prodID === id);
+  
+    checkOutList.splice(indexItem, 1);
 
-    if (indexItem !== -1) {
-        checkOutList.splice(indexItem, 1);
-
-        DisplayCheckOut();
-        cartCount();
-        
-       
-    }  
-    
+    DisplayCheckOut();
+    cartCount();
+    popUpMessageToast('success', 'Product Deleted', 250);
+         
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList)); 
   
 }
-
-
 
 
 //discount not yet applied; subtotal
@@ -313,8 +294,7 @@ function ApplyDiscount() {
 function validateInput(input) {
    
     input.value = input.value.replace(/[^0-9]/g, '');
-    
-    
+       
 }
 
 //default value is 0
@@ -326,44 +306,26 @@ document.querySelector('#inputDiscount').addEventListener('change', function() {
         inputDiscount.value = 0;
     }
 });
-//cancel order
 
+//cancel order
+//cancel order
 $('.cancelBtn').click(function (){
 
     if (checkOutList.length == 0) {
 
-        popUpMessageSales("Check Out list is empty", "error");
+        popUpMessage("Check Out List is empty", "error");
     }
     else {
-        Swal.fire({
-            icon: "question",
-            title: "Are you sure you want to cancel? <br>",
-            iconColor: "#938F8F",
-            showCancelButton: true,
-            confirmButtonColor: "#006ACD",
-            cancelButtonColor: "#F71900",
-            confirmButtonText: "Yes",
-            customClass: {
-                icon: 'custom-icon',
-                title: 'swal-salesCancel-title general-swal-title',
-                confirmButton: 'general-swal-confirm-btn',
-                cancelButton: 'general-swal-cancel-btn'
+        popUpMessageChoice("Are you sure you want to cancel? <br>", '', 'question', 'general-swal-icon ', 'general-swal-title swal-salesCancel-title', () => {
+            checkOutList.splice(0);
 
-            }
+            DisplayCheckOut();
+            cartCount();
+            popUpMessageToast('success', 'Check Out Canceled', 300);
 
-        }).then((result) => {
-
-            if (result.isConfirmed) {
-
-                checkOutList.splice(0);
-
-                DisplayCheckOut();
-                cartCount();
-                popUpMessageToast('success', 'Check Out Canceled', 300);
-
-                localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-            }
+            localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
         });
+     
     }   
 })
 
@@ -371,7 +333,7 @@ $('.cancelBtn').click(function (){
 $('.payBtn').click(function () {
    
     if (checkOutList.length === 0) {
-        popUpMessageSales("Check Out list is empty", "error");
+        popUpMessage("Check Out list is empty", "error");
 
     } else {
         $('#paymentModal').modal('toggle')
@@ -379,13 +341,9 @@ $('.payBtn').click(function () {
         $('.totalAmountInputReadOnly').val(total.toFixed(2))
        
     }
-
-   
-   
-
 });
 
-
+//cash is input
 function onInputCash(e) {
 
     if (e.value == '') {
@@ -417,21 +375,18 @@ function onInputCash(e) {
                 "margin": "0px auto"
             })
           
-
-
         } else {
             $('#paymentModal .calculate-wrapper').css({
                 "display": "none",
             })
-           /* popUpMessageSales("Insufficient Amount", "error");*/
-            /*   input.val('').focus();*/
+          
             $('.changeAmountText').val('Insufficient Amount');
-            /*console.log(previousValue);*/
+           
         }
     
     } else {
 
-        popUpMessageSales("Only numbers are allowed", "error");
+        popUpMessage("Only numbers are allowed", "error");
       
         input.val(null);
     }
@@ -447,58 +402,38 @@ $('#paymentModal').on('hidden.bs.modal', function () {
 /*validates the cash tendered*/
 
 $('.calculateBtn').click(function () {
-  
-    Swal.fire({
-        icon: "question",
-        title: "Confirm payment? <br>",
-        iconColor: "#938F8F",
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'custom-icon',
-            title: 'swal-sales-title general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
 
-        }
+    popUpMessageChoice("Confirm payment? <br>", '', 'question', 'general-swal-icon ', 'general-swal-title swal-sales-title', () => {
 
-    }).then((result) => {
+        let total = CalculateTotalAmount();
+        let jsonData = JSON.stringify(checkOutList);
+        let subTotal = Number(CalculateSubtotal());
+        let cash = Number($('.amountInput').val());
+        let changedue = Number($('.changeAmountText').val())
+        let discount = Number($('#inputDiscount').val())
 
-        if (result.isConfirmed) {
+        let discountAmount = subTotal * (discount / 100);
 
-            let total = CalculateTotalAmount();
-            let jsonData = JSON.stringify(checkOutList);
-            let subTotal = Number(CalculateSubtotal());
-            let cash = Number($('.amountInput').val());
-            let changedue = Number($('.changeAmountText').val())
-            let discount = Number($('#inputDiscount').val())
+        $('#checkOutTotalInput').val(total)
+        $('#checkOutListInput').val(jsonData);
+        $('#totalString').val(total.toFixed(2))
+        $('#cashTendered').val(cash.toFixed(2))
+        $('#changeDueAmount').val(changedue.toFixed(2));
+        $('#subTotalAmount').val(subTotal.toFixed(2));
+        $('#discount').val(discountAmount.toFixed(2))
 
-            let discountAmount = subTotal * (discount / 100);
-           
-            $('#checkOutTotalInput').val(total)
-            $('#checkOutListInput').val(jsonData);
-            $('#totalString').val(total.toFixed(2))
-            $('#cashTendered').val(cash.toFixed(2))
-            $('#changeDueAmount').val(changedue.toFixed(2));
-            $('#subTotalAmount').val(subTotal.toFixed(2));
-            $('#discount').val(discountAmount.toFixed(2))
+        $('#formPay').submit();
 
-            $('#formPay').submit();
+        checkOutList.splice(0);
+        cartCount();
+        localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 
-            checkOutList.splice(0);
-            cartCount();
-            localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-
-        }
     });
-   
-  
+ 
 });
 
 
-//if the name is greater than 8
+//break the name into small
 function truncateName() {
     let names = document.querySelectorAll('.product-item-name span');
 
@@ -510,18 +445,6 @@ function truncateName() {
 }
 
 truncateName();
-
-function popUpMessageSales(message, icon) {
-    Swal.fire({
-        text: message,
-        icon: icon,
-        padding: '1em',
-        showConfirmButton: false,
-        timer: 2000,
-
-    });
-}
-
 
 
 function CheckOutToggle() {
@@ -538,10 +461,9 @@ function CheckOutToggle() {
             $('.container-all').css({
                 'width': "100%"
             })
+
         } else {
-            //$('.product-list-wrapper').css({
-            //    'width': "calc(100% - 340px)"
-            //})
+           
             $('.container-all').css({
                 'width': "calc(100% - 340px)"
             })
@@ -549,10 +471,11 @@ function CheckOutToggle() {
   
     });
 }
-
+//When exit button is click
 $('.exitCheckout').click(function () {
     CheckOutToggle();
 })
+
 //adjusting the width of conten if sidebar was showed/hidden
 
 $('.checkout-icon').click(function () {

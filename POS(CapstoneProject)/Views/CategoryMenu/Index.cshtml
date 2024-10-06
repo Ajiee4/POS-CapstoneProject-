@@ -16,7 +16,7 @@
 
  <!--Wrapper-->
 <div class="category-wrapper">
-    <button type="button" class="addCategoryBtn" data-toggle="modal" data-target="#addCategoryModal">
+    <button type="button" class="addCategoryBtn general-button" data-toggle="modal" data-target="#addCategoryModal">
         <img src="~/images/add.png" />
         <span>Add Category</span>
         </button>
@@ -75,7 +75,7 @@
           
             <br />
             <div class="modal-body">
-                <form asp-action="AddCategory" id="addForm" asp-controller="CategoryMenu" method="post">
+                <form asp-action="AddCategory" id="addCategoryForm" asp-controller="CategoryMenu" method="post">
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label general-modal-label">Category Name</label>
                         <input asp-for="CategoryName" class="form-control addInputName general-modal-input" placeholder="Enter Category Name" required />
@@ -104,7 +104,7 @@
             </div>
             <br />           
             <div class="modal-body">
-                <form asp-action="UpdateCategory" id="updateForm" method="post">                 
+                <form asp-action="UpdateCategory" id="updateCategoryForm" method="post">                 
                     <input asp-for="CategoryId" class="form-control input-id" hidden/>
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label general-modal-label">Category Name</label>

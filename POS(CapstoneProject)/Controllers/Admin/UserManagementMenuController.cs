@@ -29,7 +29,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-                        var userList = _context.UserDetail.Include(x => x.User).Include(s => s.User.Role).ToList();
+                        var userList = _context.UserDetail.Include(x => x.User).Include(s => s.User.Role).OrderBy(s => s.UserId).ToList();
                         var roleList = _context.Role.Where(s => s.RoleName != "Manager").ToList();
                         ViewData["UserList"] = userList;
                         ViewData["RoleList"] = roleList;

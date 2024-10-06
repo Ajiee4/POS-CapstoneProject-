@@ -30,7 +30,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {                     
-                        var productList = await _context.Product.Include(s => s.Category).OrderBy(s =>  s.IsArchive).ToListAsync();                       
+                        var productList = await _context.Product.Include(s => s.Category).OrderBy(s =>  s.ProductId).ToListAsync();                       
                         var getCategoryProduct = await _context.Category.ToListAsync();
                        
                         ViewData["productCategory"] = getCategoryProduct;

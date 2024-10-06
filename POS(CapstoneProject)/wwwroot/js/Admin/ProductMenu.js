@@ -22,19 +22,6 @@ $(document).ready(function () {
 });
 
 
-
-
-////pop up message using sweetalert
-function popUpMessageProduct(message, icon) {
-    Swal.fire({
-        text: message,
-        icon: icon,
-        showConfirmButton: false,
-        timer: 2000,
-    });
-}
-
-
 //when the button is click it will fire the input to select an image
 $('#addProductModal .uploadPhoto').click(function () {
 
@@ -62,67 +49,29 @@ $('#addProductModal').on('hidden.bs.modal', function () {
 });
 
 
-//when the archive button is click, the form will be submitted
-$('.archiveBtn').click(function () {
 
-    Swal.fire({
-       
-        title: "Are you sure you want to archive this product? <br/>",
-        icon: "question",    
-        iconColor: "#938F8F", 
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'general-swal-icon',
-            title: 'general-swal-title swal-archive-product-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
-           
-        }
+/*Archive Product*/
+function archiveProduct(element) {
 
-    }).then((result) => {
-
-        if (result.isConfirmed) {
-
-            $('.archiveForm').submit();
-
-        }
+    let productId = element.dataset.id;
+    popUpMessageChoice("Are you sure you want to archive this product? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title swal-archive-product-title', () => {
+        $('.archiveInput').val(productId);
+        $('.archiveForm').submit();
     });
+    
    
-})
-//when the unarchive button is click, the form will be submitted
-$('.unarchiveBtn').click(function () {
+}
+/*unArchive Product*/
+function unArchiveProduct(element) {
 
-    Swal.fire({
-        title: "Are you sure you want to unarchive this product? <br/>",    
-        icon: "question",
-        iconColor: "#938F8F",
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'general-swal-icon',
-            title: 'general-swal-title swal-unarchive-product-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
-
-        }
-
-    }).then((result) => {
-
-        if (result.isConfirmed) {
-
-            $('.unarchiveForm').submit();
-
-        }
+    let productId = element.dataset.id;
+    popUpMessageChoice("Are you sure you want to unarchive this product? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title swal-unarchive-product-title', () => {
+        $('.unArchiveInput').val(productId);
+        $('.unarchiveForm').submit();
     });
-   
-})
+    
+}
 
-//when update button is click, set default value inside the update produtct modal
 function updateProduct(id, name, price, category, img) {
 
     $('#updateProductModal .productId').val(id); 
@@ -182,7 +131,7 @@ function validatePrice(input) {
 $('.addProductSubmit').click(function () {
 
     if ($('.selectCat option').length == 0) {
-        popUpMessageProduct("Create new category first", "error")
+        popUpMessage("Create new category first", "error")
     }
     else {
         AddProduct();
@@ -198,43 +147,19 @@ function AddProduct() {
 
     if (productName == '' || productPrice == '') {
 
-        popUpMessageProduct("Fill out all necessary information", "error");       
+        popUpMessage("Fill out all necessary information", "error");       
     }
     else {
 
         if (productName.length >= 3 && productName.length <= 15) {
-        
+         
             $('.addProductInputName').val(productName);
-            Swal.fire({
-                icon: "question",
-                title: "Do you want to add this product?",              
-                icon: "question",
-                iconColor: "#938F8F",
-                showCancelButton: true,
-                confirmButtonColor: "#006ACD",
-                cancelButtonColor: "#F71900",
-                confirmButtonText: "Yes",
-                customClass: {
-                    icon: 'general-swal-icon',
-                    title: 'general-swal-title',
-                    confirmButton: 'general-swal-confirm-btn',
-                    cancelButton: 'general-swal-cancel-btn'
 
-                }
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    $("#addProductForm").submit();
-
-                }
-            });
-
+            popUpMessageChoice("Do you want to add this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => {$("#addProductForm").submit()});         
 
         } else {
 
-            popUpMessageProduct("Input must be 3-15 characters for product name", "error");
+            popUpMessage("Input must be 3-15 characters for product name", "error");
            
         }
     }
@@ -244,7 +169,7 @@ function AddProduct() {
 //when update product submit is click
 $('.updateProductSubmit').click(function () {
     if ($('.selectCat option').length == 0) {
-        popUpMessageProduct("Create new category first", "error")
+        popUpMessage("Create new category first", "error")
     }
     else {
         UpdateProduct();
@@ -256,43 +181,23 @@ function UpdateProduct() {
     let productName = document.querySelector('.updateProductInputName').value;
     let productPrice = document.querySelector('.updateProductInputPrice').value;
     productName = productName.replace(/\s{2,}/g, ' ');
+
     if (productName == '' || productPrice == '') {
 
-        popUpMessageProduct("Fill out all necessary information", "error");
+        popUpMessage("Fill out all necessary information", "error");
 
     }
     else {
 
         if (productName.length >= 3 && productName.length <= 15) {
             $('.updateProductInputName').val(productName);
-            Swal.fire({
-                icon: "question",
-                title: "Do you want to update this product?",
-                iconColor: "#938F8F",
-                showCancelButton: true,
-                confirmButtonColor: "#006ACD",
-                cancelButtonColor: "#F71900",
-                confirmButtonText: "Yes",
-                customClass: {
-                    icon: 'general-swal-icon',
-                    title: 'general-swal-title',
-                    confirmButton: 'general-swal-confirm-btn',
-                    cancelButton: 'general-swal-cancel-btn'
 
-                }
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    $("#updateProductForm").submit();
-
-                }
-            });
-          
+            popUpMessageChoice("Do you want to update this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateProductForm").submit() });  
+           
+                 
         } else {
 
-            popUpMessageProduct("Input must be 3-15 characters for product name", "error");
+            popUpMessage("Input must be 3-15 characters for product name", "error");
 
         }
     }

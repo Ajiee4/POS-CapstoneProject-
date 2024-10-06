@@ -1,4 +1,4 @@
-﻿namespace POS_CapstoneProject_.Models
+﻿namespace POS_CapstoneProject_.DTO
 {
     public class InventoryReport
     {
@@ -6,7 +6,7 @@
 
         public DateTime TransactionDate { get; set; }
         public string TransactionType { get; set; }
-        public int TotalQuantity { get; set;}
-      
+        public int TotalQuantity { get; set; }
+
     }
 }

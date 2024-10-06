@@ -20,17 +20,6 @@ $(document).ready(function () {
     requestListUpdate = requestDetails;
 })
 
-
-function popUpMessageInventoryRequest(message, icon) {
-    Swal.fire({
-        text: message,
-        icon: icon,
-        padding: "1em",
-        showConfirmButton: false,
-        timer: 2000
-    });
-}   
-
 $('.viewRequestBtn').click(function () {
    
     if ($('.selectRequestStatus').val() == null || $('.fromDate').val() == '' ||
@@ -59,6 +48,7 @@ $('.viewRequestBtn').click(function () {
         $('#requestFilterForm').submit();
     }
 });
+
 function ShowRequestModal() {
     let requestCard = document.querySelectorAll('.request-card');
    
@@ -145,80 +135,33 @@ function changeQtyRequest(input) {
 }
 
 $('.cancelRequestBtn').click(function () {
-    Swal.fire({
-        icon: "question",
-        title: "Cancel Request? <br>",
-        iconColor: "#938F8F",
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'general-swal-icon',
-            title: 'swal-update-request-title general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
+    popUpMessageChoice("Cancel Request? <br>", '', 'question', 'general-swal-icon', 'general-swal-title swal-update-request-title', () => {
+        let requestId = Number(cardmodal.dataset.requestid);
 
-        }
-
-    }).then((result) => {
-
-        if (result.isConfirmed) {
-
-           
-            let cardmodal = document.querySelector('#requestCardModal');
-            let requestId = Number(cardmodal.dataset.requestid);
-
-        
-            $('.inputRequestIdcancel').val(requestId);
-            $('#FormRequestCancel').submit();
-
-
-        }
-
-
+        $('.inputRequestIdcancel').val(requestId);
+        $('#FormRequestCancel').submit();
     });
+ 
 });
+
 $('.completeRequestBtn').click(function () {
 
     let checkRequest = requestListUpdate.every(item => item.Quantity == 0);
+
     if (checkRequest) {
-        popUpMessageInventoryRequest("All Ingredients' quantities must not be zero", "error")
+        popUpMessage("All Ingredients' quantities must not be zero", "error")
         return;
     }
-    Swal.fire({
-        icon: "question",
-        title: "Complete Request? <br>",
-        iconColor: "#938F8F",
-        showCancelButton: true,
-        confirmButtonColor: "#006ACD",
-        cancelButtonColor: "#F71900",
-        confirmButtonText: "Yes",
-        customClass: {
-            icon: 'general-swal-icon',
-            title: 'swal-update-request-title general-swal-title',
-            confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
 
-        }
+    popUpMessageChoice("Complete Request? <br>", '', 'question', 'general-swal-icon', 'general-swal-title swal-update-request-title', () => {
 
-    }).then((result) => {
+        let cardmodal = document.querySelector('#requestCardModal');
+        let requestId = Number(cardmodal.dataset.requestid);
+        let requestList = requestListUpdate.filter(item => item.RequestId == requestId)
+        let jsonData = JSON.stringify(requestList);
 
-        if (result.isConfirmed) {
-         
-          
-            let cardmodal = document.querySelector('#requestCardModal');
-            let requestId = Number(cardmodal.dataset.requestid);
-            let requestList = requestListUpdate.filter(item => item.RequestId == requestId)
-            let jsonData = JSON.stringify(requestList);
-
-            $('.inputRequestUpdate').val(jsonData);
-            $('.inputRequestId').val(requestId);
-            $('#FormRequestUpdate').submit();
-
-           
-        }
-
-      
-    });
+        $('.inputRequestUpdate').val(jsonData);
+        $('.inputRequestId').val(requestId);
+        $('#FormRequestUpdate').submit();
+    });  
 });

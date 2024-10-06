@@ -13,23 +13,13 @@ $(document).ready(function () {
     });
 
 });
-function popUpMessageReport(message, icon) {
-    Swal.fire({
-        text: message,
-        icon: icon,
-        showConfirmButton: false,
-        timer: 2000,
-    });
-}
-
-
 
 $('.generateReportBtn').click(function (event) {
 
 
     if ($('.toDateReport').val() == '' || $('.fromDateReport').val() == '' || $('.selectReportType').val() == '') {
 
-        popUpMessageReport("Fill out all information", "error")
+        popUpMessage("Fill out all information", "error")
     }
     else {
         $('#salesReportForm').submit();

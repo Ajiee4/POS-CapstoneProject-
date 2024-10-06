@@ -68,8 +68,8 @@
 
 /*Stock Movement Wrapper*/
 
-stock-movement-wrapper {
-    display: none;
+.stock-movement-wrapper {
+    visibility: hidden;
     position: relative;
     width: 100%;
 }

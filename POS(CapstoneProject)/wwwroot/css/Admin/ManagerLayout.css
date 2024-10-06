@@ -154,7 +154,7 @@ body {
 }
 
 .header .right-section .checkout-icon {
-    
+    display: none;
     cursor: pointer;
     transition: 0.5s;
     margin-bottom: 5px;

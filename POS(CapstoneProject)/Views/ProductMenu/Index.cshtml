@@ -17,7 +17,7 @@
 
 <!--Product Wrapper-->
  <div class="product-wrapper">
-    <button type="button" class="addProductBtn" data-toggle="modal" data-target="#addProductModal">
+    <button type="button" class="addProductBtn general-button" data-toggle="modal" data-target="#addProductModal">
         <img src="~/images/add.png" />
         <span>Add Product</span>
     </button>
@@ -38,7 +38,7 @@
            
                 @foreach (var item in productList)
                 {
-                    <tr>
+                    <tr class="@(item.IsArchive == true ? "archived-product" :"")">
                         <td data-label="ID">@item.ProductId</td>
                         <td data-label="Name">@item.Name</td>
                         <td data-label="Category">
@@ -63,11 +63,11 @@
                         {
                             <td data-label="Actions">
                                 <form class="unarchiveForm" asp-action="UnarchiveProduct">
-                                    <input asp-for="ProductId" value="@item.ProductId" class="unarchiveInput" hidden />
+                                    <input asp-for="ProductId" class="unArchiveInput" hidden />
                                 </form>
                                 <div class="action-wrapper">
 
-                                    <button class="unarchiveBtn general-unarchive-btn" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
+                                <button class="unarchiveBtn general-unarchive-btn" data-id="@item.ProductId" onclick="unArchiveProduct(this)" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
                                         <img src="~/images/outbox.png" />
                                     </button>
                                     <button class="updateProductBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">
@@ -80,11 +80,11 @@
                         {
                            <td data-label="Actions">
                                 <form class="archiveForm" asp-action="ArchiveProduct">
-                                    <input asp-for="ProductId" value="@item.ProductId" class="archiveInput" hidden />
+                                    <input asp-for="ProductId" class="archiveInput" hidden />
                                 </form>
                                 <div class="action-wrapper">
 
-                                    <button class="archiveBtn general-archive-btn" data-toggle="tooltip" data-placement="bottom" title="Archive">
+                                <button class="archiveBtn general-archive-btn" data-id="@item.ProductId" onclick="archiveProduct(this)" data-toggle="tooltip" data-placement="bottom" title="Archive">
                                         <img src="~/images/inbox.png" />
                                      
                                     </button>

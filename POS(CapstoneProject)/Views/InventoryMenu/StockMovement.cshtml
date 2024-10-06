@@ -41,7 +41,7 @@
 </div>
 
 <!--Stock Movement Table-->
-<div class="stock-movement-wrapper" style="display: none;">
+<div class="stock-movement-wrapper">
     <table class="stock-movement-table general-table">
         <thead>
             <tr>
@@ -154,7 +154,7 @@
         window.addEventListener('load', function () {
             document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
             document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
-            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
             document.querySelector('.selectTransactionType').value = "All"
         });
       
@@ -166,7 +166,7 @@
         window.addEventListener('load', function () {
             document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
             document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
-            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
             document.querySelector('.selectTransactionType').value = "Stock Out"
         });
       
@@ -178,7 +178,7 @@
         window.addEventListener('load', function () {
             document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
             document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
-            document.querySelector('.stock-movement-wrapper').style.display = "block";
+            document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
             document.querySelector('.selectTransactionType').value = "Stock In"
         });
       

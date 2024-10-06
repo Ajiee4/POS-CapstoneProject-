@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using NuGet.Protocol;
 using POS_CapstoneProject_.Data;
+using POS_CapstoneProject_.DTO;
 using POS_CapstoneProject_.Models;
 
 namespace POS_CapstoneProject_.Controllers.Admin

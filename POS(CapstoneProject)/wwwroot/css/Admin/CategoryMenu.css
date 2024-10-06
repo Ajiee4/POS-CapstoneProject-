@@ -6,38 +6,6 @@
 }
 
 
-.addCategoryBtn {
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    padding: 5px 10px;
-    gap: 5px;
-    font-size: 0.6rem;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 1.5px solid white;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.addCategoryBtn:focus {
-    outline: 1px solid white;
-}
-
-.addCategoryBtn img {
-    width: 25px;
-    height: 25px;
-}
-
-.addCategoryBtn span {
-    color: white;
-}
-
-.addCategoryBtn:hover {
-    transform: scale(1.03);
-}
 
 /*Category Wrapper*/
 .category-wrapper {

@@ -11,37 +11,6 @@
     flex-wrap: wrap;
 }
 
-.addIngredientBtn, .stockOutBtn, .requestBtn {
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    padding: 5px 10px;
-    gap: 5px;
-    font-size: 0.6rem;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 1.5px solid white;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.addIngredientBtn:focus, .stockOutBtn:focus, .requestBtn:focus {
-    outline: 1px solid white;
-}
-.addIngredientBtn:hover, .stockOutBtn:hover, .requestBtn:hover {
-    transform: scale(1.03);
-}
-
-.addIngredientBtn img, .stockOutBtn img, .requestBtn img {
-    width: 25px;
-    height: 25px;
-}
-
-.addIngredientBtn span, .stockOutBtn span, .requestBtn span{
-    color: white;
-}
 
 /*Inventory Wrapper*/
 .inventory-wrapper {
