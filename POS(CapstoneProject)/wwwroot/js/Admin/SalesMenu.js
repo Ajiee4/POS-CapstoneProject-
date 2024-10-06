@@ -146,10 +146,9 @@ function DisplayCheckOut() {
             `
              <tr >
                     <td style="padding: 10px">
-                            <img src="/images/delete.png"
-                          
+                            <img src="/images/delete.png"                         
                             class="delete-checkout-img"
-                            onclick="deleteItem(${item.prodID})"/>
+                            onclick="deleteItemCheckOut(${item.prodID})"/>
                     </td>
                     <td class="table-data-name">
                         ${truncatedName}
@@ -219,6 +218,22 @@ function checkoutProduct(id, name, quantity, price) {
   
 }
 
+
+function deleteItemCheckOut(prodid) {
+
+
+    let indexItem = checkOutList.findIndex(item => item.prodID === prodid);
+
+    checkOutList.splice(indexItem, 1);
+
+    DisplayCheckOut();
+    cartCount();
+     popUpMessageToast("success","Product Deleted", 250);
+
+    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+
+}
+
 //increment the quantity of product
 function incrementQty(id) {
     const product = checkOutList.find((item) => item.prodID === id);
@@ -244,19 +259,7 @@ function decrementQty(id) {
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
 //delete a specific item from the checklist
-function deleteItem(id) {
 
-    let indexItem = checkOutList.findIndex(item => item.prodID === id);
-  
-    checkOutList.splice(indexItem, 1);
-
-    DisplayCheckOut();
-    cartCount();
-    popUpMessageToast('success', 'Product Deleted', 250);
-         
-    localStorage.setItem('checkoutList', JSON.stringify(checkOutList)); 
-  
-}
 
 
 //discount not yet applied; subtotal

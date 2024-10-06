@@ -287,9 +287,7 @@ function DisplayRequest() {
                  <tr >
                         <td style="padding: 10px">
                             <div class="x">
-                                <img src="/images/delete-black.png"
-                                     onmouseover="hoverElement(this)"
-                                    onmouseout="leaveElement(this)"
+                                <img src="/images/delete-black.png"                                   
                                     class="delete-checkout-img" onclick="deleteItem(${item.ingredientId})"/>
                             </div>
                                 
