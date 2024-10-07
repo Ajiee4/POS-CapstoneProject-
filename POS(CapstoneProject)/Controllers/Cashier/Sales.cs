@@ -57,7 +57,7 @@ namespace POS_CapstoneProject_.Controllers.Cashier
             int? userId = HttpContext.Session.GetInt32("UserID") as int?;
             var user = _context.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
 
-            if(user != null)
+            if (user != null)
             {
                 //created an object to save the order          
                 Order order = new Order()
@@ -88,8 +88,6 @@ namespace POS_CapstoneProject_.Controllers.Cashier
                     await _context.SaveChangesAsync();
                 }
 
-                //save change to db
-
                 TempData["OrderDate"] = order.OrderDate.ToString("MM/dd/yyyy");
                 TempData["TransactionComplete"] = " ";
                 TempData["UserName"] = user.Firstname + " " + user.Lastname;
@@ -104,7 +102,6 @@ namespace POS_CapstoneProject_.Controllers.Cashier
             {
 
             }
-          
 
             return RedirectToAction("Index");
         }

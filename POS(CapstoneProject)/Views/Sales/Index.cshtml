@@ -1,29 +1,48 @@
-﻿@* @inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data;
+﻿@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data;
 @{
     Layout = "/Views/Shared/_CashierLayout.cshtml";
+    var categoryList = ViewData["CategoryList"] as List<Category>;
+    var productList = ViewData["ProductList"] as List<Product>;
 }
-
 <style>
     .header .right-section .checkout-icon {
         display: block;
     }
+
+    .link-sales {
+        background-color: #747474 !important;
+    }
 </style>
+
+
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
+
 
 <!--Checkout Wrapper-->
 <div class="checkout-wrapper checkHide">
     <div class="checkout-content-wrapper">
-        <img src="~/images/no.png" class="exitCheckout" />
+
+        <button type="button" class="close exitCheckout">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
         <h1 class="checkout-title">Check Out</h1>
-        <div class="table-header">
-            <div style="color: transparent"></div>
-            <div class="table-header-name">Name &nbsp;&nbsp;&nbsp;</div>
-            <div class="table-header-quantity">Qty</div>
-            <div class="table-header-price">Price &nbsp;</div>
-        </div>
+
         <div class="checkout-table-wrapper">
             <!--Checkout Table-->
             <table class="checkout-table">
-
+                <thead>
+                    <tr>
+                        <th style="color: transparent">aaa</th>
+                        <th class="table-header-name">Name &nbsp;&nbsp;&nbsp;</th>
+                        <th class="table-header-quantity">Qty</th>
+                        <th class="table-header-coffee">w/coffee</th>
+                        <th class="table-header-price">Price &nbsp;</th>
+                    </tr>
+                </thead>
                 <tbody>
                 </tbody>
 
@@ -53,7 +72,7 @@
 
             <div class="checkout-btn">
                 <button class="cancelBtn">Cancel</button>
-                <button class="payBtn">Pay (₱0.00)</button>
+                <button class="payBtn">Buy</button>
             </div>
         </div>
     </div>
@@ -61,54 +80,66 @@
 </div>
 
 <!--Porduct List Wrapper-->
-<div class="product-list-wrapper">
+<div class="product-list-wrapper-cashier">
     <div class="search-wrapper">
 
         <div class="searchProd">
-            <input type="search" class="searchProductInput" onkeyup="searchProduct()" placeholder="Search...">
-            <label>
-                <img src="~/images/search.png" />
-            </label>
+            <div>
+                <span>Search: </span>
+            </div>
+
+            <div>
+                <input type="search" class="searchProductInput" onkeyup="searchProduct()">
+            </div>
         </div>
 
     </div>
-
-
 
     <div class="category-list-wrapper">
         <button class="category-item active" data-category="All" onclick="FilterProduct('All')">
             All
         </button>
-
-        @foreach (var item in ViewData["CategoryList"] as List<Category>)
+        @if (categoryList != null)
         {
-            <button class="category-item" data-category="@item.CategoryName" onclick="FilterProduct('@item.CategoryName')">
-                @item.CategoryName
-            </button>
+            @foreach (var item in categoryList)
+            {
+                <button class="category-item" data-category="@item.CategoryName" onclick="FilterProduct('@item.CategoryName')">
+                    @item.CategoryName
+                </button>
+            }
         }
+        else
+        {
+
+        }
+
     </div>
 
     <div class="product-catalog">
 
         <div class="noResult">Nothing Found...</div>
-        @foreach (var prod in ViewData["ProductList"] as List<Product>)
-        {
-            <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
-                <div class="product-item-img">
-                    @if (prod.ImageData != null)
-                    {
-                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
-                    }
-                    else
-                    {
-                        <span></span>
-                    }
-                </div>
 
-                <div class="product-item-name" data-category="@prod.Category.CategoryName">
-                    <span>@prod.Name</span>
+        @if (productList != null)
+        {
+            @foreach (var prod in productList)
+            {
+                <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category?.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
+                    <div class="product-item-img">
+                        @if (prod.ImageData != null)
+                        {
+                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
+                        }
+                        else
+                        {
+                            <span></span>
+                        }
+                    </div>
+
+                    <div class="product-item-name" data-category="@prod.Category?.CategoryName">
+                        <span>@prod.Name</span>
+                    </div>
                 </div>
-            </div>
+            }
         }
 
     </div>
@@ -119,9 +150,10 @@
 
 
 <!--Payment Modal-->
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade general-modal" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <img src="~/images/coffe-logo-light.png" class="payment-sales-modal-img general-coffee-img-bottom" />
             <div class="modal-header">
                 <h5 class="modal-title">PAYMENT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -132,20 +164,20 @@
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label class="control-label">Amount Due</label>
-                    <input class="form-control totalAmountInputReadOnly" readonly />
+                    <label class="control-label general-modal-label">Amount Due</label>
+                    <input class="form-control totalAmountInputReadOnly general-modal-input" readonly />
 
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">Cash Tendered</label>
-                    <input class="form-control amountInput" placeholder="Enter Cash Tendered" oninput="onInputCash(this)" />
+                    <label class="control-label general-modal-label">Cash Tendered</label>
+                    <input class="form-control amountInput general-modal-input" placeholder="Enter Cash Tendered" oninput="onInputCash(this)" />
 
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">Change Due</label>
-                    <input class="form-control changeAmountText" readonly />
+                    <label class="control-label general-modal-label">Change Due</label>
+                    <input class="form-control changeAmountText general-modal-input" readonly />
 
                 </div>
 
@@ -159,8 +191,8 @@
                     <input name="totalString" id="totalString" hidden />
                 </form>
 
-                <div class="form-group">
-                    <button type="button" class="calculateBtn">Pay</button>
+                <div class="form-group calculate-wrapper">
+                    <button type="button" class="d-block mx-auto calculateBtn general-modal-button">Pay</button>
                 </div>
 
             </div>
@@ -173,7 +205,7 @@
 <!--Show Receipt after the transaction-->
 @if (TempData["TransactionComplete"] != null)
 {
-    int orderId = int.Parse(TempData["orderID"].ToString());
+    int? orderId = TempData["orderID"] as int?;
     var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
 
     <script>
@@ -211,8 +243,8 @@
                 {
                     <div class="item-list">
                         <span>@item.Quantity</span>
-                        <span>@item.Product.Name</span>
-                        <span>₱@item.Product.Price</span>
+                        <span>@item.Product?.Name</span>
+                        <span>₱@item.Product?.Price</span>
                     </div>
                 }
             </div>
@@ -253,4 +285,3 @@
         </div>
     </div>
 }
- *@

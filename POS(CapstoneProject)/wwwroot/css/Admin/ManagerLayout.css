@@ -315,9 +315,9 @@ body {
     background-color: rgba(111,110,110,0.6);
     height: calc(100vh - 110px);
     z-index: 1;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 10px;
-    overflow-y: auto;
+   /* overflow-y: auto;*/
 }
 
 

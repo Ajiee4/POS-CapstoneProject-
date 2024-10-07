@@ -399,7 +399,7 @@ function onInputCash(e) {
 $('#paymentModal').on('hidden.bs.modal', function () {
     $('.amountInput').val(null);
     $('.changeAmountText').val(null);
-    $('.calculateBtn').hide();
+    $('.calculate-wrapper').hide();
 });
 
 /*validates the cash tendered*/
@@ -461,13 +461,13 @@ function CheckOutToggle() {
             $('.product-list-wrapper').css({
                 'width': '100%'
             })
-            $('.container-all').css({
-                'width': "100%"
-            })
+            //$('.container-all').css({
+            //    'width': "100%"
+            //})
 
         } else {
            
-            $('.container-all').css({
+            $('.product-list-wrapper').css({
                 'width': "calc(100% - 340px)"
             })
         }
