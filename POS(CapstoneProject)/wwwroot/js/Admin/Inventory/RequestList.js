@@ -136,8 +136,10 @@ function changeQtyRequest(input) {
 
 $('.cancelRequestBtn').click(function () {
     popUpMessageChoice("Cancel Request? <br>", '', 'question', 'general-swal-icon', 'general-swal-title swal-update-request-title', () => {
-        let requestId = Number(cardmodal.dataset.requestid);
+        let cardModal = document.querySelector('#requestCardModal');
+        let requestId = Number(cardModal.dataset.requestid);
 
+      
         $('.inputRequestIdcancel').val(requestId);
         $('#FormRequestCancel').submit();
     });

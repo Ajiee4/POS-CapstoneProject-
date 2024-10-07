@@ -134,7 +134,7 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 }
 
 
-.general-table .general-archive-btn, .general-unarchive-btn {
+.general-table .general-archive-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -142,6 +142,13 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
     cursor: pointer;
 }
 
+.general-unarchive-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    cursor: pointer;
+}
 
 .general-table .general-archive-btn img, .general-unarchive-btn img, .general-update-btn img, .general-details-btn img {
     height: 20px;

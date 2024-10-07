@@ -1,4 +1,5 @@
 ﻿@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data
+@using Newtonsoft.Json;
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
 }
@@ -59,7 +60,8 @@
           
             @if (TempData["inventoryAll"] != null)
             {
-                var inventoryAll = ViewData["All"] as List<InventoryTransactionDetail>;
+                var inventoryAllList = TempData["inventoryAll"] as string;
+                var inventoryAll = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
          
                 if(inventoryAll != null)
                 {
@@ -87,7 +89,9 @@
 
             @if (TempData["inventoryStockIn"] != null)
             {
-                var inventoryStockIn = ViewData["StockIn"] as List<InventoryTransactionDetail>;
+                var inventoryAllList = TempData["inventoryStockIn"] as string;
+                var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
+             
 
                 if (inventoryStockIn != null)
                 {
@@ -116,7 +120,9 @@
 
             @if (TempData["inventoryStockOut"] != null)
             {
-                var inventoryStockOut = ViewData["StockOut"] as List<InventoryTransactionDetail>;
+                var inventoryAllList = TempData["inventoryStockOut"] as string;
+                var inventoryStockOut = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
+               
 
                 if (inventoryStockOut != null)
                 {

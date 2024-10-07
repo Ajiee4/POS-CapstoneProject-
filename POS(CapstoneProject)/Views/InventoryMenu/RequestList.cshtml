@@ -1,4 +1,5 @@
 ﻿@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data
+@using Newtonsoft.Json;
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
 }
@@ -69,17 +70,19 @@
               
 
             </script>
+            var requestPending = TempData["RequestPending"] as string;
+            var requestPendingList = JsonConvert.DeserializeObject<List<Request>>(requestPending);
 
-            var requestList = ViewData["RequestPending"] as List<Request>;
-            if (requestList != null)
+
+            if (requestPendingList != null)
             {
-                if (requestList.Count == 0)
+                if (requestPendingList.Count == 0)
                 {
                     <p class="noResultPara">No Pending Requests Found</p>
                 }
                 else
                 {
-                    foreach (var item in requestList)
+                    foreach (var item in requestPendingList)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
 
@@ -118,17 +121,18 @@
 
                                       
             </script>
+            var requestCompleted = TempData["RequestCompleted"] as string;
+            var requestCompletedList = JsonConvert.DeserializeObject<List<Request>>(requestCompleted);
 
-            var requestList = ViewData["RequestCompleted"] as List<Request>;
-            if(requestList != null)
+            if (requestCompletedList != null)
             {
-                if (requestList.Count == 0)
+                if (requestCompletedList.Count == 0)
                 {
                     <p class="noResultPara">No Completed Requests Found</p>
                 }
                 else
                 {
-                    foreach (var item in requestList)
+                    foreach (var item in requestCompletedList)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
 
@@ -161,25 +165,27 @@
             <script>
 
                 window.addEventListener('load', function () {
-                    document.querySelector('.fromDate').value = localStorage.getItem('fromDate');
-                    document.querySelector('.toDate').value = localStorage.getItem('toDate');
+                    document.querySelector('.fromDate').value = localStorage.getItem('fromDateRequest');
+                    document.querySelector('.toDate').value = localStorage.getItem('toDateRequest');
                     document.querySelector('.selectRequestStatus').value = "Canceled";
                     document.querySelector('.list-request-header').textContent = "CANCELED";
                 });
               
               
             </script>
-            var requestList = ViewData["RequestCanceled"] as List<Request>;
+            var requestCanceled = TempData["RequestCanceled"] as string;
+            var requestCanceledList = JsonConvert.DeserializeObject<List<Request>>(requestCanceled);
 
-            if(requestList != null)
+
+            if (requestCanceledList != null)
             {
-                if (requestList.Count == 0)
+                if (requestCanceledList.Count == 0)
                 {
                     <p class="noResultPara">No Canceled Requests Found</p>
                 }
                 else
                 {
-                    foreach (var item in requestList)
+                    foreach (var item in requestCanceledList)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
 
@@ -276,6 +282,6 @@
 }
 
 <script>
-    let requestDetails = @Html.Raw(ViewData["RequestDetails"]);
+    let requestDetails = @Html.Raw(TempData["RequestDetails"]);
 </script>
 
