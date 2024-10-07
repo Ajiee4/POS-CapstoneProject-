@@ -15,6 +15,7 @@
     font-weight: bold;
     border-radius: 20px;
     border: 1.5px solid white;
+    font-family: "Inter" !important;
     transition: 0.3s ease-in-out;
     cursor: pointer;
 }

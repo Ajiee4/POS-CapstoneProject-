@@ -7,6 +7,7 @@
 
 /*Filter*/
 .stock-movement-filter-wrapper {
+    font-family: "Inter" !important;
     width: 100%;
     padding: 15px 10px;
     background-color: #342924;

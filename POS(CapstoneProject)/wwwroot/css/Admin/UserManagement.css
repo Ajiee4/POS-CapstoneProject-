@@ -16,7 +16,8 @@
 
 /*User Modal*/
 
-.details-wrapper{
+.details-wrapper {
+    font-family: "Inter" !important;
     display: flex;
     flex-direction: column;
 }

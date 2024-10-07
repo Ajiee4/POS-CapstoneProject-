@@ -8,8 +8,10 @@
 .general-swal-confirm-btn, .general-swal-cancel-btn {
     width: 150px;
     font-weight: bold;
+    font-family: "Inter" !important;
 }
 .general-swal-title {
+    font-family: "Inter" !important;
     font-size: 25px;
     font-weight: bolder !important;
     color: black !important;

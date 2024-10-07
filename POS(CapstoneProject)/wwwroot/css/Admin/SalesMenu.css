@@ -7,6 +7,7 @@
 
 /*Check Out*/
 .checkout-wrapper {
+    font-family: "Inter" !important;
     position: fixed;
     top: 70px;
     right: 10px;
@@ -270,8 +271,11 @@
     text-align: center;
 }
 
+/*
+Product List*/
 
 .product-list-wrapper {
+    font-family: "Inter" !important;
     border-radius: 5px;
     width: 100%;
     visibility: hidden;
@@ -280,18 +284,18 @@
     overflow: auto;
 }
 
-    .product-list-wrapper::-webkit-scrollbar {
-        width: 3px;
-    }
+.product-list-wrapper::-webkit-scrollbar {
+    width: 3px;
+}
 
-    .product-list-wrapper::-webkit-scrollbar-track {
-        background: white;
-    }
+.product-list-wrapper::-webkit-scrollbar-track {
+    background: white;
+}
 
-    .product-list-wrapper::-webkit-scrollbar-thumb {
-        background-color: black;
-        cursor: pointer;
-    }
+.product-list-wrapper::-webkit-scrollbar-thumb {
+    background-color: black;
+    cursor: pointer;
+}
 
 .search-wrapper { 
     margin-bottom: 20px;
@@ -357,7 +361,8 @@
     padding: 5px;
     font-size: 1em;
     outline: none;
-    cursor: pointer
+    cursor: pointer;
+    font-weight: 300;
 }
 
 .category-list-wrapper .active {
@@ -386,7 +391,7 @@
     min-height: 180px;
     transition: 0.5s;
     cursor: pointer;
-
+    font-weight: lighter;
 }
 
 .product-item:hover{     

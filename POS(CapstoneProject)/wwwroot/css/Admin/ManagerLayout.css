@@ -257,25 +257,26 @@ body {
 .sidebar ul li a .sidebar-link-name {
     margin-left: 10px;
     font-size: 10px;
-    font-weight: bolder;
+  
     white-space: nowrap;
     display: none;
 }
 
-.sidebar ul li a {
-    position: relative;
-    text-decoration: none;
-    color: white;
-    border-radius: 5px;
-    display: flex;
-    justify-content: start;
-    padding: 10px 5px;
-    align-items: center;
-    background-color: transparent;
-    width: 100%;
-    border: 1px solid white;
-
-}
+    .sidebar ul li a {
+        font-weight: bolder;
+        position: relative;
+        text-decoration: none;
+        color: white;
+        border-radius: 5px;
+        display: flex;
+        justify-content: start;
+        padding: 10px 5px;
+        font-family: "Inter";
+        align-items: center;
+        background-color: transparent;
+        width: 100%;
+        border: 1px solid white;
+    }
 
 .sidebar ul li a:hover {
     background-color: #747474;
@@ -306,8 +307,9 @@ body {
     border-radius: 10px;
     font-size: 0.6rem;
     display: block;
+    font-family: "Inter";
     text-align: center;
-    font-weight: lighter;
+    font-weight: bolder;
     white-space: nowrap;
 }
 .container-all {
@@ -317,7 +319,7 @@ body {
     z-index: 1;
     border-radius: 5px;
     padding: 10px;
-   /* overflow-y: auto;*/
+    overflow-y: auto;
 }
 
 

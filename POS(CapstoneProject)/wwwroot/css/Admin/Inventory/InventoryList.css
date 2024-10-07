@@ -71,18 +71,21 @@
 }
 
 .swal-stockOutInsufficient-title-many:after {
+    font-family: "Inter" !important;
     content: "The following ingredients are:";
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;
 }
 .swal-stockOutInsufficient-title-one:after {
+    font-family: "Inter" !important;
     content: "The following ingredient is:";
     font-weight: lighter;
     color: grey;
     font-size: 0.9rem;
 }
 .swal-stockOutInsufficient-html {
+    font-family: "Inter" !important;
     list-style: none;
     font-weight: lighter;
     color: grey;
@@ -122,6 +125,7 @@ Request & Stock Out*/
 }
 
 .request-list-wrapper, .stock-out-wrapper {
+    font-family: "Inter" !important;
     background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
     box-shadow: 1px 2px 5px black;
     border-radius: 20px;
@@ -132,8 +136,6 @@ Request & Stock Out*/
     bottom: 40px;
     width: 320px;
     border: 2px solid white;
-   
-    
     z-index: 990;
     transition: 0.5s ease-in-out
 }

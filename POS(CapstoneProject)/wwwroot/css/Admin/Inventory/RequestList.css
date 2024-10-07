@@ -6,6 +6,7 @@
 }
 /*Request filter */
 .request-filter-wrapper {
+    font-family: "Inter" !important;
     width: 100%;
     padding: 15px 10px;
     background-color: #342924;
@@ -81,6 +82,7 @@
     position: relative;
     width: 100%;
     visibility: hidden;
+    font-family: "Inter" !important;
 }
 
 /*Main*/
@@ -151,6 +153,7 @@
     transition: 0.3s ease-in-out;
     cursor: pointer;
     font-weight: bold;
+    font-family: "Inter" !important;
 }
 #requestCardModal .completeRequestBtn:hover, .cancelRequestBtn:hover {
     background-color: black;
@@ -166,10 +169,9 @@
 
 
 #requestCardModal .request-card-table-wrapper {
-    
     border: 1px solid black;
     overflow-y: auto;
-  
+    font-family: "Inter" !important;
 }
 #requestCardModal .request-card-table {
     width: 100%;
@@ -236,6 +238,8 @@
 
 /*No Result*/
 .noResultPara{
-    color: white
+    color: white;
+
+
 }
 
