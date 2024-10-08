@@ -26,6 +26,10 @@
 .inventory-table tbody tr:hover {
     background-color: rgba(0,0,0,0.1);
 }
+.inventory-table tbody tr {
+    cursor: pointer
+}
+
 
 
 .inventory-table .action-wrapper{

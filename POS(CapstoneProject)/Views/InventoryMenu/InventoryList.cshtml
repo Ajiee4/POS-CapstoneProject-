@@ -238,16 +238,16 @@
 
                     <div class="form-group">
                         <label asp-for="Name" class="control-label general-modal-label">Ingredient Name</label>
-                        <input asp-for="Name" class="form-control inputIngredientName general-modal-input" type="text" placeholder="Enter Ingredient Name" required />
+                        <input asp-for="Name" class="form-control inputIngredientName general-modal-input" oninput="validateIngredientName(this)" type="text" placeholder="Enter Ingredient Name" required />
                     </div>
                     <div class="form-group">
                         <label asp-for="UnitOfMeasurement" class="control-label general-modal-label">Unit of Measurement</label>
-                        <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement general-modal-input" placeholder="Enter Unit of Measurement" required />
+                        <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement general-modal-input" oninput="validateUnitMeasurement(this)" placeholder="Enter Unit of Measurement" required />
                     </div>
                    
                     <div class="form-group">
                         <label asp-for="LowStockThreshold" class="control-label general-modal-label">Stock Threshold</label>
-                        <input asp-for="LowStockThreshold" step="1" class="form-control inputThreshold general-modal-input" placeholder="Enter Low Stock Threshold" required />
+                        <input asp-for="LowStockThreshold" step="1" class="form-control inputThreshold general-modal-input" oninput="validateStockThreshold(this)" placeholder="Enter Low Stock Threshold" required />
                     </div>
 
                     <br />
@@ -280,16 +280,16 @@
 
                     <div class="form-group">
                         <label asp-for="Name" class="control-label general-modal-label">Category Name</label>
-                        <input asp-for="Name" class="form-control inputIngredientName general-modal-input" type="text" placeholder="Enter Ingredient Name" required />
+                        <input asp-for="Name" class="form-control inputIngredientName general-modal-input" oninput="validateIngredientName(this)" type="text" placeholder="Enter Ingredient Name" required />
                     </div>
                     <div class="form-group">
                         <label asp-for="UnitOfMeasurement" class="control-label general-modal-label">Unit of Measurement</label>
-                        <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement general-modal-input" placeholder="Enter Unit of Measurement" required />
+                        <input asp-for="UnitOfMeasurement" class="form-control inputMeasurement general-modal-input" oninput="validateUnitMeasurement(this)" placeholder="Enter Unit of Measurement" required />
                     </div>
                    
                     <div class="form-group">
                         <label asp-for="LowStockThreshold" class="control-label general-modal-label">Stock Threshold</label>
-                        <input asp-for="LowStockThreshold" class="form-control inputThreshold general-modal-input" placeholder="Enter Low Stock Threshold" required />
+                        <input asp-for="LowStockThreshold" class="form-control inputThreshold general-modal-input" oninput="validateStockThreshold(this)" placeholder="Enter Low Stock Threshold" required />
                     </div>
 
                     <br />

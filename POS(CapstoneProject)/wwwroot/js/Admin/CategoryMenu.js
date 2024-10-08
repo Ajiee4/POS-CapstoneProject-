@@ -28,7 +28,15 @@ $('.addSubmitBtn').click(function () {
     AddCategory();
 });
 
+function validateCategoryName(input) {
+    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+    let inputValue = input.value;
 
+    inputValue = inputValue.replace(/[^a-zA-Z0-9 ]+/g, '');
+    inputValue = inputValue.replace(/\s+/g, ' ');
+    inputValue = inputValue.trimStart();
+    input.value = inputValue;
+}
 //function for validating the input category
 function AddCategory() {
     let categoryName = document.querySelector('.addInputName').value.trim();

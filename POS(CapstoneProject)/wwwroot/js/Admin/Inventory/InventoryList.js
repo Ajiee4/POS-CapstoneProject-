@@ -409,6 +409,32 @@ function cancelStockOut() {
     });
 }
 
+
+function validateUnitMeasurement(input) {
+    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+    let inputValue = input.value;
+
+    inputValue = inputValue.replace(/[^a-zA-Z0-9 ]+/g, '');
+    inputValue = inputValue.replace(/\s+/g, ' ');
+    inputValue = inputValue.trimStart();
+    input.value = inputValue;
+}
+function validateStockThreshold(input) {
+    input.value = input.value.replace(/[^0-9]/g, '');
+    if (input.value.startsWith('0')){
+
+        input.value = '';
+    }
+}
+function validateIngredientName(input) {
+    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+    let inputValue = input.value;
+
+    inputValue = inputValue.replace(/[^a-zA-Z0-9 ]+/g, '');
+    inputValue = inputValue.replace(/\s+/g, ' ');
+    inputValue = inputValue.trimStart();
+    input.value = inputValue;
+}
 $('.exitRequest').click(function () {
     RequestListToggle();
 });

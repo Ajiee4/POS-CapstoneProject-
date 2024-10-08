@@ -130,7 +130,7 @@
                     
                     <div class="form-group">
                         <label asp-for="Name" class="control-label general-modal-label">Product Name</label>
-                        <input asp-for="Name" placeholder="Enter Product Name" class="form-control updateProductInputName general-modal-input" required />
+                        <input asp-for="Name" placeholder="Enter Product Name" oninput="validateProductName(this)" class="form-control updateProductInputName general-modal-input" required />
                     </div>
 
                     <div class="form-group">
@@ -191,7 +191,7 @@
                   
                     <div class="form-group">
                         <label asp-for="Name" class="control-label general-modal-label">Product Name</label>
-                        <input asp-for="Name" placeholder="Enter Product Name" class="form-control addProductInputName general-modal-input" required />
+                        <input asp-for="Name" placeholder="Enter Product Name" oninput="validateProductName(this)" class="form-control addProductInputName general-modal-input" required />
                     </div>
 
                     <div class="form-group">

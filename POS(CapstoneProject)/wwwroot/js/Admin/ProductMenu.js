@@ -1,5 +1,6 @@
-﻿//Setup the table
+﻿
 $(document).ready(function () {
+    //Setup the table
     $('.product-table').DataTable({
         "paging": true,       
         "searching": true,
@@ -7,14 +8,17 @@ $(document).ready(function () {
         "pageLength": 5
     });
 
+    //set up tooltip
+    $('[data-toggle="tooltip"]').tooltip();
+
+    //shows the tooltip
     $('.updateProductBtn').tooltip({
         title: function () {
             return $(this).attr('data-tooltip');
         }
     });
-
-    $('[data-toggle="tooltip"]').tooltip();
-
+    
+    //hides the loader and show the contens
     $('.loader-wrapper').hide();
     $('.product-wrapper').css({
         "visibility": "visible"
@@ -48,8 +52,6 @@ $('#addProductModal').on('hidden.bs.modal', function () {
     $('#addProductModal .inputPhoto').val('');
 });
 
-
-
 /*Archive Product*/
 function archiveProduct(element) {
 
@@ -71,7 +73,7 @@ function unArchiveProduct(element) {
     });
     
 }
-
+//set the defaul value inside the Update Modal
 function updateProduct(id, name, price, category, img) {
 
     $('#updateProductModal .productId').val(id); 
@@ -110,22 +112,36 @@ $('#updateProductModal .inputPhoto').change(function (e) {
     reader.readAsDataURL(file);
 });
 
-//validate the price input
+//validate the product price
 function validatePrice(input) {
-
-    let value = input.value;
-
-    let validValue = value.match(/^\d*\.?\d{0,2}$/);
-
-    if (validValue) {
-        input.value = validValue[0];
-    }
-    else {
+   
+    input.value = input.value.trim();
+    input.value = input.value.replace(/[^0-9.]/g, '');
+    
+    if (input.value.startsWith('0') || input.value.startsWith('.')) {
        
-        popUpMessageProduct("Invalid input","error")
-        input.value = "";
+        input.value = '';        
     }
+
+    let decimalParts = input.value.split('.');  
+    if (decimalParts.length > 1) {
+        decimalParts[1] = decimalParts[1].substr(0, 2);
+    }
+ 
+    input.value = decimalParts.join('.');  
 }
+//validate the product name
+function validateProductName(input) {
+   
+    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;  
+    let inputValue = input.value;
+
+    inputValue = inputValue.replace(/[^a-zA-Z0-9 ]+/g, '');  
+    inputValue = inputValue.replace(/\s+/g, ' ');  
+    inputValue = inputValue.trimStart();  
+    input.value = inputValue;   
+}
+
 
 //call the function when submit button is click
 $('.addProductSubmit').click(function () {
@@ -139,12 +155,12 @@ $('.addProductSubmit').click(function () {
   
 });
 
+
 //validation of added product and submission
 function AddProduct() {
     let productName = document.querySelector('.addProductInputName').value.trim();
     let productPrice = document.querySelector('.addProductInputPrice').value.trim();
     productName = productName.replace(/\s{2,}/g, ' ');
-
     if (productName == '' || productPrice == '') {
 
         popUpMessage("Fill out all necessary information", "error");       

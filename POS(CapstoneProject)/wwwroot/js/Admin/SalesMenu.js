@@ -13,56 +13,56 @@ $(document).ready(function () {
         "visibility": "visible"
     });
 
-   
+    function checkCategory() {
+        let categoryList = document.querySelector('.category-list-wrapper');
+        let items = categoryList.querySelectorAll('.category-item');
+        let localCategory = localStorage.getItem('categoryName');
+        const products = document.querySelectorAll('.product-item');
+        let found = false;
+
+        if (localCategory == null || localCategory == '') {
+            localStorage.removeItem('categoryName');
+            return;
+        };
+
+        items.forEach(item => {
+            let catName = item.dataset.category;
+            item.classList.remove('active');
+
+            if (catName.trim() == localCategory.trim()) {
+                item.classList.add('active');
+
+                products.forEach(product => {
+
+                    const productCategory = product.getAttribute('data-category');
+
+
+                    const matchesCategory = productCategory == catName;
+
+
+                    if (matchesCategory) {
+                        product.style.display = 'block';
+                        found = true;
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+
+
+                document.querySelector('.noResult').style.display = found ? 'none' : 'block';
+
+            }
+        });
+
+        localStorage.removeItem('categoryName');
+        truncateName();
+    }
+    checkCategory();
+
 
 });
 
 //check if the category row from the category page is click
-function checkCategory() {
-    let categoryList = document.querySelector('.category-list-wrapper');
-    let items = categoryList.querySelectorAll('.category-item');
-    let localCategory = localStorage.getItem('categoryName');
-    const products = document.querySelectorAll('.product-item');
-    let found = false;
-
-    if (localCategory == null || localCategory == '') {
-        localStorage.removeItem('categoryName');
-        return;
-    };
-
-    items.forEach(item => {
-        let catName = item.dataset.category;
-        item.classList.remove('active');
-     
-        if (catName.trim() == localCategory.trim()) {
-            item.classList.add('active');
-
-            products.forEach(product => {
-               
-                const productCategory = product.getAttribute('data-category');
-
-
-                const matchesCategory = productCategory == catName;
-               
-
-                if (matchesCategory) {
-                    product.style.display = 'block';
-                    found = true;
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-
-
-            document.querySelector('.noResult').style.display = found ? 'none' : 'block';
-           
-        }
-    });
-
-    localStorage.removeItem('categoryName');
-    truncateName();
-}
-checkCategory();
 
 
 
@@ -285,32 +285,30 @@ function CalculateTotalAmount() {
     return totalAmount;
 }
 //adjust the total when the discount input changed
-function ApplyDiscount() {
-    let totalAmountText = document.querySelector('.TotalAmount');
+function ApplyDiscount(input) {
 
-    CalculateTotalAmount();  
-   /* $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)*/
-    totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
+    const inputValue = input.value.trim();
+    if (!inputValue) {
+        input.value = 0;
+    }
+
+    //let totalAmountText = document.querySelector('.TotalAmount');
+
+    //CalculateTotalAmount();  
+    //totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
 }
 
 //only number can be entered in the discount input
 function validateInput(input) {
-   
+    
     input.value = input.value.replace(/[^0-9]/g, '');
+    let totalAmountText = document.querySelector('.TotalAmount');
+
+    CalculateTotalAmount();
+    totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
        
 }
 
-//default value is 0
-document.querySelector('#inputDiscount').addEventListener('change', function() {
-    const inputDiscount = document.querySelector('#inputDiscount');
-    const inputValue = inputDiscount.value.trim();
-
-    if (!inputValue) {
-        inputDiscount.value = 0;
-    }
-});
-
-//cancel order
 //cancel order
 $('.cancelBtn').click(function (){
 

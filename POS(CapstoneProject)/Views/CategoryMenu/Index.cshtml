@@ -78,7 +78,7 @@
                 <form asp-action="AddCategory" id="addCategoryForm" asp-controller="CategoryMenu" method="post">
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label general-modal-label">Category Name</label>
-                        <input asp-for="CategoryName" class="form-control addInputName general-modal-input" placeholder="Enter Category Name" required />
+                        <input asp-for="CategoryName" class="form-control addInputName general-modal-input" oninput="validateCategoryName(this)" placeholder="Enter Category Name" required />
                     </div>               
                     <br />
                     <div class="form-group">
@@ -108,7 +108,7 @@
                     <input asp-for="CategoryId" class="form-control input-id" hidden/>
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label general-modal-label">Category Name</label>
-                        <input asp-for="CategoryName" placeholder="Enter Category Name" class="form-control updateInputName general-modal-input" required />
+                        <input asp-for="CategoryName" placeholder="Enter Category Name" class="form-control updateInputName general-modal-input" oninput="validateCategoryName(this)" required />
                     </div>
                     <br />
                     <div class="form-group">
