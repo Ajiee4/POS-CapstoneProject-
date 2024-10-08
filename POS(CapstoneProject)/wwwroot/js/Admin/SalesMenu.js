@@ -292,10 +292,6 @@ function ApplyDiscount(input) {
         input.value = 0;
     }
 
-    //let totalAmountText = document.querySelector('.TotalAmount');
-
-    //CalculateTotalAmount();  
-    //totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
 }
 
 //only number can be entered in the discount input

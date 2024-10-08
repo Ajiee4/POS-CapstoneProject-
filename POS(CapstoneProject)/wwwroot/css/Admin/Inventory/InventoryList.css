@@ -29,7 +29,13 @@
 .inventory-table tbody tr {
     cursor: pointer
 }
-
+.request-text {
+    border-bottom: 1px solid transparent;
+    transition: 0.3s ease-in-out;
+}
+.request-text:hover{
+    border-bottom-color: black; 
+}
 
 
 .inventory-table .action-wrapper{

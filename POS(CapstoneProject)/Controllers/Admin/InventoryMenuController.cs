@@ -180,19 +180,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
             var myList = JsonConvert.DeserializeObject<List<RequestListUpdated>>(requestData);
 
-            if (myList! != null)
-            {
-                foreach (var item in myList)
-                {
-                    var ingredient = _context.Ingredient.Where(s => s.IngredientId == item.IngredientId).FirstOrDefault();
-                    if (ingredient != null)
-                    {
-                        ingredient.Quantity += item.Quantity;
-                        _context.Ingredient.Update(ingredient);
-                    }
-                }
-                await _context.SaveChangesAsync();
-            }
+         
 
             var inventTransact = new InventoryTransaction()
             {
@@ -214,12 +202,12 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     if (item.Quantity > 0)
                     {
-
+                        var ingredient = await _context.Ingredient.Where(s => s.IngredientId == item.IngredientId).FirstOrDefaultAsync();
                         var inventDetails = new InventoryTransactionDetail()
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
                             IngredientId = item.IngredientId,
-                            Quantity = item.Quantity,
+                            Quantity = $"{ingredient.Quantity} + {item.Quantity}",
                             Remarks = "Delivered"
 
                         };
@@ -228,6 +216,20 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
                 }
 
+                await _context.SaveChangesAsync();
+            }
+
+            if (myList! != null)
+            {
+                foreach (var item in myList)
+                {
+                    var ingredient = _context.Ingredient.Where(s => s.IngredientId == item.IngredientId).FirstOrDefault();
+                    if (ingredient != null)
+                    {
+                        ingredient.Quantity += item.Quantity;
+                        _context.Ingredient.Update(ingredient);
+                    }
+                }
                 await _context.SaveChangesAsync();
             }
 
@@ -258,23 +260,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
         {
             int id = (int)HttpContext.Session.GetInt32("UserID");
             var myList = JsonConvert.DeserializeObject<List<IngredientList>>(stockOutData);
-            if (myList! != null)
-            {
-                foreach (var item in myList)
-                {
-                    var ingredient = await _context.Ingredient.Where(s => s.IngredientId == item.ingredientId).FirstOrDefaultAsync();
-                    if (ingredient != null)
-                    {                        
-
-                        ingredient.Quantity -= item.ingredientQty;
-                        _context.Ingredient.Update(ingredient);
-                                           
-                    }
-
-                    await _context.SaveChangesAsync();
-                }
-
-            }
+           
 
             var inventTransact = new InventoryTransaction()
             {
@@ -294,11 +280,12 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     if (item.ingredientQty > 0)
                     {
+                        var ingredient = await _context.Ingredient.Where(s => s.IngredientId == item.ingredientId).FirstOrDefaultAsync();
                         var inventDetails = new InventoryTransactionDetail()
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
                             IngredientId = item.ingredientId,
-                            Quantity = item.ingredientQty,
+                            Quantity = $"{ingredient.Quantity} - {item.ingredientQty}",
                             Remarks = remarks
 
                         };
@@ -308,6 +295,24 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 }
 
                 await _context.SaveChangesAsync();
+            }
+
+            if (myList! != null)
+            {
+                foreach (var item in myList)
+                {
+                    var ingredient = await _context.Ingredient.Where(s => s.IngredientId == item.ingredientId).FirstOrDefaultAsync();
+                    if (ingredient != null)
+                    {
+
+                        ingredient.Quantity -= item.ingredientQty;
+                        _context.Ingredient.Update(ingredient);
+
+                    }
+
+                    await _context.SaveChangesAsync();
+                }
+
             }
             TempData["StockOut"] = " ";
             return RedirectToAction("InventoryList");

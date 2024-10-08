@@ -126,5 +126,41 @@ namespace POS_CapstoneProject_.Controllers.Admin
          
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArchiveCategory(Category category)
+        {
+
+            var checkCategory = await _context.Category.Where(s => s.CategoryId == category.CategoryId).FirstOrDefaultAsync();
+            if (checkCategory != null)
+            {
+                checkCategory.IsArchive = true;
+                _context.Update(checkCategory);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessArchived"] = " ";
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UnArchiveCategory(Category category)
+        {
+            var checkCategory = await _context.Category.Where(s => s.CategoryId == category.CategoryId).FirstOrDefaultAsync();
+            if (checkCategory != null)
+            {
+                checkCategory.IsArchive = false;
+                _context.Update(checkCategory);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessUnarchived"] = " ";
+            }
+
+
+            return RedirectToAction("Index");
+        }
     }
+
 }

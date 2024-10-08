@@ -238,6 +238,9 @@ function requestitem(event, id, name, quantity) {
     if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
         return; 
     }
+    if (event.target.tagName === 'TR' || event.target.closest('span')) {
+        return;
+    }
 
     let product = RequestList.find(item => item.ingredientId === id);
 
@@ -363,7 +366,13 @@ function deleteItem(id) {
         DisplayRequest(); 
     }
 }
-
+function redirectRequest(url, event) {
+    if (event.target.tagName === 'TR' || event.target.closest('span')) {
+        location.href = url;
+        /*localStorage.setItem('redirectRequest', true);*/
+    }
+    
+}
 
 //clear the request list 
 function cancelRequest() {

@@ -77,29 +77,40 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
             else if(reportType == "Inventory Report")
             {
-                var inventoryRep = await _context.InventoryTransaction
-                    .Join(_context.InventoryTransactionDetail,
-                          i => i.InventoryTransactId,
-                          itd => itd.InventoryTransactId,
-                          (i, itd) => new { i, itd })
-                    .Join(_context.Ingredient,
-                          i_itd => i_itd.itd.IngredientId,
-                          id => id.IngredientId,
-                          (i_itd, id) => new { i_itd.i, i_itd.itd, id })
-                     .Where(s => s.i.TransactionDate >= fromDate && s.i.TransactionDate <= toDate)
-                    .GroupBy(g => new { g.i.TransactionDate, g.i.TransactionType, g.id.Name })
-                    .Select(g => new InventoryReport
-                    {
-                        Name = g.Key.Name,
-                        TransactionType = g.Key.TransactionType,
-                        TransactionDate = g.Key.TransactionDate,
-                        TotalQuantity = g.Sum(x => x.itd.Quantity)
-                    })
-                    .OrderBy(result => result.TransactionDate)
-                    .ToListAsync();
-
-                TempData["InventoryReport"] = JsonConvert.SerializeObject(inventoryRep);
               
+                var inventoryTransactions = await _context.InventoryTransaction.ToListAsync();
+                var inventoryDetails =await _context.InventoryTransactionDetail.ToListAsync();
+
+               
+                foreach (var item in inventoryDetails)
+                {
+                    string[] parts = item.Quantity.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                 
+                    item.Quantity = parts[2];  
+                    
+                }
+           
+                var inventoryRep = (from it in inventoryTransactions
+                                    join itd in inventoryDetails on it.InventoryTransactId equals itd.InventoryTransactId
+                                    join i in _context.Ingredient on itd.IngredientId equals i.IngredientId
+                                    group new { it, itd } by new { i.Name, it.TransactionDate } into g
+                                    select new InventoryReport
+                                    {
+                                        Name = g.Key.Name,
+                                        TransactionDate = g.Key.TransactionDate,
+                                        TotalStockOut = g.Sum(x => x.it.TransactionType == "Stock Out" ?
+                                            Convert.ToInt16(x.itd.Quantity) : 0),
+                                        TotalStockIn = g.Sum(x => x.it.TransactionType == "Stock In" ?
+                                            Convert.ToInt16(x.itd.Quantity) : 0)
+                                    })
+                                    .OrderBy(x => x.TransactionDate)
+                                    .ToList();  
+
+               
+                TempData["InventoryReport"] = JsonConvert.SerializeObject(inventoryRep);
+
+
+
             }
 
 

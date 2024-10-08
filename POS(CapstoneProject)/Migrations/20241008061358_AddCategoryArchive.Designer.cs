@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS_CapstoneProject_.Data;
 
@@ -11,9 +12,11 @@ using POS_CapstoneProject_.Data;
 namespace POS_CapstoneProject_.Migrations
 {
     [DbContext(typeof(POS_CapstoneProject_Context))]
-    partial class POS_CapstoneProject_ContextModelSnapshot : ModelSnapshot
+    [Migration("20241008061358_AddCategoryArchive")]
+    partial class AddCategoryArchive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace POS_CapstoneProject_.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsArchive")
+                    b.Property<bool>("isArchive")
                         .HasColumnType("bit");
 
                     b.HasKey("CategoryId");
@@ -113,9 +116,8 @@ namespace POS_CapstoneProject_.Migrations
                     b.Property<int>("InventoryTransactId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Quantity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("Remarks")
                         .IsRequired()

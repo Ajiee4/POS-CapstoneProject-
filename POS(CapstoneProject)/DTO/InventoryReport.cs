@@ -5,8 +5,9 @@
         public string Name { get; set; }
 
         public DateTime TransactionDate { get; set; }
-        public string TransactionType { get; set; }
-        public int TotalQuantity { get; set; }
+        public int TotalStockOut { get; set; }
+        public int TotalStockIn { get; set; }
+       
 
     }
 }

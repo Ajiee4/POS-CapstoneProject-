@@ -16,7 +16,7 @@ namespace POS_CapstoneProject_.Models
         [ForeignKey("IngredientId")]
         public Ingredient? Ingredient { get; set; }
         [Required]
-        public int Quantity {  get; set; }
+        public string Quantity {  get; set; }
         [Required]
         public string Remarks {  get; set; }
     }

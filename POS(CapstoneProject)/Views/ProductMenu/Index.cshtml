@@ -67,7 +67,7 @@
                                 </form>
                                 <div class="action-wrapper">
 
-                                <button class="unarchiveBtn general-unarchive-btn" data-id="@item.ProductId" onclick="unArchiveProduct(this)" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
+                                    <button class="unarchiveBtn general-unarchive-btn" data-id="@item.ProductId" onclick="unArchiveProduct(this)" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
                                         <img src="~/images/outbox.png" />
                                     </button>
                                     <button class="updateProductBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">

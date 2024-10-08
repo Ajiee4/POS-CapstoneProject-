@@ -37,6 +37,28 @@ function validateCategoryName(input) {
     inputValue = inputValue.trimStart();
     input.value = inputValue;
 }
+
+function archiveCategory(id) {
+
+    popUpMessageChoice("Are you sure you want to archive this category? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title swal-archive-category-title', () => {
+        $('.archiveInputCategory').val(id);
+        $('.archiveCategoryForm').submit();
+    });
+
+
+}
+/*unArchive Product*/
+function unArchiveCategory(id) {
+
+   
+    popUpMessageChoice("Are you sure you want to unarchive this category? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title swal-unarchive-category-title', () => {
+        $('.unarchiveInputCategory').val(id);
+        $('.unarchiveCategoryForm').submit();
+    });
+}
+
+
+
 //function for validating the input category
 function AddCategory() {
     let categoryName = document.querySelector('.addInputName').value.trim();

@@ -8,6 +8,8 @@ namespace POS_CapstoneProject_.Models
         public int CategoryId { get; set; }
         [Required]
         public string CategoryName { get; set; }
+        [Required]
+        public bool IsArchive {  get; set; }
 
     }
 }

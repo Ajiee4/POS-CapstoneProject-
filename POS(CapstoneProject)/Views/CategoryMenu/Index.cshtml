@@ -33,21 +33,51 @@
             @if(categoryList != null){
                 @foreach (var item in categoryList)
                 {
-                    <tr onclick="RowClick('@Url.Action("Index", "SalesMenu")', this,event)">
+                    <tr onclick="RowClick('@Url.Action("Index", "SalesMenu")', this,event)" class="@(item.IsArchive == true ? "archived-category" :"")">
                         <td data-label="ID">@item.CategoryId</td>
                         <td data-label="Category">
                             <span class="table-data-category">
                                 @item.CategoryName
                             </span>
                         </td>
-                        <td data-label="Actions">
-                            <div class="action-wrapper">
-                                <button class="btn updateCategoryBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
-                                    <img src="~/images/edit.png" />
-                                </button>
-                            </div>
 
-                        </td>
+                        @if (item.IsArchive)
+                        {
+                           
+                            <td data-label="Actions">
+                                <form class="unarchiveCategoryForm" asp-action="UnArchiveCategory">
+                                    <input asp-for="CategoryId" class="unarchiveInputCategory" hidden />
+                                </form>
+                                <div class="action-wrapper">
+                                    <button class="unarchiveCategoryBtn general-unarchive-btn" onclick="unArchiveCategory(@item.CategoryId)" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
+                                        <img src="~/images/outbox.png" />
+                                    </button>
+                                    <button class="btn updateCategoryBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
+                                        <img src="~/images/edit.png" />
+                                    </button>
+                                </div>
+
+                            </td>
+                        }
+                        else
+                        {
+                           
+                            <td data-label="Actions">
+                                <form class="archiveCategoryForm" asp-action="ArchiveCategory">
+                                    <input asp-for="CategoryId" class="archiveInputCategory" hidden />
+                                </form>
+                                <div class="action-wrapper">
+                                    <button class="archiveCategoryBtn general-archive-btn" onclick="archiveCategory(@item.CategoryId)" data-toggle="tooltip" data-placement="bottom" title="Archive">
+                                        <img src="~/images/outbox.png" />
+                                    </button>
+                                    <button class="btn updateCategoryBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
+                                        <img src="~/images/edit.png" />
+                                    </button>
+                                </div>
+
+                            </td>
+                        }
+
                     </tr>
                 }
             }
@@ -169,7 +199,31 @@
         });
     </script>
 }
+@if (TempData["SuccessArchived"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "Category Archived",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
 
+}
+
+<!--Pop up message when product was unarchived-->
+@if (TempData["SuccessUnarchived"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "Category Unarchived",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+}
 
 
 

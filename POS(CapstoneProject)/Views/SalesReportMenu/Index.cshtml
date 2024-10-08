@@ -96,13 +96,13 @@
                         Name
                     </th>
                     <th>
-                        Transaction Type
-                    </th>
-                    <th>
                         Transaction Date
                     </th>
+                    <th>
+                        Total Stock In
+                    </th>
                     <th >
-                        Total Quantity
+                        Total Stock Out
                     </th>
                 </tr>
             </thead>
@@ -111,9 +111,10 @@
                 {
                     <tr>
                         <td data-label="Name">@item.Name</td>
-                        <td data-label="Type">@item.TransactionType</td>
+                       
                         <td data-label="Date">@item.TransactionDate.ToString("yyyy-MM-dd")</td>
-                        <td data-label="Total Quantity">@item.TotalQuantity</td>
+                        <td data-label="Total Quantity">@item.TotalStockIn</td>
+                        <td data-label="Total Quantity">@item.TotalStockOut</td>
                       
                     </tr>
                 }

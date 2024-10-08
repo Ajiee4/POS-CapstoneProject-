@@ -31,8 +31,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-                        var categoryList = await _context.Category.ToListAsync();
-                        var productList = await _context.Product.Where(s => s.IsArchive == false).Include(s => s.Category).ToListAsync();
+                        var categoryList = await _context.Category.Where(s => s.IsArchive == false).ToListAsync();
+                        var productList = await _context.Product.Include(s => s.Category).Where(s => s.IsArchive == false && s.Category.IsArchive == false).ToListAsync();
                         ViewData["CategoryList"] = categoryList;
                         ViewData["ProductList"] = productList;
 
