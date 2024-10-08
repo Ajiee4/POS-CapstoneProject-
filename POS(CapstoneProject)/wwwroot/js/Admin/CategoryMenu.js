@@ -29,10 +29,10 @@ $('.addSubmitBtn').click(function () {
 });
 
 function validateCategoryName(input) {
-    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+    
     let inputValue = input.value;
 
-    inputValue = inputValue.replace(/[^a-zA-Z0-9 ]+/g, '');
+    inputValue = inputValue.replace(/[^a-zA-Z ]+/g, '');
     inputValue = inputValue.replace(/\s+/g, ' ');
     inputValue = inputValue.trimStart();
     input.value = inputValue;
@@ -134,7 +134,11 @@ function updateCategory(id, name) {
 
 function RowClick(url, row,event) {
 
+    
     if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
+        return;
+    }
+    if (event.target.classList.contains('archived-category') || event.target.closest('.archived-category')) {
         return;
     }
     var categoryName = row.querySelector('td[data-label="Category"]').textContent;

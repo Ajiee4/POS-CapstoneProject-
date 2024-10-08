@@ -17,10 +17,10 @@
 
 /* Category Table */
 
-.category-table tbody tr {
+.category-table tbody tr:not(.archived-category) {
     cursor: pointer;
 }
-.category-table tr:hover .table-data-category {
+.category-table tr:hover:not(.archived-category) .table-data-category {
     border-radius: 20px;
     padding: 5px 10px;
     background-color: rgba(183, 183, 183,0.5);
@@ -29,9 +29,6 @@
 
 
 /*SweetAlert Custom Class*/
-.custom-icon {
-    font-size: 8px !important; 
-}
 
 .archived-category{
     background-color: rgba(0,0,0,0.1) !important;

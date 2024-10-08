@@ -52,25 +52,26 @@ namespace POS_CapstoneProject_.Controllers.Admin
             if(reportType == "Sales Report")
             {
                 var salesRep = await _context.Order
-                    .Join(_context.OrderDetails,
-                            o => o.OrderId,
-                            od => od.OrderId,
-                            (o, od) => new { o, od })
-                    .Join(_context.Product,
-                            o_od => o_od.od.ProductId,
-                            p => p.ProductId,
-                            (o_od, p) => new { o_od.o, o_od.od, p })
-                    .Where(s => s.o.OrderDate >= fromDate && s.o.OrderDate <= toDate)
-                    .GroupBy(g => new { g.p.Name, g.o.OrderDate })
-                    .Select(g => new SalesReport
-                    {
-                        Name = g.Key.Name,
-                        OrderDate = g.Key.OrderDate,
-                        TotalSales = g.Sum(x => x.od.Quantity * x.p.Price)
-                    })
-                    .OrderBy(result => result.OrderDate)
-                    .ThenBy(result => result.Name)
-                    .ToListAsync();
+                                .Join(_context.OrderDetails,
+                                        o => o.OrderId,
+                                        od => od.OrderId,
+                                        (o, od) => new { o, od })
+                                .Join(_context.Product,
+                                        o_od => o_od.od.ProductId,
+                                        p => p.ProductId,
+                                        (o_od, p) => new { o_od.o, o_od.od, p })
+                                .Where(s => s.o.OrderDate >= fromDate && s.o.OrderDate <= toDate)
+                                .GroupBy(g => new { g.p.Name, g.o.OrderDate })
+                                .Select(g => new SalesReport
+                                {
+                                    Name = g.Key.Name,
+                                    OrderDate = g.Key.OrderDate,
+                                    TotalSales = g.Sum(x => x.od.Quantity * x.p.Price),
+                                    TotalSold = g.Select(s => s.p.ProductId).Count()
+                                })
+                                .OrderBy(result => result.OrderDate)
+                                .ThenBy(result => result.Name)
+                                .ToListAsync();
 
                 TempData["SalesReport"] = JsonConvert.SerializeObject(salesRep);
 

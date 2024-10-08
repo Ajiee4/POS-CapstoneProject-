@@ -127,26 +127,38 @@
             
             @if(productList != null)
             {
-                @foreach (var prod in productList)
+                if(productList.Count == 0)
                 {
-                    <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category?.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
-                        <div class="product-item-img">
-                            @if (prod.ImageData != null)
-                            {
-                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
-                            }
-                            else
-                            {
-                                <span></span>
-                            }
-                        </div>
-
-                        <div class="product-item-name" data-category="@prod.Category?.CategoryName">
-                            <span>@prod.Name</span>
-                        </div>
-                    </div>
+                   <script>
+                      document.querySelector('.noResult').style.display = "block";
+                   </script>
                 }
+                else
+                {
+                    @foreach (var prod in productList)
+                    {
+                        <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category?.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
+                            <div class="product-item-img">
+                                @if (prod.ImageData != null)
+                                {
+                                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
+                                }
+                                else
+                                {
+                                    <span></span>
+                                }
+                            </div>
+
+                            <div class="product-item-name" data-category="@prod.Category?.CategoryName">
+                                <span>@prod.Name</span>
+                            </div>
+                        </div>
+                    }
+                }
+              
             }
+           
+       
                          
        </div>
 

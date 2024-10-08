@@ -342,52 +342,48 @@ $('.payBtn').click(function () {
 
 //cash is input
 function onInputCash(e) {
+  
+    e.value = e.value.trim();
+    e.value = e.value.replace(/[^0-9.]/g, '');
+
+    let decimalParts = e.value.split('.');
+    if (decimalParts.length > 1) {
+        decimalParts[1] = decimalParts[1].substr(0, 2);
+    }
+
+    e.value = decimalParts.join('.');  
 
     if (e.value == '') {
         $('.changeAmountText').val(null);
         return;
     }
-    $('#paymentModal .calculateBtn').css({
-        "display": "none",
-    })
   
     $('.changeAmountText').val(null);
 
-    let input = $('.amountInput');
-    let value = input.val();
-    let validValue = value.match(/^\d+(\.\d{0,2})?$/);
 
-    if (validValue) {
-        let totalAmo = CalculateTotalAmount();
-        let money = Number(value);
+    let totalAmo = CalculateTotalAmount();
+    let money = Number(e.value);
 
 
-        if (money >= totalAmo) {
-            let changeAmount = money - totalAmo;
+    if (money >= totalAmo) {
+        let changeAmount = money - totalAmo;
 
-            $('.changeAmountText').val(changeAmount.toFixed(2));
+        $('.changeAmountText').val(changeAmount.toFixed(2));
 
-            $('#paymentModal .calculate-wrapper').css({
-                "display": "block",
-                "margin": "0px auto"
-            })
+        $('#paymentModal .calculate-wrapper').css({
+            "display": "block",
+            "margin": "0px auto"
+        })
           
-        } else {
-            $('#paymentModal .calculate-wrapper').css({
-                "display": "none",
-            })
-          
-            $('.changeAmountText').val('Insufficient Amount');
-           
-        }
-    
     } else {
-
-        popUpMessage("Only numbers are allowed", "error");
-      
-        input.val(null);
+        $('#paymentModal .calculate-wrapper').css({
+            "display": "none",
+        })
+          
+        $('.changeAmountText').val('Insufficient Amount');
+           
     }
-    
+      
 }
 
 $('#paymentModal').on('hidden.bs.modal', function () {

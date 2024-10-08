@@ -1,9 +1,7 @@
 ﻿/*Swal Icon*/
 
 .general-swal-icon {
-    font-size: 15px !important;
-    font-weight: 500;
-    padding: 5px;
+    font-size: 10px;
 }
 .general-swal-confirm-btn, .general-swal-cancel-btn {
     width: 150px;
@@ -15,4 +13,8 @@
     font-size: 25px;
     font-weight: bolder !important;
     color: black !important;
+}
+.customhaha {
+    font-size: 10px;
+   
 }

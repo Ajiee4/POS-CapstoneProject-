@@ -73,6 +73,9 @@
                     <th >
                         Total Sales
                     </th>
+                    <th>
+                        Total Sold Product
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -82,6 +85,7 @@
                         <td data-label="Name">@item.Name</td>
                         <td data-label="Date">@item.OrderDate.ToString("yyyy-MM-dd")</td>
                         <td data-label="Total Sales">₱@Math.Round((item.TotalSales), 2)</td>
+                        <td data-label="Total Sold">@item.TotalSold</td>
                     </tr>
                 }
             </tbody>
@@ -127,7 +131,7 @@
 {
     <script>
         window.addEventListener('load', function () {
-            document.querySelector('.report-wrapper').style.display = "block";
+            document.querySelector('.report-wrapper').style.visibility = "visible";
             document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
             document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
             document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
@@ -144,7 +148,7 @@
             document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
             document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
             document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
-            document.querySelector('.report-wrapper').style.display = "block";
+            document.querySelector('.report-wrapper').style.visibility = "visible";
         });
       
        

@@ -43,11 +43,7 @@
     background-color: rgba(0,0,0,0.1) !important;
 }
 /*Sweet Alert class*/
-.custom-icon {
-    font-size: 15px !important;
-    font-weight: 500;
-    padding: 5px;
-}
+
 .swal-archive-product-title::after {
     content: "This product will not be available for sale";
     font-weight: lighter;

@@ -61,7 +61,7 @@ function archiveProduct(element) {
         $('.archiveForm').submit();
     });
     
-   
+    
 }
 /*unArchive Product*/
 function unArchiveProduct(element) {
@@ -115,16 +115,19 @@ $('#updateProductModal .inputPhoto').change(function (e) {
 //validate the product price
 function validatePrice(input) {
    
-    input.value = input.value.trim();
-    input.value = input.value.replace(/[^0-9.]/g, '');
-    
-    if (input.value.startsWith('0') || input.value.startsWith('.')) {
-       
-        input.value = '';        
-    }
+  
 
+   
+    if (input.value.match(/[^0-9.]/g)) {
+        popUpMessageToast('error', 'Only digits are allowed', 300)
+    }
+    input.value = input.value.replace(/[^0-9.]/g, '');
+  
     let decimalParts = input.value.split('.');  
     if (decimalParts.length > 1) {
+        if (decimalParts[1].length > 2) {
+            popUpMessageToast('error', 'Only 2 decimal places are allowed', 380)
+        }
         decimalParts[1] = decimalParts[1].substr(0, 2);
     }
  
@@ -132,14 +135,24 @@ function validatePrice(input) {
 }
 //validate the product name
 function validateProductName(input) {
-   
-    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;  
     let inputValue = input.value;
+  
+    if (inputValue.match(/[^a-zA-Z ]+/g)) {
+        popUpMessageToast('error', 'Only letters are allowed', 260)
+    }
+  
+    if (inputValue.startsWith(' ')) {
+        popUpMessageToast('error', 'Leading spaces are not allowed', 360)
+    }
+  
+    if (inputValue.match(/\s{2,}/g)) {
+        popUpMessageToast('error', 'Double spaces are not allowed', 360)
+    }
 
-    inputValue = inputValue.replace(/[^a-zA-Z0-9 ]+/g, '');  
-    inputValue = inputValue.replace(/\s+/g, ' ');  
-    inputValue = inputValue.trimStart();  
-    input.value = inputValue;   
+    inputValue = inputValue.replace(/[^a-zA-Z ]+/g, '');
+    inputValue = inputValue.replace(/\s+/g, ' ');   
+    inputValue = inputValue.trimStart();
+    input.value = inputValue;
 }
 
 

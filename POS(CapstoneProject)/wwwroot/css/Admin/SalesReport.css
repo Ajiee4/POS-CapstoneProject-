@@ -70,7 +70,7 @@
 }
 /*Report Wrapper*/
 .report-wrapper {
-    display: none;
+    visibility: hidden;
     position: relative;
     width: 100%;
 }

@@ -527,11 +527,6 @@ Product List*/
 }
 
 /*SweetAlert Custom Class*/
-.custom-icon {
-    font-size: 15px !important;
-    font-weight: 500;
-    padding: 5px;
-}
 
 .swal-sales-title::after {
     content: "Cannot be undone";
