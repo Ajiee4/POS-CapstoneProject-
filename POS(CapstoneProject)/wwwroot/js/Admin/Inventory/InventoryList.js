@@ -53,8 +53,8 @@ function AddIngredient() {
         popUpMessage('Fill out all information', 'error');
         return;
     }
-    if (!isValidName(ingredientName)) {
-        popUpMessage("Input ingredient name must be between 3 and 15 characters","error")
+    if (!isValidIngredientName(ingredientName)) {
+        popUpMessage("Input ingredient name must be between 3 and 20 characters","error")
         return;
     }
    
@@ -66,9 +66,9 @@ function AddIngredient() {
 }
 
 //check if the name is valid
-function isValidName(name) {
+function isValidIngredientName(name) {
 
-    if (name.length >= 3 && name.length <= 15) {
+    if (name.length >= 3 && name.length <= 20) {
         return true;
     }
 }
@@ -101,7 +101,7 @@ function updateIngredient() {
         popUpMessage('Fill out all information', 'error');
         return;
     }
-    if (!isValidName(ingredientName)) {
+    if (!isValidIngredientName(ingredientName)) {
         popUpMessage("Input ingredient name must be between 3 and 15 characters", "error")
         return;
     }
