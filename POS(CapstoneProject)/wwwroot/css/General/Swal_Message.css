@@ -14,7 +14,33 @@
     font-weight: bolder !important;
     color: black !important;
 }
-.customhaha {
-    font-size: 10px;
-   
+
+@media (max-width: 350px){
+    .general-swal-confirm-btn, .general-swal-cancel-btn {
+       width: 100px;
+       padding: 5px;
+       
+    }
+    .general-swal-title {
+        font-size: 18px;
+
+    }
+    .general-swal-container {
+        width: 100%;
+    }
+    .general-swal-icon {
+        font-size: 8px;
+    }
+    .general-toast-icon {
+        font-size: 8px;
+
+    }
+    .general-toast-title {
+        font-size: 0.6rem !important;
+       
+    }
+    .general-toast-container {
+        width: auto !important;
+    }
 }
+

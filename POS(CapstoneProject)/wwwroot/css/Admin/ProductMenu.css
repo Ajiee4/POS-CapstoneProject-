@@ -59,38 +59,8 @@
     white-space: pre-wrap
 }
 
-/*@media (max-width: 350px){
-    .addProductBtn{
-        display: block;
-        margin: 0 auto;
+@media (max-width: 350px) {
+    .swal-archive-product-title::after, .swal-unarchive-product-title::after {
+        font-size: 0.6rem;
     }
-    #addProductModal .modal-content, #updateProductModal .modal-content {        
-        padding: 5px;
-        
-    }
-    .add-product-modal-img{
-        width: 120px;
-        height: 120px;
-        top: -40px;
-    }
-    .update-product-modal-img {
-        width: 150px;
-        height: 150px;
-        
-    }
-
-    .custom-confirm-btn,
-    .custom-cancel-btn {
-        width: 80px !important;
-       
-    }
-    .swal-unarchive-title, .swal-archive-title, .swal-addProd-title, .swal-updateProd-title {
-        font-size: 17px;
-    }
-    .swal-archive-title::after {
-        
-        
-        font-size: 0.7rem;
-       
-    }
-}*/
+}

@@ -29,7 +29,8 @@ function popUpMessageChoice(title, message, icon, iconClass, titleClass, callBac
             icon: iconClass,
             title: titleClass,
             confirmButton: 'general-swal-confirm-btn',
-            cancelButton: 'general-swal-cancel-btn'
+            cancelButton: 'general-swal-cancel-btn',
+            popup: 'general-swal-container' 
 
         }
 
@@ -50,6 +51,13 @@ function popUpMessageToast(icon, title, width) {
         width: width,
         showConfirmButton: false,
         timer: 1500,
+        customClass: {
+            popup: 'general-toast-container', 
+            title: 'general-toast-title',
+            icon: 'general-toast-icon'
+            
+
+        }
 
     });
     Toast.fire({

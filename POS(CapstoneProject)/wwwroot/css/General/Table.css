@@ -181,6 +181,8 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
     }
 
     .general-table tbody td {
+        font-size: 0.8rem;
+        word-wrap:break-word;
         text-align: right !important;
         border: none !important;
         outline: none !important;
@@ -192,6 +194,8 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
         padding: 5px;
         border-radius: 10px;
         background-color: #f1f1f1 !important;
+        
+        
     }
 
     .general-table td {

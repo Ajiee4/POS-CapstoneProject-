@@ -48,25 +48,6 @@
     background-color: white;
 }
 
-@media (max-width: 700px) {
-    .stock-movement-filter-wrapper form {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 460px) {
-    .stock-movement-filter-wrapper form > div {
-        width: 100%;
-    }
-
-    .stock-movement-filter-wrapper form div > * {
-        width: 100%;
-    }
-
-    .generateRecordBtn {
-        margin-top: 10px;
-    }
-}
 
 /*Stock Movement Wrapper*/
 
@@ -76,18 +57,29 @@
     width: 100%;
 }
 
-@media (max-width: 450px){
-
-    .stock-movement-header form{
-        text-align: center;
-        display: flex;
-        flex-direction: column;
+@media (max-width: 750px) {
+    .stock-movement-filter-wrapper form {
+        justify-content: center;
     }
-    .selectTransactionType {
+}
+/*Responsive filter Wrapper*/
+@media (max-width: 680px) {
+    .stock-movement-button-wrapper {
         width: 100%;
     }
-    .generateRecordBtn{
-        width: 50%;
+
+    .generateRecordBtn {
+        display: block;
+        margin: 0 auto;
     }
-    
-} 
+}
+
+@media (max-width: 490px) {
+    .stock-movement-filter-wrapper form > div, .stock-movement-filter-wrapper form div > * {
+        width: 100%;
+    }
+
+    .generateRecordBtn {
+        margin-top: 10px;
+    }
+}

@@ -32,6 +32,18 @@ function validateCategoryName(input) {
     
     let inputValue = input.value;
 
+    if (inputValue.match(/[^a-zA-Z ]+/g)) {
+        popUpMessageToast('error', 'Only letters are allowed', 305)
+    }
+
+    if (inputValue.startsWith(' ')) {
+        popUpMessageToast('error', 'Leading spaces are not allowed', 360)
+    }
+
+    if (inputValue.match(/\s{2,}/g)) {
+        popUpMessageToast('error', 'Double spaces are not allowed', 360)
+    }
+
     inputValue = inputValue.replace(/[^a-zA-Z ]+/g, '');
     inputValue = inputValue.replace(/\s+/g, ' ');
     inputValue = inputValue.trimStart();

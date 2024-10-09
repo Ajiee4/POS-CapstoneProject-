@@ -30,7 +30,12 @@
     flex: 1;
 }
 
-
+@media (max-width: 455px){
+    .details-wrapper .detail-info{
+        flex-direction: column;
+        gap: 0px;
+    }
+}
 #addUserModal > input{
     border: none !important;
     outline: none !important;

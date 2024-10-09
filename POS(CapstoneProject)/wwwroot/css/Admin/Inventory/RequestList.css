@@ -48,17 +48,25 @@
     
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
     .request-filter-wrapper form {
-       justify-content: center;
+        justify-content: center;
     }
 }
 
-@media (max-width: 460px) {
-    .request-filter-wrapper form > div{
+@media (max-width: 680px) {
+    .request-button-wrapper {
         width: 100%;
     }
-    .request-filter-wrapper form div > * {
+
+    .viewRequestBtn {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 490px) {
+    .request-filter-wrapper form > div, .request-filter-wrapper form div > * {
         width: 100%;
     }
     .viewRequestBtn{

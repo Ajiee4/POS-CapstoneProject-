@@ -78,3 +78,20 @@
     color: white;
 }
 
+@media( max-width: 390px) {
+    .general-modal .modal-content{
+        padding: 5px 5px;
+    }
+    .general-coffee-img-top{
+        height: 120px;
+        width: 120px;
+        left: -35px;
+        top: -30px;
+    }
+    .general-coffee-img-bottom {
+        height: 150px;
+        width: 150px;
+       /* left: -20px;
+        top: -30px;*/
+    }
+}

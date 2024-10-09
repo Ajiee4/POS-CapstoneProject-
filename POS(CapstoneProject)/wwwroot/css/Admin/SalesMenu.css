@@ -386,6 +386,18 @@ Product List*/
  
 }
 
+@media (max-width: 410px){
+    .product-catalog {
+        padding: 10px 10px;
+        grid-template-columns: repeat(auto-fill, minmax(80px,1fr));
+    }
+}
+@media (max-width: 360px) {
+    .product-catalog {
+        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(70px,1fr));
+    }
+}
 .product-item {
     border: 1px solid transparent;
     min-height: 180px;

@@ -36,3 +36,10 @@
 .general-button:hover {
     transform: scale(1.03);
 }
+
+@media( max-width: 340px){
+    .general-button{
+        display: block;
+        margin: 0 auto;
+    }
+}
