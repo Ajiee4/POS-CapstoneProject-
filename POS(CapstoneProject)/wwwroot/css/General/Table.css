@@ -3,21 +3,21 @@
 .dt-search label {
     color: white !important;
     font-weight: lighter !important;
-    font-family: "Inter" !important;
+  /*  font-family: "Inter" !important;*/
 }
 
 .dt-search .dt-input {
     border: 1px solid white !important;
     outline: 1px solid white !important;
     border-radius: 10px !important;
-    font-family: "Inter" !important;
+   /* font-family: "Inter" !important;*/
 }
 .dt-length, .dt-info {
     display: none;
 
 }
 .dt-paging {
-    font-family: "Inter" !important;
+   /* font-family: "Inter" !important;*/
     margin: 0px !important;
     padding: 0px !important;
     background-color: white;
@@ -50,7 +50,7 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 
 /*General Table*/
 .general-table {
-    font-family: "Inter" !important;
+   /* font-family: "Inter" !important;*/
     border: 1px solid transparent !important;
     z-index: 1 !important;
 }

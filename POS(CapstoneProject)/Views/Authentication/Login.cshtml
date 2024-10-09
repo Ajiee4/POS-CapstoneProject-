@@ -29,7 +29,12 @@
 
                 <div class="password-wrapper">
                     <label asp-for="Password">Password:</label><br />
-                    <input asp-for="Password" type="password" class="Password" required /><br />
+                    <div class="password-toggle">
+                        <input asp-for="Password" type="password" class="Password" required id="passwordInput" />
+                        <img src="~/images/hide.png" id="eyeImage" onclick="togglePasswordVisibility()" />
+                    </div>
+                    
+                    @* <img src="hide.png" alt="Hide password" id="eyeImage" onclick="togglePasswordVisibility()" /> *@
                 </div>
 
                 <button type="submit" id="submitLoginBtn">LOGIN</button>

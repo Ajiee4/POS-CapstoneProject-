@@ -26,7 +26,7 @@
     box-shadow: 1px 2px 5px black;
     padding: 5px 20px;
     border: 2px solid white;
-    font-family: "Inter" !important;
+   /* font-family: "Inter" !important;*/
 }
 .general-modal .modal-content .modal-header {
     border: none;
@@ -45,6 +45,7 @@
 
 .general-modal .general-modal-input {
     background-color: #D1D6D2;
+    outline: none !important;
     border-radius: 10px !important;
 }
 .general-modal .general-modal-input::placeholder {

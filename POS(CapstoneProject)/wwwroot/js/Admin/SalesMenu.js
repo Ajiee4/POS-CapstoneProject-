@@ -12,7 +12,7 @@ $(document).ready(function () {
     $('.product-list-wrapper').css({
         "visibility": "visible"
     });
-
+    //check if the category row from the category page is click
     function checkCategory() {
         let categoryList = document.querySelector('.category-list-wrapper');
         let items = categoryList.querySelectorAll('.category-item');
@@ -62,7 +62,7 @@ $(document).ready(function () {
 
 });
 
-//check if the category row from the category page is click
+
 
 
 
@@ -197,7 +197,7 @@ function checkoutProduct(id, name, quantity, price) {
        
         product.prodQty += quantity;
 
-        popUpMessageToast('success', 'Quantity incremented', 300);
+        popUpMessageToast('success', 'Quantity Updated', 265);
 
     } else {
             
@@ -309,19 +309,17 @@ function validateInput(input) {
 $('.cancelBtn').click(function (){
 
     if (checkOutList.length == 0) {
-
-        popUpMessage("Check Out List is empty", "error");
+        popUpMessageToast('error', 'Check Out List Empty', 290)
+        
     }
     else {
-        popUpMessageChoice("Are you sure you want to cancel? <br>", '', 'question', 'general-swal-icon ', 'general-swal-title swal-salesCancel-title', () => {
-            checkOutList.splice(0);
+        checkOutList.splice(0);
 
-            DisplayCheckOut();
-            cartCount();
-            popUpMessageToast('success', 'Check Out Canceled', 300);
+        DisplayCheckOut();
+        cartCount();
+        popUpMessageToast('success', 'Check Out Canceled', 280);
 
-            localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-        });
+        localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
      
     }   
 })
@@ -330,7 +328,7 @@ $('.cancelBtn').click(function (){
 $('.payBtn').click(function () {
    
     if (checkOutList.length === 0) {
-        popUpMessage("Check Out list is empty", "error");
+        popUpMessage("Check Out List Empty", "error");
 
     } else {
         $('#paymentModal').modal('toggle')
@@ -341,19 +339,23 @@ $('.payBtn').click(function () {
 });
 
 //cash is input
-function onInputCash(e) {
-  
-    e.value = e.value.trim();
-    e.value = e.value.replace(/[^0-9.]/g, '');
+function onInputCash(input) {
+    if (input.value.match(/[^0-9.]/g)) {
+        popUpMessageToast('error', 'Only digits are allowed', 300)
+    }
+    input.value = input.value.replace(/[^0-9.]/g, '');
 
-    let decimalParts = e.value.split('.');
+    let decimalParts = input.value.split('.');
     if (decimalParts.length > 1) {
+        if (decimalParts[1].length > 2) {
+            popUpMessageToast('error', 'Only 2 decimal places are allowed', 380)
+        }
         decimalParts[1] = decimalParts[1].substr(0, 2);
     }
 
-    e.value = decimalParts.join('.');  
+    input.value = decimalParts.join('.');  
 
-    if (e.value == '') {
+    if (input.value == '') {
         $('.changeAmountText').val(null);
         return;
     }
@@ -362,7 +364,7 @@ function onInputCash(e) {
 
 
     let totalAmo = CalculateTotalAmount();
-    let money = Number(e.value);
+    let money = Number(input.value);
 
 
     if (money >= totalAmo) {

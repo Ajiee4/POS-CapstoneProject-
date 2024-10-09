@@ -38,7 +38,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     else
                     {
                         ViewData["DateNow"] = DateTime.Now.ToString("dd/mm/yyyy");
-                        var ingredientsList = _context.Ingredient.OrderByDescending(s => s.Quantity).ToList();
+                        var ingredientsList = _context.Ingredient.OrderBy(s => s.IngredientId).ToList();
                         var requestList = _context.RequestDetails.Include(s => s.Request).ToList();
                         ViewData["IngredientsList"] = ingredientsList;
                         ViewData["RequestList"] = requestList;

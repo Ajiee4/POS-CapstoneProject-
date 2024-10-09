@@ -7,7 +7,7 @@
 
 /*Check Out*/
 .checkout-wrapper {
-    font-family: "Inter" !important;
+    /*font-family: "Inter" !important;*/
     position: fixed;
     top: 70px;
     right: 10px;
@@ -275,7 +275,7 @@
 Product List*/
 
 .product-list-wrapper {
-    font-family: "Inter" !important;
+  /*  font-family: "Inter" !important;*/
     border-radius: 5px;
     width: 100%;
     visibility: hidden;

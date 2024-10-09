@@ -262,21 +262,21 @@ body {
     display: none;
 }
 
-    .sidebar ul li a {
-        font-weight: bolder;
-        position: relative;
-        text-decoration: none;
-        color: white;
-        border-radius: 5px;
-        display: flex;
-        justify-content: start;
-        padding: 10px 5px;
-        font-family: "Inter";
-        align-items: center;
-        background-color: transparent;
-        width: 100%;
-        border: 1px solid white;
-    }
+.sidebar ul li a {
+    font-weight: bolder;
+    position: relative;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: start;
+    padding: 10px 5px;
+/*        font-family: "Inter";*/
+    align-items: center;
+    background-color: transparent;
+    width: 100%;
+    border: 1px solid white;
+}
 
 .sidebar ul li a:hover {
     background-color: #747474;
@@ -307,7 +307,7 @@ body {
     border-radius: 10px;
     font-size: 0.6rem;
     display: block;
-    font-family: "Inter";
+   /* font-family: "Inter";*/
     text-align: center;
     font-weight: bolder;
     white-space: nowrap;

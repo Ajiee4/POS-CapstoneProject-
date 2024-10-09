@@ -71,7 +71,7 @@ function AddCategory() {
 
         if (categoryName.length >= 3 && categoryName.length <= 15) {
 
-            popUpMessageChoice("Do you want to add this category?",'', 'question', 'general-swal-icon','general-swal-title', () => { $("#addCategoryForm").submit() });
+            popUpMessageChoice("Are you sure you want to add this category?",'', 'question', 'general-swal-icon','general-swal-title', () => { $("#addCategoryForm").submit() });
 
         } else {
             popUpMessage("Input must be 3-15 characters", "error");
@@ -94,7 +94,7 @@ function UpdateCategory() {
     else {
         if (categoryName.length >= 3 && categoryName.length <= 15) {
 
-            popUpMessageChoice("Do you want to update this category?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateCategoryForm").submit() });
+            popUpMessageChoice("Are you sure you want to update this category?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateCategoryForm").submit() });
 
 
         } else {

@@ -274,15 +274,7 @@ function DisplayRequest() {
     const storedList = localStorage.getItem('RequestList');
     const RequestList = JSON.parse(storedList); // Parse the stored list
 
-    if (RequestList === null) {
-        html +=
-            `
-             <tr >
-                    <td class="table-data-quantity text-center"> Please Click the Desired Ingredients to be Requested</td>
-                </tr> 
-                                 
-            `
-    } else {
+    if (RequestList != null) {
         RequestList.forEach((item) => {
             const truncatedName = item.ingredientName.length > 10 ? `${item.ingredientName.substring(0, 10)}...` : item.ingredientName;
             html +=
@@ -306,10 +298,12 @@ function DisplayRequest() {
                                  
                 `
         });
-    }
 
-    tableBodyRequest.innerHTML = html;
-    tableBodyStockOut.innerHTML = html;
+        tableBodyRequest.innerHTML = (html != null) ? html : "";
+        tableBodyStockOut.innerHTML = (html != null) ? html : "";
+    } 
+
+   
   
 }
 
@@ -338,7 +332,7 @@ $('.requestSubmit').click(function () {
 
     if (RequestList.length == 0) {
 
-        popUpMessageToast('error', 'Request List is empty', 290)
+        popUpMessageToast('error', 'Request List Empty', 290)
 
     }
     else {
@@ -357,7 +351,7 @@ $('.requestSubmit').click(function () {
 });
 function deleteItem(id) {
 
-    popUpMessageToast("success", 'Ingredient deleted', 300)
+    popUpMessageToast("success", 'Ingredient Deleted', 270)
    
     const index = RequestList.findIndex(item => item.ingredientId === id);
     if (index !== -1) {
@@ -376,70 +370,85 @@ function redirectRequest(url, event) {
 
 //clear the request list 
 function cancelRequest() {
-    const cancelButton = document.querySelector('.cancelrequest');
+   
 
-    cancelButton.addEventListener('click', () => {
+    if (RequestList.length == 0) {
+       
+        popUpMessageToast('error', 'Request List Empty', 270)
+    }
+    else {
+        popUpMessageToast('success', 'Request List Canceled', 290)
+        RequestList.splice(0)
+        localStorage.setItem('RequestList', JSON.stringify(RequestList));
 
-        if (RequestList.length == 0) {
-            popUpMessage('Request List is empty', 'error')
-        }
-        else {
-            popUpMessageToast('success','Request List Canceled', 300)
-            RequestList.splice(0)
-            localStorage.setItem('RequestList', JSON.stringify(RequestList));
-
-            document.querySelector('.request-list-wrapper table tbody').innerHTML = '';
-            document.querySelector('.stock-out-wrapper table tbody').innerHTML = '';
-        }
-      
-    });
+        DisplayRequest();
+    }
 }
 
-cancelRequest();
 
-cancelStockOut();
+
 function cancelStockOut() {
-    const cancelButton = document.querySelector('.cancelStockOut');
-
-    cancelButton.addEventListener('click', () => {
-        if (RequestList.length == 0) {
-            
-            popUpMessage('Stock Out List is empty', 'error')
-        }
-        else {
-            popUpMessageToast('success', 'Stock Out List Canceled', 340)
-            RequestList.splice(0)
-            localStorage.setItem('RequestList', JSON.stringify(RequestList));
-
-            document.querySelector('.request-list-wrapper table tbody').innerHTML = '';
-            document.querySelector('.stock-out-wrapper table tbody').innerHTML = '';
-        }
+    
+    if (RequestList.length == 0) {
+        popUpMessageToast('error', 'Stock Out List Empty', 285)
        
-    });
+    }
+    else {
+        popUpMessageToast('success', 'Stock Out Canceled', 275
+        )
+        RequestList.splice(0)
+        localStorage.setItem('RequestList', JSON.stringify(RequestList));
+        DisplayRequest();
+    }
+         
 }
 
 
 function validateUnitMeasurement(input) {
-    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
     let inputValue = input.value;
 
-    inputValue = inputValue.replace(/[^a-zA-Z0-9 ]+/g, '');
+    if (inputValue.match(/[^a-zA-Z ]+/g)) {
+        popUpMessageToast('error', 'Only letters are allowed', 305)
+    }
+
+    if (inputValue.startsWith(' ')) {
+        popUpMessageToast('error', 'Leading spaces are not allowed', 360)
+    }
+
+    if (inputValue.match(/\s{2,}/g)) {
+        popUpMessageToast('error', 'Double spaces are not allowed', 360)
+    }
+
+    inputValue = inputValue.replace(/[^a-zA-Z ]+/g, '');
     inputValue = inputValue.replace(/\s+/g, ' ');
     inputValue = inputValue.trimStart();
     input.value = inputValue;
 }
-function validateStockThreshold(input) {
-    input.value = input.value.replace(/[^0-9]/g, '');
-    if (input.value.startsWith('0')){
-
-        input.value = '';
+function validateThreshold(input) {
+    
+    if (input.value.match(/[^0-9]/g)) {
+        popUpMessageToast('error', 'Only digits are allowed', 300)
     }
+    input.value = input.value.replace(/[^0-9]/g, '');
+
+
 }
 function validateIngredientName(input) {
-    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
     let inputValue = input.value;
 
-    inputValue = inputValue.replace(/[^a-zA-Z0-9 ]+/g, '');
+    if (inputValue.match(/[^a-zA-Z ]+/g)) {
+        popUpMessageToast('error', 'Only letters are allowed', 305)
+    }
+
+    if (inputValue.startsWith(' ')) {
+        popUpMessageToast('error', 'Leading spaces are not allowed', 360)
+    }
+
+    if (inputValue.match(/\s{2,}/g)) {
+        popUpMessageToast('error', 'Double spaces are not allowed', 360)
+    }
+
+    inputValue = inputValue.replace(/[^a-zA-Z ]+/g, '');
     inputValue = inputValue.replace(/\s+/g, ' ');
     inputValue = inputValue.trimStart();
     input.value = inputValue;
@@ -456,7 +465,7 @@ $('.stockOutSubmit').click(function () {
  
     if (RequestList.length == 0) {
 
-        popUpMessageToast('error', 'Stock Out List is empty', 300)
+        popUpMessageToast('error', 'Stock Out List Empty', 300)
 
     }
     else {

@@ -113,36 +113,39 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">First Name</label>
-                                <input class="form-control inputFirstName general-modal-input" name="firstname" placeholder="Enter First Name" type="text" required />
+                                <input class="form-control inputFirstName general-modal-input" maxlength="20" oninput="validateFirstName(this)" name="firstname" placeholder="Enter First Name" type="text" required />
                             </div>
 
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Last Name</label>
-                                <input class="form-control inputLastName general-modal-input" name="lastname" placeholder="Enter Last Name" type="text" required />
+                                <input class="form-control inputLastName general-modal-input" maxlength="20" oninput="validateLastName(this)" name="lastname" placeholder="Enter Last Name" type="text" required />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Email</label>
-                                <input class="form-control inputEmail general-modal-input" name="email" placeholder="Enter Email Address" type="email" required />
+                                <input class="form-control inputEmail general-modal-input" name="email" maxlength="30" onchange="validateEmailChange(this)" oninput="validateEmail(this)" placeholder="Enter Email Address" type="email" required />
                             </div>
 
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Cellphone No.</label>
-                                <input class="form-control inputCellphone general-modal-input" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
+                                <input class="form-control inputCellphone general-modal-input" maxlength="11" oninput="validateCellNumber(this)" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Username</label>
-                                <input class="form-control inputUsername general-modal-input" name="username" placeholder="Enter Username" type="text" required />
+                                <input class="form-control inputUsername general-modal-input" maxlength="20" oninput="validateUsername(this)" name="username" placeholder="Enter Username" type="text" required />
                             </div>
 
                             <div class="col-md-6">
-                                <label class="control-label general-modal-label">Password</label>
-                                <input class="form-control inputPassword general-modal-input" name="password" placeholder="Enter Password" type="password" required />
+                                <label class="control-label general-modal-label">Password</label>            
+                                <div class="password-toggle-user">
+                                    <input class="form-control inputPassword general-modal-input" maxlength="20" name="password" placeholder="Enter Password" type="password" required />
+                                    <img src="~/images/hide.png" class="eyeImage" onclick="togglePasswordVisibilityUser()" />
+                                </div>
                             </div>
                         </div>
 
@@ -151,7 +154,8 @@
                                 <label class="control-label general-modal-label">Role</label><br />
                                 <input class="form-control general-modal-input" value="Cashier" readonly />
 
-                            </div>
+                           </div>
+                           
                         </div>
                     </div>
                  
@@ -186,36 +190,40 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">First Name</label>
-                                <input class="form-control inputFirstName general-modal-input" name="firstname" placeholder="Enter First Name" type="text" required />
+                                <input class="form-control inputFirstName general-modal-input" maxlength="20" oninput="validateFirstName(this)" name="firstname" placeholder="Enter First Name" type="text" required />
                             </div>
 
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Last Name</label>
-                                <input class="form-control inputLastName general-modal-input" name="lastname" placeholder="Enter Last Name" type="text" required />
+                                <input class="form-control inputLastName general-modal-input" maxlength="20" oninput="validateLastName(this)" name="lastname" placeholder="Enter Last Name" type="text" required />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Email</label>
-                                <input class="form-control inputEmail general-modal-input" name="email" placeholder="Enter Email Address" type="email" required />
+                                <input class="form-control inputEmail general-modal-input" maxlength="30" onchange="validateEmailChange(this)" oninput="validateEmail(this)" name="email" placeholder="Enter Email Address" type="email" required />
                             </div>
 
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Cellphone No.</label>
-                                <input class="form-control inputCellphone general-modal-input" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
+                                <input class="form-control inputCellphone general-modal-input" maxlength="11" oninput="validateCellNumber(this)" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Username</label>
-                                <input class="form-control inputUsername general-modal-input" name="username" placeholder="Enter Username" type="text" required />
+                                <input class="form-control inputUsername general-modal-input" maxlength="20" oninput="validateUsername(this)" name="username" placeholder="Enter Username" type="text" required />
                             </div>
 
                             <div class="col-md-6">
                                 <label class="control-label general-modal-label">Password</label>
-                                <input class="form-control inputPassword general-modal-input" name="password" placeholder="Enter Password" type="password" required />
+                                
+                                <div class="password-toggle-user">
+                                    <input class="form-control inputPassword general-modal-input" maxlength="20" name="password" placeholder="Enter Password" type="password" required />
+                                    <img src="~/images/hide.png" class="eyeImage" onclick="togglePasswordVisibilityUser()" />
+                                </div>
                             </div>
                         </div>
 

@@ -157,7 +157,7 @@
             </form>
 
             <button class="d-block mx-auto requestSubmit">REQUEST</button>
-            <button class="d-block mx-auto cancelrequest">CANCEL</button>
+            <button class="d-block mx-auto cancelrequest" onclick="cancelRequest()">CANCEL</button>
         </div>
     </div>
     
@@ -213,7 +213,7 @@
             <div class="footer-buttons-wrapper">
 
                 <button class="stockOutSubmit">STOCK OUT</button>
-                <button class="cancelStockOut">CANCEL</button>
+                <button class="cancelStockOut" onclick="cancelStockOut()">CANCEL</button>
             </div>
 
         </div>
@@ -247,10 +247,10 @@
                    
                     <div class="form-group">
                         <label asp-for="LowStockThreshold" class="control-label general-modal-label">Stock Threshold</label>
-                        <input asp-for="LowStockThreshold" step="1" class="form-control inputThreshold general-modal-input" oninput="validateStockThreshold(this)" placeholder="Enter Low Stock Threshold" required />
+                        <input asp-for="LowStockThreshold" type="text" class="form-control inputThreshold general-modal-input" oninput="validateThreshold(this)" placeholder="Enter Low Stock Threshold" required />
                     </div>
 
-                    <br />
+                   
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto addIngredientSubmit general-modal-button">ADD</button>
                     </div>            
@@ -289,10 +289,10 @@
                    
                     <div class="form-group">
                         <label asp-for="LowStockThreshold" class="control-label general-modal-label">Stock Threshold</label>
-                        <input asp-for="LowStockThreshold" class="form-control inputThreshold general-modal-input" oninput="validateStockThreshold(this)" placeholder="Enter Low Stock Threshold" required />
+                        <input asp-for="LowStockThreshold" type="text" class="form-control inputThreshold general-modal-input" oninput="validateThreshold(this)" placeholder="Enter Low Stock Threshold" required />
                     </div>
 
-                    <br />
+                    
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto updateIngredientSubmit general-modal-button">UPDATE</button>
                     </div>

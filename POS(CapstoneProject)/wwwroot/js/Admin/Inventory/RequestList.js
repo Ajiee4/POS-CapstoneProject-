@@ -51,18 +51,20 @@ $('.viewRequestBtn').click(function () {
 
 function ShowRequestModal() {
     let requestCard = document.querySelectorAll('.request-card');
-   
+    let cardModal = document.querySelector('#requestCardModal');
+    let tableBody = document.getElementById('requestDetailsTableBody');
  
     requestCard.forEach(card => {
         card.addEventListener('click', function () {
             $('#requestCardModal').modal('show');
-           
+          
 
             let requestID = card.dataset.id;
-            let cardModal = document.querySelector('#requestCardModal');
-            let tableBody = document.getElementById('requestDetailsTableBody');
+           
            
             cardModal.dataset.requestid = requestID;
+
+            $('#requestCardModal .modal-title').text(`Request #${cardModal.dataset.requestid}`)
 
             tableBody.innerHTML = '';
 
@@ -105,9 +107,11 @@ function ShowRequestModal() {
                 });
             }
             
-
+          
         });
     });
+
+  
 }
 
 ShowRequestModal();
@@ -129,7 +133,7 @@ function changeQtyRequest(input) {
         input.value = 0;
     }
     request.Quantity = Number(input.value);
-    console.log(requestListUpdate)
+   
    
 
 }
@@ -147,9 +151,11 @@ $('.cancelRequestBtn').click(function () {
 });
 
 $('.completeRequestBtn').click(function () {
-
-    let checkRequest = requestListUpdate.every(item => item.Quantity == 0);
-
+    let cardModal = document.querySelector('#requestCardModal');
+    let reqId = cardModal.dataset.requestid;   
+    let filterList = requestListUpdate.filter(item => item.RequestId == reqId);
+    let checkRequest = filterList.every(item => item.Quantity == 0);
+   
     if (checkRequest) {
         popUpMessage("All Ingredients' quantities must not be zero", "error")
         return;

@@ -30,11 +30,45 @@
     flex: 1;
 }
 
-.row-wrapper{
+
+#addUserModal > input{
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.row-wrapper {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
+.password-toggle-user {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    outline: blue;
+    display: flex;
+    border: none;
+    background-color: white;
+    align-items: center;
+    justify-content: space-between;
+   
+    background-color: #D1D6D2;
+}
+.inputPassword {
+    flex: 1;
+    border: none;
+    width: 80%;
+    padding: 6px 10px;
+   
+    outline: blue;
+   
+}
+.eyeImage {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-left: 10px;
+}
 /*SweetAlert custom class*/
 

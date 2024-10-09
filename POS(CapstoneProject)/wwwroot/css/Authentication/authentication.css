@@ -51,6 +51,15 @@
    width: 100%; 
   /* border: 1px solid white;*/
 }
+
+#eyeImage {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-right: 10px;
+    
+}
+
 h1.login-text-header {
     text-align: center;
     margin-bottom: 40px;
@@ -60,10 +69,34 @@ h1.login-text-header {
     font-weight: bolder;
     letter-spacing: 2px;
 }
+.password-toggle {
+    
+    width: 100%;
+    border-radius: 50px;
+    border: none;
+    outline: blue;
+    display: flex;
+    border: none;
+    background-color: white;
+    align-items: center;
+    justify-content: space-between;
+}
+.Password {
+    flex: 1;
+    border: none;
+    width: 80%;
+    padding: 6px 10px;
+    border-radius: 50px;
+    
+    outline: blue;
+    display: flex;
+    
+}
 
 .username-wrapper,
 .password-wrapper {
     margin-bottom: 15px;
+   
 }
 
 .username-wrapper label,
@@ -72,8 +105,7 @@ h1.login-text-header {
     
 }
 
-input[type="text"],
-input[type="password"] {
+input[type="text"] {
     width: 100%;
     padding: 6px 10px;
     border-radius: 50px;
@@ -203,7 +235,6 @@ input[type="password"] {
     font-family: "Inika";
     font-weight: lighter;
 }
-
 
 
 

@@ -83,7 +83,7 @@ function AddNewUser() {
         return;
     }
 
-    popUpMessageChoice("Do you want to add this user?", '', 'question', 'general-swal-icon', 'general-swal-title', () => {$('#addUserForm').submit();});
+    popUpMessageChoice("Are you sure you want to add this user?", '', 'question', 'general-swal-icon', 'general-swal-title', () => {$('#addUserForm').submit();});
 
 }
 function isValidEmail(email) {
@@ -164,7 +164,7 @@ function UpdateUser() {
         return;
     }
 
-    popUpMessageChoice("Do you want to update this user?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $('#updateUserForm').submit(); });
+    popUpMessageChoice("Are you sure you want to update this user?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $('#updateUserForm').submit(); });
   
 
 }
@@ -195,4 +195,90 @@ function ViewDetails(email, contact, username, password) {
     $('#detailsUserModal .detailCellNum').val(contact)
     $('#detailsUserModal .detailUsername').val(username);
     $('#detailsUserModal .detailPassword').val(password)
+}
+
+
+function togglePasswordVisibilityUser() {
+   
+    const passwordInput = document.querySelectorAll('.inputPassword');
+    const eyeImage = document.querySelectorAll('.eyeImage');
+
+    passwordInput.forEach((item, index) => {
+        if (item.type === 'password') {
+            item.type = 'text';
+            eyeImage[index].src = '/images/view.png';
+        } else {
+            item.type = 'password';
+            eyeImage[index].src = '/images/hide.png';
+        }
+    });
+  
+}
+
+function validateFirstName(input) {
+    let inputValue = input.value;
+
+    if (inputValue.match(/[^a-zA-Z ]+/g)) {
+        popUpMessageToast('error', 'Only letters are allowed', 305)
+    }
+
+    if (inputValue.startsWith(' ')) {
+        popUpMessageToast('error', 'Leading spaces are not allowed', 360)
+    }
+
+    if (inputValue.match(/\s{2,}/g)) {
+        popUpMessageToast('error', 'Double spaces are not allowed', 360)
+    }
+
+    inputValue = inputValue.replace(/[^a-zA-Z ]+/g, '');
+    inputValue = inputValue.replace(/\s+/g, ' ');
+    inputValue = inputValue.trimStart();
+    input.value = inputValue;
+}
+function validateLastName(input) {
+    let inputValue = input.value;
+
+    if (inputValue.match(/[^a-zA-Z ]+/g)) {
+        popUpMessageToast('error', 'Only letters are allowed', 305)
+    }
+
+    if (inputValue.startsWith(' ')) {
+        popUpMessageToast('error', 'Leading spaces are not allowed', 360)
+    }
+
+    if (inputValue.match(/\s{2,}/g)) {
+        popUpMessageToast('error', 'Double spaces are not allowed', 360)
+    }
+
+    inputValue = inputValue.replace(/[^a-zA-Z ]+/g, '');
+    inputValue = inputValue.replace(/\s+/g, ' ');
+    inputValue = inputValue.trimStart();
+    input.value = inputValue;
+}
+
+function validateCellNumber(input) {
+    if (input.value.match(/[^0-9]/g)) {
+        popUpMessageToast('error', 'Only digits are allowed', 300)
+    }
+    input.value = input.value.replace(/[^0-9]/g, '');
+}
+function validateEmail(input) {
+    if (input.value.match(/[^a-zA-Z_@.]+/g)) {
+        popUpMessageToast('error', 'Invalid Input', 225)
+    }
+    input.value = input.value.replace(/[^a-zA-Z_@.]+/g, '');
+}
+function validateEmailChange(input) {
+    if (!(input.value.endsWith('@gmail.com'))) {
+        popUpMessageToast('error', 'Email should ends with @gmail.com', 395)
+        input.value = ''
+    }
+}
+
+function validateUsername(input) {
+    if (input.value.match(/[^a-zA-Z0-9]+/g)) {
+        popUpMessageToast('error', 'Only letters and digits are allowed', 305)
+
+    }
+    input.value = input.value.replace(/[^a-zA-Z0-9]+/g, '');
 }

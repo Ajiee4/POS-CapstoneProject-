@@ -115,9 +115,7 @@ $('#updateProductModal .inputPhoto').change(function (e) {
 //validate the product price
 function validatePrice(input) {
    
-  
-
-   
+ 
     if (input.value.match(/[^0-9.]/g)) {
         popUpMessageToast('error', 'Only digits are allowed', 300)
     }
@@ -138,7 +136,7 @@ function validateProductName(input) {
     let inputValue = input.value;
   
     if (inputValue.match(/[^a-zA-Z ]+/g)) {
-        popUpMessageToast('error', 'Only letters are allowed', 260)
+        popUpMessageToast('error', 'Only letters are allowed', 305)
     }
   
     if (inputValue.startsWith(' ')) {
@@ -184,7 +182,7 @@ function AddProduct() {
          
             $('.addProductInputName').val(productName);
 
-            popUpMessageChoice("Do you want to add this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => {$("#addProductForm").submit()});         
+            popUpMessageChoice("Are you sure you want to add this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => {$("#addProductForm").submit()});         
 
         } else {
 
@@ -221,7 +219,7 @@ function UpdateProduct() {
         if (productName.length >= 3 && productName.length <= 15) {
             $('.updateProductInputName').val(productName);
 
-            popUpMessageChoice("Do you want to update this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateProductForm").submit() });  
+            popUpMessageChoice("Are you sure you want to update this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateProductForm").submit() });  
            
                  
         } else {

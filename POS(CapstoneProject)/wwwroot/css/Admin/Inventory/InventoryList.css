@@ -176,7 +176,7 @@ Request & Stock Out*/
     color: black;
     margin: 0;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.5rem;
     flex-grow: 0;
     padding: 5px 0px;
 }
@@ -260,7 +260,8 @@ Request & Stock Out*/
     font-weight: bolder;
     color: white;
     border: none;
-    border-radius: 20px;   
+    border-radius: 20px;
+    cursor: pointer;
     transition: .3ms ease-in-out;
 }
 
@@ -274,7 +275,7 @@ Request & Stock Out*/
     border: 1px solid black;
     border-radius: 20px;
     transition: .3ms ease-in-out;
-    
+    cursor: pointer;
 }
 
 .stock-out-footer {
@@ -291,9 +292,7 @@ Request & Stock Out*/
     gap: 20px;
    
 }
-.footer-buttons-wrapper > button{
-    cursor: pointer;
-}
+
 .footer-buttons-wrapper .stockOutSubmit {
     width: 120px;
     height: 50px;
@@ -302,21 +301,23 @@ Request & Stock Out*/
     font-weight: bolder;
     color: white;
     border: none;
+    cursor: pointer;
     border-radius: 20px;  
     transition: .3ms ease-in-out;
 }
 
-.footer-buttons-wrapper .cancelStockOut {
-    width: 120px;
-    height: 50px;
-    background-color: transparent;
-    font-size: 1rem;
-    font-weight: bolder;
-    color: white;
-    border: 1px solid black;
-    border-radius: 20px;
-    transition: .3ms ease-in-out;
-}
+    .footer-buttons-wrapper .cancelStockOut {
+        cursor: pointer;
+        width: 120px;
+        height: 50px;
+        background-color: transparent;
+        font-size: 1rem;
+        font-weight: bolder;
+        color: white;
+        border: 1px solid black;
+        border-radius: 20px;
+        transition: .3ms ease-in-out;
+    }
 
 .stockOutRemarks {
     width: 100%;
