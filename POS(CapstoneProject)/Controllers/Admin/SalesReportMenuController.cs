@@ -65,7 +65,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                 .Select(g => new SalesReport
                                 {
                                     Name = g.Key.Name,
-                                    OrderDate = g.Key.OrderDate,
+                                    OrderDate = g.Key.OrderDate.ToString(),
                                     TotalSales = g.Sum(x => x.od.Quantity * x.p.Price),
                                     TotalSold = g.Select(s => s.p.ProductId).Count()
                                 })

@@ -6,6 +6,7 @@
 
 /*Wrapper*/
 .dashboard-wrapper {
+    border: red solid 1px;
     width: 100%;
 }
 
@@ -102,7 +103,7 @@
     border-radius: 10px;
     border: 1px pink solid;
     height: 300px;
-    width: 60%;
+    width: 50%;
 }
 
 /*.middlebox .productRanking {
@@ -192,10 +193,11 @@
         background-color: gray;
     }*/
 #leaderboard {
+    padding: 10px;
+    overflow-x: auto;
     border-radius: 10px;
     background: #A0A0A0;
     height: 350px;
-    border: 1px red solid;
     width: 100%;
     position: relative;
     display: flex;
@@ -204,15 +206,13 @@
 
 table {
     text-align: left;
-    border: red 1px solid;
+
     border-radius: 0 10px 0 0;
-    width: 300px;
-    height:  300px;
-    overflow-y:scroll;
+    width:300px;
     border-collapse: collapse;
     table-layout: fixed;
     color: #141a39;
-    cursor: default;
+    cursor:pointer;
 }
 
 tr {
@@ -221,12 +221,7 @@ tr {
     border-radius: 0.2rem;
 }
 
-    tr:not(:first-child):hover {
-        background-color: #fff;
-        transform: scale(1.1);
-        -webkit-box-shadow: 0px 5px 15px 8px #e4e7fb;
-        box-shadow: 0px 5px 15px 8px #e4e7fb;
-    }
+   
 
     tr:nth-child(odd) {
         background-color: #f9f9f9;
@@ -238,7 +233,7 @@ tr {
     }
 
 td {
-    height:1.5rem;
+    height:1rem;
     font-family: "Rubik", sans-serif;
     font-size: .9rem;
     padding: 1rem 2rem;
@@ -249,10 +244,10 @@ td {
     width: 1rem;
     font-size: 20px;
     font-weight: bold;
-    text-align: left;
 }
 
 .name {
+    width: 10rem;
     text-align: left;
     font-size: 10px;
 }
@@ -260,9 +255,6 @@ td {
 .points {
     font-weight: bold;
     font-size:10px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
 }
 
     .points:first-child {
@@ -278,7 +270,7 @@ td {
 
 .ribbon {
     border-radius: 10px;
-    width: 22rem;
+    width: 20rem;
     height: 4rem;
     background-color: #5c5be5;
     position: absolute;
