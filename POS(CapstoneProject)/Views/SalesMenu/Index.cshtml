@@ -199,7 +199,7 @@
 
                 </div>
                                      
-                <form asp-action="AddOrder" method="post" id="formPay">
+                <form asp-action="Index" method="post" id="formPay">
                     <input class="" name="checkoutList" id="checkOutListInput" hidden />
                     <input name="checkoutTotal" id="checkOutTotalInput" hidden />
                     <input name="changeDueAmount" id="changeDueAmount" hidden />
@@ -221,9 +221,11 @@
 
 
 <!--Show Receipt after the transaction-->
-@if (TempData["TransactionComplete"] != null)   
+@if (ViewData["TransactionComplete"] != null)
 {      
-    int? orderId = TempData["orderID"] as int?;
+
+  
+    int? orderId = ViewData["orderID"] as int?;
     var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
 
     <script>
@@ -234,8 +236,12 @@
             timer: 2000,
         }).then(() => {
             document.querySelector(".receipt").classList.add("showReceipt");
-            window.print();
-            document.querySelector(".receipt").classList.remove("showReceipt");
+           
+            setTimeout(() => {
+                window.print();
+                document.querySelector(".receipt").classList.remove("showReceipt");
+            }, 2000)
+           
         });             
     </script>
 
@@ -244,8 +250,8 @@
         <div class="receipt-content">
             <div class="receipt-header">
                 <p class="name">Don Machiattos</p>
-                <p>Date: @TempData["OrderDate"]</p>
-                <p>Cashier: @TempData["UserName"]</p>
+                <p>Date: @ViewData["OrderDate"]</p>
+                <p>Cashier: @ViewData["UserName"]</p>
             </div>
             <hr />
 
@@ -272,7 +278,7 @@
 
                 <div class="discount">
                     <p>Discount</p>
-                    <p>₱@TempData["Discount"]</p>
+                    <p>₱@ViewData["Discount"]</p>
                 </div>
 
                 <div class="tax">
@@ -282,7 +288,7 @@
 
                 <div class="total">
                     <p>Total</p>
-                    <p>₱@TempData["Total"]</p>
+                    <p>₱@ViewData["Total"]</p>
                 </div>
 
             </div>
@@ -290,16 +296,16 @@
             <div class="receipt-change">
                 <div class="cash">
                     <p>Cash</p>
-                    <p>₱@TempData["Cash"]</p>
+                    <p>₱@ViewData["Cash"]</p>
                 </div>
 
                 <div class="change">
                     <p>Change</p>
-                    <p>₱@TempData["Change"]</p>
+                    <p>₱@ViewData["Change"]</p>
                 </div>
             </div>
 
             <h3 class="footer">THANK YOU</h3>
         </div>
-    </div>  
+    </div>   
 }

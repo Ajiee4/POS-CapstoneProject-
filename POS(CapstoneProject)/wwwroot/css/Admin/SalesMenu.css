@@ -459,7 +459,47 @@ Product List*/
     display: none;
 }
 
-/*Receipt*/
+
+/*SweetAlert Custom Class*/
+
+.swal-sales-title::after {
+    content: "Cannot be undone";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+   
+}
+
+.swal-salesCancel-title::after {
+    content: "Cannot be undone";
+    font-weight: lighter;
+    color: grey;
+    font-size: 0.9rem;
+}
+
+
+
+
+@media (max-width: 1120px) {
+    /*.product-list-wrapper {
+        width: 100% !important;
+    }*/
+    .product-list-wrapper {
+        width: 100% !important;
+    }
+    .checkout-wrapper {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        max-height: 450px;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        background-color: grey;
+    }
+}/*Receipt*/
 .receipt {
     display: none;
     position: fixed;
@@ -538,46 +578,6 @@ Product List*/
     font-size: 0.8em;
 }
 
-/*SweetAlert Custom Class*/
-
-.swal-sales-title::after {
-    content: "Cannot be undone";
-    font-weight: lighter;
-    color: grey;
-    font-size: 0.9rem;
-   
-}
-
-.swal-salesCancel-title::after {
-    content: "Cannot be undone";
-    font-weight: lighter;
-    color: grey;
-    font-size: 0.9rem;
-}
-
-
-
-
-@media (max-width: 1120px) {
-    /*.product-list-wrapper {
-        width: 100% !important;
-    }*/
-    .product-list-wrapper {
-        width: 100% !important;
-    }
-    .checkout-wrapper {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        max-height: 450px;
-        height: 100%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-        background-color: grey;
-    }
-}
 
 /*Window Print*/
 @media print {

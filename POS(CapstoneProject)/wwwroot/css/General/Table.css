@@ -23,6 +23,8 @@
     background-color: white;
     border: 1px solid black !important;
 }
+
+
 .dt-paging nav {
     margin: 0px !important;
     padding: 0px !important;
@@ -225,5 +227,18 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
         justify-content: center !important;
         margin-top: 20px;
     }
+    .dt-paging nav{
+        justify-content: center !important;
+        background-color: transparent !important;
+        border: none !important;
+    }
+    .dt-paging nav > button {
+        background-color: white !important
+    }
+    .dt-paging {
+        border: none !important;
+        background-color: transparent !important
+    }
+   
              
 }

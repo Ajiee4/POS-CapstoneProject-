@@ -559,7 +559,7 @@
 }
 
 /*Window Print*/
-@media print {
+/*@media print {
     body * {
         visibility: hidden;
     }
@@ -576,3 +576,4 @@
         width: 400px;
     }
 }
+*/

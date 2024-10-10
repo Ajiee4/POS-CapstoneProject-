@@ -30,9 +30,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-
-
-                        //var salesBreakDown = _context.InventoryTransactionDetail.Include(s => s.InventoryTransaction)
+                   
                         return View();
                     }
                 }
@@ -67,7 +65,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                     Name = g.Key.Name,
                                     OrderDate = g.Key.OrderDate,
                                     TotalSales = g.Sum(x => x.od.Quantity * x.p.Price),
-                                    TotalSold = g.Select(s => s.p.ProductId).Count()
+                                    TotalSold = g.Sum(x => x.od.Quantity)
                                 })
                                 .OrderBy(result => result.OrderDate)
                                 .ThenBy(result => result.Name)
@@ -94,6 +92,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 var inventoryRep = (from it in inventoryTransactions
                                     join itd in inventoryDetails on it.InventoryTransactId equals itd.InventoryTransactId
                                     join i in _context.Ingredient on itd.IngredientId equals i.IngredientId
+                                    where it.TransactionDate >= fromDate && fromDate <= toDate
                                     group new { it, itd } by new { i.Name, it.TransactionDate } into g
                                     select new InventoryReport
                                     {

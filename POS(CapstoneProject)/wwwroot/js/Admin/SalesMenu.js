@@ -5,7 +5,7 @@ let checkOutList =  [];
 
 $(document).ready(function () {
     
-
+  
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.loader-wrapper').hide();

@@ -52,25 +52,13 @@ function AddIngredient() {
     if (ingredientName === '' || unitMeasurement === ''|| lowStockThreshold === '') {
         popUpMessage('Fill out all information', 'error');
         return;
-    }
-    if (!isValidIngredientName(ingredientName)) {
-        popUpMessage("Input ingredient name must be between 3 and 20 characters","error")
-        return;
-    }
+    } 
    
     $('#addIngredientModal .inputIngredientName').val(ingredientName);
 
     popUpMessageChoice("Do you want to add this ingredient?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $('#addIngredientForm').submit();});
 
      
-}
-
-//check if the name is valid
-function isValidIngredientName(name) {
-
-    if (name.length >= 3 && name.length <= 20) {
-        return true;
-    }
 }
 
 //set the default value when the update modal is showed
@@ -101,10 +89,7 @@ function updateIngredient() {
         popUpMessage('Fill out all information', 'error');
         return;
     }
-    if (!isValidIngredientName(ingredientName)) {
-        popUpMessage("Input ingredient name must be between 3 and 15 characters", "error")
-        return;
-    }
+   
   
     $('#updateIngredientModal .inputIngredientName').val(ingredientName);
 

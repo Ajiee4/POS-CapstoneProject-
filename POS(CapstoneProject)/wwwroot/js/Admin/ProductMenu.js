@@ -178,17 +178,9 @@ function AddProduct() {
     }
     else {
 
-        if (productName.length >= 3 && productName.length <= 15) {
-         
-            $('.addProductInputName').val(productName);
+        $('.addProductInputName').val(productName);
 
-            popUpMessageChoice("Are you sure you want to add this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => {$("#addProductForm").submit()});         
-
-        } else {
-
-            popUpMessage("Input must be 3-15 characters for product name", "error");
-           
-        }
+        popUpMessageChoice("Are you sure you want to add this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#addProductForm").submit() });         
     }
 
 }
@@ -216,17 +208,11 @@ function UpdateProduct() {
     }
     else {
 
-        if (productName.length >= 3 && productName.length <= 15) {
-            $('.updateProductInputName').val(productName);
 
-            popUpMessageChoice("Are you sure you want to update this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateProductForm").submit() });  
-           
-                 
-        } else {
+        $('.updateProductInputName').val(productName);
 
-            popUpMessage("Input must be 3-15 characters for product name", "error");
-
-        }
+        popUpMessageChoice("Are you sure you want to update this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateProductForm").submit() });
+     
     }
 
 }

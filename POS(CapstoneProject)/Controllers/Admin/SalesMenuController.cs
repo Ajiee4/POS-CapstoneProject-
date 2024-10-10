@@ -51,7 +51,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrder(string checkoutList, decimal checkoutTotal, string changeDueAmount, string discount, string cashTendered, string subTotalAmount, string totalString)
+        public async Task<IActionResult> Index(string checkoutList, decimal checkoutTotal, string changeDueAmount, string discount, string cashTendered, string subTotalAmount, string totalString)
         {
             int? userId = HttpContext.Session.GetInt32("UserID") as int?;
             var user = _context.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
@@ -86,23 +86,27 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     await _context.SaveChangesAsync();
                 }
+                ViewData["TransactionComplete"] = " ";
 
-                TempData["OrderDate"] = order.OrderDate.ToString("MM/dd/yyyy");
-                TempData["TransactionComplete"] = " ";
-                TempData["UserName"] = user.Firstname + " " + user.Lastname;
-                TempData["Total"] = totalString;
-                TempData["SubTotal"] = subTotalAmount;
-                TempData["Change"] = changeDueAmount;
-                TempData["Discount"] = discount;
-                TempData["Cash"] = cashTendered;
-                TempData["orderID"] = order.OrderId;
+                ViewData["OrderDate"] = order.OrderDate.ToString("MM/dd/yyyy");               
+                ViewData["UserName"] = user.Firstname + " " + user.Lastname;
+                ViewData["Total"] = totalString;
+                ViewData["SubTotal"] = subTotalAmount;
+                ViewData["Change"] = changeDueAmount;
+                ViewData["Discount"] = discount;
+                ViewData["Cash"] = cashTendered;
+                ViewData["orderID"] = order.OrderId;
             }
             else
             {
 
             }
-     
-            return RedirectToAction("Index");
+            var categoryList = await _context.Category.Where(s => s.IsArchive == false).ToListAsync();
+            var productList = await _context.Product.Include(s => s.Category).Where(s => s.IsArchive == false && s.Category.IsArchive == false).ToListAsync();
+            ViewData["CategoryList"] = categoryList;
+            ViewData["ProductList"] = productList;
+
+            return View();
         }
 
 

@@ -71,7 +71,7 @@
 
                         <tr>
                             <td data-label="ID">@item.InventoryTransactId</td>
-                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "")</td>
+                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
                             <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>
@@ -89,19 +89,19 @@
 
             @if (TempData["inventoryStockIn"] != null)
             {
-                var inventoryAllList = TempData["inventoryStockIn"] as string;
-                var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
+                var inventoryStockInList = TempData["inventoryStockIn"] as string;
+                var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryStockInList);
              
 
                 if (inventoryStockIn != null)
                 {
-                    @foreach (var item in inventoryStockIn)
+                    @foreach (var item in inventoryStockIn.Where(s => s.InventoryTransaction.TransactionType == "Stock In"))
                     {
                         var checkUser = data.UserDetail.Where(s => s.UserId == item.InventoryTransaction.UserId).FirstOrDefault();
 
                         <tr>
                             <td data-label="ID">@item.InventoryTransactId</td>
-                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "")</td>
+                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
                             <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>
@@ -126,13 +126,13 @@
 
                 if (inventoryStockOut != null)
                 {
-                    @foreach (var item in inventoryStockOut)
+                    @foreach (var item in inventoryStockOut.Where(s => s.InventoryTransaction.TransactionType == "Stock Out"))
                     {
                         var checkUser = data.UserDetail.Where(s => s.UserId == item.InventoryTransaction.UserId).FirstOrDefault();
                         
                         <tr>
                             <td data-label="ID">@item.InventoryTransactId</td>
-                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "")</td>
+                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
                             <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>

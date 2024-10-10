@@ -356,38 +356,26 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> DisplayStockMovement(string transactionType, DateTime fromDate, DateTime toDate)
         {
 
-            var inventoryAll = await _context.InventoryTransactionDetail
+            var inventoryList = await _context.InventoryTransactionDetail
                                     .Include(d => d.Ingredient)
                                     .Include(s => s.InventoryTransaction)
                                     .ThenInclude(x => x.User)
                                     .Where(s => s.InventoryTransaction.TransactionDate >= fromDate && s.InventoryTransaction.TransactionDate <= toDate)
                                     .ToListAsync();
 
-            var inventoryStockIn = await _context.InventoryTransactionDetail
-                                        .Include(d => d.Ingredient)
-                                        .Include(s => s.InventoryTransaction)
-                                        .ThenInclude(x => x.User)
-                                        .Where(s => s.InventoryTransaction.TransactionType == "Stock In" && s.InventoryTransaction.TransactionDate >= fromDate && s.InventoryTransaction.TransactionDate <= toDate)
-                                        .ToListAsync();
-
-            var inventoryStockOut = await _context.InventoryTransactionDetail
-                                        .Include(d => d.Ingredient)
-                                        .Include(s => s.InventoryTransaction)
-                                        .ThenInclude(x => x.User)
-                                        .Where(s => s.InventoryTransaction.TransactionType == "Stock Out" && s.InventoryTransaction.TransactionDate >= fromDate && s.InventoryTransaction.TransactionDate <= toDate)
-                                        .ToListAsync();
+            
 
         
             switch (transactionType)
             {
                 case "All":
-                    TempData["inventoryAll"] = JsonConvert.SerializeObject(inventoryAll);
+                    TempData["inventoryAll"] = JsonConvert.SerializeObject(inventoryList);
                     break;
                 case "Stock In":
-                    TempData["inventoryStockIn"] = JsonConvert.SerializeObject(inventoryStockIn);
+                    TempData["inventoryStockIn"] = JsonConvert.SerializeObject(inventoryList);
                     break;
                 case "Stock Out":
-                    TempData["inventoryStockOut"] = JsonConvert.SerializeObject(inventoryStockOut);
+                    TempData["inventoryStockOut"] = JsonConvert.SerializeObject(inventoryList);
                     break;
             }
 
@@ -411,11 +399,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-                       
-                        
-
-                      
-                       
+                    
                         return View();
                     }
                 }
@@ -434,19 +418,12 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public IActionResult DisplayRequestList(string requestStatus, DateTime fromDate, DateTime toDate)
         {
-            var requesComplete = _context.Request
+            var RequestList = _context.Request
                                 .Include(s => s.User)
-                                .Where(s => s.Status == "Completed" && s.RequestDate >= fromDate && s.RequestDate <= toDate)
+                                .Where(s => s.RequestDate >= fromDate && s.RequestDate <= toDate)
                                 .ToList();
 
-            var requesPending = _context.Request
-                                .Include(s => s.User)
-                                .Where(s => s.Status == "Pending" && s.RequestDate >= fromDate && s.RequestDate <= toDate)
-                                .ToList();
-            var requesCanceled = _context.Request
-                                .Include(s => s.User)
-                                .Where(s => s.Status == "Canceled" && s.RequestDate >= fromDate && s.RequestDate <= toDate)
-                                .ToList();
+           
             var requestDetails = _context.RequestDetails
                                 .Include(s => s.Ingredient)
                                 .ToList();
@@ -458,15 +435,15 @@ namespace POS_CapstoneProject_.Controllers.Admin
             {
                 case "Pending":
                     
-                    TempData["RequestPending"] = JsonConvert.SerializeObject(requesPending);
+                    TempData["RequestPending"] = JsonConvert.SerializeObject(RequestList);
                     break;
                 case "Completed":
                  
-                    TempData["RequestCompleted"] = JsonConvert.SerializeObject(requesComplete);
+                    TempData["RequestCompleted"] = JsonConvert.SerializeObject(RequestList);
                    
                     break;
                 case "Canceled":
-                    TempData["RequestCanceled"] = JsonConvert.SerializeObject(requesCanceled);
+                    TempData["RequestCanceled"] = JsonConvert.SerializeObject(RequestList);
                   
                     break;
             };

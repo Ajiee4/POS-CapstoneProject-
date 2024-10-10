@@ -74,7 +74,7 @@
                 }
                 else
                 {
-                    foreach (var item in requestPendingList)
+                    foreach (var item in requestPendingList.Where(s => s.Status == "Pending"))
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
 
@@ -124,7 +124,7 @@
                 }
                 else
                 {
-                    foreach (var item in requestCompletedList)
+                    foreach (var item in requestCompletedList.Where(s => s.Status == "Completed"))
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
 
@@ -177,7 +177,7 @@
                 }
                 else
                 {
-                    foreach (var item in requestCanceledList)
+                    foreach (var item in requestCanceledList.Where(s => s.Status == "Canceled"))
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
 
