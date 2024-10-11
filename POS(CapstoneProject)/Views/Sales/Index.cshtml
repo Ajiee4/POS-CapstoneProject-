@@ -4,16 +4,20 @@
     var categoryList = ViewData["CategoryList"] as List<Category>;
     var productList = ViewData["ProductList"] as List<Product>;
 }
+
 <style>
     .header .right-section .checkout-icon {
         display: block;
+    }
+
+    .container-all {
+        overflow: hidden !important;
     }
 
     .link-sales {
         background-color: #747474 !important;
     }
 </style>
-
 
 <div class="loader-wrapper">
     <div class="loader"></div>
@@ -52,7 +56,7 @@
         <div class="checkout-footer">
             <div class="discount-wrapper">
                 <label for="inputDiscount">Discount (%)</label>
-                <input id="inputDiscount" value="0" maxlength="2" onchange="ApplyDiscount()" oninput="validateInput(this)" />
+                <input id="inputDiscount" value="0" maxlength="2" onchange="ApplyDiscount(this)" oninput="validateInput(this)" />
             </div>
 
             <div class="tax-wrapper">
@@ -80,7 +84,7 @@
 </div>
 
 <!--Porduct List Wrapper-->
-<div class="product-list-wrapper-cashier">
+<div class="product-list-wrapper">
     <div class="search-wrapper">
 
         <div class="searchProd">
@@ -121,26 +125,38 @@
 
         @if (productList != null)
         {
-            @foreach (var prod in productList)
+            if (productList.Count == 0)
             {
-                <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category?.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
-                    <div class="product-item-img">
-                        @if (prod.ImageData != null)
-                        {
-                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
-                        }
-                        else
-                        {
-                            <span></span>
-                        }
-                    </div>
-
-                    <div class="product-item-name" data-category="@prod.Category?.CategoryName">
-                        <span>@prod.Name</span>
-                    </div>
-                </div>
+                <script>
+                    document.querySelector('.noResult').style.display = "block";
+                </script>
             }
+            else
+            {
+                @foreach (var prod in productList)
+                {
+                    <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category?.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
+                        <div class="product-item-img">
+                            @if (prod.ImageData != null)
+                            {
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
+                            }
+                            else
+                            {
+                                <span></span>
+                            }
+                        </div>
+
+                        <div class="product-item-name" data-category="@prod.Category?.CategoryName">
+                            <span>@prod.Name</span>
+                        </div>
+                    </div>
+                }
+            }
+
         }
+
+
 
     </div>
 
@@ -181,7 +197,7 @@
 
                 </div>
 
-                <form asp-action="AddOrder" method="post" id="formPay">
+                <form asp-action="Index" method="post" id="formPay">
                     <input class="" name="checkoutList" id="checkOutListInput" hidden />
                     <input name="checkoutTotal" id="checkOutTotalInput" hidden />
                     <input name="changeDueAmount" id="changeDueAmount" hidden />
@@ -203,9 +219,11 @@
 
 
 <!--Show Receipt after the transaction-->
-@if (TempData["TransactionComplete"] != null)
+@if (ViewData["TransactionComplete"] != null)
 {
-    int? orderId = TempData["orderID"] as int?;
+
+
+    int? orderId = ViewData["orderID"] as int?;
     var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
 
     <script>
@@ -216,8 +234,12 @@
             timer: 2000,
         }).then(() => {
             document.querySelector(".receipt").classList.add("showReceipt");
-            window.print();
-            document.querySelector(".receipt").classList.remove("showReceipt");
+
+            setTimeout(() => {
+                window.print();
+                document.querySelector(".receipt").classList.remove("showReceipt");
+            }, 2000)
+
         });
     </script>
 
@@ -226,8 +248,8 @@
         <div class="receipt-content">
             <div class="receipt-header">
                 <p class="name">Don Machiattos</p>
-                <p>Date: @TempData["OrderDate"]</p>
-                <p>Cashier: @TempData["UserName"]</p>
+                <p>Date: @ViewData["OrderDate"]</p>
+                <p>Cashier: @ViewData["UserName"]</p>
             </div>
             <hr />
 
@@ -254,7 +276,7 @@
 
                 <div class="discount">
                     <p>Discount</p>
-                    <p>₱@TempData["Discount"]</p>
+                    <p>₱@ViewData["Discount"]</p>
                 </div>
 
                 <div class="tax">
@@ -264,7 +286,7 @@
 
                 <div class="total">
                     <p>Total</p>
-                    <p>₱@TempData["Total"]</p>
+                    <p>₱@ViewData["Total"]</p>
                 </div>
 
             </div>
@@ -272,12 +294,12 @@
             <div class="receipt-change">
                 <div class="cash">
                     <p>Cash</p>
-                    <p>₱@TempData["Cash"]</p>
+                    <p>₱@ViewData["Cash"]</p>
                 </div>
 
                 <div class="change">
                     <p>Change</p>
-                    <p>₱@TempData["Change"]</p>
+                    <p>₱@ViewData["Change"]</p>
                 </div>
             </div>
 

@@ -5,18 +5,24 @@ let checkOutListCashier = [];
 
 $(document).ready(function () {
 
-
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.loader-wrapper').hide();
-    $('.product-list-wrapper-cashier').css({
+
+    $('.product-list-wrapper').css({
         "visibility": "visible"
     });
-
-
-
+  
+ 
 });
 
+
+
+
+
+
+
+//get the data from the locale storage and store it in the checkoutlist array
 window.addEventListener('load', () => {
     const storedList = localStorage.getItem('checkoutListCashier');
     if (storedList) {
@@ -145,7 +151,7 @@ function checkoutProduct(id, name, quantity, price) {
 
         product.prodQty += quantity;
 
-        popUpMessageToast('success', 'Quantity incremented', 300);
+        popUpMessageToast('success', 'Quantity Updated', 265);
 
     } else {
 
@@ -178,7 +184,7 @@ function deleteItemCheckOut(prodid) {
     cartCount();
     popUpMessageToast("success", "Product Deleted", 250);
 
-    localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutList));
+    localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
 
 }
 
@@ -233,49 +239,41 @@ function CalculateTotalAmount() {
     return totalAmount;
 }
 //adjust the total when the discount input changed
-function ApplyDiscount() {
-    let totalAmountText = document.querySelector('.TotalAmount');
+function ApplyDiscount(input) {
 
-    CalculateTotalAmount();
-    /* $('.payBtn').text(`Pay (₱${CalculateTotalAmount().toFixed(2)})`)*/
-    totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
+    const inputValue = input.value.trim();
+    if (!inputValue) {
+        input.value = 0;
+    }
+
 }
 
 //only number can be entered in the discount input
 function validateInput(input) {
 
     input.value = input.value.replace(/[^0-9]/g, '');
+    let totalAmountText = document.querySelector('.TotalAmount');
+
+    CalculateTotalAmount();
+    totalAmountText.innerHTML = `₱${CalculateTotalAmount().toFixed(2)}`;
 
 }
 
-//default value is 0
-document.querySelector('#inputDiscount').addEventListener('change', function () {
-    const inputDiscount = document.querySelector('#inputDiscount');
-    const inputValue = inputDiscount.value.trim();
-
-    if (!inputValue) {
-        inputDiscount.value = 0;
-    }
-});
-
-//cancel order
 //cancel order
 $('.cancelBtn').click(function () {
 
     if (checkOutListCashier.length == 0) {
+        popUpMessageToast('error', 'Check Out List Empty', 290)
 
-        popUpMessage("Check Out List is empty", "error");
     }
     else {
-        popUpMessageChoice("Are you sure you want to cancel? <br>", '', 'question', 'general-swal-icon ', 'general-swal-title swal-salesCancel-title', () => {
-            checkOutList.splice(0);
+        checkOutListCashier.splice(0);
 
-            DisplayCheckOut();
-            cartCount();
-            popUpMessageToast('success', 'Check Out Canceled', 300);
+        DisplayCheckOut();
+        cartCount();
+        popUpMessageToast('success', 'Check Out Canceled', 280);
 
-            localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
-        });
+        localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
 
     }
 })
@@ -284,7 +282,7 @@ $('.cancelBtn').click(function () {
 $('.payBtn').click(function () {
 
     if (checkOutListCashier.length === 0) {
-        popUpMessage("Check Out list is empty", "error");
+        popUpMessage("Check Out List Empty", "error");
 
     } else {
         $('#paymentModal').modal('toggle')
@@ -295,51 +293,51 @@ $('.payBtn').click(function () {
 });
 
 //cash is input
-function onInputCash(e) {
+function onInputCash(input) {
+    if (input.value.match(/[^0-9.]/g)) {
+        popUpMessageToast('error', 'Only digits are allowed', 300)
+    }
+    input.value = input.value.replace(/[^0-9.]/g, '');
 
-    if (e.value == '') {
+    let decimalParts = input.value.split('.');
+    if (decimalParts.length > 1) {
+        if (decimalParts[1].length > 2) {
+            popUpMessageToast('error', 'Only 2 decimal places are allowed', 380)
+        }
+        decimalParts[1] = decimalParts[1].substr(0, 2);
+    }
+
+    input.value = decimalParts.join('.');
+
+    if (input.value == '') {
         $('.changeAmountText').val(null);
         return;
     }
-    $('#paymentModal .calculateBtn').css({
-        "display": "none",
-    })
 
     $('.changeAmountText').val(null);
 
-    let input = $('.amountInput');
-    let value = input.val();
-    let validValue = value.match(/^\d+(\.\d{0,2})?$/);
 
-    if (validValue) {
-        let totalAmo = CalculateTotalAmount();
-        let money = Number(value);
+    let totalAmo = CalculateTotalAmount();
+    let money = Number(input.value);
 
 
-        if (money >= totalAmo) {
-            let changeAmount = money - totalAmo;
+    if (money >= totalAmo) {
+        let changeAmount = money - totalAmo;
 
-            $('.changeAmountText').val(changeAmount.toFixed(2));
+        $('.changeAmountText').val(changeAmount.toFixed(2));
 
-            $('#paymentModal .calculate-wrapper').css({
-                "display": "block",
-                "margin": "0px auto"
-            })
-
-        } else {
-            $('#paymentModal .calculate-wrapper').css({
-                "display": "none",
-            })
-
-            $('.changeAmountText').val('Insufficient Amount');
-
-        }
+        $('#paymentModal .calculate-wrapper').css({
+            "display": "block",
+            "margin": "0px auto"
+        })
 
     } else {
+        $('#paymentModal .calculate-wrapper').css({
+            "display": "none",
+        })
 
-        popUpMessage("Only numbers are allowed", "error");
+        $('.changeAmountText').val('Insufficient Amount');
 
-        input.val(null);
     }
 
 }
@@ -406,21 +404,18 @@ function CheckOutToggle() {
         checkoutWrapper.toggleClass('checkHide');
 
         if (checkoutWrapper.hasClass('checkHide')) {
-            $('.product-list-wrapper-cashier').css({
+            $('.product-list-wrapper').css({
                 'width': '100%'
             })
-            //$('.container-all-cashier').css({
+            //$('.container-all').css({
             //    'width': "100%"
             //})
 
         } else {
-            $('.product-list-wrapper-cashier').css({
+
+            $('.product-list-wrapper').css({
                 'width': "calc(100% - 340px)"
             })
-
-            //$('.container-all-cashier').css({
-            //    'width': "calc(100% - 340px)"
-            //})
         }
 
     });

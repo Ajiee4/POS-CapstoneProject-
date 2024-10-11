@@ -45,7 +45,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
         }
         [HttpPost]
-        public async Task<IActionResult> DisplayReport(string reportType, DateTime fromDate, DateTime toDate)
+        public async Task<IActionResult> Index(string reportType, DateTime fromDate, DateTime toDate)
         {
             if(reportType == "Sales Report")
             {
@@ -71,7 +71,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                 .ThenBy(result => result.Name)
                                 .ToListAsync();
 
-                TempData["SalesReport"] = JsonConvert.SerializeObject(salesRep);
+                ViewData["SalesReport"] = JsonConvert.SerializeObject(salesRep);
 
             }
             else if(reportType == "Inventory Report")
@@ -104,17 +104,17 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                             Convert.ToInt16(x.itd.Quantity) : 0)
                                     })
                                     .OrderBy(x => x.TransactionDate)
-                                    .ToList();  
+                                    .ToList();
 
-               
-                TempData["InventoryReport"] = JsonConvert.SerializeObject(inventoryRep);
+
+                ViewData["InventoryReport"] = JsonConvert.SerializeObject(inventoryRep);
 
 
 
             }
 
 
-            return RedirectToAction("Index");
+            return View();
        
         }
 

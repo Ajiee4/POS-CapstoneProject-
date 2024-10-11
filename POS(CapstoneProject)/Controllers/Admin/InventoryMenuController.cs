@@ -353,7 +353,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DisplayStockMovement(string transactionType, DateTime fromDate, DateTime toDate)
+        public async Task<IActionResult> StockMovement(string transactionType, DateTime fromDate, DateTime toDate)
         {
 
             var inventoryList = await _context.InventoryTransactionDetail
@@ -369,17 +369,17 @@ namespace POS_CapstoneProject_.Controllers.Admin
             switch (transactionType)
             {
                 case "All":
-                    TempData["inventoryAll"] = JsonConvert.SerializeObject(inventoryList);
+                    ViewData["inventoryAll"] = JsonConvert.SerializeObject(inventoryList);
                     break;
                 case "Stock In":
-                    TempData["inventoryStockIn"] = JsonConvert.SerializeObject(inventoryList);
+                    ViewData["inventoryStockIn"] = JsonConvert.SerializeObject(inventoryList);
                     break;
                 case "Stock Out":
-                    TempData["inventoryStockOut"] = JsonConvert.SerializeObject(inventoryList);
+                    ViewData["inventoryStockOut"] = JsonConvert.SerializeObject(inventoryList);
                     break;
             }
 
-            return RedirectToAction("StockMovement");
+            return View();
         } 
       
         public IActionResult RequestList()
@@ -416,7 +416,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DisplayRequestList(string requestStatus, DateTime fromDate, DateTime toDate)
+        public IActionResult RequestList(string requestStatus, DateTime fromDate, DateTime toDate)
         {
             var RequestList = _context.Request
                                 .Include(s => s.User)
@@ -430,26 +430,26 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
 
 
-            TempData["RequestDetails"] = JsonConvert.SerializeObject(requestDetails);
+            ViewData["RequestDetails"] = JsonConvert.SerializeObject(requestDetails);
             switch (requestStatus)
             {
                 case "Pending":
-                    
-                    TempData["RequestPending"] = JsonConvert.SerializeObject(RequestList);
+
+                    ViewData["RequestPending"] = JsonConvert.SerializeObject(RequestList);
                     break;
                 case "Completed":
-                 
-                    TempData["RequestCompleted"] = JsonConvert.SerializeObject(RequestList);
+
+                    ViewData["RequestCompleted"] = JsonConvert.SerializeObject(RequestList);
                    
                     break;
                 case "Canceled":
-                    TempData["RequestCanceled"] = JsonConvert.SerializeObject(RequestList);
+                    ViewData["RequestCanceled"] = JsonConvert.SerializeObject(RequestList);
                   
                     break;
             };
 
          
-            return RedirectToAction("RequestList");
+            return View();
         }
 
        

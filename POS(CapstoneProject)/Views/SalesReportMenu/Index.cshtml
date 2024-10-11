@@ -3,10 +3,10 @@
 
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
-    var salesReportJson = TempData["SalesReport"] as string;
+    var salesReportJson = ViewData["SalesReport"] as string;
     var salesReport = string.IsNullOrEmpty(salesReportJson) ? null : JsonConvert.DeserializeObject<List<SalesReport>>(salesReportJson);
 
-    var inventoryReportJson = TempData["InventoryReport"] as string;
+    var inventoryReportJson = ViewData["InventoryReport"] as string;
     var inventoryReport = string.IsNullOrEmpty(inventoryReportJson) ? null : JsonConvert.DeserializeObject<List<InventoryReport>>(inventoryReportJson);
 
      
@@ -23,7 +23,7 @@
 
 
 <div class="report-filter-wrapper">
-    <form asp-action="DisplayReport" method="post" id="salesReportForm">
+    <form asp-action="Index" method="post" id="salesReportForm">
         <div class="report-type-wrapper">
             <label>Report Type</label>
             <select class="selectReportType" name="reportType">

@@ -15,7 +15,7 @@
 
 <!--Transaction Type Filter-->
 <div class="stock-movement-filter-wrapper">
-    <form asp-action="DisplayStockMovement" method="post" id="stockMovementForm">
+    <form asp-action="StockMovement" method="post" id="stockMovementForm">
         <div class="stock-movement-type-wrapper">
             <label>Type</label>
             <select class="selectTransactionType" name="transactionType">
@@ -58,9 +58,9 @@
         </thead>
         <tbody id="stock-movement-body">
           
-            @if (TempData["inventoryAll"] != null)
+            @if (ViewData["inventoryAll"] != null)
             {
-                var inventoryAllList = TempData["inventoryAll"] as string;
+                var inventoryAllList = ViewData["inventoryAll"] as string;
                 var inventoryAll = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
          
                 if(inventoryAll != null)
@@ -87,9 +87,9 @@
                 }           
             }
 
-            @if (TempData["inventoryStockIn"] != null)
+            @if (ViewData["inventoryStockIn"] != null)
             {
-                var inventoryStockInList = TempData["inventoryStockIn"] as string;
+                var inventoryStockInList = ViewData["inventoryStockIn"] as string;
                 var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryStockInList);
              
 
@@ -118,9 +118,9 @@
                
             }
 
-            @if (TempData["inventoryStockOut"] != null)
+            @if (ViewData["inventoryStockOut"] != null)
             {
-                var inventoryAllList = TempData["inventoryStockOut"] as string;
+                var inventoryAllList = ViewData["inventoryStockOut"] as string;
                 var inventoryStockOut = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
                
 
@@ -153,7 +153,7 @@
     </table>
 </div>
 
-@if (TempData["inventoryAll"] != null)
+@if (ViewData["inventoryAll"] != null)
 {
     <script>
 
@@ -166,7 +166,7 @@
       
     </script>
 }
-@if (TempData["inventoryStockOut"] != null)
+@if (ViewData["inventoryStockOut"] != null)
 {
     <script>
         window.addEventListener('load', function () {
@@ -178,7 +178,7 @@
       
     </script>
 }
-@if (TempData["inventoryStockIn"] != null)
+@if (ViewData["inventoryStockIn"] != null)
 {
      <script>
         window.addEventListener('load', function () {
