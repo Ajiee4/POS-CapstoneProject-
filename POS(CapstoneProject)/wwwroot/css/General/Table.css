@@ -9,6 +9,7 @@
 .dt-search .dt-input {
     border: 1px solid white !important;
     outline: 1px solid white !important;
+    color: white !important;
     border-radius: 10px !important;
    /* font-family: "Inter" !important;*/
 }

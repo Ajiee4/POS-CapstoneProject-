@@ -77,7 +77,8 @@
                     foreach (var item in requestPendingList.Where(s => s.Status == "Pending"))
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-
+                        string FullName = $"{@employee?.Firstname} {@employee?.Lastname}";
+                        string truncateName = FullName.Length > 8 ? FullName.Substring(0, 8) + "..." : FullName;
                         <div class="request-card" data-id="@item.RequestId" data-status="Pending">
                             <div class="card-id">
                                 <b>Request Id:</b> @item.RequestId
@@ -86,7 +87,7 @@
                                 <b>Request Date:</b> @item.RequestDate.ToString("yyyy-MM-dd")
                             </div>
                             <div class="card-name">
-                                <b>Requested By:</b> @employee?.Firstname @employee?.Lastname
+                                <b>Requested By:</b>@truncateName
                             </div>
                         </div>
                     }
@@ -127,7 +128,8 @@
                     foreach (var item in requestCompletedList.Where(s => s.Status == "Completed"))
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-
+                        string FullName = $"{@employee?.Firstname} {@employee?.Lastname}";
+                        string truncateName = FullName.Length > 8 ? FullName.Substring(0, 8) + "..." : FullName;
                         <div class="request-card" data-id="@item.RequestId" data-status="Completed">
                             <div class="card-id">
                                 <b>Request Id:</b> @item.RequestId
@@ -136,7 +138,7 @@
                                 <b>Request Date:</b> @item.RequestDate.ToString("yyyy-MM-dd")
                             </div>
                             <div class="card-name">
-                                <b>Requested By:</b> @employee?.Firstname @employee?.Lastname
+                                <b>Requested By:</b> @truncateName
                             </div>
                         </div>
                     }
@@ -180,7 +182,8 @@
                     foreach (var item in requestCanceledList.Where(s => s.Status == "Canceled"))
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-
+                        string FullName = $"{@employee?.Firstname} {@employee?.Lastname}";
+                        string truncateName = FullName.Length > 8 ? FullName.Substring(0, 8) + "..." : FullName;
                         <div class="request-card" data-id="@item.RequestId" data-status="Canceled">
                             <div class="card-id">
                                 <b>Request Id:</b> @item.RequestId
@@ -189,7 +192,7 @@
                                 <b>Request Date:</b> @item.RequestDate.ToString("yyyy-MM-dd")
                             </div>
                             <div class="card-name">
-                                <b>Requested By:</b> @employee?.Firstname @employee?.Lastname
+                                <b>Requested By:</b> @truncateName
                             </div>
                         </div>
                     }
@@ -250,7 +253,7 @@
 </div>
 
 <!--Pop up messages-->
-@if (ViewData["UpdateRequest"] != null)
+@if (TempData["UpdateRequest"] != null)
 {
     <script>
         Swal.fire({
@@ -261,7 +264,7 @@
         });
     </script>
 }
-@if (ViewData["CancelRequest"] != null)
+@if (TempData["CancelRequest"] != null)
 {
     <script>
         Swal.fire({
