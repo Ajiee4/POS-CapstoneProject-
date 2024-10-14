@@ -58,8 +58,16 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                      .ThenBy(result => result.Name)
                                      .ToList();
 
-                        TempData["SalesReport"] = JsonConvert.SerializeObject(salesRep);
+                       var usercount = await _context.User.CountAsync();
+                         var productsCount = await _context.Product.CountAsync();
+                        var totalsales = await _context.Order.SumAsync(x => x.TotalAmount);
+                        var pendingRequest = await _context.Request.Where(r => r.Status == "Pending").CountAsync();
 
+                        TempData["SalesReport"] =  JsonConvert.SerializeObject(salesRep);
+                        TempData["PCount"] = productsCount;
+                        TempData["UCount"] = usercount;
+                        TempData["TotalSales"] = totalsales;
+                        TempData["PendingRequest"] = pendingRequest;
 
                         return View();
                     }

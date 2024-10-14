@@ -26,7 +26,7 @@
     width: 380px;
     display: flex;
     border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    border-radius: 5px;
     flex-direction: column;
     background-color: #EEEEEE;
     box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
@@ -103,7 +103,7 @@
     border-radius: 10px;
     border: 1px pink solid;
     height: 300px;
-    width: 50%;
+    width: 60%;
 }
 
 /*.middlebox .productRanking {
@@ -193,12 +193,13 @@
         background-color: gray;
     }*/
 #leaderboard {
+    margin-top:45px;
     padding: 10px;
     overflow-x: auto;
     border-radius: 10px;
     background: #A0A0A0;
     height: 350px;
-    width: 100%;
+    width: 50%;
     position: relative;
     display: flex;
     justify-content: right;
@@ -227,7 +228,7 @@ tr {
         background-color: #f9f9f9;
     }
 
-    tr:nth-child(1) {
+    tr:nth-child(2) {
 
         color: #fff;
     }
@@ -269,6 +270,7 @@ td {
 }
 
 .ribbon {
+    margin-top:45px;
     border-radius: 10px;
     width: 20rem;
     height: 4rem;
@@ -283,7 +285,6 @@ td {
         height: 1.5rem;
         width: 1.5rem;
         bottom: -0.8rem;
-        left: 0.35rem;
         transform: rotate(45deg);
         background-color: #5c5be5;
         position: absolute;

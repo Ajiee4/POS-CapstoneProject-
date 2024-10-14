@@ -1,10 +1,12 @@
 ﻿@using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+@using Newtonsoft.Json.Linq;
 @using POS_CapstoneProject_.DTO;
 
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
-
+    var salesReportJson = TempData["SalesReport"] as string;
+    var salesReport = string.IsNullOrEmpty(salesReportJson) ? null : JsonConvert.DeserializeObject<List<SalesReport>>(salesReportJson);
+    int rank = 1;
    
 }
 
@@ -22,7 +24,7 @@ using Newtonsoft.Json.Linq;
             <div class="box-top">
                 <div class="box-top-left">
                     <div class="count-text">
-                        <div>0</div>
+                        <div>@TempData["UCount"]</div>
                     </div>
                     <div class="noUser">
                         <div>
@@ -50,11 +52,11 @@ using Newtonsoft.Json.Linq;
             <div class="box-top">
                 <div class="box-top-left">
                     <div class="count-text">
-                        <div>0</div>
+                        <div>@TempData["TotalSales"]</div>
                     </div>
                     <div class="noUser">
                         <div>
-                            No. of Users
+                            Total Sales
                         </div>
                     </div>
                 </div>
@@ -78,11 +80,11 @@ using Newtonsoft.Json.Linq;
             <div class="box-top">
                 <div class="box-top-left">
                     <div class="count-text">
-                        <div>0</div>
+                        <div>@TempData["PCount"]</div>
                     </div>
                     <div class="noUser">
                         <div>
-                            No. of Users
+                            No. of Products
                         </div>
                     </div>
                 </div>
@@ -106,11 +108,11 @@ using Newtonsoft.Json.Linq;
             <div class="box-top">
                 <div class="box-top-left">
                     <div class="count-text">
-                        <div>0</div>
+                        <div>@TempData["PendingRequest"]</div>
                     </div>
                     <div class="noUser">
                         <div>
-                            No. of Users
+                            Pending Requests
                         </div>
                     </div>
                 </div>
@@ -159,49 +161,39 @@ using Newtonsoft.Json.Linq;
         <div id="leaderboard">
             <div class="ribbon"></div>
             <table>
-                <tr>
-                    <td class="number">  <img class="gold-medal" src="https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true" alt="gold medal" /> 1</td>
-                    <td class="name">Lee Taeyong</td>
-                    <td class="points">
-                        258.244 
-                    </td>
-                  
-                </tr>
-                <tr>
-                    <td class="number">2</td>
-                    <td class="name">Mark Lee</td>
-                    <td class="points">258.242</td>
-                </tr>
-                <tr>
-                    <td class="number">3</td>
-                    <td class="name">Xiao Dejun</td>
-                    <td class="points">258.223</td>
-                </tr>
-                <tr>
-                    <td class="number">4</td>
-                    <td class="name">Qian Kun</td>
-                    <td class="points">258.212</td>
-                </tr>
-                <tr>
-                    <td class="number">5</td>
-                    <td class="name">Johnny Suh</td>
-                    <td class="points">258.208</td>
-                </tr>
-                  <tr>
-                    <td class="number">5</td>
-                    <td class="name">Johnny Suh</td>
-                    <td class="points">258.208</td>
-                </tr>
-                  <tr>
-                    <td class="number">5</td>
-                    <td class="name">Johnny Suh</td>
-                    <td class="points">258.208</td>
-                </tr>
-                <tr>
-                    <td class="number">5</td>
-                    <td class="name">Johnny Suh</td>
-                    <td class="points">258.208</td>
-                </tr>
+               <th> Rank</th>
+                <th> Product Name</th>
+                <th> Total Sold</th>
+
+
+                @foreach (var item in salesReport)
+                {
+                    
+                    if (rank == 1)
+                    {
+                        <tr>
+                            <td class="number">  <img class="gold-medal" src="https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true" alt="gold medal" />@rank</td>
+                            <td class="name">@item.Name</td>
+                            <td class="points">
+                                @item.TotalSold
+                            </td>
+
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="number">@rank</td>
+                            <td class="name">@item.Name</td>
+                            <td class="points">
+                                @item.TotalSold
+                            </td>
+                        </tr>
+                    }
+                    rank++;
+                }
+             
+              
             </table>
         </div>
     </div>
