@@ -19,7 +19,7 @@ $(document).ready(function () {
 
     requestListUpdate = requestDetails;
 })
-
+//when view button is click
 $('.viewRequestBtn').click(function () {
    
     if ($('.selectRequestStatus').val() == null || $('.fromDate').val() == '' ||
@@ -49,6 +49,7 @@ $('.viewRequestBtn').click(function () {
     }
 });
 
+//when modal shows up
 function ShowRequestModal() {
     let requestCard = document.querySelectorAll('.request-card');
     let cardModal = document.querySelector('#requestCardModal');
@@ -116,19 +117,21 @@ function ShowRequestModal() {
 
 ShowRequestModal();
 
+//validate Qty
 function validateQtyRequest(input) {
   
     input.value = input.value.replace(/[^0-9]/g, '');
   
 }
 
-
+//when Qty input change
 function changeQtyRequest(input) {
 
     let requestId = Number(input.dataset.requestid);
     let idIngredient = Number(input.dataset.id);
     const request = requestListUpdate.find((item) => item.IngredientId === idIngredient && item.RequestId == requestId);
     const inputValue = input.value.trim();
+
     if (!inputValue) {
         input.value = 0;
     }
@@ -137,7 +140,7 @@ function changeQtyRequest(input) {
    
 
 }
-
+//cancel request button is click
 $('.cancelRequestBtn').click(function () {
     popUpMessageChoice("Cancel Request? <br>", '', 'question', 'general-swal-icon', 'general-swal-title swal-update-request-title', () => {
         let cardModal = document.querySelector('#requestCardModal');
@@ -149,7 +152,7 @@ $('.cancelRequestBtn').click(function () {
     });
  
 });
-
+//complete request button is click
 $('.completeRequestBtn').click(function () {
     let cardModal = document.querySelector('#requestCardModal');
     let reqId = cardModal.dataset.requestid;   

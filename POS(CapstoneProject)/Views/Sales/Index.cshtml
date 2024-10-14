@@ -19,11 +19,10 @@
     }
 </style>
 
+<!--Loader-->
 <div class="loader-wrapper">
     <div class="loader"></div>
 </div>
-
-
 
 <!--Checkout Wrapper-->
 <div class="checkout-wrapper checkHide">
@@ -32,9 +31,9 @@
         <button type="button" class="close exitCheckout">
             <span aria-hidden="true">&times;</span>
         </button>
-
+        <!--CheckOut Header-->
         <h1 class="checkout-title">Check Out</h1>
-
+        <!--CheckOut Table Wrapper-->
         <div class="checkout-table-wrapper">
             <!--Checkout Table-->
             <table class="checkout-table">
@@ -47,12 +46,12 @@
                         <th class="table-header-price">Price &nbsp;</th>
                     </tr>
                 </thead>
+
                 <tbody>
                 </tbody>
-
             </table>
         </div>
-
+        <!--CheckOut Footer-->
         <div class="checkout-footer">
             <div class="discount-wrapper">
                 <label for="inputDiscount">Discount (%)</label>
@@ -80,13 +79,11 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <!--Porduct List Wrapper-->
 <div class="product-list-wrapper">
     <div class="search-wrapper">
-
         <div class="searchProd">
             <div>
                 <span>Search: </span>
@@ -96,13 +93,11 @@
                 <input type="search" class="searchProductInput" onkeyup="searchProduct()">
             </div>
         </div>
-
     </div>
 
     <div class="category-list-wrapper">
-        <button class="category-item active" data-category="All" onclick="FilterProduct('All')">
-            All
-        </button>
+        <button class="category-item active" data-category="All" onclick="FilterProduct('All')"> All</button>
+
         @if (categoryList != null)
         {
             @foreach (var item in categoryList)
@@ -111,12 +106,7 @@
                     @item.CategoryName
                 </button>
             }
-        }
-        else
-        {
-
-        }
-
+        }      
     </div>
 
     <div class="product-catalog">
@@ -155,23 +145,20 @@
             }
 
         }
-
-
-
     </div>
-
 </div>
 
 <br />
-
 
 <!--Payment Modal-->
 <div class="modal fade general-modal" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <img src="~/images/coffe-logo-light.png" class="payment-sales-modal-img general-coffee-img-bottom" />
+
             <div class="modal-header">
                 <h5 class="modal-title">PAYMENT</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -182,19 +169,16 @@
                 <div class="form-group">
                     <label class="control-label general-modal-label">Amount Due</label>
                     <input class="form-control totalAmountInputReadOnly general-modal-input" readonly />
-
                 </div>
 
                 <div class="form-group">
                     <label class="control-label general-modal-label">Cash Tendered</label>
                     <input class="form-control amountInput general-modal-input" placeholder="Enter Cash Tendered" oninput="onInputCash(this)" />
-
                 </div>
 
                 <div class="form-group">
                     <label class="control-label general-modal-label">Change Due</label>
                     <input class="form-control changeAmountText general-modal-input" readonly />
-
                 </div>
 
                 <form asp-action="Index" method="post" id="formPay">
@@ -210,19 +194,14 @@
                 <div class="form-group calculate-wrapper">
                     <button type="button" class="d-block mx-auto calculateBtn general-modal-button">Pay</button>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
 
-
 <!--Show Receipt after the transaction-->
 @if (ViewData["TransactionComplete"] != null)
 {
-
-
     int? orderId = ViewData["orderID"] as int?;
     var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
 
@@ -233,8 +212,8 @@
             showConfirmButton: false,
             timer: 2000,
         }).then(() => {
-            document.querySelector(".receipt").classList.add("showReceipt");
 
+            document.querySelector(".receipt").classList.add("showReceipt");
             setTimeout(() => {
                 window.print();
                 document.querySelector(".receipt").classList.remove("showReceipt");
@@ -251,10 +230,10 @@
                 <p>Date: @ViewData["OrderDate"]</p>
                 <p>Cashier: @ViewData["UserName"]</p>
             </div>
+
             <hr />
 
             <div class="receipt-items">
-
                 <div class="item-header">
                     <span>QTY</span>
                     <span>Name</span>
@@ -270,6 +249,7 @@
                     </div>
                 }
             </div>
+
             <hr />
 
             <div class="receipt-calculation">
@@ -290,7 +270,9 @@
                 </div>
 
             </div>
+
             <hr />
+
             <div class="receipt-change">
                 <div class="cash">
                     <p>Cash</p>

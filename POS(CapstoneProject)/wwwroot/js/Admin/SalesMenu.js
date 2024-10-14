@@ -1,7 +1,5 @@
-﻿
-//array of objects
+﻿//create an array of objects
 let checkOutList =  [];
-
 
 $(document).ready(function () {
     
@@ -57,15 +55,11 @@ $(document).ready(function () {
         localStorage.removeItem('categoryName');
         truncateName();
     }
+
     checkCategory();
 
 
 });
-
-
-
-
-
 
 
 //get the data from the locale storage and store it in the checkoutlist array
@@ -73,12 +67,13 @@ window.addEventListener('load', () => {
     const storedList = localStorage.getItem('checkoutList');
     if (storedList) {
         checkOutList = JSON.parse(storedList);
-        DisplayCheckOut(); 
-        cartCount();
+        DisplayCheckOut();  //call the function
+        cartCount(); //call the function
     }
 });
 
 
+//update cart function
 function cartCount() {
     let sum = 0;
     checkOutList.forEach((item) => {
@@ -95,13 +90,10 @@ let searchQuery = '';
 //filter out products based on the category
 function FilterProduct(category) {
     selectedCategory = category;
-    updateProductList();
-
-   
+    updateProductList(); 
     $('.category-item').removeClass('active');
     $(event.target).addClass('active');
-
-   
+  
 }
 
 //search product
@@ -217,18 +209,15 @@ function checkoutProduct(id, name, quantity, price) {
     cartCount();
   
 }
-
-
+//delete items from the checkut
 function deleteItemCheckOut(prodid) {
-
 
     let indexItem = checkOutList.findIndex(item => item.prodID === prodid);
 
     checkOutList.splice(indexItem, 1);
-
     DisplayCheckOut();
     cartCount();
-     popUpMessageToast("success","Product Deleted", 250);
+    popUpMessageToast("success","Product Deleted", 250);
 
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 
@@ -258,11 +247,8 @@ function decrementQty(id) {
   
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 }
-//delete a specific item from the checklist
 
-
-
-//discount not yet applied; subtotal
+//calcualte subtotal
 function CalculateSubtotal() {
     let subtotal = 0;
     checkOutList.forEach((item) => {
@@ -324,7 +310,7 @@ $('.cancelBtn').click(function (){
     }   
 })
 
-
+//when pay button is click
 $('.payBtn').click(function () {
    
     if (checkOutList.length === 0) {
@@ -338,7 +324,7 @@ $('.payBtn').click(function () {
     }
 });
 
-//cash is input
+//when user input a cash amount
 function onInputCash(input) {
     if (input.value.match(/[^0-9.]/g)) {
         popUpMessageToast('error', 'Only digits are allowed', 300)
@@ -387,15 +373,14 @@ function onInputCash(input) {
     }
       
 }
-
+//empty the inputs of payment modal when it close
 $('#paymentModal').on('hidden.bs.modal', function () {
     $('.amountInput').val(null);
     $('.changeAmountText').val(null);
     $('.calculate-wrapper').hide();
 });
 
-/*validates the cash tendered*/
-
+//when payment button is click
 $('.calculateBtn').click(function () {
 
     popUpMessageChoice("Confirm payment? <br>", '', 'question', 'general-swal-icon ', 'general-swal-title swal-sales-title', () => {
@@ -441,10 +426,9 @@ function truncateName() {
 
 truncateName();
 
-
+//toggle checkout
 function CheckOutToggle() {
     $('.checkout-wrapper').slideToggle(1000, function () {
-
       
         const checkoutWrapper = $('.checkout-wrapper');
         checkoutWrapper.toggleClass('checkHide');

@@ -25,7 +25,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
             if (UserId != null) 
             {
 
-                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                var check = await  _context.User
+                                    .Where(s => s.UserId == UserId)
+                                    .FirstOrDefaultAsync();
                 if (check != null)
                 {
                     //check if the user is an admin
@@ -38,8 +40,11 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     else
                     {
                         ////create a list of categories
-                        var categoryList = await _context.Category.OrderBy(s => s.CategoryId).ToListAsync();
-                        ViewData["CategoryList"] = categoryList; //store the list in the viewdata to display on the view
+                        var categoryList = await _context.Category
+                                                .OrderBy(s => s.CategoryId)
+                                                .ToListAsync();
+
+                        ViewData["CategoryList"] = categoryList; 
 
                         return View();
 
@@ -58,7 +63,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
 
         }
-        //receive the http request from the view when the form wis submitted
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddCategory(Category category)
@@ -66,22 +71,19 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             if (ModelState.IsValid)
             {
-                //check if the submitted data already exist in the database
+               
                 var categoryNames = _context.Category.Where(s => s.CategoryName == category.CategoryName).FirstOrDefault();
                 if (categoryNames == null) //if the name does not exist then save it to the database
-                {
-
-                    //save to db
+                {                 
                     _context.Add(category);
                     await _context.SaveChangesAsync();
-
-                    //pass message to the view
+               
                     TempData["AddedCategory"] = "";
 
                 }
                 else
                 {
-                    //pass message to the view
+                   
                     TempData["CategoryExist"] = "";
                 }
 
@@ -90,14 +92,16 @@ namespace POS_CapstoneProject_.Controllers.Admin
             return RedirectToAction("Index");
         }
 
-        //receive the http request from the view when the form wis submitted
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateCategory(Category category)
         {
            
                
-            var checkCategory = _context.Category.Where(s => s.CategoryId == category.CategoryId).FirstOrDefault();
+            var checkCategory = await _context.Category
+                                    .Where(s => s.CategoryId == category.CategoryId)
+                                    .FirstOrDefaultAsync();
             if (checkCategory != null)
             {
                 if(checkCategory.CategoryName == category.CategoryName)
@@ -107,12 +111,16 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 else
                 {
 
-                    var checkName = _context.Category.Where(s => s.CategoryName == category.CategoryName).FirstOrDefault();
+                    var checkName = await  _context.Category
+                                    .Where(s => s.CategoryName == category.CategoryName)
+                                    .FirstOrDefaultAsync();
                     if(checkName == null)
                     {
                         checkCategory.CategoryName = category.CategoryName;
+
                         _context.Category.Update(checkCategory);
                         await _context.SaveChangesAsync();
+
                         TempData["UpdatedCategory"] = "";
                     }
                     else
@@ -132,10 +140,14 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> ArchiveCategory(Category category)
         {
 
-            var checkCategory = await _context.Category.Where(s => s.CategoryId == category.CategoryId).FirstOrDefaultAsync();
+            var checkCategory = await _context.Category
+                                    .Where(s => s.CategoryId == category.CategoryId)
+                                    .FirstOrDefaultAsync();
+
             if (checkCategory != null)
             {
                 checkCategory.IsArchive = true;
+
                 _context.Update(checkCategory);
                 await _context.SaveChangesAsync();
 
@@ -144,14 +156,19 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UnArchiveCategory(Category category)
         {
-            var checkCategory = await _context.Category.Where(s => s.CategoryId == category.CategoryId).FirstOrDefaultAsync();
+            var checkCategory = await _context.Category
+                                    .Where(s => s.CategoryId == category.CategoryId)
+                                    .FirstOrDefaultAsync();
+
             if (checkCategory != null)
             {
                 checkCategory.IsArchive = false;
+
                 _context.Update(checkCategory);
                 await _context.SaveChangesAsync();
 

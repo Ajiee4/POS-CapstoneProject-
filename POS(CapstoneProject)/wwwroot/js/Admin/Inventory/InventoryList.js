@@ -118,6 +118,7 @@ function displayModal(name) {
         }
     }
 }
+//Toggle the Request List 
 function RequestListToggle() {
      
     const ingredientListWrapper = $('.request-list-wrapper');
@@ -169,6 +170,7 @@ function RequestListToggle() {
         }, 10);         
     }
 }
+//toggle the stock out list
 function StockOutListToggle() {
 
     const stockOutListWrapper = $('.stock-out-wrapper');
@@ -217,6 +219,7 @@ function StockOutListToggle() {
     }
 }
 
+//when a row is click
 function requestitem(event, id, name, quantity) {
 
    
@@ -252,6 +255,7 @@ function requestitem(event, id, name, quantity) {
    
 }
 
+//display the request items
 function DisplayRequest() {
     const tableBodyRequest = document.querySelector('.request-content-wrapper .styled-table tbody');
     const tableBodyStockOut = document.querySelector('.stock-out-wrapper .styled-table tbody');
@@ -291,7 +295,7 @@ function DisplayRequest() {
    
   
 }
-
+//when qty is change
 function qtyChange(input) {
     let idIngredient = Number(input.dataset.id);
     const ingredient = RequestList.find((item) => item.ingredientId === idIngredient);
@@ -306,13 +310,13 @@ function qtyChange(input) {
 
 }
 
-
+//validate quantity
 function validateQuantity(input) {
 
     input.value = input.value.replace(/[^0-9]/g, '');
 
 }
-
+//request btn is click
 $('.requestSubmit').click(function () {
 
     if (RequestList.length == 0) {
@@ -334,6 +338,8 @@ $('.requestSubmit').click(function () {
     }
 
 });
+
+//delete an item from the request or stock out
 function deleteItem(id) {
 
     popUpMessageToast("success", 'Ingredient Deleted', 270)
@@ -345,6 +351,7 @@ function deleteItem(id) {
         DisplayRequest(); 
     }
 }
+//redirect to the request list page
 function redirectRequest(url, event) {
     if (event.target.tagName === 'TR' || event.target.closest('span')) {
         location.href = url;
@@ -370,8 +377,7 @@ function cancelRequest() {
     }
 }
 
-
-
+//cancel stock out
 function cancelStockOut() {
     
     if (RequestList.length == 0) {
@@ -388,7 +394,7 @@ function cancelStockOut() {
          
 }
 
-
+//validate the unit of measuremnet
 function validateUnitMeasurement(input) {
     let inputValue = input.value;
 
@@ -409,6 +415,7 @@ function validateUnitMeasurement(input) {
     inputValue = inputValue.trimStart();
     input.value = inputValue;
 }
+//validate the threshold
 function validateThreshold(input) {
     
     if (input.value.match(/[^0-9]/g)) {
@@ -418,6 +425,7 @@ function validateThreshold(input) {
 
 
 }
+//validate the ingredient Name
 function validateIngredientName(input) {
     let inputValue = input.value;
 
@@ -438,9 +446,11 @@ function validateIngredientName(input) {
     inputValue = inputValue.trimStart();
     input.value = inputValue;
 }
+//hide the request list
 $('.exitRequest').click(function () {
     RequestListToggle();
 });
+//hide the stock out list
 $('.exitStockOut').click(function () {
     StockOutListToggle();
 });

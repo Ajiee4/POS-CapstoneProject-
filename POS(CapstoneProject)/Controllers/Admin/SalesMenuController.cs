@@ -21,7 +21,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
             var UserId = HttpContext.Session.GetInt32("UserID");
             if (UserId != null)
             {
-                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                var check = await _context.User
+                            .Where(s => s.UserId == UserId)
+                            .FirstOrDefaultAsync();
                 if (check != null)
                 {
                     if (check.RoleId != 1)
@@ -31,8 +33,15 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
-                        var categoryList = await _context.Category.Where(s => s.IsArchive == false).ToListAsync();
-                        var productList = await _context.Product.Include(s => s.Category).Where(s => s.IsArchive == false && s.Category.IsArchive == false).ToListAsync();
+                        var categoryList = await _context.Category
+                                                .Where(s => s.IsArchive == false)
+                                                .ToListAsync();
+
+                        var productList = await _context.Product
+                                                .Include(s => s.Category)
+                                                .Where(s => s.IsArchive == false && s.Category.IsArchive == false)
+                                                .ToListAsync();
+
                         ViewData["CategoryList"] = categoryList;
                         ViewData["ProductList"] = productList;
 
@@ -54,7 +63,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> Index(string checkoutList, decimal checkoutTotal, string changeDueAmount, string discount, string cashTendered, string subTotalAmount, string totalString)
         {
             int? userId = HttpContext.Session.GetInt32("UserID") as int?;
-            var user = _context.UserDetail.Where(s => s.UserId == userId).FirstOrDefault();
+            var user = await _context.UserDetail
+                            .Where(s => s.UserId == userId)
+                            .FirstOrDefaultAsync();
 
             if(user != null)
             {
@@ -101,8 +112,16 @@ namespace POS_CapstoneProject_.Controllers.Admin
             {
 
             }
-            var categoryList = await _context.Category.Where(s => s.IsArchive == false).ToListAsync();
-            var productList = await _context.Product.Include(s => s.Category).Where(s => s.IsArchive == false && s.Category.IsArchive == false).ToListAsync();
+
+            var categoryList = await _context.Category
+                                    .Where(s => s.IsArchive == false)
+                                    .ToListAsync();
+
+            var productList = await _context.Product
+                                    .Include(s => s.Category)
+                                    .Where(s => s.IsArchive == false && s.Category.IsArchive == false)
+                                    .ToListAsync();
+
             ViewData["CategoryList"] = categoryList;
             ViewData["ProductList"] = productList;
 

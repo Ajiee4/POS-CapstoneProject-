@@ -4,24 +4,28 @@
     Layout =  "/Views/Shared/_AuthLayout.cshtml";
 }
 
-
+<!--Loader-->
 <div class="loader"></div>
+
+<!--Authentication Wrapper-->
 <div class="auth-wrapper">
-    <div class="darken-image"></div>
-    
+    <!--Background Image-->
+    <div class="darken-image"></div>  
+    <!--Brand Wrapper-->
     <div class="brand-wrapper-login">
         <div class="brand-logo">
             <img src="~/images/logo.jpg" />
         </div>
+
         <div class="brand-name">
             <div class="brand-first">DON <span class="brand-second">Macchiatos</span></div>
         </div>
     </div>
-     
+    <!--Login Wrapper-->
     <div class="login-wrapper">
         <div class="form-content">
             <h1 class="login-text-header">LOGIN</h1>
-
+            <!--Form-->
             <form asp-action="Login" id="form" method="post">
                 <div class="username-wrapper">
                     <label asp-for="Username">Username:</label><br />
@@ -30,25 +34,25 @@
 
                 <div class="password-wrapper">
                     <label asp-for="Password">Password:</label><br />
+
                     <div class="password-toggle">
                         <input asp-for="Password" type="password" class="Password" required id="passwordInput" />
                         <img src="~/images/hide.png" id="eyeImage" onclick="togglePasswordVisibility()" />
-                    </div>
-                    
-                    @* <img src="hide.png" alt="Hide password" id="eyeImage" onclick="togglePasswordVisibility()" /> *@
+                    </div>               
                 </div>
 
                 <button type="submit" id="submitLoginBtn">LOGIN</button>
             </form>
         </div>
     </div>
-
+    <!--Side Content-->
     <div class="login-side">
         <div class="side-content">
             <div class="side-content-top">
                 <div class="side-content-top-image">
                     <img src="~/images/coffee-logo.png" />
                 </div>
+
                 <div class="side-content-top-text">
                     <span>TAKE 
                         <span class="side-content-top-text-your">YOUR </span>
@@ -56,8 +60,8 @@
                     </span>
                 </div>
             </div>
-            <div class="side-content-bottom">
-                
+
+            <div class="side-content-bottom">             
                 <div class="side-content-bottom-text">
                     <p>
                         Beat the heat and treat yourself to our cool,
@@ -69,39 +73,29 @@
                     </p>
                 </div>
             </div>
-
-
-        </div>
-        
-        
+        </div>        
     </div>
 </div>
  
 
+<!--Pop Up messages-->
 
-
-
-<!--Pop up messages-->
+<!--Username don't exist-->
 @if (TempData["NotExist"] != null)
 {
-
-    <script>
-      
+    <script>    
         Swal.fire({
-
             text: "Username not found",
             icon: "error",   
             showConfirmButton: false,
             timer: 2000
-        });       
-      
+        });           
     </script>
 }
-
+<!--Logged In Success-->
 @if (TempData["Success"] != null)
 {
    <script>
-  
         Swal.fire({
             text: "Logged In Successfully",
             icon: "success",
@@ -109,103 +103,28 @@
             timer: 2000
         })
    </script>
-
 }
-
+<!--Incorrect Password-->
 @if (TempData["IncorrectPassword"] != null)
 {
     <script>
-
         Swal.fire({
-
             text: "Incorrect Password",
             icon: "error",
             showConfirmButton: false,
             timer: 2000
         });
-       
-
-
     </script>
-
 } 
-
+<!--Account Deactivated-->
 @if (TempData["Deactivated"] != null)
 {
     <script>
-
         Swal.fire({
-
             text: "Account was deactivated",
             icon: "error",
             showConfirmButton: false,
             timer: 2000
         });
-
-
-
     </script>
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

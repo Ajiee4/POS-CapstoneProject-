@@ -4,22 +4,24 @@
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
     var categoryList = ViewData["CategoryList"] as List<Category>;
 }
+
 <style>
     .link-category{
         background-color: #747474 !important;
     }
 </style>
 
+<!--Loader-->
 <div class="loader-wrapper">
     <div class="loader"></div>
 </div>
 
- <!--Wrapper-->
+ <!--Category Wrapper-->
 <div class="category-wrapper">
     <button type="button" class="addCategoryBtn general-button" data-toggle="modal" data-target="#addCategoryModal">
         <img src="~/images/add.png" />
         <span>Add Category</span>
-        </button>
+    </button>
     <!--Category Table-->
     <table class="category-table general-table">
         <thead>
@@ -29,6 +31,7 @@
                 <th>Action</th>
             </tr>
         </thead>
+
         <tbody>           
             @if(categoryList != null){
                 @foreach (var item in categoryList)
@@ -40,99 +43,93 @@
                                 @item.CategoryName
                             </span>
                         </td>
+                                                
+                        <td data-label="Actions">
+                            <form class="unarchiveCategoryForm" asp-action="UnArchiveCategory">
+                                <input asp-for="CategoryId" class="unarchiveInputCategory" hidden />
+                            </form>
 
-                        @if (item.IsArchive)
-                        {
-                           
-                            <td data-label="Actions">
-                                <form class="unarchiveCategoryForm" asp-action="UnArchiveCategory">
-                                    <input asp-for="CategoryId" class="unarchiveInputCategory" hidden />
-                                </form>
-                                <div class="action-wrapper">
+                            <form class="archiveCategoryForm" asp-action="ArchiveCategory">
+                                <input asp-for="CategoryId" class="archiveInputCategory" hidden />
+                            </form>
+
+                            <div class="action-wrapper">
+
+                                @if (item.IsArchive)
+                                {
                                     <button class="unarchiveCategoryBtn general-unarchive-btn" onclick="unArchiveCategory(@item.CategoryId)" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
                                         <img src="~/images/outbox.png" />
                                     </button>
-                                    <button class="btn updateCategoryBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
-                                        <img src="~/images/edit.png" />
-                                    </button>
-                                </div>
-
-                            </td>
-                        }
-                        else
-                        {
-                           
-                            <td data-label="Actions">
-                                <form class="archiveCategoryForm" asp-action="ArchiveCategory">
-                                    <input asp-for="CategoryId" class="archiveInputCategory" hidden />
-                                </form>
-                                <div class="action-wrapper">
+                                }
+                                else
+                                {
                                     <button class="archiveCategoryBtn general-archive-btn" onclick="archiveCategory(@item.CategoryId)" data-toggle="tooltip" data-placement="bottom" title="Archive">
                                         <img src="~/images/outbox.png" />
                                     </button>
-                                    <button class="btn updateCategoryBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
-                                        <img src="~/images/edit.png" />
-                                    </button>
-                                </div>
+                                }
 
-                            </td>
-                        }
-
+                                <button class="btn updateCategoryBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateCategoryModal" onclick="updateCategory(@item.CategoryId,'@item.CategoryName')" type="button">
+                                    <img src="~/images/edit.png" />
+                                </button>
+                            </div>
+                        </td>                      
                     </tr>
                 }
-            }
-            else
-            {
-                
-            }
-        
+            }           
         </tbody>
     </table>
 </div>
 
-
-<!--Add New Category-->
+<!--Add Category Modal-->
 <div class="modal fade general-modal" id="addCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <img src="~/images/coffe-logo-light.png" class="add-category-modal-img general-coffee-img-bottom" />
+
             <div class="modal-header">
                 <h5 class="modal-title">ADD CATEGORY</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
           
             <br />
+
             <div class="modal-body">
                 <form asp-action="AddCategory" id="addCategoryForm" asp-controller="CategoryMenu" method="post">
                     <div class="form-group">
                         <label asp-for="CategoryName" class="control-label general-modal-label">Category Name</label>
                         <input asp-for="CategoryName" maxlength="15" class="form-control addInputName general-modal-input" oninput="validateCategoryName(this)" placeholder="Enter Category Name" required />
-                    </div>               
+                    </div>
+
                     <br />
+
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto addSubmitBtn general-modal-button">ADD</button>
                     </div>
                 </form>
-            </div>
-          
+            </div>         
         </div>
     </div>
 </div>
 
-<!--Update Category-->
+<!--Update Category Modal-->
 <div class="modal fade general-modal" id="updateCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <img src="~/images/coffe-logo-light.png" class="update-category-modal-img general-coffee-img-top" />
+
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE CATEGORY</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <br />           
+
+            <br />  
+            
             <div class="modal-body">
                 <form asp-action="UpdateCategory" id="updateCategoryForm" method="post">                 
                     <input asp-for="CategoryId" class="form-control input-id" hidden/>
@@ -140,7 +137,9 @@
                         <label asp-for="CategoryName" class="control-label general-modal-label">Category Name</label>
                         <input asp-for="CategoryName" maxlength="15" placeholder="Enter Category Name" class="form-control updateInputName general-modal-input" oninput="validateCategoryName(this)" required />
                     </div>
+
                     <br />
+
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto updateSubmitBtn general-modal-button">UPDATE</button>
                     </div>
@@ -150,7 +149,9 @@
     </div>
 </div>
  
-<!--Pop Up Error Message if Category already exist-->
+<!--Pop Up Messages-->
+
+<!--Category already exists-->
 @if (TempData["CategoryExist"] != null)
 {
     <script>
@@ -163,7 +164,7 @@
     </script>
 }
 
-<!--Pop up message when new category has been added-->
+<!--Added New Category-->
 @if (TempData["AddedCategory"] != null)
 {
     <script>
@@ -175,7 +176,7 @@
         });
     </script>
 }
-<!--Pop up message if there's no cahnges-->
+<!--No Changes have been made when updating-->
 @if (TempData["NoChanges"] != null)
 {
     <script>
@@ -187,7 +188,7 @@
         });
     </script>
 }
-<!--Pop up message when category has been update-->
+<!--Update CAtegory-->
 @if (TempData["UpdatedCategory"] != null)
 {
     <script>
@@ -199,6 +200,7 @@
         });
     </script>
 }
+<!--Archive Category-->
 @if (TempData["SuccessArchived"] != null)
 {
     <script>
@@ -209,10 +211,8 @@
             timer: 2000
         });
     </script>
-
 }
-
-<!--Pop up message when product was unarchived-->
+<!--UnArchive Category-->
 @if (TempData["SuccessUnarchived"] != null)
 {
     <script>
@@ -223,9 +223,4 @@
             timer: 2000
         });
     </script>
-}
-
-
-
- 
-                     
+}                     

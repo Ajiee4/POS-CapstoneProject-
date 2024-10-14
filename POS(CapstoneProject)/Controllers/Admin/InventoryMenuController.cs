@@ -18,14 +18,16 @@ namespace POS_CapstoneProject_.Controllers.Admin
         {
             _context = context;
         }
-        public IActionResult InventoryList()
+        public async Task<IActionResult> InventoryList()
         {
             //get and store the session
             var UserId = HttpContext.Session.GetInt32("UserID");
             //check if there's an ongoing session
             if (UserId != null)
             {
-                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                var check = await _context.User
+                                .Where(s => s.UserId == UserId)
+                                .FirstOrDefaultAsync();
                 if (check != null)
                 {
                     if (check.RoleId != 1)
@@ -38,10 +40,18 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     else
                     {
                         ViewData["DateNow"] = DateTime.Now.ToString("dd/mm/yyyy");
-                        var ingredientsList = _context.Ingredient.OrderBy(s => s.IngredientId).ToList();
-                        var requestList = _context.RequestDetails.Include(s => s.Request).ToList();
+
+                        var ingredientsList = await _context.Ingredient
+                                                    .OrderBy(s => s.IngredientId)
+                                                    .ToListAsync();
+
+                        var requestList = await _context.RequestDetails
+                                                .Include(s => s.Request)
+                                                .ToListAsync();
+
                         ViewData["IngredientsList"] = ingredientsList;
                         ViewData["RequestList"] = requestList;
+
                         return View();
                     }
                 }
@@ -64,7 +74,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> AddIngredient(Ingredient ingredient)
         {
             //check the ingredients if it exist
-            var checkIngredients = _context.Ingredient.Where(s => s.Name == ingredient.Name).FirstOrDefault();
+            var checkIngredients = await _context.Ingredient
+                                        .Where(s => s.Name == ingredient.Name)
+                                        .FirstOrDefaultAsync();
 
             if (checkIngredients != null)
             {
@@ -78,7 +90,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     Name = ingredient.Name,
                     UnitOfMeasurement = ingredient.UnitOfMeasurement,
                     Quantity = 0,
-
                     LowStockThreshold = ingredient.LowStockThreshold
                 };
 
@@ -97,7 +108,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> UpdateIngredient(Ingredient ingredient)
         {
             //check if the ingredient already exist
-            var checkIngredient = _context.Ingredient.Where(s => s.IngredientId == ingredient.IngredientId).FirstOrDefault();
+            var checkIngredient = await _context.Ingredient
+                                        .Where(s => s.IngredientId == ingredient.IngredientId)
+                                        .FirstOrDefaultAsync();
+
             if (checkIngredient != null)
             {
 
@@ -110,7 +124,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     checkIngredient.Name = ingredient.Name;
                     checkIngredient.UnitOfMeasurement = ingredient.UnitOfMeasurement;
-
                     checkIngredient.LowStockThreshold = ingredient.LowStockThreshold;
 
                     _context.Ingredient.Update(checkIngredient);
@@ -118,10 +131,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
                     TempData["UpdateIngredient"] = " ";
                 }
-                //update the ingredient
-            
+                  
             }
-
 
             return RedirectToAction("InventoryList");
         }
@@ -132,7 +143,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
         {
             int id = (int)HttpContext.Session.GetInt32("UserID");
             var myList = JsonConvert.DeserializeObject<List<IngredientList>>(requestData);
-
 
             Request req = new Request()
             {
@@ -159,6 +169,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 }
                 await _context.SaveChangesAsync();
             }
+
             TempData["AddRequest"] = "Request Complete";
 
             return RedirectToAction("InventoryList");
@@ -169,18 +180,19 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> UpdateRequest(string requestData, int requestId)
         {
             int userId = (int)HttpContext.Session.GetInt32("UserID");
-            var checkRequest = await _context.Request.Where(s => s.RequestId == requestId).FirstOrDefaultAsync();
+            var checkRequest = await _context.Request
+                                    .Where(s => s.RequestId == requestId)
+                                    .FirstOrDefaultAsync();
+
             if (checkRequest != null)
             {
                 checkRequest.Status = "Completed";
 
-
                 _context.Request.Update(checkRequest);
                 await _context.SaveChangesAsync();
             }
-            var myList = JsonConvert.DeserializeObject<List<RequestListUpdated>>(requestData);
 
-         
+            var myList = JsonConvert.DeserializeObject<List<RequestListUpdated>>(requestData);
 
             var inventTransact = new InventoryTransaction()
             {
@@ -190,11 +202,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 RequestId = requestId,
             };
 
-
             await _context.InventoryTransaction.AddAsync(inventTransact);
             await _context.SaveChangesAsync();
-
-
 
             if (myList! != null)
             {
@@ -202,7 +211,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     if (item.Quantity > 0)
                     {
-                        var ingredient = await _context.Ingredient.Where(s => s.IngredientId == item.IngredientId).FirstOrDefaultAsync();
+                        var ingredient = await _context.Ingredient
+                                                .Where(s => s.IngredientId == item.IngredientId)
+                                                .FirstOrDefaultAsync();
+
                         var inventDetails = new InventoryTransactionDetail()
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
@@ -211,6 +223,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                             Remarks = "Delivered"
 
                         };
+
                         await _context.InventoryTransactionDetail.AddAsync(inventDetails);
                     }
 
@@ -223,7 +236,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
             {
                 foreach (var item in myList)
                 {
-                    var ingredient = _context.Ingredient.Where(s => s.IngredientId == item.IngredientId).FirstOrDefault();
+                    var ingredient = await _context.Ingredient
+                                    .Where(s => s.IngredientId == item.IngredientId)
+                                    .FirstOrDefaultAsync();
                     if (ingredient != null)
                     {
                         ingredient.Quantity += item.Quantity;
@@ -241,7 +256,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> CancelRequest(int requestId)
         {
             int userId = (int)HttpContext.Session.GetInt32("UserID");
-            var checkRequest = await _context.Request.Where(s => s.RequestId == requestId).FirstOrDefaultAsync();
+            var checkRequest = await _context.Request
+                                    .Where(s => s.RequestId == requestId)
+                                    .FirstOrDefaultAsync();
+
             if (checkRequest != null)
             {
                 checkRequest.Status = "Canceled";
@@ -261,14 +279,12 @@ namespace POS_CapstoneProject_.Controllers.Admin
             int id = (int)HttpContext.Session.GetInt32("UserID");
             var myList = JsonConvert.DeserializeObject<List<IngredientList>>(stockOutData);
            
-
             var inventTransact = new InventoryTransaction()
             {
                 UserId = id,
                 TransactionDate = DateTime.Now.Date,
                 TransactionType = "Stock Out"
             };
-
 
             await _context.InventoryTransaction.AddAsync(inventTransact);
             await _context.SaveChangesAsync();
@@ -280,7 +296,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     if (item.ingredientQty > 0)
                     {
-                        var ingredient = await _context.Ingredient.Where(s => s.IngredientId == item.ingredientId).FirstOrDefaultAsync();
+                        var ingredient = await _context.Ingredient
+                                               .Where(s => s.IngredientId == item.ingredientId)
+                                               .FirstOrDefaultAsync();
+
                         var inventDetails = new InventoryTransactionDetail()
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
@@ -289,6 +308,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                             Remarks = remarks
 
                         };
+
                         await _context.InventoryTransactionDetail.AddAsync(inventDetails);
                     }
 
@@ -301,7 +321,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
             {
                 foreach (var item in myList)
                 {
-                    var ingredient = await _context.Ingredient.Where(s => s.IngredientId == item.ingredientId).FirstOrDefaultAsync();
+                    var ingredient = await _context.Ingredient
+                                           .Where(s => s.IngredientId == item.ingredientId)
+                                           .FirstOrDefaultAsync();
+
                     if (ingredient != null)
                     {
 
@@ -325,7 +348,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
             if (UserId != null)
             {
 
-                var check = await _context.User.Where(s => s.UserId == UserId).FirstOrDefaultAsync();
+                var check = await _context.User
+                                  .Where(s => s.UserId == UserId)
+                                  .FirstOrDefaultAsync();
+
                 if (check != null)
                 {
                     if (check.RoleId != 1)
@@ -362,9 +388,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                     .ThenInclude(x => x.User)
                                     .Where(s => s.InventoryTransaction.TransactionDate >= fromDate && s.InventoryTransaction.TransactionDate <= toDate)
                                     .ToListAsync();
-
-            
-
         
             switch (transactionType)
             {
@@ -382,14 +405,17 @@ namespace POS_CapstoneProject_.Controllers.Admin
             return View();
         } 
       
-        public IActionResult RequestList()
+        public async Task<IActionResult> RequestList()
         {
             //get and store the session
             var UserId = HttpContext.Session.GetInt32("UserID");
             //check if there's an ongoing session
             if (UserId != null)
             {
-                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                var check =  await _context.User
+                    .Where(s => s.UserId == UserId)
+                    .FirstOrDefaultAsync();
+
                 if (check != null)
                 {
                     if (check.RoleId != 1)
@@ -414,19 +440,20 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
 
         }
+        //Filter Request List
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult RequestList(string requestStatus, DateTime fromDate, DateTime toDate)
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> RequestList(string requestStatus, DateTime fromDate, DateTime toDate)
         {
-            var RequestList = _context.Request
-                                .Include(s => s.User)
-                                .Where(s => s.RequestDate >= fromDate && s.RequestDate <= toDate)
-                                .ToList();
+            var RequestList = await _context.Request
+                                    .Include(s => s.User)
+                                    .Where(s => s.RequestDate >= fromDate && s.RequestDate <= toDate)
+                                    .ToListAsync();
 
            
-            var requestDetails = _context.RequestDetails
-                                .Include(s => s.Ingredient)
-                                .ToList();
+            var requestDetails = await _context.RequestDetails
+                                        .Include(s => s.Ingredient)
+                                        .ToListAsync();
 
 
 

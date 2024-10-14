@@ -1,24 +1,25 @@
-﻿
-@{
+﻿@{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
     var userList = ViewData["UserList"] as List<UserDetail>;
 }
+
 <style>
     .link-usermanagement {
         background-color: #747474 !important;
     }
 </style>
 
+<!--Loader-->
 <div class="loader-wrapper">
     <div class="loader"></div>
 </div>
-
+<!--User Management Wrapper-->
 <div class="user-wrapper">
     <button type="button" class="addUserBtn general-button" data-toggle="modal" data-target="#addUserModal">
         <img src="~/images/add.png" />
         <span>Add User</span>
     </button>
-
+    <!--Users Table-->
     <table class="user-table general-table">
         <thead>
             <tr>
@@ -29,12 +30,9 @@
                 <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
-            @if (userList == null)
-            {
-             
-            }
-            else
+            @if (userList != null)
             {
                 @foreach (var item in userList)
                 {
@@ -45,68 +43,62 @@
                             <td data-label="Role">@item.User?.Role?.RoleName</td>
                             <td data-label="First Name">@item.Firstname</td>
                             <td data-label="Last Name">@item.Lastname</td>
-                            @if (@item.User?.isActive  == true)
-                            {
-                                <td data-label="Actions">
-                                    <div class="action-wrapper">
-                                        <form asp-action="ArchiveUser" class="archiveUserForm">
-                                            <input name="userid" class="inputArchiveUserId" hidden />
-                                        </form>
-                                        <button class="btn detailsUserBtn general-details-btn" data-placement="bottom" title="Details" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">
-                                            <img src="~/images/details.png" />
-                                        </button>
+                          
+                            <td data-label="Actions">
+                                <div class="action-wrapper">
+                                    <form asp-action="ArchiveUser" class="archiveUserForm">
+                                        <input name="userid" class="inputArchiveUserId" hidden />
+                                    </form>
+
+                                    <form asp-action="UnarchiveUser" class="unarchiveUserForm">
+                                        <input name="userid" class="inputUnrchiveUserId" hidden />
+                                    </form>
+
+                                    <button class="btn detailsUserBtn general-details-btn" data-placement="bottom" title="Details" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">
+                                        <img src="~/images/details.png" />
+                                    </button>
+
+                                    @if (item.User.isActive)
+                                    {
                                         <button class="btn archiveUserBtn general-archive-btn" data-toggle="tooltip" data-placement="bottom" title="Archive" onclick="ArchiveUser(@item.UserId)">
                                             <img src="~/images/inbox.png" />
                                         </button>
-                                        <button class="btn updateUserBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">
-                                            <img src="~/images/edit.png" />
-                                        </button>
-                                    </div>
-                                </td>
-                            }
-                            else
-                            {
-                                <td data-label="Actions">
-                                    <div class="action-wrapper">
-                                        <form asp-action="UnarchiveUser" class="unarchiveUserForm">
-                                            <input name="userid" class="inputUnrchiveUserId" hidden />
-                                        </form>
-
-                                        <button class="btn detailsUserBtn general-details-btn" data-placement="bottom" title="Details" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User?.Username','@item.User?.Password')" data-toggle="modal" data-target="#detailsUserModal">
-                                            <img src="~/images/details.png" />
-                                        </button>
+                                    }
+                                    else
+                                    {
                                         <button class="btn unarchiveUserBtn general-unarchive-btn" data-toggle="tooltip" data-placement="bottom" title="Unarchive" onclick="UnarchiveUser(@item.UserId)">
                                             <img src="~/images/outbox.png" />
                                         </button>
-                                        <button class="btn updateUserBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User?.Username', '@item.User?.Password')">
-                                            <img src="~/images/edit.png" />
-                                        </button>
-                                    </div>
-                                </td>
-                            }
+                                    }
+                                     
+                                    <button class="btn updateUserBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">
+                                        <img src="~/images/edit.png" />
+                                    </button>
+                                </div>
+                            </td>
+                                                    
                         </tr>
                     }
                 }
-            }
-           
+            }          
         </tbody>
     </table>
 </div>
 
-
-<!--Add New User-->
-
+<!--Add User Modal-->
 <div class="modal fade general-modal" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-
             <img src="~/images/coffe-logo-light.png" class="add-user-modal-img general-coffee-img-bottom" />
+
             <div class="modal-header">
                 <h5 class="modal-title">ADD USER</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <form asp-action="AddUser" id="addUserForm" method="post">
                     <div class="row-wrapper">
@@ -141,7 +133,8 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label class="control-label general-modal-label">Password</label>            
+                                <label class="control-label general-modal-label">Password</label>  
+                                
                                 <div class="password-toggle-user">
                                     <input class="form-control inputPassword general-modal-input" maxlength="20" name="password" placeholder="Enter Password" type="password" required />
                                     <img src="~/images/hide.png" class="eyeImage" onclick="togglePasswordVisibilityUser()" />
@@ -153,14 +146,12 @@
                             <div class="col-md-6 d-block mx-auto">
                                 <label class="control-label general-modal-label">Role</label><br />
                                 <input class="form-control general-modal-input" value="Cashier" readonly />
-
-                           </div>
-                           
+                           </div>                        
                         </div>
                     </div>
-                 
-                                     
+                                                    
                     <br />
+
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto addUserSubmit general-modal-button">ADD</button>
                     </div>
@@ -169,23 +160,24 @@
         </div>
     </div>
 </div>
-
-<!--Update New User-->
-
+<!--Update User Modal-->
 <div class="modal fade general-modal" id="updateUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <img src="~/images/coffe-logo-light.png" class="update-user-modal-img general-coffee-img-top" />
+
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE USER</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <form asp-action="UpdateUser" id="updateUserForm" method="post">
+                    <input class="inputUserId" name="userid" hidden 
 
-                    <input class="inputUserId" name="userid" hidden />
                     <div class="row-wrapper">
                         <div class="row">
                             <div class="col-md-6">
@@ -235,8 +227,8 @@
                         </div>
                     </div>
                     
-
                     <br />
+
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto updateUserSubmit general-modal-button">UPDATE</button>
                     </div>
@@ -246,54 +238,56 @@
     </div>
 </div>
 
-<!--User Details-->
+<!--User Details Modal-->
 <div class="modal fade general-modal" id="detailsUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <img src="~/images/coffe-logo-light.png" class="detail-user-modal-img general-coffee-img-bottom" />
+
             <div class="modal-header">
                 <h5 class="modal-title">USER DETAILS</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">              
-                    <div class="details-wrapper">
-                            
-                        <div class="detail-info">
-                            <div class="form-group">
-                                <label class="control-label general-modal-label">Email</label>
-                                <input class="form-control detailEmail general-modal-input" readonly/>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label general-modal-label">Cellphone Number</label>
-                                <input class="form-control detailCellNum general-modal-input" readonly/>
-                            </div>
+            <div class="modal-body">              
+                <div class="details-wrapper">                         
+                    <div class="detail-info">
+                        <div class="form-group">
+                            <label class="control-label general-modal-label">Email</label>
+                            <input class="form-control detailEmail general-modal-input" readonly/>
                         </div>
-                            
 
                         <div class="form-group">
-                            <label class="control-label general-modal-label">Username</label>
-                            <input class="form-control detailUsername general-modal-input" readonly/>
+                            <label class="control-label general-modal-label">Cellphone Number</label>
+                            <input class="form-control detailCellNum general-modal-input" readonly/>
                         </div>
-
-                        <div class="form-group"">
-                            <label class="control-label general-modal-label">Password</label>
-                            <input class="form-control detailPassword general-modal-input" readonly />
-                        </div>
-                            
-                    </div>                                             
-               
-                    <div class="form-group">
-                        <button type="button" data-dismiss="modal" class="d-block mx-auto detailUserBack general-modal-button">BACK</button>
                     </div>
+                           
+                    <div class="form-group">
+                        <label class="control-label general-modal-label">Username</label>
+                        <input class="form-control detailUsername general-modal-input" readonly/>
+                    </div>
+
+                    <div class="form-group"">
+                        <label class="control-label general-modal-label">Password</label>
+                        <input class="form-control detailPassword general-modal-input" readonly />
+                    </div>                            
+                </div>                                             
+               
+                <div class="form-group">
+                    <button type="button" data-dismiss="modal" class="d-block mx-auto detailUserBack general-modal-button">BACK</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!--Pop Up Messages-->
 
+<!--Archive User-->
 @if (TempData["SuccessArchived"] != null)
 {
     <script>
@@ -303,11 +297,9 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }
+<!--No Changes have been made when updating-->
 @if (TempData["NoChanges"] != null)
 {
     <script>
@@ -319,6 +311,7 @@
         });
     </script>
 }
+<!--UnArchive User-->
 @if (TempData["SuccessUnarchived"] != null)
 {
     <script>
@@ -328,12 +321,9 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }
-
+<!--Add User-->
 @if (TempData["AddUser"] != null)
 {
     <script>
@@ -343,11 +333,9 @@
             showConfirmButton: false,
             timer: 2000
         });
-
-
     </script>
-
 }
+<!--Update User-->
 @if (TempData["UpdateUser"] != null)
 {
     <script>
@@ -358,8 +346,8 @@
             timer: 2000
         });
     </script>
-
 }
+<!--Username already exist-->
 @if (TempData["Exist"] != null)
 {
     <script>

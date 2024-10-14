@@ -1,13 +1,12 @@
 ﻿$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
-  
     const sidebar = document.querySelector('.sidebar');
     const isOpen = localStorage.getItem('sidebarOpen') === 'true' ? true : false;
 
     if (isOpen) {
         sidebar.classList.add('openSidebar');
-        toggleSidebar();
+        toggleSidebar(); //call the function
     }
    
 });
@@ -18,27 +17,37 @@ let sidebarName = document.querySelectorAll('.sidebar-link-name');
 let submenu = document.querySelector('.sidebar ul ul');
 let body = document.querySelector('body');
 
+//sidebar toogler is click
+function togglerClick() {
+    toggler.addEventListener('click', function () {
 
-toggler.addEventListener('click', function () {
-
-    sidebar.classList.toggle('openSidebar')
-    toggleSidebar();
-
-});
-
-$('.sidebar').click((event) => {
-    if ($(event.target).is('.sidebar') && $(event.target).closest('.sidebar > *').length === 0) {
-        sidebar.classList.toggle('openSidebar');
+        sidebar.classList.toggle('openSidebar')
         toggleSidebar();
-    }
-});
 
-toggleSidebar();
+    });
+}
+
+togglerClick(); //call the function
+
+//the sidebar itself is click
+function sideBarClick() {
+
+    $('.sidebar').click((event) => {
+        if ($(event.target).is('.sidebar') && $(event.target).closest('.sidebar > *').length === 0) {
+            sidebar.classList.toggle('openSidebar');
+            toggleSidebar(); //call the function
+        }
+    });
+
+}
+
+sideBarClick(); //call the function
+toggleSidebar(); //call the function
+
+//Toggle the sidebar
 function toggleSidebar() {
    
-
     if (sidebar.classList.contains('openSidebar')) {
-
 
         sidebar.style.width = "180px"
         submenu.style.left = '180px'
@@ -70,33 +79,30 @@ function toggleSidebar() {
     }
 }
 
-
+// Function to prevent sidebar from refreshing when the click link is the current url
 function linkSave() {
     let links = document.querySelectorAll('.sidebar li a');
+
     links.forEach(link => {
         link.addEventListener('click', (e) => {
             const sidebar = document.querySelector('.sidebar');
             const isOpen = sidebar.classList.contains('openSidebar');
-
            
             localStorage.setItem('sidebarOpen', isOpen);
-
-           
-            const currentUrl = window.location.href;
-
           
+            const currentUrl = window.location.href;        
             const linkUrl = link.href;
-
-           
+          
             if (currentUrl === linkUrl) {
                
                 e.preventDefault();
             }
+
         });
     });
 }
 
-linkSave();
+linkSave(); //call the function
 
 
 

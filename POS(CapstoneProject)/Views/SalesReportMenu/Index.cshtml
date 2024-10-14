@@ -3,13 +3,12 @@
 
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
+
     var salesReportJson = ViewData["SalesReport"] as string;
     var salesReport = string.IsNullOrEmpty(salesReportJson) ? null : JsonConvert.DeserializeObject<List<SalesReport>>(salesReportJson);
 
     var inventoryReportJson = ViewData["InventoryReport"] as string;
-    var inventoryReport = string.IsNullOrEmpty(inventoryReportJson) ? null : JsonConvert.DeserializeObject<List<InventoryReport>>(inventoryReportJson);
-
-     
+    var inventoryReport = string.IsNullOrEmpty(inventoryReportJson) ? null : JsonConvert.DeserializeObject<List<InventoryReport>>(inventoryReportJson);    
 }
 <style>
     .link-salesreport {
@@ -17,21 +16,23 @@
     }
 </style>
 
+<!--Loader-->
 <div class="loader-wrapper">
     <div class="loader"></div>
 </div>
-
-
+<!--Report Filter Wrapper-->
 <div class="report-filter-wrapper">
     <form asp-action="Index" method="post" id="salesReportForm">
         <div class="report-type-wrapper">
             <label>Report Type</label>
+
             <select class="selectReportType" name="reportType">
                 <option selected disabled hidden>Select a type</option>
                 <option value="Sales Report">Sales Report</option>
                 <option value="Inventory Report">Inventory Report</option>
             </select>
         </div>
+
         <div class="report-fromdate-wrapper">
             <label>From</label>
             <input type="date" class="fromDateReport" name="fromDate" />
@@ -47,37 +48,24 @@
         </div>
     </form>
 </div>
+
 <br />
 
-
-@* <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js" integrity="sha512-wUYbRPLV5zs6IqvWd88HIqZU/b8TBx+I8LEioQ/UC0t5EMCLApqhIAnUg7EsAzdbhhdgW07TqYDdH3QEXRcPOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- *@
-
-
-
+<!--Report Wrapper-->
 <div class="report-wrapper">
+    <!--Report Table Wrapper-->
     <table class="report-table general-table">
         @if (salesReport != null)
-        {
-          
+        {        
             <thead>
                 <tr>
-                    <th >
-                        Name
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th >
-                        Total Sales
-                    </th>
-                    <th>
-                        Total Sold Product
-                    </th>
+                    <th >Name</th>
+                    <th> Date</th>
+                    <th >Total Sales</th>
+                    <th>Total Sold Product</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (var item in salesReport)
                 {
@@ -90,36 +78,26 @@
                 }
             </tbody>
         }
+
         @if (inventoryReport != null)
         {
-            
-
             <thead>
                 <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Transaction Date
-                    </th>
-                    <th>
-                        Total Stock In
-                    </th>
-                    <th >
-                        Total Stock Out
-                    </th>
+                    <th>Name</th>
+                    <th>Transaction Date</th>
+                    <th>Total Stock In</th>
+                    <th>Total Stock Out</th>                   
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (var item in inventoryReport)
                 {
                     <tr>
-                        <td data-label="Name">@item.Name</td>
-                       
+                        <td data-label="Name">@item.Name</td>                      
                         <td data-label="Date">@item.TransactionDate.ToString("yyyy-MM-dd")</td>
                         <td data-label="Total Quantity">@item.TotalStockIn</td>
-                        <td data-label="Total Quantity">@item.TotalStockOut</td>
-                      
+                        <td data-label="Total Quantity">@item.TotalStockOut</td>                    
                     </tr>
                 }
             </tbody>
@@ -127,6 +105,7 @@
     </table>
 </div>
 
+<!--Set Filter-->
 @if(salesReport != null)
 {
     <script>
@@ -135,22 +114,17 @@
             document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
             document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
             document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
-        });
-       
-       
+        });             
     </script>
 }
 @if(inventoryReport != null)
 {
     <script>
-
         window.addEventListener('load', function () {
             document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
             document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
             document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
             document.querySelector('.report-wrapper').style.visibility = "visible";
-        });
-      
-       
+        });      
     </script>
 }

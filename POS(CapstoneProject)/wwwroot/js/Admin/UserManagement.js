@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    //setup the datatable js
     $('.user-table').DataTable({
         "paging": true,
 
@@ -27,8 +28,7 @@
     });
 })
 
-
-
+//empty the inputs of the add modal when is it close
 $('#addUserModal').on('hidden.bs.modal', function () {
 
     $('#addUserModal .inputFirstName').val('');
@@ -41,9 +41,10 @@ $('#addUserModal').on('hidden.bs.modal', function () {
 });
 $('.addUserSubmit').click(function () {
   
-    AddNewUser();
+    AddNewUser(); //call the functiono
 });
 
+//add user function
 function AddNewUser() {
     let firstname = document.querySelector('#addUserModal .inputFirstName').value;
     let lastname = document.querySelector('#addUserModal .inputLastName').value;
@@ -51,57 +52,22 @@ function AddNewUser() {
     let cellphone = document.querySelector('#addUserModal .inputCellphone').value;
     let username = document.querySelector('#addUserModal .inputUsername').value;
     let password = document.querySelector('#addUserModal .inputPassword').value;
-    /*let role = document.querySelector('#addUserModal .selectRole').value;*/
+   
 
     if (firstname === '' || lastname === '' || email === '' || cellphone === '' || username === '' || password === '') {
         popUpMessage('Fill out all information', 'error');
         return;
     }
 
-    // Check for valid names (only letters and one space)
-    if (!isValidName(firstname) || !isValidName(lastname)) {
-        popUpMessage('First and Last Names must be valid, and between 2 and 15 characters long', 'error');
-        return;
-    }
-
-    //if (!isValidCredentials(username) || !isValidCredentials(password)) {
-    //    popUpMessage('Email must be valid and between 2 and 15 characters long', 'error');
-    //    return;
-    //}
-
-    // Check for valid email address
-    if (!isValidEmail(email)) {
-        popUpMessage('Invalid email address', 'error');
-        $('#addUserModal .inputEmail').focus();
-        return;
-    }
-
     if (!isValidCellphone(cellphone)) {
-        popUpMessage('Please enter a valid 11-digit cellphone number.', 'error');
-        $('#addUserModal .inputCellphone').focus();
-
+        popUpMessage('Please enter a valid 11-digit cellphone number.', 'error');    
         return;
     }
 
     popUpMessageChoice("Are you sure you want to add this user?", '', 'question', 'general-swal-icon', 'general-swal-title', () => {$('#addUserForm').submit();});
 
 }
-function isValidEmail(email) {
-    // You can use a regular expression for more robust validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    return emailRegex.test(email);
-}
-// Check for only letters, one space, and length between 2 and 15
-function isValidName(name) {
-   
-    return /^[A-Za-z]+\s?[A-Za-z]+$/.test(name) && name.length >= 2 && name.length <= 15;
-}
-// Check for only letters, one space, and length between 2 and 15
-function isValidCredentials(credential) {
-   
-    return /^[A-Za-z]+\s?[A-Za-z]+$/.test(credential) && credential.length >= 2 && credential.length <= 15;
-}
 // Check for 11 digits and only numbers
 function isValidCellphone(cellphone) {
    
@@ -121,11 +87,12 @@ function updateUser(userId,firstname, lastname, email, contact, username, passwo
      
 }
 
-//Update User
+//submit the update modal
 $('.updateUserSubmit').click(function () {
-    UpdateUser();
+    UpdateUser(); //call the function
 });
 
+//update user function
 function UpdateUser() {
     let firstname = document.querySelector('#updateUserModal .inputFirstName').value;
     let lastname = document.querySelector('#updateUserModal .inputLastName').value;
@@ -134,27 +101,8 @@ function UpdateUser() {
     let username = document.querySelector('#updateUserModal .inputUsername').value;
     let password = document.querySelector('#updateUserModal .inputPassword').value;
  
-
     if (firstname === '' || lastname === '' || email === '' || cellphone === '' || username === '' || password === '') {
         popUpMessage('Fill out all information', 'error');
-        return;
-    }
-
-    // Check for valid names (only letters and one space)
-    if (!isValidName(firstname) || !isValidName(lastname)) {
-        popUpMessage('First and Last Names must be valid, and between 2 and 15 characters long', 'error');
-        return;
-    }
-
-    //if (!isValidCredentials(username) || !isValidCredentials(password)) {
-    //    popUpMessage('Email must be valid and between 2 and 15 characters long', 'error');
-    //    return;
-    //}
-
-    // Check for valid email address
-    if (!isValidEmail(email)) {
-        popUpMessage('Invalid email address', 'error');
-        $('#updateUserModal .inputEmail').focus();
         return;
     }
 
@@ -197,7 +145,7 @@ function ViewDetails(email, contact, username, password) {
     $('#detailsUserModal .detailPassword').val(password)
 }
 
-
+//toggle the password visibility
 function togglePasswordVisibilityUser() {
    
     const passwordInput = document.querySelectorAll('.inputPassword');
@@ -214,7 +162,7 @@ function togglePasswordVisibilityUser() {
     });
   
 }
-
+//validate the First Name
 function validateFirstName(input) {
     let inputValue = input.value;
 
@@ -235,6 +183,7 @@ function validateFirstName(input) {
     inputValue = inputValue.trimStart();
     input.value = inputValue;
 }
+//validate the Last Name
 function validateLastName(input) {
     let inputValue = input.value;
 
@@ -255,26 +204,28 @@ function validateLastName(input) {
     inputValue = inputValue.trimStart();
     input.value = inputValue;
 }
-
+//validate the Cell Num
 function validateCellNumber(input) {
     if (input.value.match(/[^0-9]/g)) {
         popUpMessageToast('error', 'Only digits are allowed', 300)
     }
     input.value = input.value.replace(/[^0-9]/g, '');
 }
+//validate the Email
 function validateEmail(input) {
     if (input.value.match(/[^a-zA-Z_@.]+/g)) {
         popUpMessageToast('error', 'Invalid Input', 225)
     }
     input.value = input.value.replace(/[^a-zA-Z_@.]+/g, '');
 }
+//validate the Email
 function validateEmailChange(input) {
     if (!(input.value.endsWith('@gmail.com'))) {
         popUpMessageToast('error', 'Email should ends with @gmail.com', 395)
         input.value = ''
     }
 }
-
+//validate the Username
 function validateUsername(input) {
     if (input.value.match(/[^a-zA-Z0-9]+/g)) {
         popUpMessageToast('error', 'Only letters and digits are allowed', 305)

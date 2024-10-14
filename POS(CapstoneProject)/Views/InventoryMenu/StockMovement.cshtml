@@ -9,15 +9,18 @@
         background-color: #747474 !important;
     }
 </style>
+
+<!--Loader-->
 <div class="loader-wrapper">
     <div class="loader"></div>
 </div>
 
-<!--Transaction Type Filter-->
+<!--Transaction Type Filter Wrapper-->
 <div class="stock-movement-filter-wrapper">
     <form asp-action="StockMovement" method="post" id="stockMovementForm">
         <div class="stock-movement-type-wrapper">
             <label>Type</label>
+
             <select class="selectTransactionType" name="transactionType">
                 <option selected disabled>Select a type</option>
                 <option value="All">All</option>
@@ -30,6 +33,7 @@
             <label>From</label>
             <input type="date" class="fromDateStockMove" name="fromDate" />
         </div>
+
         <div class="stock-movement-todate-wrapper">
             <label>To</label>
             <input type="date" class="toDateStockMove" name="toDate" />
@@ -41,8 +45,9 @@
     </form>
 </div>
 
-<!--Stock Movement Table-->
+<!--Stock Movement Wrapper-->
 <div class="stock-movement-wrapper">
+    <!--Stock Movement Table-->
     <table class="stock-movement-table general-table">
         <thead>
             <tr>
@@ -56,8 +61,9 @@
                 <th>Remarks</th>
             </tr>
         </thead>
-        <tbody id="stock-movement-body">
-          
+
+        <tbody id="stock-movement-body">        
+            <!--Inventory Stock In & Stock Out-->
             @if (ViewData["inventoryAll"] != null)
             {
                 var inventoryAllList = ViewData["inventoryAll"] as string;
@@ -80,18 +86,13 @@
                             <td data-label="Remarks">@item.Remarks</td>
                         </tr>
                     }
-                }
-                else
-                {
-                   
-                }           
+                }                   
             }
-
+            <!--Inventory Stock in-->
             @if (ViewData["inventoryStockIn"] != null)
             {
                 var inventoryStockInList = ViewData["inventoryStockIn"] as string;
-                var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryStockInList);
-             
+                var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryStockInList);       
 
                 if (inventoryStockIn != null)
                 {
@@ -110,20 +111,14 @@
                             <td data-label="Remarks">@item.Remarks</td>
                         </tr>
                     }
-                }
-                else
-                {
-                   
-                }
-               
+                }              
             }
-
+            <!--Inventory Stock Out-->
             @if (ViewData["inventoryStockOut"] != null)
             {
                 var inventoryAllList = ViewData["inventoryStockOut"] as string;
                 var inventoryStockOut = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
                
-
                 if (inventoryStockOut != null)
                 {
                     @foreach (var item in inventoryStockOut.Where(s => s.InventoryTransaction.TransactionType == "Stock Out"))
@@ -141,29 +136,23 @@
                             <td data-label="Remarks">@item.Remarks</td>
                         </tr>
                     }
-                }
-                else
-                {
-                  
-                }
-                
+                }           
             }
-
         </tbody>
     </table>
 </div>
 
+
+<!--Set Filter-->
 @if (ViewData["inventoryAll"] != null)
 {
     <script>
-
         window.addEventListener('load', function () {
             document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
             document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
             document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
             document.querySelector('.selectTransactionType').value = "All"
-        });
-      
+        });     
     </script>
 }
 @if (ViewData["inventoryStockOut"] != null)
@@ -174,8 +163,7 @@
             document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
             document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
             document.querySelector('.selectTransactionType').value = "Stock Out"
-        });
-      
+        });     
     </script>
 }
 @if (ViewData["inventoryStockIn"] != null)
@@ -186,7 +174,6 @@
             document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
             document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
             document.querySelector('.selectTransactionType').value = "Stock In"
-        });
-      
+        });     
     </script>
 }

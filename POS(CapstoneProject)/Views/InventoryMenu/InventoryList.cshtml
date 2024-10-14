@@ -3,7 +3,11 @@
 @inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
+
     var ingredientList = ViewData["IngredientsList"] as List<Ingredient>;
+    var requestid = data.Request.ToList();
+    var dateNow = DateTime.Now.Date.ToString("yyyy-MM-dd");
+    var user = data.UserDetail.FirstOrDefault(s => s.UserId == HttpContextAccessor.HttpContext.Session.GetInt32("UserID"));
 }
 <style>
     .link-inventorylist, .inventoryMenu {
@@ -11,30 +15,29 @@
     }
 </style>
 
+<!--Loader-->
 <div class="loader-wrapper">
     <div class="loader"></div>
 </div>
-
-
+<!--Inventory Wrapper-->
 <div class="inventory-wrapper">
- 
     <div class="inventory-button-wrapper">
         <button type="button" class="addIngredientBtn general-button" data-toggle="modal" data-target="#addIngredientModal">
             <img src="~/images/add.png" />
             <span>Add Item</span>
         </button>
+
         <button class="btn requestBtn general-button" onclick="displayModal('Request')" type="button">
             <img src="~/images/requestproduct.png" />
             <span>Request</span>
         </button>
+
         <button type="button" class="stockOutBtn general-button" onclick="displayModal('StockOut')">
             <img src="~/images/stockout.png" />
             <span>Stock Out</span>
         </button>
     </div>
-    
-
-  
+    <!--Inventory List Table-->
     <table class="inventory-table general-table">
         <thead>
             <tr>
@@ -46,16 +49,15 @@
                 <th>Action</th>
             </tr>
         </thead>
+
         <tbody>
             @if (ingredientList != null)
             {
                 @foreach (var item in ingredientList)
                 {
-
                     var checkRequest = data.RequestDetails.Where(s => s.IngredientId == item.IngredientId && s.Request.Status == "Pending").FirstOrDefault();
 
                     <tr data-id="@item.IngredientId" data-name="@item.Name" onclick="requestitem(event,@item.IngredientId,'@item.Name',1)">
-
                         <td data-label="ID">@item.IngredientId</td>
                         <td data-label="Name">@item.Name</td>
                         <td data-label="Unit">@item.UnitOfMeasurement</td>
@@ -64,8 +66,7 @@
                         <td data-label="Actions">
                             <div class="action-wrapper">
                                 <div class="action-button">
-                                    <button class="updateIngredientBtn general-update-btn" data-placement="bottom" title="Update" onclick="DefaultUpdateIngredientModal(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"
-                                            data-toggle="modal" data-target="#updateIngredientModal">
+                                    <button class="updateIngredientBtn general-update-btn" data-placement="bottom" title="Update" onclick="DefaultUpdateIngredientModal(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"data-toggle="modal" data-target="#updateIngredientModal">
                                         <img src="~/images/edit.png" />
                                     </button>
                                 </div>
@@ -100,32 +101,23 @@
                         </td>
                     </tr>
                 }
-            }
-            else
-            {
-                
-            }
-       
+            }       
         </tbody>
     </table> 
 </div>
 
-
-<!--Request-->
 @{
-    var requestid = data.Request.ToList();
-    var dateNow = DateTime.Now.Date.ToString("yyyy-MM-dd");
-    var user = data.UserDetail.FirstOrDefault(s => s.UserId == HttpContextAccessor.HttpContext.Session.GetInt32("UserID"));
+   
 }
-
+<!--Request List Wrapper-->
 <div class="request-list-wrapper closeRequestList">
     <img src="~/images/coffe-logo-light.png" class="request-ingredient-modal-img" />
-    <div class="request-content-wrapper">
-       
 
+    <div class="request-content-wrapper">   
         <button type="button" class="close exitRequest">
             <span aria-hidden="true">&times;</span>
         </button>
+
         <div class="request-list-header">
             <h1 class="">@(requestid.Count != 0 ? $"Request #{requestid.Count + 1}" : "Request #1")</h1>
 
@@ -135,7 +127,6 @@
             </div>
         </div>
        
-
         <div class="styled-table-container">
             <table class="styled-table text-center">
                 <thead>
@@ -147,10 +138,10 @@
                 </thead>
 
                 <tbody>
-
                 </tbody>
             </table>
         </div>
+
         <div class="request-list-footer">
             <form asp-action="AddRequest" method="post" id="requestForm">
                 <input name="requestData" class="requestInput" hidden />
@@ -159,23 +150,18 @@
             <button class="d-block mx-auto requestSubmit">REQUEST</button>
             <button class="d-block mx-auto cancelrequest" onclick="cancelRequest()">CANCEL</button>
         </div>
-    </div>
-    
+    </div>  
 </div>
 
-
-
-
-
-<!--Stock Out-->
-
+<!--Stock Out List-->
 <div class="stock-out-wrapper closeStockOutList">
     <img src="~/images/coffe-logo-light.png" class="stockout-ingredient-modal-img" />
-    <div class="stock-out-content-wrapper">
-        
+
+    <div class="stock-out-content-wrapper">      
         <button type="button" class="close exitStockOut">
             <span aria-hidden="true">&times;</span>
         </button>
+
         <div class="stock-out-header">
             <h1 class="">Stock Out</h1>
 
@@ -184,6 +170,7 @@
                 <p><strong>Stock Out By:<br /> </strong> @user?.Firstname @user?.Lastname</p>
             </div>
         </div>
+
         <div class="styled-table-container">
             <table class="styled-table text-center">
                 <thead>
@@ -193,16 +180,18 @@
                         <th style="width: 40%">Quantity</th>
                     </tr>
                 </thead>
+
                 <tbody>
                 </tbody>
             </table>
         </div>
      
-        <div class="stock-out-footer">
-         
+        <div class="stock-out-footer">       
             <form asp-action="StockOut" method="post" id="stockOutForm">
                 <input name="stockOutData" class="stockOutInput" hidden />
+
                 <label>Remarks</label>
+
                 <select name="remarks" class="stockOutRemarks">
                     <option value="Disposed">Disposed</option>
                     <option value="Expired">Expired</option>
@@ -210,36 +199,36 @@
                     <option value="Out for Production">Out for Production</option>
                 </select>
             </form>
-            <div class="footer-buttons-wrapper">
 
+            <div class="footer-buttons-wrapper">
                 <button class="stockOutSubmit">STOCK OUT</button>
                 <button class="cancelStockOut" onclick="cancelStockOut()">CANCEL</button>
             </div>
-
         </div>
     </div> 
 </div>
 
-
-<!--Add New Ingredient Modal-->
-
+<!--Add Ingredient Modal-->
 <div class="modal fade general-modal" id="addIngredientModal" tabindex="-1" role="dialog">
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <img src="~/images/coffe-logo-light.png" class="add-ingredient-modal-img general-coffee-img-top" />
+
             <div class="modal-header">
                 <h5 class="modal-title">ADD INGREDIENT</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <form asp-action="AddIngredient" id="addIngredientForm" method="post">
-
                     <div class="form-group">
                         <label asp-for="Name" class="control-label general-modal-label">Ingredient Name</label>
                         <input asp-for="Name" maxlength="20" class="form-control inputIngredientName general-modal-input" oninput="validateIngredientName(this)" type="text" placeholder="Enter Ingredient Name" required />
                     </div>
+
                     <div class="form-group">
                         <label asp-for="UnitOfMeasurement" class="control-label general-modal-label">Unit of Measurement</label>
                         <input asp-for="UnitOfMeasurement" maxlength="20" class="form-control inputMeasurement general-modal-input" oninput="validateUnitMeasurement(this)" placeholder="Enter Unit of Measurement" required />
@@ -249,8 +238,7 @@
                         <label asp-for="LowStockThreshold" class="control-label general-modal-label">Stock Threshold</label>
                         <input asp-for="LowStockThreshold" type="text" maxlength="10" class="form-control inputThreshold general-modal-input" oninput="validateThreshold(this)" placeholder="Enter Low Stock Threshold" required />
                     </div>
-
-                   
+               
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto addIngredientSubmit general-modal-button">ADD</button>
                     </div>            
@@ -260,28 +248,29 @@
     </div>
 </div>
 
-
 <!--Update Ingredient Modal-->
-
 <div class="modal fade general-modal" id="updateIngredientModal" tabindex="-1" role="dialog">
     <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <img src="~/images/coffe-logo-light.png" class="update-ingredient-modal-img general-coffee-img-bottom" />
+
             <div class="modal-header">
                 <h5 class="modal-title">UPDATE INGREDIENT</h5>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <form asp-action="UpdateIngredient" id="updateIngredientForm" method="post">
-
                     <input asp-for="IngredientId" class="inputIngredientId" hidden />
 
                     <div class="form-group">
                         <label asp-for="Name" class="control-label general-modal-label">Ingredient Name</label>
                         <input asp-for="Name" maxlength="20" class="form-control inputIngredientName general-modal-input" oninput="validateIngredientName(this)" type="text" placeholder="Enter Ingredient Name" required />
                     </div>
+
                     <div class="form-group">
                         <label asp-for="UnitOfMeasurement" class="control-label general-modal-label">Unit of Measurement</label>
                         <input asp-for="UnitOfMeasurement" maxlength="20" class="form-control inputMeasurement general-modal-input" oninput="validateUnitMeasurement(this)" placeholder="Enter Unit of Measurement" required />
@@ -291,8 +280,7 @@
                         <label asp-for="LowStockThreshold" class="control-label general-modal-label">Stock Threshold</label>
                         <input asp-for="LowStockThreshold" type="text" maxlength="10" class="form-control inputThreshold general-modal-input" oninput="validateThreshold(this)" placeholder="Enter Low Stock Threshold" required />
                     </div>
-
-                    
+               
                     <div class="form-group">
                         <button type="button" class="d-block mx-auto updateIngredientSubmit general-modal-button">UPDATE</button>
                     </div>
@@ -304,6 +292,7 @@
 
 <!--Pop up Messages-->
 
+<!--Add Ingredient-->
 @if (TempData["AddIngredient"] != null)
 {
     <script>
@@ -314,8 +303,8 @@
             timer: 2000
         });
     </script>
-
 }
+<!--Ingredient already Exist-->
 @if (TempData["Exist"] != null)
 {
     <script>
@@ -327,18 +316,7 @@
         });
     </script>
 }
-@if (TempData["StockIn"] != null)
-{
-    <script>
-        Swal.fire({
-            text: "Stock In Complete",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 2000
-        });
-    </script>
-}
-
+<!--Stock Out-->
 @if (TempData["StockOut"] != null)
 {
     <script>
@@ -350,6 +328,7 @@
         });
     </script>
 }
+<!--No changes have been made when updating the ingredient-->
 @if (TempData["NoChanges"] != null)
 {
     <script>
@@ -361,6 +340,7 @@
         });
     </script>
 }
+<!--Update Ingredient-->
 @if (TempData["UpdateIngredient"] != null)
 {
     <script>
@@ -372,6 +352,7 @@
         });
     </script>
 }
+<!--Add Request-->
 @if (TempData["AddRequest"] != null)
 {
     <script>

@@ -1,5 +1,6 @@
 ﻿namespace POS_CapstoneProject_.DTO
 {
+    //use for sales reporting
     public class SalesReport
     {
         public string Name { get; set; }

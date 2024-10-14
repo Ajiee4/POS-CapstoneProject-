@@ -9,7 +9,7 @@ $(document).ready(function () {
 });
 
 
-
+//when geenrate record is click
 $('.generateRecordBtn').click(function (event) {
   
    

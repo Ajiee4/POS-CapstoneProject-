@@ -12,6 +12,8 @@ function popUpMessage(message, icon) {
         showConfirmButton: false,
         timer: 2000,
     });
+
+   
 }
 
 /*Pop up Message with  choices*/

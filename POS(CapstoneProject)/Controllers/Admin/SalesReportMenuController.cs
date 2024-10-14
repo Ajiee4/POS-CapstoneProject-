@@ -79,8 +79,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
               
                 var inventoryTransactions = await _context.InventoryTransaction.ToListAsync();
                 var inventoryDetails =await _context.InventoryTransactionDetail.ToListAsync();
-
-               
+            
                 foreach (var item in inventoryDetails)
                 {
                     string[] parts = item.Quantity.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -89,7 +88,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     
                 }
            
-                var inventoryRep = (from it in inventoryTransactions
+                var inventoryRep =  (from it in inventoryTransactions
                                     join itd in inventoryDetails on it.InventoryTransactId equals itd.InventoryTransactId
                                     join i in _context.Ingredient on itd.IngredientId equals i.IngredientId
                                     where it.TransactionDate >= fromDate && fromDate <= toDate
@@ -98,27 +97,19 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                     {
                                         Name = g.Key.Name,
                                         TransactionDate = g.Key.TransactionDate,
-                                        TotalStockOut = g.Sum(x => x.it.TransactionType == "Stock Out" ?
-                                            Convert.ToInt16(x.itd.Quantity) : 0),
-                                        TotalStockIn = g.Sum(x => x.it.TransactionType == "Stock In" ?
-                                            Convert.ToInt16(x.itd.Quantity) : 0)
+                                        TotalStockOut = g.Sum(x => x.it.TransactionType == "Stock Out" ? Convert.ToInt16(x.itd.Quantity) : 0),
+                                        TotalStockIn = g.Sum(x => x.it.TransactionType == "Stock In" ?Convert.ToInt16(x.itd.Quantity) : 0)
                                     })
                                     .OrderBy(x => x.TransactionDate)
                                     .ToList();
 
-
                 ViewData["InventoryReport"] = JsonConvert.SerializeObject(inventoryRep);
 
-
-
             }
-
 
             return View();
        
         }
-
-
 
     }
 

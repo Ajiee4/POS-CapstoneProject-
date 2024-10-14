@@ -20,7 +20,9 @@ namespace POS_CapstoneProject_.Controllers.Admin
             var UserId = HttpContext.Session.GetInt32("UserID");
             if (UserId != null)
             {
-                var check = _context.User.Where(s => s.UserId == UserId).FirstOrDefault();
+                var check = await _context.User
+                                .Where(s => s.UserId == UserId)
+                                .FirstOrDefaultAsync();
                 if (check != null)
                 {
                     if (check.RoleId != 1)
@@ -30,7 +32,11 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {                     
-                        var productList = await _context.Product.Include(s => s.Category).OrderBy(s =>  s.ProductId).ToListAsync();                       
+                        var productList = await _context.Product
+                                                .Include(s => s.Category)
+                                                .OrderBy(s =>  s.ProductId)
+                                                .ToListAsync();   
+                        
                         var getCategoryProduct = await _context.Category.ToListAsync();
                        
                         ViewData["productCategory"] = getCategoryProduct;
@@ -85,6 +91,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         await file.CopyToAsync(ms);
                         prod.ImageData = ms.ToArray();
                     }
+
                     _context.Add(prod);
                     await _context.SaveChangesAsync();
 
@@ -106,7 +113,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProduct(Product prod, IFormFile file)
         {
-            var checkProduct = await _context.Product.Where(s => s.ProductId == prod.ProductId).FirstOrDefaultAsync();
+            var checkProduct = await _context.Product
+                                    .Where(s => s.ProductId == prod.ProductId)
+                                    .FirstOrDefaultAsync();
+
             if (checkProduct != null)
             {
                 if (file == null)
@@ -120,6 +130,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         checkProduct.Name = prod.Name;
                         checkProduct.Price = prod.Price;
                         checkProduct.ProdCategoryId = prod.ProdCategoryId;
+
                         _context.Update(checkProduct);
                         await _context.SaveChangesAsync();
 
@@ -145,6 +156,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         checkProduct.Price = prod.Price;
                         checkProduct.ProdCategoryId = prod.ProdCategoryId;
                         checkProduct.ImageData = prod.ImageData;
+
                         _context.Update(checkProduct);
                         await _context.SaveChangesAsync();
 
@@ -164,10 +176,13 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> ArchiveProduct(Product product)
         {
 
-            var checkProduct = await _context.Product.Where(s => s.ProductId == product.ProductId).FirstOrDefaultAsync();
+            var checkProduct = await _context.Product
+                                    .Where(s => s.ProductId == product.ProductId)
+                                    .FirstOrDefaultAsync();
             if (checkProduct != null)
             {
                 checkProduct.IsArchive = true;
+
                 _context.Update(checkProduct);
                 await _context.SaveChangesAsync();
 
@@ -180,10 +195,14 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UnarchiveProduct(Product product)
         {
-            var checkProduct = await _context.Product.Where(s => s.ProductId == product.ProductId).FirstOrDefaultAsync();
+            var checkProduct = await _context.Product
+                                    .Where(s => s.ProductId == product.ProductId)
+                                    .FirstOrDefaultAsync();
+
             if (checkProduct != null)
             {
                 checkProduct.IsArchive = false;
+
                 _context.Update(checkProduct);
                 await _context.SaveChangesAsync();
 

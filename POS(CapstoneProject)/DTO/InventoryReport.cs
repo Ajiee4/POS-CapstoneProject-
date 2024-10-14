@@ -1,5 +1,6 @@
 ﻿namespace POS_CapstoneProject_.DTO
 {
+    //use for inventory report
     public class InventoryReport
     {
         public string Name { get; set; }

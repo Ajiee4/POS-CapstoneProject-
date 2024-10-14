@@ -56,6 +56,7 @@ $('#addProductModal').on('hidden.bs.modal', function () {
 function archiveProduct(element) {
 
     let productId = element.dataset.id;
+
     popUpMessageChoice("Are you sure you want to archive this product? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title swal-archive-product-title', () => {
         $('.archiveInput').val(productId);
         $('.archiveForm').submit();
@@ -67,6 +68,7 @@ function archiveProduct(element) {
 function unArchiveProduct(element) {
 
     let productId = element.dataset.id;
+
     popUpMessageChoice("Are you sure you want to unarchive this product? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title swal-unarchive-product-title', () => {
         $('.unArchiveInput').val(productId);
         $('.unarchiveForm').submit();

@@ -45,7 +45,9 @@
 
 .general-modal .general-modal-input {
     background-color: #D1D6D2;
-    outline: none !important;
+    outline: none;
+    border: none;
+    box-shadow: none !important;
     border-radius: 10px !important;
 }
 .general-modal .general-modal-input::placeholder {

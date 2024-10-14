@@ -23,11 +23,10 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-//call the function with add category button is click
-$('.addSubmitBtn').click(function () {
-    AddCategory();
-});
 
+
+
+//validate the category name
 function validateCategoryName(input) {
     
     let inputValue = input.value;
@@ -50,6 +49,8 @@ function validateCategoryName(input) {
     input.value = inputValue;
 }
 
+
+//archive the category
 function archiveCategory(id) {
 
     popUpMessageChoice("Are you sure you want to archive this category? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title swal-archive-category-title', () => {
@@ -59,19 +60,17 @@ function archiveCategory(id) {
 
 
 }
-/*unArchive Product*/
+
+//unarchive the category
 function unArchiveCategory(id) {
 
-   
     popUpMessageChoice("Are you sure you want to unarchive this category? <br/>", '', 'question', 'general-swal-icon', 'general-swal-title swal-unarchive-category-title', () => {
         $('.unarchiveInputCategory').val(id);
         $('.unarchiveCategoryForm').submit();
     });
 }
 
-
-
-//function for validating the input category
+//add new category function
 function AddCategory() {
     let categoryName = document.querySelector('.addInputName').value.trim();
 
@@ -83,13 +82,10 @@ function AddCategory() {
 
         popUpMessageChoice("Are you sure you want to add this category?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#addCategoryForm").submit() });
        
-    }
-    
+    } 
 }
 
-
-
-
+//update category function
 function UpdateCategory() {
     let categoryName = document.querySelector('.updateInputName').value.trim();
 
@@ -100,17 +96,22 @@ function UpdateCategory() {
     else {
 
         popUpMessageChoice("Are you sure you want to update this category?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateCategoryForm").submit() });       
-    }
-    
+    } 
 }
 
-//reset to defaul value when closing the modal
+//update category
 $('.updateSubmitBtn').click(function () {
 
     UpdateCategory();
 
 });
-//clear inputs when modal is close
+
+//add category
+$('.addSubmitBtn').click(function () {
+    AddCategory();
+});
+
+//clear inputs when add modal is close
 function resetAddModal() {
     $('#addCategoryModal').on('hidden.bs.modal', function () {
         // Clear input fields
@@ -121,24 +122,27 @@ function resetAddModal() {
 
 resetAddModal();
 
-//set the default value when modal shows
+//set the default value when update modal shows
 function updateCategory(id, name) {
   
-    $('.updateInputName').val(name);
-  
+    $('.updateInputName').val(name); 
     $('.input-id').val(id);
   
 }
 
+
+//redirect to the Sales Menu when clicking the row
 function RowClick(url, row,event) {
 
     
     if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
         return;
     }
+
     if (event.target.classList.contains('archived-category') || event.target.closest('.archived-category')) {
         return;
     }
+
     var categoryName = row.querySelector('td[data-label="Category"]').textContent;
 
     localStorage.setItem('categoryName', categoryName);

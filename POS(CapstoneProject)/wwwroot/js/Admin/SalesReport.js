@@ -1,4 +1,4 @@
-﻿
+﻿//set up datatable js
 $(document).ready(function () {
     $('.report-table').DataTable({
         "paging": true,
@@ -13,7 +13,7 @@ $(document).ready(function () {
     });
 
 });
-
+//generate is button is click
 $('.generateReportBtn').click(function (event) {
 
 
