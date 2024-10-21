@@ -35,35 +35,3 @@
 }
 
 
-/*@media (max-width: 390px) {
-    .addCategoryBtn {
-        display: block;
-        margin: 0 auto;
-    }
-
-    #addCategoryModal .modal-content, #updateCategoryModal .modal-content {
-        padding: 5px;
-    }
-
-    .add-category-modal-img {
-        width: 170px;
-        height: 170px;
-        
-        
-    }
-    .update-category-modal-img {
-        width: 120px;
-        height: 120px;
-        top: -45px;
-        left: -35px;
-    }
-
-    .custom-confirm-btn,
-    .custom-cancel-btn {
-        width: 80px !important;
-    }
-
-    .swal-addCategory-title, .swal-updateCategory-title {
-        font-size: 17px;
-    }
-}*/

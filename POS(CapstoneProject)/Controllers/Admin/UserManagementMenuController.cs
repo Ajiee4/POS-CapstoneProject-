@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using POS_CapstoneProject_.Data;
 using POS_CapstoneProject_.Models;
+using System.Data;
 
 namespace POS_CapstoneProject_.Controllers.Admin
 {
@@ -36,9 +37,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                             .Include(s => s.User.Role)
                                             .OrderBy(s => s.UserId).ToListAsync();
 
-                        var roleList = await _context.Role
-                                            .Where(s => s.RoleName != "Manager")
-                                            .ToListAsync();
+                        var roleList = await _context.Role.ToListAsync();
 
                         ViewData["UserList"] = userList;
                         ViewData["RoleList"] = roleList;
@@ -61,7 +60,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> AddUser(string firstname, string lastname, string email, string cellnumber, string username, string password)
+        public async Task<IActionResult> AddUser(string firstname, string lastname, string email, string cellnumber, string username, string password, string role)
         {
             var checkUser = await _context.User
                                 .Where(s => s.Username == username)
@@ -73,28 +72,59 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
             else
             {
-                var adduser = new User()
+                if(role == "Admin")
                 {
-                    Username = username,
-                    Password = password,
-                    RoleId = 2,
-                    isActive = true
-                };
+                    var adduser = new User()
+                    {
+                        Username = username,
+                        Password = password,
+                        RoleId = 1,
+                        isActive = true
+                    };
 
-                await _context.User.AddAsync(adduser);
-                await _context.SaveChangesAsync();
+                    await _context.User.AddAsync(adduser);
+                    await _context.SaveChangesAsync();
 
-                var userDetails = new UserDetail()
+                    var userDetails = new UserDetail()
+                    {
+                        UserId = adduser.UserId,
+                        Firstname = firstname,
+                        Lastname = lastname,
+                        EmailAddress = email,
+                        ContactNumber = cellnumber,
+                    };
+
+                    await _context.UserDetail.AddAsync(userDetails);
+                    await _context.SaveChangesAsync();
+                }
+                else if(role == "Cashier")
                 {
-                    UserId = adduser.UserId,
-                    Firstname = firstname,
-                    Lastname = lastname,
-                    EmailAddress = email,
-                    ContactNumber = cellnumber,
-                };
+                    var adduser = new User()
+                    {
+                        Username = username,
+                        Password = password,
+                        RoleId = 2,
+                        isActive = true
+                    };
 
-                await _context.UserDetail.AddAsync(userDetails);
-                await _context.SaveChangesAsync();
+                    await _context.User.AddAsync(adduser);
+                    await _context.SaveChangesAsync();
+
+                    var userDetails = new UserDetail()
+                    {
+                        UserId = adduser.UserId,
+                        Firstname = firstname,
+                        Lastname = lastname,
+                        EmailAddress = email,
+                        ContactNumber = cellnumber,
+                    };
+
+                    await _context.UserDetail.AddAsync(userDetails);
+                    await _context.SaveChangesAsync();
+                }
+              
+
+              
 
                 TempData["AddUser"] = "";
             }
@@ -105,10 +135,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> UpdateUser(int userid, string firstname, string lastname, string email, string cellnumber, string username, string password)
+        public async Task<IActionResult> UpdateUser(int userid, string firstname, string lastname, string email, string cellnumber, string username, string password, string role)
         {
 
-            var findUser = await _context.User
+            var findUser = await _context.User.Include(s => s.Role)
                                 .Where(s => s.UserId == userid)
                                 .FirstOrDefaultAsync(); 
 
@@ -125,8 +155,11 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 }
                 else
                 {
+                    //var getRole = await _context.Role.Where(s => s.RoleName == role).FirstOrDefaultAsync();
+
                     findUser.Username = username;
                     findUser.Password = password;
+                    //findUser.RoleId = getRole.RoleId;
 
                     _context.User.Update(findUser);
                     await _context.SaveChangesAsync();

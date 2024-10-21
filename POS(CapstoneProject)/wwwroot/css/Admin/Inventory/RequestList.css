@@ -6,7 +6,7 @@
 }
 /*Request filter */
 .request-filter-wrapper {
-    font-family: "Inter" !important;
+   
     width: 100%;
     padding: 15px 10px;
     background-color: #342924;
@@ -147,9 +147,10 @@
 .request-card > div {
     border-bottom: 1px solid grey;
 }
-.request-card:hover{
-    transform: scale(1.04);
-}
+    .request-card:hover {
+        transform: scale(1.04);
+        box-shadow: 0px 0px 25px rgb(0,0,0);
+    }
 
 /*Request Modal*/
 #requestCardModal .completeRequestBtn, .cancelRequestBtn {

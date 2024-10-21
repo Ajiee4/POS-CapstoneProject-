@@ -1,4 +1,6 @@
-﻿@{
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data
+@{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
     var userList = ViewData["UserList"] as List<UserDetail>;
 }
@@ -34,30 +36,33 @@
         <tbody>
             @if (userList != null)
             {
+                var userId = HttpContextAccessor.HttpContext?.Session.GetInt32("UserID");
+
                 @foreach (var item in userList)
                 {
-                    @if ((item.User?.Role?.RoleName != "Manager"))
-                    {
-                        <tr class="@(item.User.isActive == true ? "" :"archived-user")">
-                            <td data-label="ID">@item.UserId</td>
-                            <td data-label="Role">@item.User?.Role?.RoleName</td>
-                            <td data-label="First Name">@item.Firstname</td>
-                            <td data-label="Last Name">@item.Lastname</td>
-                          
-                            <td data-label="Actions">
-                                <div class="action-wrapper">
-                                    <form asp-action="ArchiveUser" class="archiveUserForm">
-                                        <input name="userid" class="inputArchiveUserId" hidden />
-                                    </form>
+                    <tr class="@(item.User.isActive == true ? "" :"archived-user")">
+                        <td data-label="ID">@item.UserId</td>
+                        <td data-label="Role">@item.User?.Role?.RoleName</td>
+                        <td data-label="First Name">@item.Firstname</td>
+                        <td data-label="Last Name">@item.Lastname</td>
 
-                                    <form asp-action="UnarchiveUser" class="unarchiveUserForm">
-                                        <input name="userid" class="inputUnrchiveUserId" hidden />
-                                    </form>
+                        <td data-label="Actions">
+                            <div class="action-wrapper">
+                                <form asp-action="ArchiveUser" class="archiveUserForm">
+                                    <input name="userid" class="inputArchiveUserId" hidden />
+                                </form>
 
-                                    <button class="btn detailsUserBtn general-details-btn" data-placement="bottom" title="Details" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">
-                                        <img src="~/images/details.png" />
-                                    </button>
+                                <form asp-action="UnarchiveUser" class="unarchiveUserForm">
+                                    <input name="userid" class="inputUnrchiveUserId" hidden />
+                                </form>
 
+                                <button class="btn detailsUserBtn general-details-btn" data-placement="bottom" title="Details" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">
+                                    <img src="~/images/details.png" />
+                                </button>
+                               
+                                   
+                                @if(item.UserId != userId)
+                                {
                                     @if (item.User.isActive)
                                     {
                                         <button class="btn archiveUserBtn general-archive-btn" data-toggle="tooltip" data-placement="bottom" title="Archive" onclick="ArchiveUser(@item.UserId)">
@@ -70,15 +75,19 @@
                                             <img src="~/images/outbox.png" />
                                         </button>
                                     }
-                                     
-                                    <button class="btn updateUserBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">
-                                        <img src="~/images/edit.png" />
-                                    </button>
-                                </div>
-                            </td>
-                                                    
-                        </tr>
-                    }
+                                }
+
+                                
+                              
+
+                                <button class="btn updateUserBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">
+                                    <img src="~/images/edit.png" />
+                                </button>
+                            </div>
+                        </td>
+
+                    </tr>
+                   
                 }
             }          
         </tbody>
@@ -142,10 +151,17 @@
                             </div>
                         </div>
 
+
+
+
                         <div class="row">
                             <div class="col-md-6 d-block mx-auto">
                                 <label class="control-label general-modal-label">Role</label><br />
-                                <input class="form-control general-modal-input" value="Cashier" readonly />
+                                <select name="role" class="selectRole form-control general-modal-input">
+                                   <option value="Admin">Admin</option>
+                                   <option value="Cashier">Cashier</option>
+                                </select>
+                             
                            </div>                        
                         </div>
                     </div>
@@ -219,12 +235,15 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                      @*   <div class="row">
                             <div class="col-md-6 d-block mx-auto">
                                 <label class="control-label general-modal-label">Role</label><br />
-                                <input class="form-control general-modal-input" value="Cashier" readonly />
+                                <select name="role" class="selectRole form-control general-modal-input">
+                                    <option value="Admin">Admin</option>
+                                    <option value="Cashier">Cashier</option>
+                                </select>
                             </div>
-                        </div>
+                        </div> *@
                     </div>
                     
                     <br />
@@ -237,7 +256,6 @@
         </div>
     </div>
 </div>
-
 <!--User Details Modal-->
 <div class="modal fade general-modal" id="detailsUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

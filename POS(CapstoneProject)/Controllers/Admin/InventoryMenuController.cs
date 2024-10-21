@@ -219,7 +219,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
                             IngredientId = item.IngredientId,
-                            Quantity = $"{ingredient.Quantity} + {item.Quantity}",
+                            Quantity = $"{ingredient.Quantity} + {item.Quantity} = {ingredient.Quantity + item.Quantity}",
                             Remarks = "Delivered"
 
                         };
@@ -304,7 +304,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
                             IngredientId = item.ingredientId,
-                            Quantity = $"{ingredient.Quantity} - {item.ingredientQty}",
+                            Quantity = $"{ingredient.Quantity} - {item.ingredientQty} = {ingredient.Quantity - item.ingredientQty}",
                             Remarks = remarks
 
                         };

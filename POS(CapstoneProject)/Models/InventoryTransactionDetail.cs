@@ -19,5 +19,8 @@ namespace POS_CapstoneProject_.Models
         public string Quantity {  get; set; }
         [Required]
         public string Remarks {  get; set; }
+
+        [Required]
+        public int RemainingStock {  get; set; }
     }
 }

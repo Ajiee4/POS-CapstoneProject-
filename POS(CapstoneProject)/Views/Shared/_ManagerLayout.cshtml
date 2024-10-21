@@ -25,18 +25,19 @@
     <link rel="stylesheet" href="~/css/General/Button.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Imprima&family=Inika:wght@400;700&display=swap" rel="stylesheet">
-   
+    <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap" rel="stylesheet">    <link href="https://fonts.googleapis.com/css2?family=Imprima&family=Inika:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
       <div class="header">
           <div class="left-section">
-                <div class="brand-logo">
-                    <img src="~/images/logo.jpg" />
-                </div>
+                <a href="@Url.Action("Index", "DashboardMenu")">
+                    <div class="brand-logo">
+                        <img src="~/images/logo.jpg" />
+                    </div>
+              </a>
+               
                 <div class="brand-name">
                     <div class="brand-first">DON <span class="brand-second">Macchiatos</span></div>
                 </div>

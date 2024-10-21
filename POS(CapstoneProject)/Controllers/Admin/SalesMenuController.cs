@@ -108,11 +108,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 ViewData["Cash"] = cashTendered;
                 ViewData["orderID"] = order.OrderId;
             }
-            else
-            {
-
-            }
-
+           
             var categoryList = await _context.Category
                                     .Where(s => s.IsArchive == false)
                                     .ToListAsync();
