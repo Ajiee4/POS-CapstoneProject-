@@ -62,7 +62,7 @@
                 </div>
                 <div class="box-top-right">
 
-                    <img src="~/images/totalUsers.png" />
+                    <img src="~/images/totalSales.png" />
 
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="box-top-right">
 
-                    <img src="~/images/totalUsers.png" />
+                    <img src="~/images/products_b.png" />
 
                 </div>
             </div>
@@ -164,11 +164,8 @@
                <th> Rank</th>
                 <th> Product Name</th>
                 <th> Total Sold</th>
-
-
                 @foreach (var item in salesReport)
                 {
-                    
                     if (rank == 1)
                     {
                         <tr>
@@ -192,8 +189,6 @@
                     }
                     rank++;
                 }
-             
-              
             </table>
         </div>
     </div>
@@ -202,5 +197,10 @@
         </canvas>
 
     </div>
+    <div class="sales">
+        <canvas class="SalesStatistics">
+        </canvas>
+
+    </div>
 </div>
-</div>
+</div> 
