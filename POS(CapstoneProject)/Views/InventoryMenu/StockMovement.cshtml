@@ -54,9 +54,10 @@
                 <th>ID</th>
                 <th>Request ID</th>
                 <th>User</th>
-                <th>Type</th>
+              @*   <th>Type</th> *@
                 <th>Ingredient</th>
                 <th>Quantity</th>
+                <th>Remaining Stock</th>
                 <th>Date</th>
                 <th>Remarks</th>
             </tr>
@@ -79,9 +80,10 @@
                             <td data-label="ID">@item.InventoryTransactId</td>
                             <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
-                            <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
+                           @*  <td data-label="Type">@item.InventoryTransaction?.TransactionType</td> *@
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>
                             <td data-label="Quantity">@item.Quantity</td>
+                            <td data-label="Remaining Stock">@item.RemainingStock</td>
                             <td data-label="Date">@item.InventoryTransaction?.TransactionDate.ToString("yyyy-MM-dd")</td>
                             <td data-label="Remarks">@item.Remarks</td>
                         </tr>
@@ -104,9 +106,10 @@
                             <td data-label="ID">@item.InventoryTransactId</td>
                             <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
-                            <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
+                            @* <td data-label="Type">@item.InventoryTransaction?.TransactionType</td> *@
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>
                             <td data-label="Quantity">@item.Quantity</td>
+                            <td data-label="Remaining Stock">@item.RemainingStock</td>
                             <td data-label="Date">@item.InventoryTransaction?.TransactionDate.ToString("yyyy-MM-dd")</td>
                             <td data-label="Remarks">@item.Remarks</td>
                         </tr>
@@ -129,9 +132,10 @@
                             <td data-label="ID">@item.InventoryTransactId</td>
                             <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
                             <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
-                            <td data-label="Type">@item.InventoryTransaction?.TransactionType</td>
+                           @*  <td data-label="Type">@item.InventoryTransaction?.TransactionType</td> *@
                             <td data-label="Ingredient">@item.Ingredient?.Name</td>
                             <td data-label="Quantity">@item.Quantity</td>
+                            <td data-label="Remaining Stock">@item.RemainingStock</td>
                             <td data-label="Date">@item.InventoryTransaction?.TransactionDate.ToString("yyyy-MM-dd")</td>
                             <td data-label="Remarks">@item.Remarks</td>
                         </tr>

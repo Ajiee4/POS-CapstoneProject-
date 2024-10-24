@@ -16,6 +16,6 @@ namespace POS_CapstoneProject_.Models
         [ForeignKey("RoleId")]
         public Role? Role { get; set; }
         [Required]
-        public bool isActive { get; set; }
+        public bool isArchive { get; set; }
     }
 }

@@ -23,12 +23,14 @@
 .inventory-table thead th{
     font-size: 0.7rem;
 }
-.inventory-table tbody tr:hover {
-    background-color: rgba(0,0,0,0.1);
-}
+
 .inventory-table tbody tr {
-    cursor: pointer
+    cursor: pointer;
+   
 }
+    .inventory-table tbody tr:hover {
+        box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.2), inset -1px 0 0 rgba(255, 255, 255, 0.2), 0 0 4px 0 rgba(95, 99, 104, .6), 0 0 6px 2px rgba(95, 99, 104, .6);
+    }
 .request-text {
     border-bottom: 1px solid transparent;
     transition: 0.3s ease-in-out;

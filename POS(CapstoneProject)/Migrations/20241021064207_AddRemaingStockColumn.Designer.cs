@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS_CapstoneProject_.Data;
 
@@ -11,9 +12,11 @@ using POS_CapstoneProject_.Data;
 namespace POS_CapstoneProject_.Migrations
 {
     [DbContext(typeof(POS_CapstoneProject_Context))]
-    partial class POS_CapstoneProject_ContextModelSnapshot : ModelSnapshot
+    [Migration("20241021064207_AddRemaingStockColumn")]
+    partial class AddRemaingStockColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,7 +304,7 @@ namespace POS_CapstoneProject_.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("isArchive")
+                    b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
                     b.HasKey("UserId");

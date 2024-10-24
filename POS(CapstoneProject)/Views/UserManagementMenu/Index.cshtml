@@ -40,7 +40,7 @@
 
                 @foreach (var item in userList)
                 {
-                    <tr class="@(item.User.isActive == true ? "" :"archived-user")">
+                    <tr class="@(item.User.isArchive == true ? "archived-user" :"")">
                         <td data-label="ID">@item.UserId</td>
                         <td data-label="Role">@item.User?.Role?.RoleName</td>
                         <td data-label="First Name">@item.Firstname</td>
@@ -63,7 +63,7 @@
                                    
                                 @if(item.UserId != userId)
                                 {
-                                    @if (item.User.isActive)
+                                    @if (!(item.User.isArchive))
                                     {
                                         <button class="btn archiveUserBtn general-archive-btn" data-toggle="tooltip" data-placement="bottom" title="Archive" onclick="ArchiveUser(@item.UserId)">
                                             <img src="~/images/inbox.png" />

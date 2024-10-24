@@ -79,23 +79,13 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         Username = username,
                         Password = password,
                         RoleId = 1,
-                        isActive = true
+                        isArchive = false
                     };
 
                     await _context.User.AddAsync(adduser);
                     await _context.SaveChangesAsync();
 
-                    var userDetails = new UserDetail()
-                    {
-                        UserId = adduser.UserId,
-                        Firstname = firstname,
-                        Lastname = lastname,
-                        EmailAddress = email,
-                        ContactNumber = cellnumber,
-                    };
-
-                    await _context.UserDetail.AddAsync(userDetails);
-                    await _context.SaveChangesAsync();
+                   
                 }
                 else if(role == "Cashier")
                 {
@@ -104,7 +94,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         Username = username,
                         Password = password,
                         RoleId = 2,
-                        isActive = true
+                        isArchive = false
                     };
 
                     await _context.User.AddAsync(adduser);
@@ -122,7 +112,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     await _context.UserDetail.AddAsync(userDetails);
                     await _context.SaveChangesAsync();
                 }
-              
+                
 
               
 
@@ -192,7 +182,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             if (findUser != null)
             {
-                findUser.isActive = true;
+                findUser.isArchive = false;
 
                 _context.User.Update(findUser);
                 await _context.SaveChangesAsync();
@@ -210,7 +200,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
             var findUser = await _context.User.Where(s => s.UserId == userid).FirstOrDefaultAsync();
             if (findUser != null)
             {
-                findUser.isActive = false;
+                findUser.isArchive = true;
 
                 _context.User.Update(findUser);
                 await _context.SaveChangesAsync();

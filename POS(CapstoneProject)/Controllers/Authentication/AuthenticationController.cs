@@ -41,7 +41,12 @@ namespace POS_CapstoneProject_.Controllers.Login
                 {
                     var check = await _context.UserDetail.Where(s => s.UserId == checkUsername.UserId).FirstOrDefaultAsync();
 
-                    if(check?.User?.isActive == true)
+                    if(check?.User?.isArchive == true)
+                    {
+                        TempData["Deactivated"] = "Account was deactivated";
+
+                    }
+                    else
                     {
                         switch (checkUsername.RoleId)
                         {
@@ -56,17 +61,10 @@ namespace POS_CapstoneProject_.Controllers.Login
                                 //HttpContext.Session.SetString("Name", check.Firstname);
                                 return RedirectToAction("Index", "Sales");
 
-                            case 3:
-                                HttpContext.Session.SetInt32("UserID", check.UserId);
-                                //HttpContext.Session.SetString("Name", check.Firstname);
-                                return RedirectToAction("Index", "StockManagerInterface");
 
                         }
 
-                    }
-                    else
-                    {
-                        TempData["Deactivated"] = "Account was deactivated";
+                       
                     }
 
 
