@@ -1,12 +1,12 @@
 ﻿@using Newtonsoft.Json;
+@using System.Text.Json
 @using Newtonsoft.Json.Linq;
 @using POS_CapstoneProject_.DTO;
 
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
-    var salesReportJson = TempData["SalesReport"] as string;
-    var salesReport = string.IsNullOrEmpty(salesReportJson) ? null : JsonConvert.DeserializeObject<List<SalesReport>>(salesReportJson);
-    int rank = 1;
+    var salesReportJson = TempData["SalesData"] as string;
+    var salesData = string.IsNullOrEmpty(salesReportJson) ? null : JsonConvert.DeserializeObject<List<SalesData>>(salesReportJson);
    
 }
 
@@ -108,7 +108,7 @@
             <div class="box-top">
                 <div class="box-top-left">
                     <div class="count-text">
-                        <div>@TempData["PendingRequest"]</div>
+                        <div>@TempData["pendingCount"]</div>
                     </div>
                     <div class="noUser">
                         <div>
@@ -124,7 +124,8 @@
             </div>
 
             <div class="box-bottom">
-                <div class="box-bottom-view">
+                <div  asp-action="" class="box-bottom-view">
+                    
                     <span class="view-more">view more</span>
                     <img src="~/images/next-black.png" />
                 </div>
@@ -134,65 +135,56 @@
         </div>
     </div>
     <div class="middlebox">
-        <canvas class="saleschart">
-        </canvas>
-        @* <div class="productRanking">
-            <div class="top3">
-                <div class="card">
-                    <div class="number place2">2</div>
-                    <img src="https://picsum.photos/200/301" alt="Jennie">
-                    <div class="name">Jennie</div>
-                    <div class="sold">2.5k</div>
-                </div>
-                <div class="card">
-                    <div class="number place1">1</div>
-                    <img src="https://picsum.photos/200/300" alt="Mino">
-                    <div class="name">Mino</div>
-                    <div class="sold">3.8k</div>
-                </div>
-                <div class="card">
-                    <div class="number place3">3</div>
-                    <img src="https://picsum.photos/200/302" alt="Vinxen">
-                    <div class="name">Vinxen</div>
-                    <div class="sold">1.2k</div>
-                </div>
+        <div class="charts-container">
+            <div class="chart-card glow">
+                <h3>Sales Analytics</h3>
+                <div id="salesChart"></div>
             </div>
-        </div> *@
-        <div id="leaderboard">
-            <div class="ribbon"></div>
-            <table>
-               <th> Rank</th>
-                <th> Product Name</th>
-                <th> Total Sold</th>
-                @foreach (var item in salesReport)
-                {
-                    if (rank == 1)
-                    {
-                        <tr>
-                            <td class="number">  <img class="gold-medal" src="https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true" alt="gold medal" />@rank</td>
-                            <td class="name">@item.Name</td>
-                            <td class="points">
-                                @item.TotalSold
-                            </td>
-
-                        </tr>
-                    }
-                    else
-                    {
-                        <tr>
-                            <td class="number">@rank</td>
-                            <td class="name">@item.Name</td>
-                            <td class="points">
-                                @item.TotalSold
-                            </td>
-                        </tr>
-                    }
-                    rank++;
-                }
-            </table>
         </div>
-    </div>
-    <div class="bottombox">
+        <div id="leaderboard">
+            @* <div class="top-cards">
+                <div class="card top">
+                    <div class="card-header">
+                        <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" alt="Avatar">
+                        <div class="name">Jacob</div>
+                        <div class="rank">1</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="score">1920</div>
+                    </div>
+                </div>
+                <div class="card top">
+                    <div class="card-header">
+                        <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" alt="Avatar">
+                        <div class="name">Jason</div>
+                        <div class="rank">2</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="score">2410</div>
+                    </div>
+                </div>
+                <div class="card top">
+                    <div class="card-header">
+                        <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" alt="Avatar">
+                        <div class="name">Ismail</div>
+                        <div class="rank">3</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="score">1810</div>
+                    </div>
+                </div>
+            </div> *@
+            <h3 class="card-title"> Product Ranking</h3>
+            <div class="sortbutton">
+                <button class="btn btn-outline-dark ">Daily </button>
+                <button class="btn btn-outline-dark">Monthly </button>
+                <button class="btn btn-outline-dark">Yearly </button>
+            </div>
+           <div class="ranking"></div>
+        </div>
+     </div>
+      
+    @* <div class="bottombox">
         <canvas class="saleschart">
         </canvas>
 
@@ -201,6 +193,95 @@
         <canvas class="SalesStatistics">
         </canvas>
 
-    </div>
+    </div> *@
 </div>
 </div> 
+<script>
+    const chartOptions = {
+        chart: {
+            type: 'area',
+            height: 500,
+            animations: {
+                enabled: true,
+                easing: 'easeinout',
+                speed: 800,
+                animateGradually: {
+                    enabled: true,
+                    delay: 150
+                },
+                dynamicAnimation: {
+                    enabled: true,
+                    speed: 350
+                }
+            },
+            toolbar: {
+                show: false
+            },
+            background: 'transparent'
+        },
+        colors: [
+            '#342825',  // Original Color
+            '#2b1e1b',  // Darker Shade 1
+            '#251b1b',  // Darker Shade 2
+            '#4a3a38',  // Lighter Shade 1
+            '#5f4e4c'   // Lighter Shade 2
+        ],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [20, 90, 100]
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'smooth',
+            width: 3
+        },
+        xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            labels: {
+                style: {
+                    colors: '#000'
+                }
+            }
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    colors: '#000'
+                }
+            }
+        },
+        tooltip: {
+            theme: 'dark'
+        },
+        grid: {
+            borderColor: 'rgba(0, 0, 0, .4)'
+        }
+    };
+
+    const salesData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(salesData));
+
+    console.log(salesData);
+
+    // Extract months and amounts for the chart
+    const chartMonths = salesData.map(data => data.Month);
+    const chartAmounts = salesData.map(data => data.Amount);
+
+    const salesChart = new ApexCharts(document.querySelector("#salesChart"), {
+        ...chartOptions,
+        series: [{
+            name: 'Sales',
+            data: chartAmounts
+        }],
+        xaxis: {
+            categories: chartMonths // Set the x-axis to display the months
+        }
+    });
+    salesChart.render();
+</script>

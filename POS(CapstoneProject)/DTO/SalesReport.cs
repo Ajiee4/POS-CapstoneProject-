@@ -6,6 +6,13 @@
         public string OrderDate { get; set; }
         public decimal TotalSales { get; set; }
         public int TotalSold { get; set; }
+        public string ImageBase64 { get; set; }
+        public string Filter { get; set; }
 
+    }
+    public class SalesData
+    {
+        public string Month { get; set; }
+        public decimal Amount { get; set; }
     }
 }
