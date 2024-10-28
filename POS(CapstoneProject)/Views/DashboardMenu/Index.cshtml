@@ -1,194 +1,287 @@
-﻿
+﻿@using Newtonsoft.Json;
+@using System.Text.Json
+@using Newtonsoft.Json.Linq;
+@using POS_CapstoneProject_.DTO;
+
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
+    var salesReportJson = TempData["SalesData"] as string;
+    var salesData = string.IsNullOrEmpty(salesReportJson) ? null : JsonConvert.DeserializeObject<List<SalesData>>(salesReportJson);
+
 }
 
 <style>
-    .link-dashboard{
+    .link-dashboard {
         background-color: #747474 !important;
     }
 </style>
 
-<div class="loader-wrapper">
-    <div class="loader"></div>
-</div>
+
 
 <div class="dashboard-wrapper">
-    <div class="box first">
-       <div class="box-top">
-           <div class="box-top-left">             
-                <div class="count-text">
-                    <div>0</div>
-                </div>
-                <div class="noUser">
-                    <div>
-                        No. of Users
+    <div class="topbox">
+        <div class="box first">
+            <div class="box-top">
+                <div class="box-top-left">
+                    <div class="count-text">
+                        <div>@TempData["UCount"]</div>
                     </div>
-                 </div>             
-           </div>
-            <div class="box-top-right">
-
-                <img src="~/images/totalUsers.png" />
-
-            </div>
-       </div>
-
-       <div class="box-bottom">
-           <div class="box-bottom-view">
-                <span class="view-more">view more</span>
-                <img src="~/images/next-black.png" />
-           </div>
-           
-       </div>
-      
-    </div>
-
-
-
-
-
-
-
-
-    <div class="box first">
-        <div class="box-top">
-            <div class="box-top-left">
-                <div class="count-text">
-                    <div>0</div>
-                </div>
-                <div class="noUser">
-                    <div>
-                        No. of Users
+                    <div class="noUser">
+                        <div>
+                            No. of Users
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="box-top-right">
+                <div class="box-top-right">
 
-                <img src="~/images/totalUsers.png" />
+                    <img src="~/images/totalUsers.png" />
 
-            </div>
-        </div>
-
-        <div class="box-bottom">
-            <div class="box-bottom-view">
-                <span class="view-more">view more</span>
-                <img src="~/images/next-black.png" />
-            </div>
-
-        </div>
-
-    </div>
-    <div class="box first">
-        <div class="box-top">
-            <div class="box-top-left">
-                <div class="count-text">
-                    <div>0</div>
                 </div>
-                <div class="noUser">
-                    <div>
-                        No. of Users
+            </div>
+
+            <div class="box-bottom">
+                <div class="box-bottom-view">
+                    <span class="view-more">view more</span>
+                    <img src="~/images/next-black.png" />
+                </div>
+
+            </div>
+
+        </div>
+        <div class="box first">
+            <div class="box-top">
+                <div class="box-top-left">
+                    <div class="count-text">
+                        <div>@TempData["TotalSales"]</div>
+                    </div>
+                    <div class="noUser">
+                        <div>
+                            Total Sales
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="box-top-right">
+                <div class="box-top-right">
 
-                <img src="~/images/totalUsers.png" />
+                    <img src="~/images/totalSales.png" />
 
-            </div>
-        </div>
-
-        <div class="box-bottom">
-            <div class="box-bottom-view">
-                <span class="view-more">view more</span>
-                <img src="~/images/next-black.png" />
-            </div>
-
-        </div>
-
-    </div>
-    <div class="box first">
-        <div class="box-top">
-            <div class="box-top-left">
-                <div class="count-text">
-                    <div>0</div>
                 </div>
-                <div class="noUser">
-                    <div>
-                        No. of Users
+            </div>
+
+            <div class="box-bottom">
+                <div class="box-bottom-view">
+                    <span class="view-more">view more</span>
+                    <img src="~/images/next-black.png" />
+                </div>
+
+            </div>
+
+        </div>
+        <div class="box first">
+            <div class="box-top">
+                <div class="box-top-left">
+                    <div class="count-text">
+                        <div>@TempData["PCount"]</div>
+                    </div>
+                    <div class="noUser">
+                        <div>
+                            No. of Products
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="box-top-right">
+                <div class="box-top-right">
 
-                <img src="~/images/totalUsers.png" />
+                    <img src="~/images/products_b.png" />
 
-            </div>
-        </div>
-
-        <div class="box-bottom">
-            <div class="box-bottom-view">
-                <span class="view-more">view more</span>
-                <img src="~/images/next-black.png" />
+                </div>
             </div>
 
-        </div>
+            <div class="box-bottom">
+                <div class="box-bottom-view">
+                    <span class="view-more">view more</span>
+                    <img src="~/images/next-black.png" />
+                </div>
 
-    </div>
-@* 
-    <div class="box second">
-        <div class="box-top">
-            <div class="count">
-                <span class="count-text">₱@ViewData["TotalSales"]</span>
             </div>
-            <div class="icon">
-                <img src="~/images/totalSales.png" />
+
+        </div>
+        <div class="box first">
+            <div class="box-top">
+                <div class="box-top-left">
+                    <div class="count-text">
+                        <div>@TempData["pendingCount"]</div>
+                    </div>
+                    <div class="noUser">
+                        <div>
+                            Pending Requests
+                        </div>
+                    </div>
+                </div>
+                <div class="box-top-right">
+
+                    <img src="~/images/totalUsers.png" />
+
+                </div>
             </div>
-        </div>
 
-        <div class="box-middle">
-            <span class="label">Daily Sales</span>
-        </div>
+            <div class="box-bottom">
+                <div asp-action="" class="box-bottom-view">
 
-        <div class="box-bottom view-more-second">
-            <span class="view-more">view more</span>
-            <img src="~/images/next-black.png" />
-        </div>
-    </div>
+                    <span class="view-more">view more</span>
+                    <img src="~/images/next-black.png" />
+                </div>
 
-    <div class="box third">
-       <div class="box-top">
-           <div class="count">
-                <span class="count-text">@ViewData["CountProduct"]</span>
-           </div>
-            <div class="icon">
-                <img src="~/images/totalProduct.png" />
-           </div>
-       </div>
-       <div class="box-middle">
-           <span class="label">No. of products</span>
-       </div>
-        <div class="box-bottom view-more-third">
-           <span class="view-more">view more</span>
-            <img src="~/images/next-black.png" />
-       </div>
-    </div>
-
-    <div class="box fourth">
-        <div class="box-top">
-            <div class="count">
-                <span class="count-text">@ViewData["CountCategory"]</span>
             </div>
-            <div class="icon">
-                <img src="~/images/category-black.png" />
-            </div>
-        </div>
-        <div class="box-middle">
-            <span class="label">No. of Categories</span>
-        </div>
-        <div class="box-bottom  view-more-fourth">
-            <span class="view-more">view more</span>
-            <img src="~/images/next-black.png" />
+
         </div>
     </div>
- *@
+    <div class="middlebox">
+        <div class="charts-container">
+            <div class="chart-card glow">
+                <h3>Sales Analytics</h3>
+                <div id="salesChart"></div>
+            </div>
+        </div>
+        <div id="leaderboard">
+            @* <div class="top-cards">
+            <div class="card top">
+            <div class="card-header">
+            <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" alt="Avatar">
+            <div class="name">Jacob</div>
+            <div class="rank">1</div>
+            </div>
+            <div class="card-body">
+            <div class="score">1920</div>
+            </div>
+            </div>
+            <div class="card top">
+            <div class="card-header">
+            <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" alt="Avatar">
+            <div class="name">Jason</div>
+            <div class="rank">2</div>
+            </div>
+            <div class="card-body">
+            <div class="score">2410</div>
+            </div>
+            </div>
+            <div class="card top">
+            <div class="card-header">
+            <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" alt="Avatar">
+            <div class="name">Ismail</div>
+            <div class="rank">3</div>
+            </div>
+            <div class="card-body">
+            <div class="score">1810</div>
+            </div>
+            </div>
+            </div> *@
+            <h3 class="card-title"> Product Ranking</h3>
+            <div class="sortbutton">
+                <button class="btn btn-outline-dark ">Daily </button>
+                <button class="btn btn-outline-dark">Monthly </button>
+                <button class="btn btn-outline-dark">Yearly </button>
+            </div>
+            <div class="ranking"></div>
+        </div>
+    </div>
+
+    @* <div class="bottombox">
+    <canvas class="saleschart">
+    </canvas>
+
+    </div>
+    <div class="sales">
+    <canvas class="SalesStatistics">
+    </canvas>
+
+    </div> *@
 </div>
+</div>
+<script>
+    const chartOptions = {
+        chart: {
+            type: 'area',
+            height: 500,
+            animations: {
+                enabled: true,
+                easing: 'easeinout',
+                speed: 800,
+                animateGradually: {
+                    enabled: true,
+                    delay: 150
+                },
+                dynamicAnimation: {
+                    enabled: true,
+                    speed: 350
+                }
+            },
+            toolbar: {
+                show: false
+            },
+            background: 'transparent'
+        },
+        colors: [
+            '#342825',  // Original Color
+            '#2b1e1b',  // Darker Shade 1
+            '#251b1b',  // Darker Shade 2
+            '#4a3a38',  // Lighter Shade 1
+            '#5f4e4c'   // Lighter Shade 2
+        ],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [20, 90, 100]
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'smooth',
+            width: 3
+        },
+        xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            labels: {
+                style: {
+                    colors: '#000'
+                }
+            }
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    colors: '#000'
+                }
+            }
+        },
+        tooltip: {
+            theme: 'dark'
+        },
+        grid: {
+            borderColor: 'rgba(0, 0, 0, .4)'
+        }
+    };
+
+    const salesData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(salesData));
+
+    console.log(salesData);
+
+    // Extract months and amounts for the chart
+    const chartMonths = salesData.map(data => data.Month);
+    const chartAmounts = salesData.map(data => data.Amount);
+
+    const salesChart = new ApexCharts(document.querySelector("#salesChart"), {
+        ...chartOptions,
+        series: [{
+            name: 'Sales',
+            data: chartAmounts
+        }],
+        xaxis: {
+            categories: chartMonths // Set the x-axis to display the months
+        }
+    });
+    salesChart.render();
+</script>
