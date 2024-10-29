@@ -69,9 +69,10 @@
             <tbody>
                 @foreach (var item in salesReport)
                 {
+                    var parseDate = DateTime.Parse(item.OrderDate);
                     <tr>
                         <td data-label="Name">@item.Name</td>
-                        <td data-label="Date">@item.OrderDate</td>
+                        <td data-label="Date">@parseDate.Year-@parseDate.Month-@parseDate.Day</td>
                         <td data-label="Total Sales">₱@Math.Round((item.TotalSales), 2)</td>
                         <td data-label="Total Sold">@item.TotalSold</td>
                     </tr>

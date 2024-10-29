@@ -1,48 +1,48 @@
-﻿$(document).ready(function () {
-    function loadSalesReport(filterType) {
-        $.ajax({
-            type: 'POST',
-            url: '/DashboardMenu/GetSalesReport', // Update with your controller path
-            data: { filterType: filterType },
-            success: function (data) {
-                console.log(data);
-                $('.ranking').empty(); // Clear current leaderboard
+﻿//$(document).ready(function () {
+//    function loadSalesReport(filterType) {
+//        $.ajax({
+//            type: 'POST',
+//            url: '/DashboardMenu/GetSalesReport', // Update with your controller path
+//            data: { filterType: filterType },
+//            success: function (data) {
+//                console.log(data);
+//                $('.ranking').empty(); // Clear current leaderboard
 
-                $.each(data, function (index, item) {
-                    let card = `
-                        <div class="card">
-                            <div class="card-header">
-                                <h1 class="rank">${index + 1}</h1>
-                                <img src="data:image/jpeg;base64,${item.imageBase64}" alt="Avatar">
-                                <div class="name">${item.name}</div>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="sold">${item.totalSold}</h3>
-                            </div>
-                        </div>
-                    `;
-                    $('.ranking').append(card);
-                });
-            },
-            error: function () {
-                alert("Failed to load sales data.");
-            }
-        });
-    }
+//                $.each(data, function (index, item) {
+//                    let card = `
+//                        <div class="card">
+//                            <div class="card-header">
+//                                <h1 class="rank">${index + 1}</h1>
+//                                <img src="data:image/jpeg;base64,${item.imageBase64}" alt="Avatar">
+//                                <div class="name">${item.name}</div>
+//                            </div>
+//                            <div class="card-body">
+//                                <h3 class="sold">${item.totalSold}</h3>
+//                            </div>
+//                        </div>
+//                    `;
+//                    $('.ranking').append(card);
+//                });
+//            },
+//            error: function () {
+//                alert("Failed to load sales data.");
+//            }
+//        });
+//    }
 
-    let defaultFilterType = 'daily';
+//    let defaultFilterType = 'daily';
 
-    let defaultButton = $('.sortbutton button').filter(function () {
-        return $(this).text().trim().toLowerCase() === defaultFilterType;
-    });
-    defaultButton.addClass('active'); // Set active class on default button
-    loadSalesReport(defaultFilterType);
-    // Update the active class on button click
-    $('.sortbutton button').on('click', function () {
-        let filterType = $(this).text().toLowerCase();
-        $(this).addClass('active').siblings().removeClass('active');
-        loadSalesReport(filterType); // Load sales report with selected filter
-    });
+//    let defaultButton = $('.sortbutton button').filter(function () {
+//        return $(this).text().trim().toLowerCase() === defaultFilterType;
+//    });
+//    defaultButton.addClass('active'); // Set active class on default button
+//    loadSalesReport(defaultFilterType);
+//    // Update the active class on button click
+//    $('.sortbutton button').on('click', function () {
+//        let filterType = $(this).text().toLowerCase();
+//        $(this).addClass('active').siblings().removeClass('active');
+//        loadSalesReport(filterType); // Load sales report with selected filter
+//    });
 
 
 
@@ -69,4 +69,34 @@
     //            dailySalesChart.render();
     //        });
     //});
+/*});*/
+
+
+window.addEventListener('load', () => {
+
 });
+
+
+function filterProdRanking(filterType, elem) {
+    document.querySelectorAll('.sortbutton button').forEach(item => {
+        item.classList.remove('active');
+        elem.classList.add('active');
+    })
+
+    if (filterType === "Daily") {
+        $('.daily-ranking').show();
+        $('.monthly-ranking').hide();
+        $('.yearly-ranking').hide();
+    }
+    else if (filterType === "Monthly") {
+        $('.daily-ranking').hide();
+        $('.monthly-ranking').show();
+        $('.yearly-ranking').hide();
+    }
+    else if (filterType === "Yearly") {
+        $('.daily-ranking').hide();
+        $('.monthly-ranking').hide();
+        $('.yearly-ranking').show();
+    }
+   
+}

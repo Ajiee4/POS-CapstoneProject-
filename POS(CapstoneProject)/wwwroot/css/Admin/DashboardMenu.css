@@ -8,7 +8,6 @@
 .dashboard-wrapper {
     margin: 0;
     padding: 0;
-    border: red solid 1px;
     width: 100%;
 }
 
@@ -21,12 +20,14 @@
     background-color: transparent;
     height: 250px;
     margin-bottom: 10px;
+    margin-top: -20px;
+  
 }
 
 .box {
     background: #EEEEEE;
     border-radius: 10px;
-    border: 2px #A44B34 solid !important;
+   /* border: 2px #A44B34 solid !important;*/
     height: 150px;
     width: 100%;
     border: 1px solid #ccc;
@@ -76,8 +77,12 @@
     font-size: .6rem;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
-
+.box .box-bottom a{
+    text-decoration: none;
+    color: black;
+}
 .count-text {
     font-weight: bold;
     text-align: center;
@@ -117,7 +122,7 @@
 
 .middlebox {
     width: 100%;
-    border: 1px red solid;
+   
     gap: 10px;
     display: flex;
     justify-content: space-around;
@@ -179,16 +184,27 @@
     width: 100%; /* Full width of the leaderboard */
     max-height: 90px; /* Set a max height for cards */
 }
-    .card > *{
-        border: 1px solid red;
-    }
-    .card-header img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-    }
+.card > *{
+  /*  border: 1px solid red;*/
+}
+.card-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.withImage {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.noImage {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: black;
+}
 
-.card-header{
+.card-header {
     width: 80%;
 }
 .card-body{
@@ -240,4 +256,8 @@
 .ranking {
     width: 100%;
     height: 100%;
+}
+
+.monthly-ranking, .yearly-ranking{
+    display: none;
 }
