@@ -27,7 +27,7 @@
                     <option value="Canceled">Canceled</option>
                 </select>
             </div>
-
+            
             <div class="request-fromdate-wrapper">
                  <label>From</label>
                  <input type="date" class="fromDate" name="fromDate"/>
@@ -63,15 +63,19 @@
             var requestPending = ViewData["RequestPending"] as string;
             var requestPendingList = JsonConvert.DeserializeObject<List<Request>>(requestPending);
 
+         
+
             if (requestPendingList != null)
             {
-                if (requestPendingList.Count == 0)
+                var request = requestPendingList.Where(s => s.Status == "Pending").ToList();
+
+                if (request.Count == 0)
                 {
                     <p class="noResultPara">No Pending Requests Found</p>
                 }
                 else
                 {
-                    foreach (var item in requestPendingList.Where(s => s.Status == "Pending"))
+                    foreach (var item in request)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
                         string FullName = $"{@employee?.Firstname} {@employee?.Lastname}";
@@ -111,13 +115,15 @@
 
             if (requestCompletedList != null)
             {
-                if (requestCompletedList.Count == 0)
+                var request = requestCompletedList.Where(s => s.Status == "Completed").ToList();
+
+                if (request.Count == 0)
                 {
                     <p class="noResultPara">No Completed Requests Found</p>
                 }
                 else
                 {
-                    foreach (var item in requestCompletedList.Where(s => s.Status == "Completed"))
+                    foreach (var item in request)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
                         string FullName = $"{@employee?.Firstname} {@employee?.Lastname}";
@@ -157,13 +163,14 @@
 
             if (requestCanceledList != null)
             {
-                if (requestCanceledList.Count == 0)
+                var request = requestCanceledList.Where(s => s.Status == "Canceled").ToList();
+                if (request.Count == 0)
                 {
                     <p class="noResultPara">No Canceled Requests Found</p>
                 }
                 else
                 {
-                    foreach (var item in requestCanceledList.Where(s => s.Status == "Canceled"))
+                    foreach (var item in request)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
                         string FullName = $"{@employee?.Firstname} {@employee?.Lastname}";

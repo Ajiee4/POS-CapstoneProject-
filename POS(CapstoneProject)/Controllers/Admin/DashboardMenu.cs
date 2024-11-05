@@ -97,7 +97,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                                     OrderDate = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(g.Key.Month),
                                                     TotalSales = g.Sum(x => x.od.Quantity * x.p.Price),
                                                     TotalSold = g.Sum(x => x.od.Quantity),
-                                                    ImageBase64 = g.Key.ImageData != null ? Convert.ToBase64String(g.Key.ImageData) : null,
+                                                  
 
                                                 })
                                                 .OrderBy(result => result.OrderDate)
@@ -119,7 +119,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                                    OrderDate = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(g.Key.Month),
                                                    TotalSales = g.Sum(x => x.od.Quantity * x.p.Price),
                                                    TotalSold = g.Sum(x => x.od.Quantity),
-                                                   ImageBase64 = g.Key.ImageData != null ? Convert.ToBase64String(g.Key.ImageData) : null,
+                                                
 
                                                })
                                                .OrderBy(result => result.OrderDate)
@@ -142,7 +142,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                                    OrderDate = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(g.Key.Month),
                                                    TotalSales = g.Sum(x => x.od.Quantity * x.p.Price),
                                                    TotalSold = g.Sum(x => x.od.Quantity),
-                                                   ImageBase64 = g.Key.ImageData != null ? Convert.ToBase64String(g.Key.ImageData) : null,
+                                                
 
                                                })
                                                .OrderBy(result => result.OrderDate)
@@ -171,48 +171,6 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
 
         }
-        //[HttpPost]
-        //public IActionResult GetSalesReport(string filterType)
-        //{
-        //    var salesData = _context.Order
-        //        .Join(_context.OrderDetails, o => o.OrderId, od => od.OrderId, (o, od) => new { o, od })
-        //        .Join(_context.Product, o_od => o_od.od.ProductId, p => p.ProductId, (o_od, p) => new { o_od.o, o_od.od, p });
-
-        //    if (filterType == "daily")
-        //    {
-        //        salesData = salesData.Where(x => x.o.OrderDate.Date == DateTime.Now.Date);
-        //    }
-        //    else if (filterType == "monthly")
-        //    {
-        //        salesData = salesData.Where(x => x.o.OrderDate.Year == DateTime.Now.Year && x.o.OrderDate.Month == DateTime.Now.Month);
-        //    }
-        //    else if (filterType == "yearly")
-        //    {
-        //        salesData = salesData.Where(x => x.o.OrderDate.Year == DateTime.Now.Year);
-        //    }
-
-        //    var result = salesData
-        //                .GroupBy(g => new {
-        //                    g.p.Name,
-        //                    g.p.ImageData,
-        //                    Month = DateTime.Now.Month
-        //                })
-        //                .AsEnumerable() // Switch to client-side processing
-        //                .Select(g => new SalesReport
-        //                {
-        //                    Name = g.Key.Name,
-        //                    OrderDate = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(g.Key.Month),
-        //                    TotalSales = g.Sum(x => x.od.Quantity * x.p.Price),
-        //                    TotalSold = g.Sum(x => x.od.Quantity),
-        //                    ImageBase64 = g.Key.ImageData != null ? Convert.ToBase64String(g.Key.ImageData) : null,
-        //                    Filter = filterType
-        //                })
-        //                .OrderBy(result => result.OrderDate)
-        //                .ThenByDescending(result => result.TotalSold)
-        //                .ThenBy(result => result.Name)
-        //                .ToList();
-
-        //    return View();// Returns JSON data to AJAX
-        //}
+       
     }
 }

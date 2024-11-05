@@ -1,5 +1,15 @@
 ﻿let requestListUpdate = [];
 $(document).ready(function () {
+
+    var d = new Date();
+    var day = ("0" + d.getDate()).slice(-2);
+    var month = ("0" + (d.getMonth() + 1)).slice(-2);
+
+    var today = d.getFullYear() + "-" + month + "-" + day;
+    document.querySelector('.fromDate').value = today;
+    document.querySelector('.toDate').value = today;
+   
+
     $('.stock-movement-table').DataTable({
         "paging": true,
         "ordering": true,
@@ -76,7 +86,7 @@ function ShowRequestModal() {
                 let row = `<tr>
                                   <td>${truncatedName}</td>
                                   <td>
-                                       <input class="inputQtyRequest" data-requestid="${deta.RequestId}" data-id="${deta.IngredientId}" onchange="changeQtyRequest(this)" oninput="validateQtyRequest(this)" value="${deta.Quantity}" />
+                                       <input class="inputQtyRequest" maxlength="9" data-requestid="${deta.RequestId}" data-id="${deta.IngredientId}" onchange="changeQtyRequest(this)" oninput="validateQtyRequest(this)" value="${deta.Quantity}" />
                                   </td>
                           </tr>
                           `;
