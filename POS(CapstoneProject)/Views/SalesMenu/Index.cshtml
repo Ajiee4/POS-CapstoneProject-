@@ -7,9 +7,9 @@
 }
 
 <style>
-    .header .right-section .checkout-icon {
+    /* .header .right-section .checkout-icon {
         display: block ;
-    }
+    } */
 
     .container-all{
         overflow:hidden !important;
@@ -26,7 +26,7 @@
 </div>
 
 <!--Checkout Wrapper-->
-<div class="checkout-wrapper checkHide">
+<div class="checkout-wrapper">
     <div class="checkout-content-wrapper">
        
         <button type="button" class="close exitCheckout">
@@ -40,11 +40,17 @@
             <table class="checkout-table">
                 <thead>
                     <tr>
-                        <th style="color: transparent">aaa</th>
-                        <th class="table-header-name">Name &nbsp;&nbsp;&nbsp;</th>
+
+
                         <th class="table-header-quantity">Qty</th>
-                        <th class="table-header-coffee">w/coffee</th>
-                        <th class="table-header-price">Price &nbsp;</th>
+                        <th class="table-header-name">Name</th>
+                        <th class="table-header-coffee">W/Coffee</th>
+                        <th class="table-header-price">Price</th>
+                        <th style="color: transparent">aaa</th>
+                      
+                       
+                      
+                      
                     </tr>
                 </thead>
 
@@ -126,20 +132,17 @@
                     @foreach (var prod in productList)
                     {
                         <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category?.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
-                            <div class="product-item-img">
-                                @if (prod.ImageData != null)
-                                {
-                                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
-                                }
-                                else
-                                {
-                                    <span></span>
-                                }
+                           
+                            <div class="product-item-content">
+                                <div class="product-item-name" data-category="@prod.Category?.CategoryName">
+                                    <span>@prod.Name</span>
+                                </div>
+                                <div class="product-item-price">
+                                    <span>₱@prod.Price</span>
+                                </div>
                             </div>
 
-                            <div class="product-item-name" data-category="@prod.Category?.CategoryName">
-                                <span>@prod.Name</span>
-                            </div>
+                          
                         </div>
                     }
                 }            

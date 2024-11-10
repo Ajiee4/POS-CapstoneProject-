@@ -51,15 +51,12 @@
     <table class="stock-movement-table general-table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Request ID</th>
-                <th>User</th>
-              @*   <th>Type</th> *@
-                <th>Ingredient</th>
-                <th>Quantity</th>
-                <th>Remaining Stock</th>
+                <th>Transaction ID</th>
+                <th>Requested By</th>
                 <th>Date</th>
                 <th>Remarks</th>
+                <th>Action</th>
+                
             </tr>
         </thead>
 
@@ -68,50 +65,40 @@
             @if (ViewData["inventoryAll"] != null)
             {
                 var inventoryAllList = ViewData["inventoryAll"] as string;
-                var inventoryAll = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
+                var inventoryAll = JsonConvert.DeserializeObject<List<InventoryTransaction>>(inventoryAllList);
          
                 if(inventoryAll != null)
                 {
                     @foreach (var item in inventoryAll)
                     {
-                        var checkUser = data.UserDetail.Where(s => s.UserId == item.InventoryTransaction.UserId).FirstOrDefault();
-
+                        var checkUser = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault(); 
                         <tr>
-                            <td data-label="ID">@item.InventoryTransactId</td>
-                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
-                            <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
-                           @*  <td data-label="Type">@item.InventoryTransaction?.TransactionType</td> *@
-                            <td data-label="Ingredient">@item.Ingredient?.Name</td>
-                            <td data-label="Quantity">@item.Quantity</td>
-                            <td data-label="Remaining Stock">@item.RemainingStock</td>
-                            <td data-label="Date">@item.InventoryTransaction?.TransactionDate.ToString("yyyy-MM-dd")</td>
-                            <td data-label="Remarks">@item.Remarks</td>
+                            <td>@item.InventoryTransactId</td>
+                            <td>@checkUser.Firstname @checkUser.Lastname</td>
+                            <td>@item.TransactionDate.ToString("yyyy-MM-dd")</td>
+                            <td>@item.Remarks</td>
+                            <td><button class="btn viewDetailsBtn" data-transactid="@item.InventoryTransactId" data-toggle="modal" data-target="#viewStockMovementDetails" onclick="viewTransaction(this)">View</button></td>                
                         </tr>
                     }
                 }                   
             }
-            <!--Inventory Stock in-->
+           <!--Inventory Stock in-->
             @if (ViewData["inventoryStockIn"] != null)
             {
                 var inventoryStockInList = ViewData["inventoryStockIn"] as string;
-                var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryStockInList);       
+                var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransaction>>(inventoryStockInList);       
 
                 if (inventoryStockIn != null)
                 {
-                    @foreach (var item in inventoryStockIn.Where(s => s.InventoryTransaction.TransactionType == "Stock In"))
+                    @foreach (var item in inventoryStockIn.Where(s => s.TransactionType == "Stock In"))
                     {
-                        var checkUser = data.UserDetail.Where(s => s.UserId == item.InventoryTransaction.UserId).FirstOrDefault();
-
+                        var checkUser = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
                         <tr>
-                            <td data-label="ID">@item.InventoryTransactId</td>
-                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
-                            <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
-                            @* <td data-label="Type">@item.InventoryTransaction?.TransactionType</td> *@
-                            <td data-label="Ingredient">@item.Ingredient?.Name</td>
-                            <td data-label="Quantity">@item.Quantity</td>
-                            <td data-label="Remaining Stock">@item.RemainingStock</td>
-                            <td data-label="Date">@item.InventoryTransaction?.TransactionDate.ToString("yyyy-MM-dd")</td>
-                            <td data-label="Remarks">@item.Remarks</td>
+                            <td>@item.InventoryTransactId</td>
+                            <td>@checkUser.Firstname @checkUser.Lastname</td>
+                            <td>@item.TransactionDate.ToString("yyyy-MM-dd")</td>
+                            <td>@item.Remarks</td>
+                            <td><button class="btn viewDetailsBtn" data-transactid="@item.InventoryTransactId" data-toggle="modal" data-target="#viewStockMovementDetails" onclick="viewTransaction(this)" >View</button></td>
                         </tr>
                     }
                 }              
@@ -120,31 +107,73 @@
             @if (ViewData["inventoryStockOut"] != null)
             {
                 var inventoryAllList = ViewData["inventoryStockOut"] as string;
-                var inventoryStockOut = JsonConvert.DeserializeObject<List<InventoryTransactionDetail>>(inventoryAllList);
+                var inventoryStockOut = JsonConvert.DeserializeObject<List<InventoryTransaction>>(inventoryAllList);
                
                 if (inventoryStockOut != null)
                 {
-                    @foreach (var item in inventoryStockOut.Where(s => s.InventoryTransaction.TransactionType == "Stock Out"))
+                    @foreach (var item in inventoryStockOut.Where(s => s.TransactionType == "Stock Out"))
                     {
-                        var checkUser = data.UserDetail.Where(s => s.UserId == item.InventoryTransaction.UserId).FirstOrDefault();
-                        
+                        var checkUser = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
                         <tr>
-                            <td data-label="ID">@item.InventoryTransactId</td>
-                            <td data-label="Request Id">@(item.InventoryTransaction.RequestId != null ? item.InventoryTransaction.RequestId : "N/A")</td>
-                            <td data-label="User">@checkUser?.Firstname @checkUser?.Lastname</td>
-                           @*  <td data-label="Type">@item.InventoryTransaction?.TransactionType</td> *@
-                            <td data-label="Ingredient">@item.Ingredient?.Name</td>
-                            <td data-label="Quantity">@item.Quantity</td>
-                            <td data-label="Remaining Stock">@item.RemainingStock</td>
-                            <td data-label="Date">@item.InventoryTransaction?.TransactionDate.ToString("yyyy-MM-dd")</td>
-                            <td data-label="Remarks">@item.Remarks</td>
+                            <td>@item.InventoryTransactId</td>
+                            <td>@checkUser.Firstname @checkUser.Lastname</td>
+                            <td>@item.TransactionDate.ToString("yyyy-MM-dd")</td>
+                            <td>@item.Remarks</td>
+                            <td><button class="btn viewDetailsBtn" data-transactid="@item.InventoryTransactId" data-toggle="modal" data-target="#viewStockMovementDetails" onclick="viewTransaction(this)">View</button></td>
                         </tr>
                     }
                 }           
-            }
+            } 
         </tbody>
     </table>
 </div>
+
+
+<!--View Stock Movement Transaction Modal-->
+<div class="modal fade general-modal" id="viewStockMovementDetails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+        @*     <img src="~/images/coffe-logo-light.png" class="add-category-modal-img general-coffee-img-bottom" /> *@
+
+            <div class="modal-header">
+                <h5 class="modal-title"> TRANSACTION 
+                    DETAILS</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <br />
+
+            <div class="modal-body">
+              <table class="transaction-details-table">
+                  <thead>
+                      <tr>
+                          <th>Ingredient</th>
+                          <th>Quantity Movement</th>
+                          <th>Quantity On Hand</th>
+                          <th>Updated Quantity</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    
+                  </tbody>
+              </table>
+              <br />
+                <button type="button" data-dismiss="modal" class="d-block mx-auto general-modal-button">BACK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    let inventoryDetails = @Html.Raw(ViewData["stockMovementDetails"]);
+</script>
+
 
 
 <!--Set Filter-->

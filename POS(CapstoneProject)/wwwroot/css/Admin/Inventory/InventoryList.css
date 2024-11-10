@@ -31,18 +31,14 @@
     .inventory-table tbody tr:hover {
         box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.2), inset -1px 0 0 rgba(255, 255, 255, 0.2), 0 0 4px 0 rgba(95, 99, 104, .6), 0 0 6px 2px rgba(95, 99, 104, .6);
     }
-.request-text {
-    border-bottom: 1px solid transparent;
-    transition: 0.3s ease-in-out;
-}
-.request-text:hover{
-    border-bottom-color: black; 
-}
+
 
 
 .inventory-table .action-wrapper{
     display: flex;
-    justify-content: space-between !important;
+    justify-content: center !important;
+  /*  background-color: red;*/
+    position: relative;
 }
 
 .inventory-table .action-button button {
@@ -65,12 +61,28 @@
     padding: 5px;
 }
 
+.request-text-wrapper, .action-warning {
+    position: absolute;
+    right: 0;
+}
+
+.request-text {
+    border-bottom: 1px solid transparent;
+    transition: 0.3s ease-in-out;
+    font-size: 0.7rem;
+}
+
+.request-text:hover {
+    border-bottom-color: black;
+}
+    
 .warning-icon-wrapper .warning-icon {
     height: 25px;
     width: 25px;
     transition: 0.8s ease-in-out;
     animation: glowing 1s infinite;
 }
+
 
 
 
@@ -212,14 +224,13 @@ Request & Stock Out*/
     width: 100%;  
 }
 
-.styled-table thead tr {
-    position: sticky;
-    background-color: #342924;
-    color: #ffffff;
-    z-index: 1;
-    top: 0;
-   
-}
+    .styled-table thead tr {
+        position: sticky;
+        background-color: #1F1C1C;
+        color: #ffffff;
+        z-index: 1;
+        top: 0;
+    }
 .styled-table thead th {
     padding: 10px 0px;
 }
@@ -257,7 +268,7 @@ Request & Stock Out*/
 .request-list-footer .requestSubmit {
     width: 120px;
     height: 50px;
-    background-color: #342924;
+    background-color: #1F1C1C;
     font-size: 1rem;
     font-weight: bolder;
     color: white;
@@ -295,31 +306,31 @@ Request & Stock Out*/
    
 }
 
-.footer-buttons-wrapper .stockOutSubmit {
-    width: 120px;
-    height: 50px;
-    background-color: #342924;
-    font-size: 1rem;
-    font-weight: bolder;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 20px;  
-    transition: .3ms ease-in-out;
-}
-
-    .footer-buttons-wrapper .cancelStockOut {
-        cursor: pointer;
+    .footer-buttons-wrapper .stockOutSubmit {
         width: 120px;
         height: 50px;
-        background-color: transparent;
+        background-color: #1F1C1C;
         font-size: 1rem;
         font-weight: bolder;
         color: white;
-        border: 1px solid black;
+        border: none;
+        cursor: pointer;
         border-radius: 20px;
         transition: .3ms ease-in-out;
     }
+
+.footer-buttons-wrapper .cancelStockOut {
+    cursor: pointer;
+    width: 120px;
+    height: 50px;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    transition: .3ms ease-in-out;
+}
 
 .stockOutRemarks {
     width: 100%;

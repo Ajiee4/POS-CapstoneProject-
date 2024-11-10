@@ -8,7 +8,7 @@
     var salesReport = string.IsNullOrEmpty(salesReportJson) ? null : JsonConvert.DeserializeObject<List<SalesReport>>(salesReportJson);
 
     var inventoryReportJson = ViewData["InventoryReport"] as string;
-    var inventoryReport = string.IsNullOrEmpty(inventoryReportJson) ? null : JsonConvert.DeserializeObject<List<InventoryReport>>(inventoryReportJson);    
+    var inventoryReport = string.IsNullOrEmpty(inventoryReportJson) ? null : JsonConvert.DeserializeObject<List<Ingredient>>(inventoryReportJson);    
 }
 <style>
     .link-salesreport {
@@ -26,7 +26,7 @@
         <div class="report-type-wrapper">
             <label>Report Type</label>
 
-            <select class="selectReportType" name="reportType">
+            <select class="selectReportType" onchange="reportTypeChange(this)" name="reportType">
                 <option selected disabled hidden>Select a type</option>
                 <option value="Sales Report">Sales Report</option>
                 <option value="Inventory Report">Inventory Report</option>
@@ -43,6 +43,15 @@
             <input type="date" class="toDateReport" name="toDate" />
         </div>
 
+        <div class="inventory-bytype-wrapper">
+            <label>By:</label>
+            <select class="inventoryByType" name="inventoryByType">
+                <option value="Ingredient">Ingredient</option>
+                <option value="Product">Product</option>
+            </select>
+        </div>
+
+
         <div class="report-button-wrapper">
             <button type="button" class="generateReportBtn">GENERATE</button>
         </div>
@@ -56,25 +65,27 @@
     <!--Report Table Wrapper-->
     <table class="report-table general-table">
         @if (salesReport != null)
-        {        
+        { 
+          
             <thead>
                 <tr>
-                    <th >Name</th>
+                 @*    <th >Name</th> *@
                     <th> Date</th>
-                    <th >Total Sales</th>
-                    <th>Total Sold Product</th>
+                    <th >Amount</th>
+                 @*    <th>Total Sold Product</th> *@
                 </tr>
             </thead>
 
             <tbody>
                 @foreach (var item in salesReport)
                 {
+                    var totalSales = Convert.ToDouble(item.TotalSales);
                     var parseDate = DateTime.Parse(item.OrderDate);
                     <tr>
-                        <td data-label="Name">@item.Name</td>
+                        @* <td data-label="Name">@item.Name</td> *@
                         <td data-label="Date">@parseDate.Year-@parseDate.Month-@parseDate.Day</td>
-                        <td data-label="Total Sales">₱@Math.Round((item.TotalSales), 2)</td>
-                        <td data-label="Total Sold">@item.TotalSold</td>
+                        <td data-label="Total Sales">@totalSales.ToString("C")</td>
+                       @*  <td data-label="Total Sold">@item.TotalSold</td> *@
                     </tr>
                 }
             </tbody>
@@ -82,12 +93,11 @@
 
         @if (inventoryReport != null)
         {
+           
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Transaction Date</th>
-                    <th>Total Stock In</th>
-                    <th>Total Stock Out</th>                   
+                    <th>Ingredient</th>
+                    <th>Current Stock</th>                
                 </tr>
             </thead>
 
@@ -95,15 +105,24 @@
                 @foreach (var item in inventoryReport)
                 {
                     <tr>
-                        <td data-label="Name">@item.Name</td>                      
-                        <td data-label="Date">@item.TransactionDate.ToString("yyyy-MM-dd")</td>
+                        <td data-label="Name">@item.Name</td>    
+                        <td data-label="Current Stock">@item.Quantity</td>
+                      @*   <td data-label="Date">@item.TransactionDate.ToString("yyyy-MM-dd")</td>
                         <td data-label="Total Quantity">@item.TotalStockIn</td>
-                        <td data-label="Total Quantity">@item.TotalStockOut</td>                    
+                        <td data-label="Total Quantity">@item.TotalStockOut</td>    *@                 
                     </tr>
                 }
             </tbody>
         }
     </table>
+
+    @{
+        var amount = Convert.ToDouble(ViewData["GrandTotal"]);
+    }
+
+    <div class="grandTotal-wrapper">
+        <p class="text-white">Grand Total: @amount.ToString("C")</p>
+    </div>
 </div>
 
 <!--Set Filter-->
@@ -115,6 +134,10 @@
             document.querySelector('.fromDateReport').value = localStorage.getItem('fromDateReport');
             document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
             document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
+            document.querySelector('.grandTotal-wrapper').style.display = "block";
+            document.querySelector('.report-fromdate-wrapper').style.display = "block"
+            document.querySelector('.report-todate-wrapper').style.display = "block"
+            document.querySelector('.inventory-bytype-wrapper').style.display = "none"
         });             
     </script>
 }
@@ -126,6 +149,10 @@
             document.querySelector('.toDateReport').value = localStorage.getItem('toDateReport');
             document.querySelector('.selectReportType').value = localStorage.getItem('reportType');
             document.querySelector('.report-wrapper').style.visibility = "visible";
+            document.querySelector('.grandTotal-wrapper').style.display = "none";
+            document.querySelector('.report-fromdate-wrapper').style.display = "none"
+            document.querySelector('.report-todate-wrapper').style.display = "none"
+            document.querySelector('.inventory-bytype-wrapper').style.display = "block"
         });      
     </script>
 }

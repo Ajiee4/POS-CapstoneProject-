@@ -18,5 +18,7 @@ namespace POS_CapstoneProject_.Models
         public int? RequestId {  get; set; }
         [ForeignKey("RequestId")]
         public Request? Request { get; set; }
+        [Required]
+        public string Remarks { get; set; }
     }
 }

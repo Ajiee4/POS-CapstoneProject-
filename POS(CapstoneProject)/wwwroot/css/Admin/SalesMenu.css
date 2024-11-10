@@ -5,6 +5,8 @@
   
 }
 
+
+
 /*Check Out*/
 .checkout-wrapper {
     /*font-family: "Inter" !important;*/
@@ -12,7 +14,7 @@
     top: 70px;
     right: 10px;
     bottom: 40px;
-    background-color: rgba(252, 237, 237,0.1);
+    background-color: rgba(252,237,237,0.3);
     width: 320px;
     border: 1px solid grey;
     border-radius: 5px;
@@ -31,6 +33,7 @@
 }
 
 .exitCheckout {
+    display: none;
     position: absolute;
     top: 1px;
     right: 1px;
@@ -61,37 +64,44 @@
 .checkout-table-wrapper {
     flex-grow: 1;
     overflow-y: auto;
-   
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 .checkout-table-wrapper .checkout-table{
     width: 100%;
 }
 
-.checkout-table-wrapper .checkout-table thead {
-    background-color: #342924;
-    position: sticky;
-    top: 0;
-   
-  
-   
-}
+    .checkout-table-wrapper .checkout-table thead {
+        background-color: #1F1C1C;
+        position: sticky;
+        top: 0;
+        padding: 5px;
+    }
 .checkout-table-wrapper .checkout-table thead th {
     font-weight: 500;
-    padding: 5px 0px;
+    padding: 5px;
     color: white;
-    text-align: center;
-}
-.checkout-table-wrapper .checkout-table tbody td {
-    text-align: center;
-    color: white;
-    font-weight: lighter;
-    padding: 10px 0px;
-   /* font-size: 0.8rem;*/
-}
 
-.checkout-table-wrapper .checkout-table tbody tr:hover {
-    background-color: rgba(0,0,0,0.2);
+    text-align: center;
 }
+    .checkout-table-wrapper .checkout-table tbody td {
+        text-align: center;
+        color: black;
+        font-weight: lighter;
+        padding: 10px 0px;
+        border-top: 5px solid #6F6E6E;
+        border-bottom: 5px solid #6F6E6E;
+        font-weight: lighter;
+        /* font-size: 0.8rem;*/
+    }
+    .checkout-table-wrapper .checkout-table tbody tr{
+        color: black;
+        background-color: white;
+    }
+
+   /* .checkout-table-wrapper .checkout-table tbody tr:hover {
+        background-color: rgba(0,0,0,0.2);
+    }*/
 
 .quantity-table-data .button {     
     cursor: pointer;
@@ -180,7 +190,7 @@
 
 /*Checkout Footer*/
 .checkout-footer {
-    background-color: rgba(0,0,0,0.1);
+    background-color: transparent;
     border-top: 1px solid black;
     color: white;
 }
@@ -252,32 +262,32 @@
    
 }
 
-.checkout-footer .checkout-btn button {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #342924;
-    color: white;
-    border: none;
-    outline: none;
-    font-size: 0.8rem;
-    border-radius: 2px;
-    letter-spacing: 1px;
-    border: 1px solid white;
-    border-radius: 5px;
-    font-weight: bolder;
-    flex: 1;
-}
+    .checkout-footer .checkout-btn button {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #1F1C1C;
+        color: white;
+        border: none;
+        outline: none;
+        font-size: 0.8rem;
+        border-radius: 2px;
+        letter-spacing: 1px;
+        border: 1px solid white;
+        border-radius: 5px;
+        font-weight: bolder;
+        flex: 1;
+    }
 #inputDiscount {
-    text-align: center;
+    text-align: center
 }
 
 /*
 Product List*/
 
 .product-list-wrapper {
-  /*  font-family: "Inter" !important;*/
+    /*  font-family: "Inter" !important;*/
     border-radius: 5px;
-    width: 100%;
+    width: calc(100% - 340px);
     visibility: hidden;
     height: calc(100vh - 130px) !important;
     padding: 5px;
@@ -341,7 +351,7 @@ Product List*/
     position: sticky;
     top: 0;
     margin-top: 10px;
-    background-color: #342924;
+    background-color: #1F1C1C;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -382,8 +392,7 @@ Product List*/
     padding: 10px 30px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
-    gap: 20px 40px;
- 
+    gap: 20px 20px; 
 }
 
 @media (max-width: 410px){
@@ -400,42 +409,30 @@ Product List*/
 }
 .product-item {
     border: 1px solid transparent;
-    min-height: 180px;
+    min-height: 100px;
     transition: 0.5s;
     cursor: pointer;
-    font-weight: lighter;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bolder;
+    font-size: 0.8rem; 
+    color: black;
+    position: relative;
+   
 }
-
-.product-item:hover{     
-    transform: scale(1.02);
-
-}
-
-.product-item-img {
-    width: 100%;
-    border: 1px solid grey;
-    background-color: black;
-    height: 90%;
-    z-index: 1 !important; 
-
-}
-
-.product-catalog .product-item .product-item-img img {
-    object-fit:cover;
-    width: 100%;
-    height: 100%;
-
-}
-
-.product-item-name {
-    background-color: transparent !important;
+.product-item-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    font-weight: lighter;
-    font-size: 1rem;
-    height: 10%;
-    color: white;
-  
 }
+
+.product-item:hover {
+    transform: scale(1.02);
+}
+
+
 .product-item-name span {
     background-color: transparent !important;
 }
@@ -526,7 +523,7 @@ Product List*/
     letter-spacing: 2px;
     text-align: center;
     margin-top: 10px;
-      white-space: nowrap;
+    white-space: nowrap;
 }
 
 .receipt-header {

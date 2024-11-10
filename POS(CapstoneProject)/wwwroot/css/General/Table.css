@@ -62,11 +62,10 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
     color: white;
 }
 
-.general-table thead th {
-   
-    background-color: #342924;
-    text-align: center !important;
-}
+    .general-table thead th {
+        background-color: #1F1C1C;
+        text-align: center !important;
+    }
 
 .general-table th:first-child {
     border-radius: 50px 0 0 50px !important;

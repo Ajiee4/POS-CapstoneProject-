@@ -7,10 +7,9 @@
 
 /*Filter*/
 .stock-movement-filter-wrapper {
-  
     width: 100%;
     padding: 15px 10px;
-    background-color: #342924;
+    background-color: #1F1C1C;
     border: 1px solid white;
     margin-bottom: 5px;
     border-radius: 5px;
@@ -47,10 +46,42 @@
     border-radius: 5px;
     background-color: white;
 }
+/*view model */
 
+#viewStockMovementDetails .transaction-details-table {
+    width: 100%;
+    background-color: white;
+    border: 1px solid black;
+}
 
+.transaction-details-table thead {
+    color: white;
+    background-color: #1F1C1C;
+}
+.transaction-details-table thead th{
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 1rem;
+}
+.transaction-details-table tbody tr{
+    border-bottom: 1px solid black;
+}
+
+.transaction-details-table tbody td {
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.viewDetailsBtn {
+    background-color: #1F1C1C;
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+.viewDetailsBtn:hover {
+   
+    transform: scale(1.02);
+}
 /*Stock Movement Wrapper*/
-
 .stock-movement-wrapper {
     visibility: hidden;
     position: relative;

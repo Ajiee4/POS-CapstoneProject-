@@ -1,4 +1,8 @@
-﻿//Setup the table
+﻿
+//inventory transaction details
+let inventoryTransactDetails = [];
+
+//Setup the table
 $(document).ready(function () {
 
     $('.loader-wrapper').hide();
@@ -13,7 +17,6 @@ $(document).ready(function () {
         "pageLength": 5
     });
 
-
     var d = new Date();
     var day = ("0" + d.getDate()).slice(-2);
     var month = ("0" + (d.getMonth() + 1)).slice(-2);
@@ -21,6 +24,8 @@ $(document).ready(function () {
     var today = d.getFullYear() + "-" + month + "-" + day;
     document.querySelector('.fromDateStockMove').value = today;
     document.querySelector('.toDateStockMove').value = today;
+
+    inventoryTransactDetails = inventoryDetails;
 });
 
 
@@ -44,3 +49,32 @@ $('.generateRecordBtn').click(function (event) {
         $('#stockMovementForm').submit();
     }
 })
+
+function viewTransaction(elem) {
+   
+    let transactId = elem.dataset.transactid;
+    viewTransactionDetails(transactId);
+};
+
+
+function viewTransactionDetails(id) {
+    let tbody = document.querySelector('#viewStockMovementDetails tbody')
+    let filteredOutDetails = inventoryTransactDetails.filter(item => item.InventoryTransactId == id)
+    let html = '';
+    console.log(filteredOutDetails);
+    filteredOutDetails.forEach(item => { 
+        let qtyMovement = item.Quantity.replace(" ", "");
+       
+        html += `
+            <tr>
+                <td>${item.Ingredient.Name}</td>
+                <td>${qtyMovement}</td>
+                <td>${item.QtyOnHand}</td>
+                <td>${item.UpdatedQty}</td>
+            </tr>
+        `
+    });
+
+    tbody.innerHTML = ''
+    tbody.innerHTML = html;
+}

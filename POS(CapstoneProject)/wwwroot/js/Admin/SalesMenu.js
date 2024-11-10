@@ -135,38 +135,70 @@ function DisplayCheckOut() {
 
         const truncatedName = item.prodName.length > 5 ? `${item.prodName.substring(0, 6)}...` : item.prodName;
         html +=
-            `
-             <tr >
-                    <td style="padding: 10px">
-                            <img src="/images/delete.png"                         
-                            class="delete-checkout-img"
-                            onclick="deleteItemCheckOut(${item.prodID})"/>
-                    </td>
-                    <td class="table-data-name">
-                        ${truncatedName}
-                    </td>
-                    <td class="table-data-quantity">
-                        <div class="quantity-table-data">
-                            <span class="button decrementBtn" onclick="decrementQty(${item.prodID})">
-                                <img src="/images/minus.png" />
-                            </span>
 
-                            <span class="quantity">${item.prodQty}</span>
 
-                            <span class="button incrementBtn" onclick="incrementQty(${item.prodID})">
-                                <img src="/images/plus-white.png" />
-                           </span>
-                        </div>
+        `
+         <tr >
+               
+                  <td class="table-data-quantity">
+                  
+                    <span class="quantity">${item.prodQty}</span>
+                </td>
 
-                    </td>
-                     <td class="table-data-coffee">
-                       <input type="checkbox"/>
-                    </td>
+                 <td class="table-data-name">
+                    ${truncatedName}
+                </td>
+                
+                 <td class="table-data-coffee">
+                   <input type="checkbox"/>
+                </td>
+                 <td class="table-data-price">₱${item.prodPrice} &nbsp;</td>
 
-                    <td class="table-data-price">₱${item.prodPrice} &nbsp;</td>
-                </tr>
+
+                <td style="padding: 10px">
+                        <img src="/images/delete-black.png"
+                        class="delete-checkout-img"
+                        onclick="deleteItemCheckOut(${item.prodID})"/>
+                </td>
+               
+               
+
+               
+            </tr>
+
+        `
+            //`
+            // <tr >
+            //        <td style="padding: 10px">
+            //                <img src="/images/delete-black.png"                         
+            //                class="delete-checkout-img"
+            //                onclick="deleteItemCheckOut(${item.prodID})"/>
+            //        </td>
+            //        <td class="table-data-name">
+            //            ${truncatedName}
+            //        </td>
+            //        <td class="table-data-quantity">
+            //            <div class="quantity-table-data">
+            //                <span class="button decrementBtn" onclick="decrementQty(${item.prodID})">
+            //                    <img src="/images/minus.png" />
+            //                </span>
+
+            //                <span class="quantity">${item.prodQty}</span>
+
+            //                <span class="button incrementBtn" onclick="incrementQty(${item.prodID})">
+            //                    <img src="/images/plus-white.png" />
+            //               </span>
+            //            </div>
+
+            //        </td>
+            //         <td class="table-data-coffee">
+            //           <input type="checkbox"/>
+            //        </td>
+
+            //        <td class="table-data-price">₱${item.prodPrice} &nbsp;</td>
+            //    </tr>
                                  
-            `
+            //`
     });
 
     tableBody.innerHTML = html;
@@ -414,15 +446,15 @@ $('.calculateBtn').click(function () {
 
 
 //break the name into small
-function truncateName() {
-    let names = document.querySelectorAll('.product-item-name span');
+//function truncateName() {
+//    let names = document.querySelectorAll('.product-item-name span');
 
-    names.forEach((item) => {
-        if (item.textContent.length > 8) {
-            item.textContent = item.textContent.substr(0, 6) + '...';
-        }
-    });
-}
+//    names.forEach((item) => {
+//        if (item.textContent.length > 8) {
+//            item.textContent = item.textContent.substr(0, 6) + '...';
+//        }
+//    });
+//}
 
 truncateName();
 

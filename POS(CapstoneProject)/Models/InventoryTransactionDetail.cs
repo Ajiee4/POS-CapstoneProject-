@@ -18,9 +18,9 @@ namespace POS_CapstoneProject_.Models
         [Required]
         public string Quantity {  get; set; }
         [Required]
-        public string Remarks {  get; set; }
+        public int UpdatedQty { get; set; }
 
         [Required]
-        public int RemainingStock {  get; set; }
+        public int QtyOnHand {  get; set; }
     }
 }

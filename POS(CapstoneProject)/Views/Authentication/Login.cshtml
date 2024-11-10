@@ -10,7 +10,7 @@
 <!--Authentication Wrapper-->
 <div class="auth-wrapper">
     <!--Background Image-->
-    <div class="darken-image"></div>  
+   @*  <div class="darken-image"></div>   *@
     <!--Brand Wrapper-->
     <div class="brand-wrapper-login">
         <div class="brand-logo">
@@ -37,7 +37,7 @@
 
                     <div class="password-toggle">
                         <input asp-for="Password" type="password" class="Password" required id="passwordInput" />
-                        <img src="~/images/hide.png" id="eyeImage" onclick="togglePasswordVisibility()" />
+                        <img src="~/images/view.png" id="eyeImage" onclick="togglePasswordVisibility()" />
                     </div>               
                 </div>
 
@@ -50,7 +50,7 @@
         <div class="side-content">
             <div class="side-content-top">
                 <div class="side-content-top-image">
-                    <img src="~/images/coffee-logo.png" />
+                    <img src="~/images/coffee-logo-login.png" />
                 </div>
 
                 <div class="side-content-top-text">
@@ -81,7 +81,7 @@
 <!--Pop Up messages-->
 
 <!--Username don't exist-->
-@if (TempData["NotExist"] != null)
+@if (ViewData["NotExist"] != null)
 {
     <script>    
         Swal.fire({
@@ -93,7 +93,7 @@
     </script>
 }
 <!--Logged In Success-->
-@if (TempData["Success"] != null)
+@if (ViewData["Success"] != null)
 {
    <script>
         Swal.fire({
@@ -105,7 +105,7 @@
    </script>
 }
 <!--Incorrect Password-->
-@if (TempData["IncorrectPassword"] != null)
+@if (ViewData["IncorrectPassword"] != null)
 {
     <script>
         Swal.fire({
@@ -117,7 +117,7 @@
     </script>
 } 
 <!--Account Deactivated-->
-@if (TempData["Deactivated"] != null)
+@if (ViewData["Deactivated"] != null)
 {
     <script>
         Swal.fire({

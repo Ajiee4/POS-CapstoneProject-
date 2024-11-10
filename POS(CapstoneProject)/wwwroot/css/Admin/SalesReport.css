@@ -5,14 +5,17 @@
     box-sizing: border-box;
 }
 .report-filter-wrapper {
-   
     width: 100%;
     padding: 15px 10px;
-    background-color: #342924;
+    background-color: #1F1C1C;
     border: 1px solid white;
     border-radius: 5px;
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
     visibility: hidden;
+}
+
+.report-fromdate-wrapper, .report-todate-wrapper, .inventory-bytype-wrapper{
+    display: none;
 }
 
 
@@ -29,7 +32,7 @@
 }
 
 
-.selectReportType {
+.selectReportType,.inventoryByType{
     padding: 7px;
     border-radius: 5px;
 }
@@ -80,6 +83,7 @@
         width: 100%;
     }
 
+
     .generateReportBtn {
         margin-top: 10px;
     }
@@ -87,3 +91,11 @@
 
 
 
+/*.grandTotal-wrapper{
+    display: none;
+}*/
+
+.grandTotal-wrapper p{
+    font-weight: bolder;
+    font-size: 1.7rem;
+}

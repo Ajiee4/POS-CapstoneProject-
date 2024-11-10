@@ -200,6 +200,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 TransactionDate = DateTime.Now.Date,
                 TransactionType = "Stock In",
                 RequestId = requestId,
+                Remarks = "Delivered"
             };
 
             await _context.InventoryTransaction.AddAsync(inventTransact);
@@ -219,9 +220,11 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
                             IngredientId = item.IngredientId,
-                            Quantity = $"{ingredient.Quantity} + {item.Quantity}",
-                            RemainingStock = ingredient.Quantity + item.Quantity,
-                            Remarks = "Delivered"
+                            Quantity = $"+ {item.Quantity}",
+                            QtyOnHand = ingredient.Quantity,
+                            UpdatedQty =  ingredient.Quantity + item.Quantity,
+                            //RemainingStock = ingredient.Quantity + item.Quantity,
+                            //Remarks = "Delivered"
 
                         };
 
@@ -284,7 +287,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
             {
                 UserId = id,
                 TransactionDate = DateTime.Now.Date,
-                TransactionType = "Stock Out"
+                TransactionType = "Stock Out",
+                Remarks = remarks,
             };
 
             await _context.InventoryTransaction.AddAsync(inventTransact);
@@ -305,9 +309,11 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         {
                             InventoryTransactId = inventTransact.InventoryTransactId,
                             IngredientId = item.ingredientId,
-                            Quantity = $"{ingredient.Quantity} - {item.ingredientQty}",
-                            RemainingStock = ingredient.Quantity - item.ingredientQty,
-                            Remarks = remarks
+                            Quantity = $"- {item.ingredientQty}",
+                            QtyOnHand = ingredient.Quantity,
+                            UpdatedQty = ingredient.Quantity - item.ingredientQty,
+                            //RemainingStock = ingredient.Quantity - item.ingredientQty,
+                            //Remarks = remarks
 
                         };
 
@@ -384,26 +390,32 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> StockMovement(string transactionType, DateTime fromDate, DateTime toDate)
         {
 
-            var inventoryList = await _context.InventoryTransactionDetail
+            var stockMovementDetails = await _context.InventoryTransactionDetail
                                     .Include(d => d.Ingredient)
                                     .Include(s => s.InventoryTransaction)
                                     .ThenInclude(x => x.User)
                                     .Where(s => s.InventoryTransaction.TransactionDate >= fromDate && s.InventoryTransaction.TransactionDate <= toDate)
                                     .ToListAsync();
-        
+            var stockMovementList = await _context.InventoryTransaction
+                                    .Include(s => s.User)
+                                    .Where(s => s.TransactionDate >= fromDate && s.TransactionDate <= toDate)
+                                    .ToListAsync();
+
+
             switch (transactionType)
             {
                 case "All":
-                    ViewData["inventoryAll"] = JsonConvert.SerializeObject(inventoryList);
+                    ViewData["inventoryAll"] = JsonConvert.SerializeObject(stockMovementList);
                     break;
                 case "Stock In":
-                    ViewData["inventoryStockIn"] = JsonConvert.SerializeObject(inventoryList);
+                    ViewData["inventoryStockIn"] = JsonConvert.SerializeObject(stockMovementList);
                     break;
                 case "Stock Out":
-                    ViewData["inventoryStockOut"] = JsonConvert.SerializeObject(inventoryList);
+                    ViewData["inventoryStockOut"] = JsonConvert.SerializeObject(stockMovementList);
                     break;
             }
 
+            ViewData["stockMovementDetails"] = JsonConvert.SerializeObject(stockMovementDetails); ;
             return View();
         } 
       

@@ -6,10 +6,9 @@
 }
 /*Request filter */
 .request-filter-wrapper {
-   
     width: 100%;
     padding: 15px 10px;
-    background-color: #342924;
+    background-color: #1F1C1C;
     border: 1px solid white;
     margin-bottom: 5px;
     visibility: hidden;
@@ -109,6 +108,7 @@
     overflow-y: auto;
     max-height: 500px;
     gap: 20px 20px;
+    position: relative;
 }
 
 .list-request-grid::-webkit-scrollbar {
@@ -154,7 +154,7 @@
 
 /*Request Modal*/
 #requestCardModal .completeRequestBtn, .cancelRequestBtn {
-    background-color: #342924;
+    background-color: #1F1C1C;
     border-radius: 20px;
     padding: 10px 30px;
     border: none;
@@ -189,11 +189,10 @@
 #requestCardModal .request-card-table tbody {
    background-color: white;
 }
-#requestCardModal .request-card-table thead {
-    background-color: #342924;
-    color: white;
-
-}
+    #requestCardModal .request-card-table thead {
+        background-color: #1F1C1C;
+        color: white;
+    }
 #requestCardModal .request-card-table tr {
     border-bottom: 1px solid black;
 }
@@ -243,8 +242,12 @@
 
 /*No Result*/
 .noResultPara{
-    color: white;
 
+ 
+   display: none;
+   color: white;
+   font-weight: bolder;
+    
 
 }
 

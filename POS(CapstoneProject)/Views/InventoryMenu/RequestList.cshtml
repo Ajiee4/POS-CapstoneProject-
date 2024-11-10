@@ -46,7 +46,7 @@
 <!--Request List Wrapper-->
 <div class="list-request-wrapper"> 
     <h1 class="list-request-header"></h1>
-
+    <p class="noResultPara">No Data</p>
     <div class="list-request-grid">
         <!--Pending Requests-->
         @if (ViewData["RequestPending"] != null)
@@ -71,10 +71,15 @@
 
                 if (request.Count == 0)
                 {
-                    <p class="noResultPara">No Pending Requests Found</p>
+                   <script>
+                        document.querySelector('.noResultPara').style.display = "block"
+                   </script>
                 }
                 else
                 {
+                    <script>
+                        document.querySelector('.noResultPara').style.display = "none"
+                    </script>
                     foreach (var item in request)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
@@ -119,10 +124,15 @@
 
                 if (request.Count == 0)
                 {
-                    <p class="noResultPara">No Completed Requests Found</p>
+                    <script>
+                        document.querySelector('.noResultPara').style.display = "block"
+                    </script>
                 }
                 else
                 {
+                    <script>
+                        document.querySelector('.noResultPara').style.display = "none"
+                    </script>
                     foreach (var item in request)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
@@ -166,10 +176,15 @@
                 var request = requestCanceledList.Where(s => s.Status == "Canceled").ToList();
                 if (request.Count == 0)
                 {
-                    <p class="noResultPara">No Canceled Requests Found</p>
+                    <script>
+                        document.querySelector('.noResultPara').style.display = "block"
+                    </script>
                 }
                 else
                 {
+                    <script>
+                        document.querySelector('.noResultPara').style.display = "none"
+                    </script>
                     foreach (var item in request)
                     {
                         var employee = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();

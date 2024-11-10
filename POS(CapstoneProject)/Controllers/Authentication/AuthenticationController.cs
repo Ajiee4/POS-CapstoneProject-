@@ -29,7 +29,7 @@ namespace POS_CapstoneProject_.Controllers.Login
             if (checkUsername == null)
             {
                 //send a message to the view
-                TempData["NotExist"] = "Username does not exist";
+                ViewData["NotExist"] = "Username does not exist";
 
             }
             else //if there's a record
@@ -43,7 +43,7 @@ namespace POS_CapstoneProject_.Controllers.Login
 
                     if(check?.User?.isArchive == true)
                     {
-                        TempData["Deactivated"] = "Account was deactivated";
+                        ViewData["Deactivated"] = "Account was deactivated";
 
                     }
                     else
@@ -52,19 +52,23 @@ namespace POS_CapstoneProject_.Controllers.Login
                         {
                             case 1:
                                 HttpContext.Session.SetInt32("UserID", check.UserId);
+                               
                                 //HttpContext.Session.SetString("Name", check.Firstname);
                                 return RedirectToAction("Index", "DashboardMenu");
 
 
                             case 2:
                                 HttpContext.Session.SetInt32("UserID", check.UserId);
+                               
                                 //HttpContext.Session.SetString("Name", check.Firstname);
                                 return RedirectToAction("Index", "Sales");
 
 
                         }
 
-                       
+                        ViewData["Success"] = "Logged In Successfully";
+
+
                     }
 
 
@@ -73,7 +77,7 @@ namespace POS_CapstoneProject_.Controllers.Login
                 }
                 else //if password does not match
                 {
-                    TempData["IncorrectPassword"] = "Incorrect password";
+                    ViewData["IncorrectPassword"] = "Incorrect password";
 
                 }
 

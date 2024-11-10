@@ -22,16 +22,16 @@
 }
 
 .box {
-    flex: 0 1 calc(25% - 20px); 
+    flex: 0 1 calc(25% - 20px);
     max-width: calc(25% - 20px);
     background: #EEEEEE;
     border-radius: 10px;
-    border: 1px solid #ccc;
-    margin: 10px; 
+    border: 3px solid #A44B34;
+    margin: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    bdas=
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.4);
 }
 
 
@@ -124,7 +124,7 @@
     gap: 10px;
     display: flex;
     height: 600px;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .charts-container h3{
@@ -204,18 +204,16 @@
 
 .card {
     display: flex;
-    flex-direction: row;
-   
+    flex-direction: row;  
     background-color: #606060;
     border-radius: 10px;
     color: white;
     margin-bottom: 10px; 
     overflow:hidden;
     width: 100%; 
-    max-height: 90px; 
+    
 }
-.card .card-header{
-   
+.card .card-header {
     display: flex;
     justify-content: start;
     flex-direction: row;
@@ -223,14 +221,19 @@
     width: 80%;
     padding: 10px;
     margin: 0;
-   
+    /*background-color: black;*/
+    font-size: 0.9rem;
 }
    
 .card .card-body {
-        
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 20%;
     background-color: grey;
     text-align: center;
+    white-space: nowrap;
+   
 }
 .top-rank{
     position: relative;

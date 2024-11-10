@@ -4,9 +4,9 @@
 
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
-        eyeImage.src = '/images/view.png';
+        eyeImage.src = '/images/hide.png';
     } else {
         passwordInput.type = 'password';
-        eyeImage.src = '/images/hide.png'; 
+        eyeImage.src = '/images/view.png'; 
     }
 }

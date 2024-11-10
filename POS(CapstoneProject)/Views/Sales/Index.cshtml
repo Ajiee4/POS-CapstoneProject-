@@ -6,9 +6,9 @@
 }
 
 <style>
-    .header .right-section .checkout-icon {
-        display: block;
-    }
+    /* .header .right-section .checkout-icon {
+            display: block ;
+        } */
 
     .container-all {
         overflow: hidden !important;
@@ -25,25 +25,31 @@
 </div>
 
 <!--Checkout Wrapper-->
-<div class="checkout-wrapper checkHide">
+<div class="checkout-wrapper">
     <div class="checkout-content-wrapper">
 
         <button type="button" class="close exitCheckout">
             <span aria-hidden="true">&times;</span>
         </button>
-        <!--CheckOut Header-->
+        <!--Checkout Header-->
         <h1 class="checkout-title">Check Out</h1>
-        <!--CheckOut Table Wrapper-->
+        <!--Checkout Table Wrapper-->
         <div class="checkout-table-wrapper">
             <!--Checkout Table-->
             <table class="checkout-table">
                 <thead>
                     <tr>
-                        <th style="color: transparent">aaa</th>
-                        <th class="table-header-name">Name &nbsp;&nbsp;&nbsp;</th>
+
+
                         <th class="table-header-quantity">Qty</th>
-                        <th class="table-header-coffee">w/coffee</th>
-                        <th class="table-header-price">Price &nbsp;</th>
+                        <th class="table-header-name">Name</th>
+                        <th class="table-header-coffee">W/Coffee</th>
+                        <th class="table-header-price">Price</th>
+                        <th style="color: transparent">aaa</th>
+
+
+
+
                     </tr>
                 </thead>
 
@@ -51,7 +57,7 @@
                 </tbody>
             </table>
         </div>
-        <!--CheckOut Footer-->
+        <!--Checkout Footer-->
         <div class="checkout-footer">
             <div class="discount-wrapper">
                 <label for="inputDiscount">Discount (%)</label>
@@ -81,7 +87,7 @@
     </div>
 </div>
 
-<!--Porduct List Wrapper-->
+<!--Product List Wrapper-->
 <div class="product-list-wrapper">
     <div class="search-wrapper">
         <div class="searchProd">
@@ -96,7 +102,7 @@
     </div>
 
     <div class="category-list-wrapper">
-        <button class="category-item active" data-category="All" onclick="FilterProduct('All')"> All</button>
+        <button class="category-item active" data-category="All" onclick="FilterProduct('All')">All</button>
 
         @if (categoryList != null)
         {
@@ -106,11 +112,10 @@
                     @item.CategoryName
                 </button>
             }
-        }      
+        }
     </div>
 
     <div class="product-catalog">
-
         <div class="noResult">Nothing Found...</div>
 
         @if (productList != null)
@@ -126,24 +131,20 @@
                 @foreach (var prod in productList)
                 {
                     <div class="product-item" onclick="checkoutProduct(@prod.ProductId, '@prod.Name',1, @prod.Price)" data-category="@prod.Category?.CategoryName" data-toggle="tooltip" data-placement="bottom" title="@prod.Name">
-                        <div class="product-item-img">
-                            @if (prod.ImageData != null)
-                            {
-                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(prod.ImageData)" class="d-block mx-auto" alt="Image" />
-                            }
-                            else
-                            {
-                                <span></span>
-                            }
+
+                        <div class="product-item-content">
+                            <div class="product-item-name" data-category="@prod.Category?.CategoryName">
+                                <span>@prod.Name</span>
+                            </div>
+                            <div class="product-item-price">
+                                <span>₱@prod.Price</span>
+                            </div>
                         </div>
 
-                        <div class="product-item-name" data-category="@prod.Category?.CategoryName">
-                            <span>@prod.Name</span>
-                        </div>
+
                     </div>
                 }
             }
-
         }
     </div>
 </div>
@@ -165,7 +166,6 @@
             </div>
 
             <div class="modal-body">
-
                 <div class="form-group">
                     <label class="control-label general-modal-label">Amount Due</label>
                     <input class="form-control totalAmountInputReadOnly general-modal-input" readonly />
@@ -198,6 +198,7 @@
         </div>
     </div>
 </div>
+
 
 <!--Show Receipt after the transaction-->
 @if (ViewData["TransactionComplete"] != null)

@@ -90,8 +90,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                                     g.p.ImageData,
                                                     Month = DateTime.Now.Month
                                                 })
-                                                .AsEnumerable() // Switch to client-side processing
-                                                .Select(g => new SalesReport
+                                                .AsEnumerable() 
+                                                .Select(g => new ProductRankingData
                                                 {
                                                     Name = g.Key.Name,
                                                     OrderDate = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(g.Key.Month),
@@ -112,8 +112,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                                    g.p.ImageData,
                                                    Month = DateTime.Now.Month
                                                })
-                                               .AsEnumerable() // Switch to client-side processing
-                                               .Select(g => new SalesReport
+                                               .AsEnumerable() 
+                                               .Select(g => new ProductRankingData
                                                {
                                                    Name = g.Key.Name,
                                                    OrderDate = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(g.Key.Month),
@@ -135,8 +135,8 @@ namespace POS_CapstoneProject_.Controllers.Admin
                                                    g.p.ImageData,
                                                    Month = DateTime.Now.Month
                                                })
-                                               .AsEnumerable() // Switch to client-side processing
-                                               .Select(g => new SalesReport
+                                               .AsEnumerable() 
+                                               .Select(g => new ProductRankingData
                                                {
                                                    Name = g.Key.Name,
                                                    OrderDate = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(g.Key.Month),
@@ -152,7 +152,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
 
 
-                        ViewData["dailyRanking"] = JsonConvert.SerializeObject(dailyRankingList);
+                       ViewData["dailyRanking"] = JsonConvert.SerializeObject(dailyRankingList);
                         ViewData["monthlyRanking"] = JsonConvert.SerializeObject(monthlyRankingList);
                         ViewData["yearlyRanking"] = JsonConvert.SerializeObject(yearlyRankingList);
 

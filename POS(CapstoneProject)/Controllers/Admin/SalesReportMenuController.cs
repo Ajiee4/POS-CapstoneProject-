@@ -45,65 +45,67 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Index(string reportType, DateTime fromDate, DateTime toDate)
+        public async Task<IActionResult> Index(string reportType,string inventoryByType, DateTime fromDate, DateTime toDate)
         {
             if(reportType == "Sales Report")
             {
-                var salesRep = await _context.Order
-                                .Join(_context.OrderDetails,
-                                        o => o.OrderId,
-                                        od => od.OrderId,
-                                        (o, od) => new { o, od })
-                                .Join(_context.Product,
-                                        o_od => o_od.od.ProductId,
-                                        p => p.ProductId,
-                                        (o_od, p) => new { o_od.o, o_od.od, p })
-                                .Where(s => s.o.OrderDate >= fromDate && s.o.OrderDate <= toDate)
-                                .GroupBy(g => new { g.p.Name, g.o.OrderDate })
+                var salesRep = await _context.Order                             
+                                .Where(s => s.OrderDate >= fromDate && s.OrderDate <= toDate)
+                                .GroupBy(g => new { g.OrderDate })
                                 .Select(g => new SalesReport
                                 {
-                                    Name = g.Key.Name,
+                                    
                                     OrderDate = g.Key.OrderDate.ToString(),
-                                    TotalSales = g.Sum(x => x.od.Quantity * x.p.Price),
-                                    TotalSold = g.Sum(x => x.od.Quantity)
+                                    TotalSales = g.Sum(x => x.TotalAmount),
+                                    
                                 })
-                                .OrderBy(result => result.OrderDate)
-                                .ThenBy(result => result.Name)
+                                                     
                                 .ToListAsync();
 
+                var grandTotal = salesRep.Sum(s => s.TotalSales);
+                ViewData["GrandTotal"] = grandTotal;
                 ViewData["SalesReport"] = JsonConvert.SerializeObject(salesRep);
 
             }
             else if(reportType == "Inventory Report")
             {
-              
-                var inventoryTransactions = await _context.InventoryTransaction.ToListAsync();
-                var inventoryDetails =await _context.InventoryTransactionDetail.ToListAsync();
-            
-                foreach (var item in inventoryDetails)
+                if(inventoryByType == "Ingredient")
                 {
-                    string[] parts = item.Quantity.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                 
-                    item.Quantity = parts[2];  
-                    
+                    var ingredientList = await _context.Ingredient.ToListAsync();
+                    ViewData["InventoryReport"] = JsonConvert.SerializeObject(ingredientList);
                 }
-           
-                var inventoryRep =  (from it in inventoryTransactions
-                                    join itd in inventoryDetails on it.InventoryTransactId equals itd.InventoryTransactId
-                                    join i in _context.Ingredient on itd.IngredientId equals i.IngredientId
-                                    where it.TransactionDate >= fromDate && fromDate <= toDate
-                                    group new { it, itd } by new { i.Name, it.TransactionDate } into g
-                                    select new InventoryReport
-                                    {
-                                        Name = g.Key.Name,
-                                        TransactionDate = g.Key.TransactionDate,
-                                        TotalStockOut = g.Sum(x => x.it.TransactionType == "Stock Out" ? Convert.ToInt16(x.itd.Quantity) : 0),
-                                        TotalStockIn = g.Sum(x => x.it.TransactionType == "Stock In" ?Convert.ToInt16(x.itd.Quantity) : 0)
-                                    })
-                                    .OrderBy(x => x.TransactionDate)
-                                    .ToList();
+                else if(inventoryByType == "Product")
+                {
 
-                ViewData["InventoryReport"] = JsonConvert.SerializeObject(inventoryRep);
+                }
+              
+                //var inventoryTransactions = await _context.InventoryTransaction.ToListAsync();
+                //var inventoryDetails =await _context.InventoryTransactionDetail.ToListAsync();
+            
+                //foreach (var item in inventoryDetails)
+                //{
+                //    string[] parts = item.Quantity.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                 
+                //    item.Quantity = parts[1];  
+                    
+                //}
+           
+                //var inventoryRep =  (from it in inventoryTransactions
+                //                    join itd in inventoryDetails on it.InventoryTransactId equals itd.InventoryTransactId
+                //                    join i in _context.Ingredient on itd.IngredientId equals i.IngredientId
+                //                    where it.TransactionDate >= fromDate && fromDate <= toDate
+                //                    group new { it, itd } by new { i.Name, it.TransactionDate } into g
+                //                    select new InventoryReport
+                //                    {
+                //                        Name = g.Key.Name,
+                //                        TransactionDate = g.Key.TransactionDate,
+                //                        TotalStockOut = g.Sum(x => x.it.TransactionType == "Stock Out" ? Convert.ToInt16(x.itd.Quantity) : 0),
+                //                        TotalStockIn = g.Sum(x => x.it.TransactionType == "Stock In" ?Convert.ToInt16(x.itd.Quantity) : 0)
+                //                    })
+                //                    .OrderBy(x => x.TransactionDate)
+                //                    .ToList();
+
+                //ViewData["InventoryReport"] = JsonConvert.SerializeObject(inventoryRep);
 
             }
 

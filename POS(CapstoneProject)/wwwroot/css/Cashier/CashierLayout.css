@@ -120,8 +120,8 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 4px 8px;
+    justify-content: center;
+    padding: 8px;
     border: 1px solid white;
     border-radius: 20px;
     transition: 0.3s;
@@ -138,11 +138,10 @@ body {
     transform: scale(1.09);
 }
 
-.header .right-section .logout-link img {
-    height: 12px;
-    width: 12px;
-}
-
+    .header .right-section .logout-link img {
+        height: 18px;
+        width: 18px;
+    }
 .header .right-section .logout-link span {
     color: white;
     font-weight: 500;

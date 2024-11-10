@@ -25,7 +25,7 @@ $(document).ready(function () {
 $('.generateReportBtn').click(function (event) {
 
 
-    if ($('.toDateReport').val() == '' || $('.fromDateReport').val() == '' || $('.selectReportType').val() == '') {
+    if ($('.toDateReport').val() == '' || $('.fromDateReport').val() == '' || $('.selectReportType').val() == null) {
 
         popUpMessage("Fill out all information", "error")
     }
@@ -42,3 +42,18 @@ $('.generateReportBtn').click(function (event) {
     }
    
 });
+
+function reportTypeChange(elem) {
+    if (elem.value == "Inventory Report") {
+        /*alert("inventory")*/
+        document.querySelector('.report-fromdate-wrapper').style.display = "none"
+        document.querySelector('.report-todate-wrapper').style.display = "none"
+        document.querySelector('.inventory-bytype-wrapper').style.display = "block"
+    }
+    else  if(elem.value == "Sales Report"){
+        document.querySelector('.report-fromdate-wrapper').style.display = "block"
+        document.querySelector('.report-todate-wrapper').style.display = "block"
+        document.querySelector('.inventory-bytype-wrapper').style.display = "none"
+       
+    }
+}
