@@ -1,24 +1,28 @@
 ﻿/*Data Table JS*/
 
 .dt-search label {
-    color: white !important;
-    font-weight: lighter !important;
-  /*  font-family: "Inter" !important;*/
+    font-family: "Inter", "Arial";
+    color: black !important;
+    font-weight: 500 !important;
+    
+    /*  font-family: "Inter" !important;*/
 }
 
 .dt-search .dt-input {
-    border: 1px solid white !important;
-    outline: 1px solid white !important;
-    color: white !important;
+    font-family: "Inter", "Arial";
+    border: 1px solid black !important;
+    outline: none !important;
+    color: black !important;
     border-radius: 10px !important;
-   /* font-family: "Inter" !important;*/
+    /* font-family: "Inter" !important;*/
 }
 .dt-length, .dt-info {
     display: none;
 
 }
 .dt-paging {
-   /* font-family: "Inter" !important;*/
+    font-family: "Inter", "Arial";
+    /* font-family: "Inter" !important;*/
     margin: 0px !important;
     padding: 0px !important;
     background-color: white;
@@ -53,19 +57,20 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 
 /*General Table*/
 .general-table {
-   /* font-family: "Inter" !important;*/
+   
     border: 1px solid transparent !important;
     z-index: 1 !important;
+    font-family: "Inter", "Arial";
 }
 
 .general-table thead {
     color: white;
 }
 
-    .general-table thead th {
-        background-color: #1F1C1C;
-        text-align: center !important;
-    }
+.general-table thead th {
+    background-color: #1F1C1C;
+    text-align: center !important;
+}
 
 .general-table th:first-child {
     border-radius: 50px 0 0 50px !important;
@@ -75,10 +80,11 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
     border-radius: 0 50px 50px 0 !important;
 }
 
-.general-table tbody {
-    background-color: #F7F7F7;
-    color: black;
-}
+    .general-table tbody {
+        background-color: white;
+        color: black;
+        border: 1px solid rgba(0,0,0,0.2);
+    }
 
 
 .general-table tbody tr {
@@ -86,11 +92,11 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
    
 }
 
-    .general-table tbody td {
-        font-weight: 500;
-        text-align: center !important;
+.general-table tbody td {
+    font-weight: 500;
+    text-align: center !important;
        
-    }
+}
 
 /*Action Wrapper*/
 
@@ -128,7 +134,7 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
     cursor: pointer;
 }
 .general-table .general-details-btn {
-    background-color: black;
+    background-color: #6D6868;
     color: white;
     display: flex;
     justify-content: center;

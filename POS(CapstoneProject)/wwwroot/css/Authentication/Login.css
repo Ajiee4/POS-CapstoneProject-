@@ -1,0 +1,190 @@
+
+.auth-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.login-side {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    max-width: 350px;
+    width: 100%;
+    margin: 10px auto;
+    z-index: 2;  
+    color: white;
+}
+
+.login-side .side-content .side-content-top .side-content-top-text {
+    font-size: 3rem;
+    font-weight: bolder;
+    line-height: 40px;
+    letter-spacing: 10px;
+    font-family: "Inika", "Arial";
+}
+
+.login-side .side-content .side-content-top .side-content-top-image img {
+    height: 160px;
+    width: 160px;
+    margin-left: -35px;
+    animation: glowing 3s ease-in-out infinite;
+    filter: drop-shadow(0px 0px 8px white);
+}
+
+.login-side .side-content .side-content-top {
+    display: flex;
+    justify-content: start;
+    align-items: end;
+   
+}
+
+.login-side .side-content .side-content-top .side-content-top-text {
+    margin-left: -15px;
+    margin-bottom: 8px;
+}
+
+.side-content-top-text-your {
+    margin-left: 10px
+}
+
+.side-content-top-text-coffee {
+    margin-left: 15px
+}
+
+.login-side .side-content .side-content-bottom {
+    display: block;
+    text-align: justify;
+    margin-top: 5px;
+    font-family: "Inika", "Arial";
+   
+}
+
+
+/*Login*/
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 350px;
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 20px;
+    border: 5px solid rgba(0,0,0,0.1);
+    z-index: 2;
+    transition: 1.5s ease-in-out;
+    background-color: #1F1C1C;
+    box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
+    margin: 0 auto;
+    font-family: "Inter", "Arial";
+}
+
+.form-content{
+    width: 100%;
+}
+
+.login-wrapper h1.login-text-header {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    font-size: 5vh;
+    color: white;
+    font-weight: bolder;
+    letter-spacing: 2px;
+}
+
+
+.login-wrapper .username-wrapper, .login-wrapper
+ .password-wrapper {
+    margin-bottom: 10px;
+}
+
+.login-wrapper .username-wrapper label, .login-wrapper
+.password-wrapper label {
+    color: white;
+}
+
+.login-wrapper input {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 50px;
+    border: none;
+    outline: blue;
+}
+
+.login-wrapper #submitLoginBtn {
+    width: 100%;
+    padding: 5px;
+    background-color: #693D29;
+    box-shadow: 0px 2px 3px rgb(0,0,0,0.8);
+    color: white;
+    border: 1px solid transparent;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 50px;
+    font-size: 16px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: 500;
+    transition: 0.2s ease-in-out;
+}
+
+.login-wrapper #submitLoginBtn:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.login-wrapper #forgot-password-text {
+    text-align: right;
+    color: white;
+    margin-bottom: 20px;
+}
+.login-wrapper #forgot-password-text a{
+    color: white;
+}
+    /*Loader*/
+    .loader-wrapper-login {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+        background-color: rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+    }
+
+.loader-login {
+  
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+   
+    animation: rotation 1s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -4,44 +4,35 @@
     Layout =  "/Views/Shared/_AuthLayout.cshtml";
 }
 
-<!--Loader-->
-<div class="loader"></div>
+<div class="loader-wrapper-login">
+    <div class="loader-login"></div>
+</div>
+
 
 <!--Authentication Wrapper-->
 <div class="auth-wrapper">
-    <!--Background Image-->
-   @*  <div class="darken-image"></div>   *@
-    <!--Brand Wrapper-->
-    <div class="brand-wrapper-login">
-        <div class="brand-logo">
-            <img src="~/images/logo.jpg" />
-        </div>
-
-        <div class="brand-name">
-            <div class="brand-first">DON <span class="brand-second">Macchiatos</span></div>
-        </div>
-    </div>
+  
     <!--Login Wrapper-->
     <div class="login-wrapper">
         <div class="form-content">
             <h1 class="login-text-header">LOGIN</h1>
             <!--Form-->
-            <form asp-action="Login" id="form" method="post">
+            <form asp-action="Login" id="loginForm" method="post">
                 <div class="username-wrapper">
                     <label asp-for="Username">Username:</label><br />
                     <input asp-for="Username" type="text" class="Username" required />
                 </div>
 
                 <div class="password-wrapper">
-                    <label asp-for="Password">Password:</label><br />
-
-                    <div class="password-toggle">
-                        <input asp-for="Password" type="password" class="Password" required id="passwordInput" />
-                        <img src="~/images/view.png" id="eyeImage" onclick="togglePasswordVisibility()" />
-                    </div>               
+                    <label asp-for="Password">Password:</label><br />               
+                    <input asp-for="Password" type="password" class="Password" required id="passwordInput" />                                                     
                 </div>
 
-                <button type="submit" id="submitLoginBtn">LOGIN</button>
+                <div id="forgot-password-text">                  
+                    <a href="@Url.Action("ForgotPassword", "Authentication")">Forgot Password?</a>                
+                </div>
+                          
+                <button type="button" id="submitLoginBtn" onclick="loginAccount()">LOGIN</button>
             </form>
         </div>
     </div>
@@ -76,8 +67,11 @@
         </div>        
     </div>
 </div>
- 
 
+
+
+
+ 
 <!--Pop Up messages-->
 
 <!--Username don't exist-->
@@ -128,3 +122,4 @@
         });
     </script>
 }
+

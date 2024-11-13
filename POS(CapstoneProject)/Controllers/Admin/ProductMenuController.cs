@@ -58,52 +58,26 @@ namespace POS_CapstoneProject_.Controllers.Admin
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddProduct(Product prod, IFormFile file)
+        public async Task<IActionResult> AddProduct(Product prod)
         {
             //check if there's an existing product
             var checkExisting = await _context.Product.Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId).FirstOrDefaultAsync();
 
-            //check if the image is null
-            if (file == null)
+
+
+            if (checkExisting == null)
             {
 
-                if (checkExisting == null)
-                {
-                    
-                    //save to database
-                    await _context.AddAsync(prod);
-                    await _context.SaveChangesAsync();
+                _context.Add(prod);
+                await _context.SaveChangesAsync();
 
-                    TempData["ProductAdded"] = "Added new product";
-                }
-                else
-                {
-                    TempData["ProductExist"] = "Product already exist";
-                }
-
+                TempData["ProductAdded"] = "Added new product";
             }
             else
             {
-                if (checkExisting == null)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        await file.CopyToAsync(ms);
-                        prod.ImageData = ms.ToArray();
-                    }
-
-                    _context.Add(prod);
-                    await _context.SaveChangesAsync();
-
-                    TempData["ProductAdded"] = "Added new product";
-                }
-                else
-                {
-                    TempData["ProductExist"] = "Product already exist";
-                }
-
+                TempData["ProductExist"] = "Product already exist";
             }
-
+           
 
             return RedirectToAction("Index");
 
@@ -111,7 +85,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateProduct(Product prod, IFormFile file)
+        public async Task<IActionResult> UpdateProduct(Product prod)
         {
             var checkProduct = await _context.Product
                                     .Where(s => s.ProductId == prod.ProductId)
@@ -119,9 +93,10 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             if (checkProduct != null)
             {
-                if (file == null)
+                var checkExisting = await _context.Product.Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId).FirstOrDefaultAsync();
+                if (checkExisting == null)
                 {
-                    if(checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId)
+                    if (checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId)
                     {
                         TempData["NoChanges"] = "Product updated";
                     }
@@ -131,40 +106,20 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         checkProduct.Price = prod.Price;
                         checkProduct.ProdCategoryId = prod.ProdCategoryId;
 
+
                         _context.Update(checkProduct);
                         await _context.SaveChangesAsync();
 
                         TempData["ProductUpdated"] = "Product updated";
                     }
-            
                 }
                 else
                 {
-                    using (var ms = new MemoryStream())
-                    {
-                        await file.CopyToAsync(ms);
-                        prod.ImageData = ms.ToArray();
-                    }
-
-                    if (checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId && checkProduct.ImageData == prod.ImageData)
-                    {
-                        TempData["NoChanges"] = "Product updated";
-                    }
-                    else
-                    {
-                        checkProduct.Name = prod.Name;
-                        checkProduct.Price = prod.Price;
-                        checkProduct.ProdCategoryId = prod.ProdCategoryId;
-                        checkProduct.ImageData = prod.ImageData;
-
-                        _context.Update(checkProduct);
-                        await _context.SaveChangesAsync();
-
-                        TempData["ProductUpdated"] = "Product updated";
-                    }
-                  
-                 
+                    TempData["ProductExist"] = "Product already exist";
                 }
+               
+
+            
             }
            
             return RedirectToAction("Index");

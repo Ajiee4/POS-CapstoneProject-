@@ -280,7 +280,7 @@ function DisplayRequest() {
                             ${truncatedName}
                         </td>
                         <td> 
-                            <input id="ingQuantity" onchange="qtyChange(this)" oninput="validateQuantity(this)" data-id="${item.ingredientId}" value="${item.ingredientQty}"/> 
+                            <input id="ingQuantity" maxlength="6" onchange="qtyChange(this)" oninput="validateQuantity(this)" data-id="${item.ingredientId}" value="${item.ingredientQty}"/> 
                             &nbsp;
                         </td>
                     </tr> 

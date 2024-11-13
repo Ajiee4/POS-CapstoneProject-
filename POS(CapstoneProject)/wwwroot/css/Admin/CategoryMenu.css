@@ -11,6 +11,7 @@
 .category-wrapper {
     position: relative;
     width: 100%;
+    font-family: "Inter", "Arial";
     visibility: hidden;
 }
 

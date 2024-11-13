@@ -459,39 +459,39 @@ $('.calculateBtn').click(function () {
 truncateName();
 
 //toggle checkout
-function CheckOutToggle() {
-    $('.checkout-wrapper').slideToggle(1000, function () {
+//function CheckOutToggle() {
+//    $('.checkout-wrapper').slideToggle(1000, function () {
       
-        const checkoutWrapper = $('.checkout-wrapper');
-        checkoutWrapper.toggleClass('checkHide');
+//        const checkoutWrapper = $('.checkout-wrapper');
+//        checkoutWrapper.toggleClass('checkHide');
 
-        if (checkoutWrapper.hasClass('checkHide')) {
-            $('.product-list-wrapper').css({
-                'width': '100%'
-            })
-            //$('.container-all').css({
-            //    'width': "100%"
-            //})
+//        if (checkoutWrapper.hasClass('checkHide')) {
+//            $('.product-list-wrapper').css({
+//                'width': '100%'
+//            })
+//            //$('.container-all').css({
+//            //    'width': "100%"
+//            //})
 
-        } else {
+//        } else {
            
-            $('.product-list-wrapper').css({
-                'width': "calc(100% - 340px)"
-            })
-        }
+//            $('.product-list-wrapper').css({
+//                'width': "calc(100% - 340px)"
+//            })
+//        }
   
-    });
-}
+//    });
+//}
 //When exit button is click
-$('.exitCheckout').click(function () {
-    CheckOutToggle();
-})
+//$('.exitCheckout').click(function () {
+//    CheckOutToggle();
+//})
 
 //adjusting the width of conten if sidebar was showed/hidden
 
-$('.checkout-icon').click(function () {
+//$('.checkout-icon').click(function () {
 
-    CheckOutToggle();
+//    CheckOutToggle();
 
-});
+//});
 

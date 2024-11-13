@@ -21,7 +21,7 @@
 <!--Product Wrapper-->
  <div class="product-wrapper">
     <button type="button" class="addProductBtn general-button" data-toggle="modal" data-target="#addProductModal">
-        <img src="~/images/add.png" />
+        <img src="~/images/add-icon-black.png" />
         <span>Add Product</span>
     </button>
   
@@ -33,7 +33,7 @@
                 <th>Name</th>
                 <th>Category</th>
                 <th>Price</th>           
-                <th>Image</th> 
+               
                 <th>Actions</th>
             </tr>          
         </thead>
@@ -50,18 +50,7 @@
                         </span>
                     </td>
                     <td data-label="Price">₱@item.Price</td> 
-                    @if (item.ImageData == null)
-                    {
-                        <td data-label="Image">
-                            <div>No Image</div>
-                        </td>
-                    }
-                    else
-                    {
-                        <td data-label="Image" class="product-photo-wrapper">
-                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" class="productPhoto" alt="Image" />
-                        </td>
-                    } 
+                   
                    
                     <td data-label="Actions">
                         <form class="unarchiveForm" asp-action="UnarchiveProduct">
@@ -87,7 +76,7 @@
                                 </button>
                             }
 
-                            <button class="updateProductBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId, '@(item.ImageData != null ? Convert.ToBase64String(item.ImageData) : "")')" data-target="#updateProductModal">
+                            <button class="updateProductBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId)" data-target="#updateProductModal">
                                 <img src="~/images/edit.png" />
                             </button>
                         </div>
@@ -115,16 +104,7 @@
             <div class="modal-body">               
                 <form asp-action="UpdateProduct" id="updateProductForm" method="post" enctype="multipart/form-data">                 
                     <input asp-for="ProductId" class="productId" hidden />
-
-                    <div class="form-group">                     
-                        <div class="photo-wrapper d-block mx-auto">
-                            <img src="~/images/noimage.jpg" />
-                        </div>
-
-                        <input asp-for="ImageData" hidden class="inputPhoto form-control" type="file" name="file" accept="image/*" />   <br />                     
-                        <button type="button" class="btn uploadPhoto d-block mx-auto">Upload Photo</button>
-                    </div>      
-                    
+                                 
                     <div class="form-group">
                         <label asp-for="Name" class="control-label general-modal-label">Product Name</label>
                         <input asp-for="Name" maxlength="25" placeholder="Enter Product Name" oninput="validateProductName(this)" class="form-control updateProductInputName general-modal-input" required />
@@ -173,16 +153,7 @@
             </div>
 
             <div class="modal-body">
-                <form asp-action="AddProduct" id="addProductForm" method="post" enctype="multipart/form-data">
-                   
-                    <div class="form-group">
-                        <div class="photo-wrapper d-block mx-auto">
-                            <img src="~/images/noimage.jpg" />
-                        </div>
-
-                        <input hidden class="inputPhoto form-control" type="file" name="file" accept="image/*"/><br/>                    
-                        <button type="button" class="btn uploadPhoto d-block mx-auto">Upload Photo</button>
-                    </div>
+                <form asp-action="AddProduct" id="addProductForm" method="post" enctype="multipart/form-data">                                   
                   
                     <div class="form-group">
                         <label asp-for="Name"  class="control-label general-modal-label">Product Name</label>

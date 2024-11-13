@@ -82,25 +82,25 @@
 
     <div class="sidebar">
 
-        <img src="~/Images//BackWhite.png" class="sidebar-toggler" />
+       @*  <img src="~/Images//BackWhite.png" class="sidebar-toggler" /> *@
 
         <ul>
-            <li>
+            @* <li>
                 <a href="@Url.Action("Index", "DashboardMenu")" class="sidebar-link link-dashboard" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <img src="~/Images/Dashboard.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Dashboard</span>
                 </a>
-            </li>
+            </li> *@
 
             <li>
-                <a href="@Url.Action("Index", "ProductMenu")" class="sidebar-link link-product" data-toggle="tooltip" data-placement="right" title="Product">
+                <a href="@Url.Action("Index", "ProductMenu")" class="sidebar-link link-product">
                     <img src="~/Images/Product.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Product</span>
                 </a>
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "CategoryMenu")" class="sidebar-link link-category" data-toggle="tooltip" data-placement="right" title="Category">
+                <a href="@Url.Action("Index", "CategoryMenu")" class="sidebar-link link-category" >
                     <img src="~/Images//Category.png" class="sidebar-link-img" >
                     <span class="sidebar-link-name">Category</span>
                    @*  <i class="fa-solid fa-caret-down caret" style="color: #ffffff;"></i> *@
@@ -109,7 +109,7 @@
             </li>
 
             <li>
-                <a class="sidebar-link text-white inventoryMenu" data-toggle="tooltip" data-placement="right" title="">
+                <a class="sidebar-link text-white inventoryMenu">
                     <img src="~/Images/Inventory.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Inventory</span>
                                
@@ -129,21 +129,21 @@
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "SalesMenu")" class="sidebar-link link-sales" data-toggle="tooltip" data-placement="right" title="Sales">
+                <a href="@Url.Action("Index", "SalesMenu")" class="sidebar-link link-sales">
                     <img src="~/Images/Sales.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">Sales</span>
                 </a>
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "SalesReportMenu")" class="sidebar-link link-salesreport" data-toggle="tooltip" data-placement="right" title="Sales Report">
+                <a href="@Url.Action("Index", "SalesReportMenu")" class="sidebar-link link-salesreport" >
                     <img src="~/Images/SalesReport.png" class="sidebar-link-img" alt="">
-                    <span class="sidebar-link-name">Sales Report</span>
+                    <span class="sidebar-link-name">Report</span>
                 </a>
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "UserManagementMenu")" class="sidebar-link link-usermanagement" data-toggle="tooltip" data-placement="right" title="User Management">
+                <a href="@Url.Action("Index", "UserManagementMenu")" class="sidebar-link link-usermanagement">
                     <img src="~/Images/UserManagement.png" class="sidebar-link-img" alt="">
                     <span class="sidebar-link-name">User Management</span>
                 </a>

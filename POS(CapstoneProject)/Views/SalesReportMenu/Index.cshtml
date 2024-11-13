@@ -68,11 +68,9 @@
         { 
           
             <thead>
-                <tr>
-                 @*    <th >Name</th> *@
+                <tr>           
                     <th> Date</th>
-                    <th >Amount</th>
-                 @*    <th>Total Sold Product</th> *@
+                    <th >Amount</th>          
                 </tr>
             </thead>
 
@@ -82,10 +80,10 @@
                     var totalSales = Convert.ToDouble(item.TotalSales);
                     var parseDate = DateTime.Parse(item.OrderDate);
                     <tr>
-                        @* <td data-label="Name">@item.Name</td> *@
+                      
                         <td data-label="Date">@parseDate.Year-@parseDate.Month-@parseDate.Day</td>
                         <td data-label="Total Sales">@totalSales.ToString("C")</td>
-                       @*  <td data-label="Total Sold">@item.TotalSold</td> *@
+                     
                     </tr>
                 }
             </tbody>
@@ -107,9 +105,7 @@
                     <tr>
                         <td data-label="Name">@item.Name</td>    
                         <td data-label="Current Stock">@item.Quantity</td>
-                      @*   <td data-label="Date">@item.TransactionDate.ToString("yyyy-MM-dd")</td>
-                        <td data-label="Total Quantity">@item.TotalStockIn</td>
-                        <td data-label="Total Quantity">@item.TotalStockOut</td>    *@                 
+                               
                     </tr>
                 }
             </tbody>

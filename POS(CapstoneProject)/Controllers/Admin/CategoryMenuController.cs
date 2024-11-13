@@ -32,9 +32,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 {
                     //check if the user is an admin
                     if (check.RoleId != 1)
-                    {
-                        //clear the session and redirect to the login if the user is not an admin
-                        //HttpContext.Session.Clear();
+                    {                   
                         return RedirectToAction("Index", "Sales");
                     }
                     else

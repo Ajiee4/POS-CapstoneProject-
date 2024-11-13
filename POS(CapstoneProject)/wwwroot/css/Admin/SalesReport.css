@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 .report-filter-wrapper {
+    font-family: "Inter", "Arial";
     width: 100%;
     padding: 15px 10px;
     background-color: #1F1C1C;
@@ -95,7 +96,9 @@
     display: none;
 }*/
 
-.grandTotal-wrapper p{
+.grandTotal-wrapper p {
+    font-family: "Inter", "Arial";
     font-weight: bolder;
     font-size: 1.7rem;
+    color: black;
 }

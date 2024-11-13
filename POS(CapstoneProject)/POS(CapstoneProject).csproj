@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.8.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -46,6 +47,10 @@
   <ItemGroup>
     <None Include="C:\Users\Admin\source\repos\POS(CapstoneProject)\POS(CapstoneProject)\Controllers\.editorconfig" />
     <None Include="wwwroot\js\Admin\Inventory\StockMovement.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="EmailTemplate\" />
   </ItemGroup>
 
 </Project>

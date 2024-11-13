@@ -26,7 +26,8 @@
     box-shadow: 1px 2px 5px black;
     padding: 5px 20px;
     border: 2px solid white;
-   /* font-family: "Inter" !important;*/
+    /* font-family: "Inter" !important;*/
+    font-family: "Inter", "Arial";
 }
 .general-modal .modal-content .modal-header {
     border: none;

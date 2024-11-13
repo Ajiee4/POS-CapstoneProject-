@@ -9,6 +9,7 @@
     position: relative;
     width: 100%;
     visibility: hidden;
+    font-family: "Inter", "Arial";
 }
 
 
@@ -59,8 +60,8 @@
     white-space: pre-wrap
 }
 
-@media (max-width: 350px) {
+/*@media (max-width: 350px) {
     .swal-archive-product-title::after, .swal-unarchive-product-title::after {
         font-size: 0.6rem;
     }
-}
+}*/

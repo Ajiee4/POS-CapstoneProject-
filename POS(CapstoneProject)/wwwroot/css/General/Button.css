@@ -14,10 +14,11 @@
     font-size: 0.6rem;
     font-weight: bold;
     border-radius: 20px;
-    border: 1.5px solid white;
-   /* font-family: "Inter" !important;*/
+    border: 1.5px solid black;
+    /* font-family: "Inter" !important;*/
     transition: 0.3s ease-in-out;
     cursor: pointer;
+    font-family: "Inter", "Arial";
 }
 
 .general-button:focus {
@@ -30,7 +31,7 @@
 }
 
 .general-button span {
-    color: white;
+    color: black;
 }
 
 .general-button:hover {

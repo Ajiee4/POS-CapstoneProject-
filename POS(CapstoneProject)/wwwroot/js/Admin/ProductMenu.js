@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
     //Setup the table
     $('.product-table').DataTable({
         "paging": true,       
@@ -26,29 +25,10 @@ $(document).ready(function () {
 });
 
 
-//when the button is click it will fire the input to select an image
-$('#addProductModal .uploadPhoto').click(function () {
-
-    $('#addProductModal .inputPhoto').click();
-});
-
-//Showing the product photo inside the modal
-$('#addProductModal .inputPhoto').change(function (e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-        $('#addProductModal .photo-wrapper img').attr('src', e.target.result);
-    };
-
-    reader.readAsDataURL(file);
-});
-
 //when modal is close, it will clear the value
 $('#addProductModal').on('hidden.bs.modal', function () {
     $('#addProductModal .addProductInputName').val('');
     $('#addProductModal .addProductInputPrice').val('');
-    $('#addProductModal .photo-wrapper img').attr('src', '/images/noimage.jpg');
     $('#addProductModal .inputPhoto').val('');
 });
 
@@ -91,28 +71,7 @@ function updateProduct(id, name, price, category, img) {
         $('#updateProductModal .photo-wrapper img').attr('src', '/images/noimage.jpg');
     }
 }
-//clear the value of input photo when the update modal is hidden
-$('#updateProductModal').on('hidden.bs.modal', function () {
-   
-    $('#updateProductModal .inputPhoto').val('');
-});
-//when the upload photo button is click it will fire the input photo to select an image file
-$('#updateProductModal .uploadPhoto').click(function () {
 
-    $('#updateProductModal .inputPhoto').click();
-});
-
-//Showing the product photo inside the modal
-$('#updateProductModal .inputPhoto').change(function (e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-        $('#updateProductModal .photo-wrapper img').attr('src', e.target.result);
-    };
-
-    reader.readAsDataURL(file);
-});
 
 //validate the product price
 function validatePrice(input) {
