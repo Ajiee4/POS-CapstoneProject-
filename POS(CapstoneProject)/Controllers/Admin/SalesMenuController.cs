@@ -33,6 +33,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     else
                     {
+
                         var categoryList = await _context.Category
                                                 .Where(s => s.IsArchive == false)
                                                 .ToListAsync();

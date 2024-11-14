@@ -15,9 +15,10 @@
     top: 70px;
     right: 10px;
     bottom: 40px;
-    background-color: rgba(252,237,237,0.3);
+    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
+    box-shadow: 1px 2px 5px black;
     width: 320px;
-    border: 1px solid grey;
+    border: 2px solid white;
     border-radius: 5px;
     /* box-shadow: 1px 1px 5px grey;*/
     z-index: 990;
@@ -87,17 +88,17 @@
 }
     .checkout-table-wrapper .checkout-table tbody td {
         text-align: center;
-        color: black;
+        color: white;
         font-weight: lighter;
         padding: 10px 0px;
-        border-top: 5px solid #6F6E6E;
-        border-bottom: 5px solid #6F6E6E;
-        font-weight: lighter;
+      /*  border-top: 5px solid #6F6E6E;*/
+       /* border-bottom: 5px solid #6F6E6E;*/
+        font-weight: 200;
         /* font-size: 0.8rem;*/
     }
     .checkout-table-wrapper .checkout-table tbody tr{
         color: black;
-        background-color: white;
+        background-color: transparent;
     }
 
    /* .checkout-table-wrapper .checkout-table tbody tr:hover {
@@ -263,21 +264,21 @@
    
 }
 
-    .checkout-footer .checkout-btn button {
-        padding: 10px;
-        cursor: pointer;
-        background-color: #1F1C1C;
-        color: white;
-        border: none;
-        outline: none;
-        font-size: 0.8rem;
-        border-radius: 2px;
-        letter-spacing: 1px;
-        border: 1px solid white;
-        border-radius: 5px;
-        font-weight: bolder;
-        flex: 1;
-    }
+.checkout-footer .checkout-btn button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #1F1C1C;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 5px;
+    font-weight: bolder;
+    flex: 1;
+}
 #inputDiscount {
     text-align: center
 }
@@ -325,12 +326,12 @@ Product List*/
     padding: 0px 15px;
     gap: 5px;     
     background-color: transparent;
-    border: 1px solid white;
+    border: 1px solid black;
     
 }
 .search-wrapper .searchProd div span {
-    color: white;
-    font-weight: lighter;
+    color: black;
+    font-weight: 500;
 }
   
 .search-wrapper .searchProd > div {
@@ -345,8 +346,8 @@ Product List*/
     outline: none !important;
     box-shadow: none;
     padding: 5px;
-    color: white;
-    font-weight: lighter;
+    color: black;
+    font-weight: 500;
 }
 
 .category-list-wrapper {
@@ -361,7 +362,7 @@ Product List*/
     flex-wrap: wrap;
     gap: 5px 5px;
     padding: 2px 0px;
-    border: 1px solid #FFFFFF;
+    border: 1px solid black;
     z-index: 1;
 }
 

@@ -209,6 +209,7 @@ body {
     height: 100%;
     transition: 0.5s;
     z-index: 2;
+    font-family: "Inter","Arial";
 }
 
 .sidebar .sidebar-toggler:hover {
@@ -260,7 +261,7 @@ body {
 }
 
 .link-usermanagement .sidebar-link-name{
-    font-size: 0.8rem !important;
+    font-size: 0.7rem !important;
 }
 .sidebar ul li a:hover {
     background-color: #747474;
@@ -286,15 +287,15 @@ body {
     transition: 0.5s ease-in-out;
 }
 
-    .sidebar ul ul li a {
-        border-radius: 10px;
-        font-size: 0.8rem;
-        display: block;
-        /* font-family: "Inter";*/
-        text-align: center;
-        font-weight: bolder;
-        white-space: nowrap;
-    }
+.sidebar ul ul li a {
+    border-radius: 10px;
+    font-size: 0.8rem;
+    display: block;
+    /* font-family: "Inter";*/
+    text-align: center;
+    font-weight: bolder;
+    white-space: nowrap;
+}
 .container-all {
     /* background-color: rgba(250,250,250,0.5);*/
     background-color: #C8C8C8;
