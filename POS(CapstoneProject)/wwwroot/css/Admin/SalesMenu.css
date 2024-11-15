@@ -15,11 +15,12 @@
     top: 70px;
     right: 10px;
     bottom: 40px;
-    background-color: rgba(252,237,237,0.3);
+    background: linear-gradient(140deg,#AFAFAF,#AFAFAF,#494949);
     width: 320px;
     border: 1px solid grey;
     border-radius: 5px;
-    /* box-shadow: 1px 1px 5px grey;*/
+    /* box-shadow: 1px 1px 5px grey;*/ box-shadow: 1px 2px 5px black;
+    border: 2px solid white;
     z-index: 990;
 }
 .checkout-wrapper .checkout-content-wrapper{   
@@ -262,21 +263,21 @@
    
 }
 
-    .checkout-footer .checkout-btn button {
-        padding: 10px;
-        cursor: pointer;
-        background-color: #1F1C1C;
-        color: white;
-        border: none;
-        outline: none;
-        font-size: 0.8rem;
-        border-radius: 2px;
-        letter-spacing: 1px;
-        border: 1px solid white;
-        border-radius: 5px;
-        font-weight: bolder;
-        flex: 1;
-    }
+.checkout-footer .checkout-btn button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #1F1C1C;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 5px;
+    font-weight: bolder;
+    flex: 1;
+}
 #inputDiscount {
     text-align: center
 }

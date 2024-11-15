@@ -38,6 +38,7 @@
     display: flex;
     justify-content: center !important;
   /*  background-color: red;*/
+  padding: 0px 40px;
     position: relative;
 }
 
@@ -69,7 +70,7 @@
 .request-text {
     border-bottom: 1px solid transparent;
     transition: 0.3s ease-in-out;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
 }
 
 .request-text:hover {
@@ -265,79 +266,39 @@ Request & Stock Out*/
 }
 
 
-.request-list-footer .requestSubmit {
-    width: 120px;
-    height: 50px;
+.footer-buttons-wrapper, .request-list-footer {
+    
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+    padding:15px 5px;
+}
+.footer-buttons-wrapper > button, .request-list-footer > button {
+    padding: 10px;
+    cursor: pointer;
     background-color: #1F1C1C;
-    font-size: 1rem;
-    font-weight: bolder;
     color: white;
     border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: .3ms ease-in-out;
-}
-
-.request-list-footer .cancelrequest {
-    width: 120px;
-    height: 50px;
-    background-color: transparent;
-    font-size: 1rem;
+    outline: none;
+    font-size: 0.8rem;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 5px;
     font-weight: bolder;
-    color: white;
-    border: 1px solid black;
-    border-radius: 20px;
-    transition: .3ms ease-in-out;
-    cursor: pointer;
+    flex: 1;
 }
-
-.stock-out-footer {
-    display: flex;
-    border-top: 1px solid black;
-    flex-direction: column;
-    padding: 5px;
-}
-.footer-buttons-wrapper{
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    padding: 10px;
-    gap: 20px;
-   
-}
-
-    .footer-buttons-wrapper .stockOutSubmit {
-        width: 120px;
-        height: 50px;
-        background-color: #1F1C1C;
-        font-size: 1rem;
-        font-weight: bolder;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 20px;
-        transition: .3ms ease-in-out;
-    }
-
-.footer-buttons-wrapper .cancelStockOut {
-    cursor: pointer;
-    width: 120px;
-    height: 50px;
-    background-color: transparent;
-    font-size: 1rem;
-    font-weight: bolder;
-    color: white;
-    border: 1px solid black;
-    border-radius: 20px;
-    transition: .3ms ease-in-out;
-}
-
+    
 .stockOutRemarks {
     width: 100%;
     padding: 5px;
     border-radius: 5px;
     background-color: #D9D9D9;
 }
+
 .stockOutRemarks option {
     background-color: #D9D9D9;
 }

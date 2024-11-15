@@ -69,6 +69,7 @@
          
                 if(inventoryAll != null)
                 {
+
                     @foreach (var item in inventoryAll)
                     {
                         var checkUser = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault(); 
