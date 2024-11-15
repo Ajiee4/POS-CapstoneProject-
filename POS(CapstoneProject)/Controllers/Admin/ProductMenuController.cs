@@ -87,44 +87,48 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProduct(Product prod)
         {
+          
             var checkProduct = await _context.Product
-                                    .Where(s => s.ProductId == prod.ProductId)
-                                    .FirstOrDefaultAsync();
+                                  .Where(s => s.ProductId == prod.ProductId)
+                                  .FirstOrDefaultAsync();
 
             if (checkProduct != null)
             {
-                var checkExisting = await _context.Product.Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId).FirstOrDefaultAsync();
-                if (checkExisting == null)
+               
+                if (checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId)
                 {
-                    if (checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId)
+                    TempData["NoChanges"] = "No changes detected.";
+                }
+                else
+                {
+                    
+                    var checkExisting = await _context.Product
+                        .Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId && s.ProductId != prod.ProductId)
+                        .FirstOrDefaultAsync();
+
+                    if (checkExisting == null)
                     {
-                        TempData["NoChanges"] = "Product updated";
-                    }
-                    else
-                    {
+                        
                         checkProduct.Name = prod.Name;
                         checkProduct.Price = prod.Price;
                         checkProduct.ProdCategoryId = prod.ProdCategoryId;
 
-
+                        
                         _context.Update(checkProduct);
                         await _context.SaveChangesAsync();
 
-                        TempData["ProductUpdated"] = "Product updated";
+                        TempData["ProductUpdated"] = "Product updated successfully.";
+                    }
+                    else
+                    {
+                        TempData["ProductExist"] = "A product with the same name and category already exists.";
                     }
                 }
-                else
-                {
-                    TempData["ProductExist"] = "Product already exist";
-                }
-               
-
-            
             }
-           
-            return RedirectToAction("Index");
 
+            return RedirectToAction("Index");
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
