@@ -1,24 +1,6 @@
 ﻿let requestListUpdate = [];
 $(document).ready(function () {
 
-    var d = new Date();
-    var day = ("0" + d.getDate()).slice(-2);
-    var month = ("0" + (d.getMonth() + 1)).slice(-2);
-
-    var today = d.getFullYear() + "-" + month + "-" + day;
-    document.querySelector('.fromDate').value = today;
-    document.querySelector('.toDate').value = today;
-   
-
-    $('.stock-movement-table').DataTable({
-        "paging": true,
-        "ordering": true,
-        "searching": true,
-        "ordering": false,
-        "pageLength": 5,
-
-    });
-
     $('.loader-wrapper').hide();
     $('.request-filter-wrapper').css({
         "visibility": "visible"

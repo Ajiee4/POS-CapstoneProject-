@@ -199,12 +199,11 @@ body {
 }
 .container-all-cashier {
     /* background-color: rgba(250,250,250,0.5);*/
-    background-color: rgba(111,110,110,0.6);
+    background-color: #C8C8C8;
     height: calc(100vh - 110px);
     z-index: 1;
     border-radius: 5px;
     padding: 10px;
-   
 }
 
 

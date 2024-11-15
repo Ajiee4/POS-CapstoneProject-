@@ -57,7 +57,7 @@
     font-weight: bold;
     font-size: 2rem;
     flex-grow: 0;
-    color: white;
+   
     padding: 10px;
 }
 
@@ -90,14 +90,13 @@
         color: black;
         font-weight: lighter;
         padding: 10px 0px;
-        border-top: 5px solid #6F6E6E;
-        border-bottom: 5px solid #6F6E6E;
-        font-weight: lighter;
+       
+        font-weight: 500;
         /* font-size: 0.8rem;*/
     }
     .checkout-table-wrapper .checkout-table tbody tr{
         color: black;
-        background-color: white;
+       
     }
 
    /* .checkout-table-wrapper .checkout-table tbody tr:hover {
@@ -193,7 +192,7 @@
 .checkout-footer {
     background-color: transparent;
     border-top: 1px solid black;
-    color: white;
+    color: black;
 }
 
 .discount-wrapper {
@@ -325,12 +324,12 @@ Product List*/
     padding: 0px 15px;
     gap: 5px;     
     background-color: transparent;
-    border: 1px solid white;
+    border: 1px solid black;
     
 }
 .search-wrapper .searchProd div span {
-    color: white;
-    font-weight: lighter;
+    color: black;
+    font-weight: 500;
 }
   
 .search-wrapper .searchProd > div {
@@ -345,8 +344,8 @@ Product List*/
     outline: none !important;
     box-shadow: none;
     padding: 5px;
-    color: white;
-    font-weight: lighter;
+    color: black;
+    font-weight: 200;
 }
 
 .category-list-wrapper {
