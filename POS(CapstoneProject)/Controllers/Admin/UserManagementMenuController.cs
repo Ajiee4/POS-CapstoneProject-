@@ -14,6 +14,21 @@ namespace POS_CapstoneProject_.Controllers.Admin
             _context = context;
         }
 
+        public async Task GetData()
+        {
+            var userList = await _context.UserDetail
+                                         .Include(x => x.User)
+                                         .Include(s => s.User.Role)
+                                         .OrderBy(s => s.UserId).ToListAsync();
+
+            var roleList = await _context.Role
+                                         .ToListAsync();
+
+            ViewData["UserList"] = userList;
+            ViewData["RoleList"] = roleList;
+
+        }
+
         public async Task<IActionResult> Index()
         {
 
@@ -21,26 +36,20 @@ namespace POS_CapstoneProject_.Controllers.Admin
             if (UserId != null)
             {
                 var check = await _context.User
-                                .Where(s => s.UserId == UserId)
-                                .FirstOrDefaultAsync();
+                                          .Where(s => s.UserId == UserId)
+                                          .FirstOrDefaultAsync();
                 if (check != null)
                 {
                     if (check.RoleId != 1)
                     {
-                        //HttpContext.Session.Clear();
+                       
                         return RedirectToAction("Index", "Sales");
                     }
                     else
                     {
-                        var userList = await _context.UserDetail
-                                            .Include(x => x.User)
-                                            .Include(s => s.User.Role)
-                                            .OrderBy(s => s.UserId).ToListAsync();
 
-                        var roleList = await _context.Role.ToListAsync();
 
-                        ViewData["UserList"] = userList;
-                        ViewData["RoleList"] = roleList;
+                        await GetData();
 
                         return View();
                     }
@@ -62,64 +71,84 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddUser(string firstname, string lastname, string email, string cellnumber, string username, string password, string role)
         {
-            var checkUser = await _context.User
-                                .Where(s => s.Username == username)
-                                .FirstOrDefaultAsync();
 
-            if (checkUser != null)
-            {
-                TempData["Exist"] = "";
-            }
-            else
-            {
-                if(role == "Admin")
+            try
+            {               
+                var checkUser = await _context.UserDetail.Include(s => s.User).Where(s => s.User.Username == username || s.EmailAddress == email).FirstOrDefaultAsync();
+
+                if (checkUser != null)
                 {
-                    var adduser = new User()
+                    if(checkUser.User.Username == username)
                     {
-                        Username = username,
-                        Password = password,
-                        RoleId = 1,
-                        isArchive = false
-                    };
-
-                    await _context.User.AddAsync(adduser);
-                    await _context.SaveChangesAsync();
-
+                        ViewData["ExistUsername"] = "";
+                    }
+                    else if(checkUser.EmailAddress == email)
+                    {
+                        ViewData["ExistEmail"] = "";
+                    }
+                    
+                }
+                else
+                {
                    
-                }
-                else if(role == "Cashier")
-                {
-                    var adduser = new User()
+                    if (role == "Admin")
                     {
-                        Username = username,
-                        Password = password,
-                        RoleId = 2,
-                        isArchive = false
-                    };
+                        var adduser = new User()
+                        {
+                            Username = username,
+                            Password = password,
+                            RoleId = 1,
+                            isArchive = false
+                        };
 
-                    await _context.User.AddAsync(adduser);
-                    await _context.SaveChangesAsync();
+                        await _context.User.AddAsync(adduser);
+                        await _context.SaveChangesAsync();
 
-                    var userDetails = new UserDetail()
+
+                    }
+                    else if (role == "Cashier")
                     {
-                        UserId = adduser.UserId,
-                        Firstname = firstname,
-                        Lastname = lastname,
-                        EmailAddress = email,
-                        ContactNumber = cellnumber,
-                    };
+                        var adduser = new User()
+                        {
+                            Username = username,
+                            Password = password,
+                            RoleId = 2,
+                            isArchive = false
+                        };
 
-                    await _context.UserDetail.AddAsync(userDetails);
-                    await _context.SaveChangesAsync();
+                        await _context.User.AddAsync(adduser);
+                        await _context.SaveChangesAsync();
+
+                        var userDetails = new UserDetail()
+                        {
+                            UserId = adduser.UserId,
+                            Firstname = firstname,
+                            Lastname = lastname,
+                            EmailAddress = email,
+                            ContactNumber = cellnumber,
+                        };
+
+                        await _context.UserDetail.AddAsync(userDetails);
+                        await _context.SaveChangesAsync();
+                    }
+
+
+
+
+                    ViewData["AddUser"] = "";
                 }
-                
-
-              
-
-                TempData["AddUser"] = "";
+            }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
             }
 
-            return RedirectToAction("Index");
+
+            return View("Index");
         }
 
 
@@ -127,47 +156,78 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> UpdateUser(int userid, string firstname, string lastname, string email, string cellnumber, string username, string password, string role)
         {
+            try
+            {           
 
-            var findUser = await _context.User.Include(s => s.Role)
-                                .Where(s => s.UserId == userid)
-                                .FirstOrDefaultAsync(); 
+                var checkUser = await _context.UserDetail
+                                              .Include(s => s.User)
+                                              .ThenInclude(s => s.Role)
+                                              .Where(s => s.UserId == userid)
+                                              .FirstOrDefaultAsync();
 
-            var findUserDetail = await _context.UserDetail
-                                        .Where(s => s.UserId == userid)
-                                        .FirstOrDefaultAsync();
-           
-            if (findUser != null && findUserDetail != null)
-            {
-                if (findUser?.Username == username && findUser.Password == password && findUserDetail?.Firstname == firstname &&
-                    findUserDetail.Lastname == lastname && findUserDetail.EmailAddress == email && findUserDetail.ContactNumber == cellnumber)
+                if (checkUser != null)
                 {
-                    TempData["NoChanges"] = "";
+                    if (checkUser?.User.Username == username && checkUser.User.Password == password && checkUser?.Firstname == firstname &&
+                        checkUser.Lastname == lastname && checkUser.EmailAddress == email && checkUser.ContactNumber == cellnumber)
+                    {
+                        ViewData["NoChanges"] = "";
+                    }
+                    else
+                    {
+                        var findUser = await _context.UserDetail
+                                                     .Include(s => s.User)
+                                                     .Where(s => s.UserId == userid)
+                                                     .FirstOrDefaultAsync();
+
+                        var checkExisting = await _context.UserDetail
+                                                          .Include(s => s.User)
+                                                          .Where(s => s.User.Username == username || s.EmailAddress == email)
+                                                          .FirstOrDefaultAsync();
+                      
+                        if (checkExisting.UserId != findUser.UserId)
+                        {
+                            if (checkExisting.User.Username == username)
+                            {
+                                ViewData["ExistUsername"] = "";
+                            }
+                            else if (checkExisting.EmailAddress == email)
+                            {
+                                ViewData["ExistEmail"] = "";
+                            }
+
+                        }
+                        else
+                        {
+
+                            checkUser.User.Username = username;
+                            checkUser.User.Password = password;
+                            checkUser.Firstname = firstname;
+                            checkUser.Lastname = lastname;
+                            checkUser.EmailAddress = email;
+                            checkUser.ContactNumber = cellnumber;                        
+
+                            _context.UserDetail.Update(checkUser);
+                            await _context.SaveChangesAsync();
+
+                            ViewData["UpdateUser"] = "";
+
+                        }
+
+                    }
+
                 }
-                else
-                {
-                    //var getRole = await _context.Role.Where(s => s.RoleName == role).FirstOrDefaultAsync();
-
-                    findUser.Username = username;
-                    findUser.Password = password;
-                    //findUser.RoleId = getRole.RoleId;
-
-                    _context.User.Update(findUser);
-                    await _context.SaveChangesAsync();
-
-                    findUserDetail.Firstname = firstname;
-                    findUserDetail.Lastname = lastname;
-                    findUserDetail.EmailAddress = email;
-                    findUserDetail.ContactNumber = cellnumber;
-
-                    _context.UserDetail.Update(findUserDetail);
-                    await _context.SaveChangesAsync();
-
-                    TempData["UpdateUser"] = "";
-                }
-               
             }
-     
-            return RedirectToAction("Index");
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
+            }
+
+
+            return View("Index");
 
         }
 
@@ -176,40 +236,64 @@ namespace POS_CapstoneProject_.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UnarchiveUser(int userid)
         {
-            var findUser = await _context.User
-                                .Where(s => s.UserId == userid)
-                                .FirstOrDefaultAsync();
-
-            if (findUser != null)
+            try
             {
-                findUser.isArchive = false;
+                var findUser = await _context.User
+                                             .Where(s => s.UserId == userid)
+                                             .FirstOrDefaultAsync();
 
-                _context.User.Update(findUser);
-                await _context.SaveChangesAsync();
+                if (findUser != null)
+                {
+                    findUser.isArchive = false;
 
-                TempData["SuccessUnarchived"] = "";
+                    _context.User.Update(findUser);
+                    await _context.SaveChangesAsync();
+
+                    ViewData["SuccessUnarchived"] = "";
+                }
+            }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
             }
 
 
-            return RedirectToAction("Index");
+
+            return View("Index");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArchiveUser(int userid)
         {
-            var findUser = await _context.User.Where(s => s.UserId == userid).FirstOrDefaultAsync();
-            if (findUser != null)
+            try
             {
-                findUser.isArchive = true;
+                var findUser = await _context.User
+                                             .Where(s => s.UserId == userid)
+                                             .FirstOrDefaultAsync();
+                if (findUser != null)
+                {
+                    findUser.isArchive = true;
 
-                _context.User.Update(findUser);
-                await _context.SaveChangesAsync();
+                    _context.User.Update(findUser);
+                    await _context.SaveChangesAsync();
 
-                TempData["SuccessArchived"] = " ";
+                    ViewData["SuccessArchived"] = " ";
+                }
+            }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
             }
 
-
-            return RedirectToAction("Index");
+            return View("Index");
         }
 
     }

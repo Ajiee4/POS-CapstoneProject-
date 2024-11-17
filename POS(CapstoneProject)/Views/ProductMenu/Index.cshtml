@@ -192,7 +192,7 @@
 <!--Pop Up Messages-->
 
 <!--Added Product-->
-@if (TempData["ProductAdded"] != null)
+@if (ViewData["ProductAdded"] != null)
 {
     <script>
         Swal.fire({
@@ -204,7 +204,7 @@
     </script>
 }
 <!--Updated Product-->
-@if (TempData["ProductUpdated"] != null)
+@if (ViewData["ProductUpdated"] != null)
 {
     <script>
         Swal.fire({
@@ -216,7 +216,7 @@
     </script>
 }
 <!--Archive Product-->
-@if (TempData["SuccessArchived"] != null)
+@if (ViewData["SuccessArchived"] != null)
 {
     <script>
         Swal.fire({
@@ -228,7 +228,7 @@
     </script>   
 }
 <!--UnArchive Product-->
-@if (TempData["SuccessUnarchived"] != null)
+@if (ViewData["SuccessUnarchived"] != null)
 {
     <script>
         Swal.fire({
@@ -240,7 +240,7 @@
     </script>
 }
 <!--Product already Exist-->
-@if (TempData["ProductExist"] != null)
+@if (ViewData["ProductExist"] != null)
 {
     <script>
         Swal.fire({
@@ -252,12 +252,23 @@
     </script>
 } 
 <!--No Changes Have Been Made When Updating-->
-@if (TempData["NoChanges"] != null)
+@if (ViewData["NoChanges"] != null)
 {
     <script>
         Swal.fire({
             text: "No changes have been made",
             icon: "info",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+} 
+@if (ViewData["Error"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "@ViewData["Error"]",
+            icon: "error",
             showConfirmButton: false,
             timer: 2000
         });

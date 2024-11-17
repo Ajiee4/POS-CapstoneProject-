@@ -293,7 +293,7 @@
 <!--Pop up Messages-->
 
 <!--Add Ingredient-->
-@if (TempData["AddIngredient"] != null)
+@if (ViewData["AddIngredient"] != null)
 {
     <script>
         Swal.fire({
@@ -305,7 +305,7 @@
     </script>
 }
 <!--Ingredient already Exist-->
-@if (TempData["Exist"] != null)
+@if (ViewData["Exist"] != null)
 {
     <script>
         Swal.fire({
@@ -317,7 +317,7 @@
     </script>
 }
 <!--Stock Out-->
-@if (TempData["StockOut"] != null)
+@if (ViewData["StockOut"] != null)
 {
     <script>
         Swal.fire({
@@ -329,7 +329,7 @@
     </script>
 }
 <!--No changes have been made when updating the ingredient-->
-@if (TempData["NoChanges"] != null)
+@if (ViewData["NoChanges"] != null)
 {
     <script>
         Swal.fire({
@@ -341,7 +341,7 @@
     </script>
 }
 <!--Update Ingredient-->
-@if (TempData["UpdateIngredient"] != null)
+@if (ViewData["UpdateIngredient"] != null)
 {
     <script>
         Swal.fire({
@@ -353,12 +353,24 @@
     </script>
 }
 <!--Add Request-->
-@if (TempData["AddRequest"] != null)
+@if (ViewData["AddRequest"] != null)
 {
     <script>
         Swal.fire({
             text: "Request Complete",
             icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+}
+
+@if (ViewData["Error"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "@ViewData["Error"]",
+            icon: "error",
             showConfirmButton: false,
             timer: 2000
         });

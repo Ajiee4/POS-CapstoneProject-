@@ -152,7 +152,7 @@
 <!--Pop Up Messages-->
 
 <!--Category already exists-->
-@if (TempData["CategoryExist"] != null)
+@if (ViewData["CategoryExist"] != null)
 {
     <script>
         Swal.fire({
@@ -165,7 +165,7 @@
 }
 
 <!--Added New Category-->
-@if (TempData["AddedCategory"] != null)
+@if (ViewData["AddedCategory"] != null)
 {
     <script>
         Swal.fire({
@@ -177,7 +177,7 @@
     </script>
 }
 <!--No Changes have been made when updating-->
-@if (TempData["NoChanges"] != null)
+@if (ViewData["NoChanges"] != null)
 {
     <script>
         Swal.fire({
@@ -189,7 +189,7 @@
     </script>
 }
 <!--Update CAtegory-->
-@if (TempData["UpdatedCategory"] != null)
+@if (ViewData["UpdatedCategory"] != null)
 {
     <script>
         Swal.fire({
@@ -201,7 +201,7 @@
     </script>
 }
 <!--Archive Category-->
-@if (TempData["SuccessArchived"] != null)
+@if (ViewData["SuccessArchived"] != null)
 {
     <script>
         Swal.fire({
@@ -213,7 +213,7 @@
     </script>
 }
 <!--UnArchive Category-->
-@if (TempData["SuccessUnarchived"] != null)
+@if (ViewData["SuccessUnarchived"] != null)
 {
     <script>
         Swal.fire({
@@ -223,4 +223,15 @@
             timer: 2000
         });
     </script>
-}                     
+}              
+@if (ViewData["Error"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "@ViewData["Error"]",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+} 

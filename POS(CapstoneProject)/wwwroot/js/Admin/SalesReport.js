@@ -24,22 +24,48 @@ $(document).ready(function () {
 //generate is button is click
 $('.generateReportBtn').click(function (event) {
 
-
-    if ($('.toDateReport').val() == '' || $('.fromDateReport').val() == '' || $('.selectReportType').val() == null) {
-
+    if ($('.selectReportType').val() == "" || $('.selectReportType').val() == null) {
         popUpMessage("Fill out all information", "error")
     }
     else {
-        $('#salesReportForm').submit();
+        if ($('.selectReportType').val() == "Sales Report") {
 
-        let toDate = $('.toDateReport').val();
-        let fromDate = $('.fromDateReport').val();
-        let reportType = $('.selectReportType').val();
+            if ($('.toDateReport').val() == '' || $('.fromDateReport').val() == '') {
 
-        localStorage.setItem('toDateReport', toDate);
-        localStorage.setItem('fromDateReport', fromDate);
-        localStorage.setItem('reportType', reportType);
+                popUpMessage("Fill out all information", "error")
+            }
+            else {
+                $('#salesReportForm').submit();
+
+                let toDate = $('.toDateReport').val();
+                let fromDate = $('.fromDateReport').val();
+                let reportType = $('.selectReportType').val();
+
+                localStorage.setItem('toDateReport', toDate);
+                localStorage.setItem('fromDateReport', fromDate);
+                localStorage.setItem('reportType', reportType);
+            }
+        }
+        else if ($('.selectReportType').val() == "Inventory Report") {
+
+            if ($('.inventoryByType').val() == '' || $('.inventoryByType').val() == null) {
+                popUpMessage("Fill out all information", "error")
+            }
+            else {
+                $('#salesReportForm').submit();
+
+                let toDate = $('.toDateReport').val();
+                let fromDate = $('.fromDateReport').val();
+                let reportType = $('.selectReportType').val();
+
+                localStorage.setItem('toDateReport', toDate);
+                localStorage.setItem('fromDateReport', fromDate);
+                localStorage.setItem('reportType', reportType);
+            }
+        }
     }
+   
+   
    
 });
 
@@ -48,12 +74,12 @@ function reportTypeChange(elem) {
         /*alert("inventory")*/
         document.querySelector('.report-fromdate-wrapper').style.display = "none"
         document.querySelector('.report-todate-wrapper').style.display = "none"
-        document.querySelector('.inventory-bytype-wrapper').style.display = "block"
+        /*document.querySelector('.inventory-bytype-wrapper').style.display = "block"*/
     }
     else  if(elem.value == "Sales Report"){
         document.querySelector('.report-fromdate-wrapper').style.display = "block"
         document.querySelector('.report-todate-wrapper').style.display = "block"
-        document.querySelector('.inventory-bytype-wrapper').style.display = "none"
+      /*  document.querySelector('.inventory-bytype-wrapper').style.display = "none"*/
        
     }
 }

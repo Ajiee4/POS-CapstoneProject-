@@ -45,39 +45,40 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Index(string reportType,string inventoryByType, DateTime fromDate, DateTime toDate)
+        public async Task<IActionResult> GenerateReport(string reportType,string inventoryByType, DateTime fromDate, DateTime toDate)
         {
             if(reportType == "Sales Report")
             {
                 var salesRep = await _context.Order                             
-                                .Where(s => s.OrderDate >= fromDate && s.OrderDate <= toDate)
-                                .GroupBy(g => new { g.OrderDate })
-                                .Select(g => new SalesReport
-                                {
+                                             .Where(s => s.OrderDate >= fromDate && s.OrderDate <= toDate)
+                                             .GroupBy(g => new { g.OrderDate })
+                                             .Select(g => new SalesReport
+                                             {
                                     
-                                    OrderDate = g.Key.OrderDate.ToString(),
-                                    TotalSales = g.Sum(x => x.TotalAmount),
+                                                 OrderDate = g.Key.OrderDate.ToString(),
+                                                 TotalSales = g.Sum(x => x.TotalAmount),
                                     
-                                })
-                                                     
-                                .ToListAsync();
+                                             })                                                   
+                                             .ToListAsync();
 
                 var grandTotal = salesRep.Sum(s => s.TotalSales);
+
                 ViewData["GrandTotal"] = grandTotal;
                 ViewData["SalesReport"] = JsonConvert.SerializeObject(salesRep);
 
             }
             else if(reportType == "Inventory Report")
             {
-                if(inventoryByType == "Ingredient")
-                {
-                    var ingredientList = await _context.Ingredient.ToListAsync();
-                    ViewData["InventoryReport"] = JsonConvert.SerializeObject(ingredientList);
-                }
-                else if(inventoryByType == "Product")
-                {
+                var ingredientList = await _context.Ingredient.ToListAsync();
+                ViewData["InventoryReport"] = JsonConvert.SerializeObject(ingredientList);
+                //if (inventoryByType == "Ingredient")
+                //{
+                    
+                //}
+                //else if(inventoryByType == "Product")
+                //{
 
-                }
+                //}
               
                 //var inventoryTransactions = await _context.InventoryTransaction.ToListAsync();
                 //var inventoryDetails =await _context.InventoryTransactionDetail.ToListAsync();
@@ -109,7 +110,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
             }
 
-            return View();
+            return View("Index");
        
         }
 

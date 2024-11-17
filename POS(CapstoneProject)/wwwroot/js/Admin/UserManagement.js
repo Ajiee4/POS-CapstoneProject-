@@ -213,10 +213,10 @@ function validateCellNumber(input) {
 }
 //validate the Email
 function validateEmail(input) {
-    if (input.value.match(/[^a-zA-Z_@.]+/g)) {
+    if (input.value.match(/[^a-zA-Z0-9_@.]+/g)) {
         popUpMessageToast('error', 'Invalid Input', 225)
     }
-    input.value = input.value.replace(/[^a-zA-Z_@.]+/g, '');
+    input.value = input.value.replace(/[^a-zA-Z0-9_@.]+/g, '');
 }
 //validate the Email
 function validateEmailChange(input) {

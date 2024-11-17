@@ -17,7 +17,7 @@
 
 <!--Transaction Type Filter Wrapper-->
 <div class="stock-movement-filter-wrapper">
-    <form asp-action="StockMovement" method="post" id="stockMovementForm">
+    <form asp-action="FilterType" method="post" id="stockMovementForm">
         <div class="stock-movement-type-wrapper">
             <label>Type</label>
 
@@ -62,15 +62,15 @@
 
         <tbody id="stock-movement-body">        
             <!--Inventory Stock In & Stock Out-->
-            @if (ViewData["inventoryAll"] != null)
+            @if (ViewData["StockMovementList"] != null)
             {
-                var inventoryAllList = ViewData["inventoryAll"] as string;
-                var inventoryAll = JsonConvert.DeserializeObject<List<InventoryTransaction>>(inventoryAllList);
-         
-                if(inventoryAll != null)
+                var stockMovement = ViewData["StockMovementList"] as string;
+                var stockMovementList = JsonConvert.DeserializeObject<List<InventoryTransaction>>(stockMovement);
+
+                if (stockMovementList != null)
                 {
 
-                    @foreach (var item in inventoryAll)
+                    @foreach (var item in stockMovementList)
                     {
                         var checkUser = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault(); 
                         <tr>
@@ -83,48 +83,8 @@
                     }
                 }                   
             }
-           <!--Inventory Stock in-->
-            @if (ViewData["inventoryStockIn"] != null)
-            {
-                var inventoryStockInList = ViewData["inventoryStockIn"] as string;
-                var inventoryStockIn = JsonConvert.DeserializeObject<List<InventoryTransaction>>(inventoryStockInList);       
-
-                if (inventoryStockIn != null)
-                {
-                    @foreach (var item in inventoryStockIn.Where(s => s.TransactionType == "Stock In"))
-                    {
-                        var checkUser = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-                        <tr>
-                            <td>@item.InventoryTransactId</td>
-                            <td>@checkUser.Firstname @checkUser.Lastname</td>
-                            <td>@item.TransactionDate.ToString("yyyy-MM-dd")</td>
-                            <td>@item.Remarks</td>
-                            <td><button class="btn viewDetailsBtn" data-transactid="@item.InventoryTransactId" data-toggle="modal" data-target="#viewStockMovementDetails" onclick="viewTransaction(this)" >View</button></td>
-                        </tr>
-                    }
-                }              
-            }
-            <!--Inventory Stock Out-->
-            @if (ViewData["inventoryStockOut"] != null)
-            {
-                var inventoryAllList = ViewData["inventoryStockOut"] as string;
-                var inventoryStockOut = JsonConvert.DeserializeObject<List<InventoryTransaction>>(inventoryAllList);
-               
-                if (inventoryStockOut != null)
-                {
-                    @foreach (var item in inventoryStockOut.Where(s => s.TransactionType == "Stock Out"))
-                    {
-                        var checkUser = data.UserDetail.Where(s => s.UserId == item.UserId).FirstOrDefault();
-                        <tr>
-                            <td>@item.InventoryTransactId</td>
-                            <td>@checkUser.Firstname @checkUser.Lastname</td>
-                            <td>@item.TransactionDate.ToString("yyyy-MM-dd")</td>
-                            <td>@item.Remarks</td>
-                            <td><button class="btn viewDetailsBtn" data-transactid="@item.InventoryTransactId" data-toggle="modal" data-target="#viewStockMovementDetails" onclick="viewTransaction(this)">View</button></td>
-                        </tr>
-                    }
-                }           
-            } 
+     
+       
         </tbody>
     </table>
 </div>
@@ -178,36 +138,26 @@
 
 
 <!--Set Filter-->
-@if (ViewData["inventoryAll"] != null)
+@if (ViewData["StockMovementList"] != null)
 {
     <script>
         window.addEventListener('load', function () {
             document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
             document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
             document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
-            document.querySelector('.selectTransactionType').value = "All"
+            document.querySelector('.selectTransactionType').value = "@ViewData["Type"]"
         });     
     </script>
 }
-@if (ViewData["inventoryStockOut"] != null)
+
+@if (ViewData["Error"] != null)
 {
     <script>
-        window.addEventListener('load', function () {
-            document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
-            document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
-            document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
-            document.querySelector('.selectTransactionType').value = "Stock Out"
-        });     
+        Swal.fire({
+            text: "@ViewData["Error"]",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+        });
     </script>
-}
-@if (ViewData["inventoryStockIn"] != null)
-{
-     <script>
-        window.addEventListener('load', function () {
-            document.querySelector('.fromDateStockMove').value = localStorage.getItem('fromDateStockMove');
-            document.querySelector('.toDateStockMove').value = localStorage.getItem('toDateStockMove');
-            document.querySelector('.stock-movement-wrapper').style.visibility = "visible";
-            document.querySelector('.selectTransactionType').value = "Stock In"
-        });     
-    </script>
-}
+} 

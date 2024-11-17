@@ -1,4 +1,4 @@
-﻿
+﻿@using Newtonsoft.Json;
 @inject POS_CapstoneProject_.Data.POS_CapstoneProject_Context data;
 @{
     Layout = "/Views/Shared/_ManagerLayout.cshtml";
@@ -182,7 +182,7 @@
                     <input class="form-control changeAmountText general-modal-input" readonly />
                 </div>
                                      
-                <form asp-action="Index" method="post" id="formPay">
+                <form asp-action="SalesTransaction" method="post" id="formPay">
                     <input class="" name="checkoutList" id="checkOutListInput" hidden />
                     <input name="checkoutTotal" id="checkOutTotalInput" hidden />
                     <input name="changeDueAmount" id="changeDueAmount" hidden />
@@ -200,16 +200,28 @@
     </div>
 </div>
 
+@if (ViewData["Error"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "@ViewData["Error"]",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    </script>
+}
 
 <!--Show Receipt after the transaction-->
 @if (ViewData["TransactionComplete"] != null)
 {      
-    int? orderId = ViewData["orderID"] as int?;
+    var receipt = JsonConvert.DeserializeObject<Receipt>(ViewData["Receipt"].ToString());
+    int? orderId = receipt.OrderID;
     var myorder = @data.OrderDetails.Where(s => s.OrderId == orderId).ToList();
-
+ 
     <script>
         Swal.fire({
-            text: "Transaction Complete",
+            text: "@ViewData["TransactionComplete"]",
             icon: "success",
             showConfirmButton: false,
             timer: 2000,
@@ -226,10 +238,12 @@
 
     <!--Receipt-->
     <div class="receipt">
+      
         <div class="receipt-content">
+            
             <div class="receipt-header">
                 <p class="name">Don Machiattos</p>
-                <p>Date: @ViewData["OrderDate"]</p>
+                <p>Date: @receipt.Date.ToString("MM/dd/yyyy")</p>
                 <p>Cashier: @ViewData["UserName"]</p>
             </div>
 
@@ -258,7 +272,7 @@
 
                 <div class="discount">
                     <p>Discount</p>
-                    <p>₱@ViewData["Discount"]</p>
+                    <p>₱@receipt.DiscountAmount</p>
                 </div>
 
                 <div class="tax">
@@ -268,7 +282,7 @@
 
                 <div class="total">
                     <p>Total</p>
-                    <p>₱@ViewData["Total"]</p>
+                    <p>₱@receipt.TotalAmount</p>
                 </div>
 
             </div>
@@ -278,12 +292,12 @@
             <div class="receipt-change">
                 <div class="cash">
                     <p>Cash</p>
-                    <p>₱@ViewData["Cash"]</p>
+                    <p>₱@receipt.CashTendered</p>
                 </div>
 
                 <div class="change">
                     <p>Change</p>
-                    <p>₱@ViewData["Change"]</p>
+                    <p>₱@receipt.ChangeDue</p>
                 </div>
             </div>
 

@@ -45,59 +45,68 @@ namespace POS_CapstoneProject_.Controllers.Login
         [HttpPost]
         public async Task<IActionResult> Login(User user)
         {
-            //return a record based on a condition
-            var checkUsername = await _context.User.Where(s => s.Username == user.Username).Include(s => s.Role).FirstOrDefaultAsync();
-
-            //checks the record if it is null
-            if (checkUsername == null)
+            try
             {
-                //send a message to the view
-                ViewData["NotExist"] = "Username not found";
+                //return a record based on a condition
+                var checkUsername = await _context.User.Where(s => s.Username == user.Username).Include(s => s.Role).FirstOrDefaultAsync();
 
-            }
-            else 
-            {
-
-                //check if password is correct
-                if (checkUsername.Password == user.Password)
+                //checks the record if it is null
+                if (checkUsername == null)
                 {
-                    //var check = await _context.UserDetail.Where(s => s.UserId == checkUsername.UserId).FirstOrDefaultAsync();
+                    //send a message to the view
+                    ViewData["NotExist"] = "Username not found";
 
-                    if (checkUsername.isArchive == true)
-                    {
-                        ViewData["Deactivated"] = "Account is unavailable";
+                }
+                else
+                {
 
-                    }
-                    else
+                    //check if password is correct
+                    if (checkUsername.Password == user.Password)
                     {
-                        switch (checkUsername.RoleId)
+                        //var check = await _context.UserDetail.Where(s => s.UserId == checkUsername.UserId).FirstOrDefaultAsync();
+
+                        if (checkUsername.isArchive == true)
                         {
-                            case 1:
-                                HttpContext.Session.SetInt32("UserID", checkUsername.UserId);
-                             
-                                return RedirectToAction("Index", "SalesMenu");
-                              
-                            case 2:
-                                HttpContext.Session.SetInt32("UserID", checkUsername.UserId);
+                            ViewData["Deactivated"] = "Account is unavailable";
 
-                                return RedirectToAction("Index", "Sales");
+                        }
+                        else
+                        {
+                            switch (checkUsername.RoleId)
+                            {
+                                case 1:
+                                    HttpContext.Session.SetInt32("UserID", checkUsername.UserId);
+
+                                    return RedirectToAction("Index", "SalesMenu");
+
+                                case 2:
+                                    HttpContext.Session.SetInt32("UserID", checkUsername.UserId);
+
+                                    return RedirectToAction("Index", "Sales");
+
+
+                            }
+
+                            ViewData["Success"] = "Logged In Successfully";
 
 
                         }
 
-                        ViewData["Success"] = "Logged In Successfully";
-
+                    }
+                    else
+                    {
+                        ViewData["IncorrectPassword"] = "Incorrect Password";
 
                     }
 
                 }
-                else 
-                {
-                    ViewData["IncorrectPassword"] = "Incorrect Password";
-
-                }
 
             }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+
 
             return View();
         }
@@ -106,15 +115,16 @@ namespace POS_CapstoneProject_.Controllers.Login
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(string email)
         {
-            var checkUser = _context.UserDetail.Where(s => s.EmailAddress == email).FirstOrDefault();
-            if (checkUser == null)
+            try
             {
-                ViewData["NotExist"] = "";
-            }
-            else
-            {
-                try
+                var checkUser = _context.UserDetail.Where(s => s.EmailAddress == email).FirstOrDefault();
+                if (checkUser == null)
                 {
+                    ViewData["NotExist"] = "";
+                }
+                else
+                {
+
                     using (var client = new SmtpClient())
                     {
                         var random = new Random();
@@ -154,33 +164,41 @@ namespace POS_CapstoneProject_.Controllers.Login
                     }
 
                     ViewData["Success"] = "";
-                }
-                catch (Exception ex)
-                {
 
-                    ViewData["Error"] = ex.Message;
                 }
 
-               
+            }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
             }
 
+          
 
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> CodeVerification(string code)
         {
-            string verificationCode = HttpContext.Session.GetString("ResetCode");
-            string email = HttpContext.Session.GetString("ResetEmail");
+            try
+            {
+                string verificationCode = HttpContext.Session.GetString("ResetCode");
+                string email = HttpContext.Session.GetString("ResetEmail");
 
-            if (code == verificationCode)
-            {
-                return RedirectToAction("CreatePassword");
+                if (code == verificationCode)
+                {
+                    return RedirectToAction("CreatePassword");
+                }
+                else
+                {
+                    ViewData["IncorrectCode"] = "The code you entered is incorrect.";
+                }
             }
-            else
+            catch (Exception e)
             {
-                ViewData["IncorrectCode"] = "The code you entered is incorrect.";
+                ViewData["Error"] = e.Message;
             }
+          
 
             return View();
 
@@ -192,20 +210,28 @@ namespace POS_CapstoneProject_.Controllers.Login
         [HttpPost]
         public async Task<IActionResult> CreatePassword(string password)
         {
-            string email = HttpContext.Session.GetString("ResetEmail");
-            var checkUserEmail = _context.UserDetail.Where(s => s.EmailAddress == email).FirstOrDefault();
-            var checkUser = _context.User.Where(s => s.UserId == checkUserEmail.UserId).FirstOrDefault();
+            try
+            {
+                string email = HttpContext.Session.GetString("ResetEmail");
+                var checkUserEmail = _context.UserDetail.Where(s => s.EmailAddress == email).FirstOrDefault();
+                var checkUser = _context.User.Where(s => s.UserId == checkUserEmail.UserId).FirstOrDefault();
 
-            checkUser.Password = password;
-            _context.User.Update(checkUser);
-            await _context.SaveChangesAsync();
+                checkUser.Password = password;
+                _context.User.Update(checkUser);
+                await _context.SaveChangesAsync();
 
-          
-            HttpContext.Session.Remove("ResetEmail");
-            HttpContext.Session.Remove("ResetCode");
-            HttpContext.Session.Remove("CodeExpiration");
 
-            ViewData["PasswordChanged"] = "";
+                HttpContext.Session.Remove("ResetEmail");
+                HttpContext.Session.Remove("ResetCode");
+                HttpContext.Session.Remove("CodeExpiration");
+
+                ViewData["PasswordChanged"] = "";
+            }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+
             return View();
          
         }

@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EmailTemplate\**" />
     <Compile Remove="Utility\**" />
+    <Content Remove="EmailTemplate\**" />
     <Content Remove="Utility\**" />
+    <EmbeddedResource Remove="EmailTemplate\**" />
     <EmbeddedResource Remove="Utility\**" />
+    <None Remove="EmailTemplate\**" />
     <None Remove="Utility\**" />
   </ItemGroup>
 
@@ -47,10 +51,6 @@
   <ItemGroup>
     <None Include="C:\Users\Admin\source\repos\POS(CapstoneProject)\POS(CapstoneProject)\Controllers\.editorconfig" />
     <None Include="wwwroot\js\Admin\Inventory\StockMovement.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EmailTemplate\" />
   </ItemGroup>
 
 </Project>

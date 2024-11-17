@@ -16,33 +16,36 @@ namespace POS_CapstoneProject_.Controllers.Admin
         {
             _context = context;
         }
+        public async Task GetData()
+        {
+           
+            var categoryList = await _context.Category
+                                             .OrderBy(s => s.CategoryId)
+                                             .ToListAsync();
 
+            ViewData["CategoryList"] = categoryList;
+        }
         public async Task<IActionResult> Index()
         {
-            //get the session
+           
             var UserId = HttpContext.Session.GetInt32("UserID");
-            //check if there's an ongoing session
+       
             if (UserId != null) 
             {
 
                 var check = await  _context.User
-                                    .Where(s => s.UserId == UserId)
-                                    .FirstOrDefaultAsync();
+                                           .Where(s => s.UserId == UserId)
+                                           .FirstOrDefaultAsync();
                 if (check != null)
                 {
-                    //check if the user is an admin
+                  
                     if (check.RoleId != 1)
                     {                   
                         return RedirectToAction("Index", "Sales");
                     }
                     else
                     {
-                        ////create a list of categories
-                        var categoryList = await _context.Category
-                                                .OrderBy(s => s.CategoryId)
-                                                .ToListAsync();
-
-                        ViewData["CategoryList"] = categoryList; 
+                        await GetData();
 
                         return View();
 
@@ -54,7 +57,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     return RedirectToAction("Login", "Authentication");
                 }
             }
-            else //redirect to login if there's no ongoing session
+            else 
             {
                 return RedirectToAction("Login", "Authentication");
             }
@@ -67,70 +70,88 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> AddCategory(Category category)
         {
 
-            if (ModelState.IsValid)
+            try
             {
-               
-                var categoryNames = _context.Category.Where(s => s.CategoryName == category.CategoryName).FirstOrDefault();
-                if (categoryNames == null) //if the name does not exist then save it to the database
-                {                 
+                var categoryNames = _context.Category
+                                            .Where(s => s.CategoryName == category.CategoryName)
+                                            .FirstOrDefault();
+
+                if (categoryNames == null) 
+                {
                     _context.Add(category);
                     await _context.SaveChangesAsync();
-               
-                    TempData["AddedCategory"] = "";
+
+                    ViewData["AddedCategory"] = "";
 
                 }
                 else
                 {
-                   
-                    TempData["CategoryExist"] = "";
+
+                    ViewData["CategoryExist"] = "";
                 }
 
             }
-
-            return RedirectToAction("Index");
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
+            }
+                        
+            return View("Index");
         }
-
-        
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateCategory(Category category)
         {
-           
-               
-            var checkCategory = await _context.Category
-                                    .Where(s => s.CategoryId == category.CategoryId)
-                                    .FirstOrDefaultAsync();
-            if (checkCategory != null)
+            try
             {
-                if(checkCategory.CategoryName == category.CategoryName)
+                var checkCategory = await _context.Category
+                                                  .Where(s => s.CategoryId == category.CategoryId)
+                                                  .FirstOrDefaultAsync();
+                if (checkCategory != null)
                 {
-                    TempData["NoChanges"] = " ";
-                }
-                else
-                {
-
-                    var checkName = await  _context.Category
-                                    .Where(s => s.CategoryName == category.CategoryName)
-                                    .FirstOrDefaultAsync();
-                    if(checkName == null)
+                    if (checkCategory.CategoryName == category.CategoryName)
                     {
-                        checkCategory.CategoryName = category.CategoryName;
-
-                        _context.Category.Update(checkCategory);
-                        await _context.SaveChangesAsync();
-
-                        TempData["UpdatedCategory"] = "";
+                        ViewData["NoChanges"] = " ";
                     }
                     else
                     {
-                        TempData["CategoryExist"] = " ";
+
+                        var checkName = await _context.Category
+                                                      .Where(s => s.CategoryName == category.CategoryName)
+                                                      .FirstOrDefaultAsync();
+                        if (checkName == null)  
+                        {
+                            checkCategory.CategoryName = category.CategoryName;
+
+                            _context.Category.Update(checkCategory);
+                            await _context.SaveChangesAsync();
+
+                            ViewData["UpdatedCategory"] = "";
+                        }
+                        else
+                        {
+                            ViewData["CategoryExist"] = " ";
+                        }
+
                     }
-                  
+
                 }
-             
             }
-         
-            return RedirectToAction("Index");
+            catch(Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
+            }
+                 
+            return View("Index");
         }
 
         [HttpPost]
@@ -138,43 +159,68 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> ArchiveCategory(Category category)
         {
 
-            var checkCategory = await _context.Category
-                                    .Where(s => s.CategoryId == category.CategoryId)
-                                    .FirstOrDefaultAsync();
-
-            if (checkCategory != null)
+            try
             {
-                checkCategory.IsArchive = true;
+                var checkCategory = await _context.Category
+                                                  .Where(s => s.CategoryId == category.CategoryId)
+                                                  .FirstOrDefaultAsync();
 
-                _context.Update(checkCategory);
-                await _context.SaveChangesAsync();
+                if (checkCategory != null)
+                {
+                    checkCategory.IsArchive = true;
 
-                TempData["SuccessArchived"] = " ";
+                    _context.Update(checkCategory);
+                    await _context.SaveChangesAsync();
+
+                    ViewData["SuccessArchived"] = " ";
+                }
             }
+            catch(Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
+            }
+           
 
-            return RedirectToAction("Index");
+            return View("Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UnArchiveCategory(Category category)
         {
-            var checkCategory = await _context.Category
-                                    .Where(s => s.CategoryId == category.CategoryId)
-                                    .FirstOrDefaultAsync();
-
-            if (checkCategory != null)
+           
+            try
             {
-                checkCategory.IsArchive = false;
+                var checkCategory = await _context.Category
+                                                  .Where(s => s.CategoryId == category.CategoryId)
+                                                  .FirstOrDefaultAsync();
 
-                _context.Update(checkCategory);
-                await _context.SaveChangesAsync();
+                if (checkCategory != null)
+                {
+                    checkCategory.IsArchive = false;
 
-                TempData["SuccessUnarchived"] = " ";
+                    _context.Update(checkCategory);
+                    await _context.SaveChangesAsync();
+
+                    ViewData["SuccessUnarchived"] = " ";
+                }
+
+            }
+            catch(Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
             }
 
 
-            return RedirectToAction("Index");
+            return View("Index");
         }
     }
 

@@ -22,7 +22,7 @@
 </div>
 <!--Report Filter Wrapper-->
 <div class="report-filter-wrapper">
-    <form asp-action="Index" method="post" id="salesReportForm">
+    <form asp-action="GenerateReport" method="post" id="salesReportForm">
         <div class="report-type-wrapper">
             <label>Report Type</label>
 
@@ -133,7 +133,7 @@
             document.querySelector('.grandTotal-wrapper').style.display = "block";
             document.querySelector('.report-fromdate-wrapper').style.display = "block"
             document.querySelector('.report-todate-wrapper').style.display = "block"
-            document.querySelector('.inventory-bytype-wrapper').style.display = "none"
+     @*        document.querySelector('.inventory-bytype-wrapper').style.display = "none" *@
         });             
     </script>
 }
@@ -148,7 +148,7 @@
             document.querySelector('.grandTotal-wrapper').style.display = "none";
             document.querySelector('.report-fromdate-wrapper').style.display = "none"
             document.querySelector('.report-todate-wrapper').style.display = "none"
-            document.querySelector('.inventory-bytype-wrapper').style.display = "block"
+           @*  document.querySelector('.inventory-bytype-wrapper').style.display = "block" *@
         });      
     </script>
 }

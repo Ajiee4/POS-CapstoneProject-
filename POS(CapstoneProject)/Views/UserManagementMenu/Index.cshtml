@@ -77,9 +77,6 @@
                                     }
                                 }
 
-                                
-                              
-
                                 <button class="btn updateUserBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">
                                     <img src="~/images/edit.png" />
                                 </button>
@@ -306,7 +303,7 @@
 <!--Pop Up Messages-->
 
 <!--Archive User-->
-@if (TempData["SuccessArchived"] != null)
+@if (ViewData["SuccessArchived"] != null)
 {
     <script>
         Swal.fire({
@@ -318,7 +315,7 @@
     </script>
 }
 <!--No Changes have been made when updating-->
-@if (TempData["NoChanges"] != null)
+@if (ViewData["NoChanges"] != null)
 {
     <script>
         Swal.fire({
@@ -330,7 +327,7 @@
     </script>
 }
 <!--UnArchive User-->
-@if (TempData["SuccessUnarchived"] != null)
+@if (ViewData["SuccessUnarchived"] != null)
 {
     <script>
         Swal.fire({
@@ -342,7 +339,7 @@
     </script>
 }
 <!--Add User-->
-@if (TempData["AddUser"] != null)
+@if (ViewData["AddUser"] != null)
 {
     <script>
         Swal.fire({
@@ -354,7 +351,7 @@
     </script>
 }
 <!--Update User-->
-@if (TempData["UpdateUser"] != null)
+@if (ViewData["UpdateUser"] != null)
 {
     <script>
         Swal.fire({
@@ -366,7 +363,7 @@
     </script>
 }
 <!--Username already exist-->
-@if (TempData["Exist"] != null)
+ @if (ViewData["ExistUsername"] != null)
 {
     <script>
         Swal.fire({
@@ -378,3 +375,30 @@
     </script>
 
 }
+
+<!--Email already exist-->
+ @if (ViewData["ExistEmail"] != null)
+{
+    <script>
+        Swal.fire({
+            text: "Email already exist",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+}
+
+
+
+@if (ViewData["Error"] != null)
+                    {
+    <script>
+        Swal.fire({
+            text: "@ViewData["Error"]",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+} 

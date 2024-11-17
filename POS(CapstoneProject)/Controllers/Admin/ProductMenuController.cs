@@ -14,6 +14,22 @@ namespace POS_CapstoneProject_.Controllers.Admin
         {
             _context = context;
         }
+        //Retrieve data from database
+        public async Task GetData()
+        {
+            var productList = await _context.Product
+                                            .Include(s => s.Category)
+                                            .OrderBy(s => s.ProductId)
+                                            .ToListAsync();
+
+            var getCategoryProduct = await _context.Category
+                                                   .Where(s => s.IsArchive == false)
+                                                   .ToListAsync();
+
+            ViewData["productCategory"] = getCategoryProduct;
+            ViewData["productList"] = productList;
+        }
+
         public async Task<IActionResult> Index()
         {
             //check if there's an ongoing session
@@ -26,21 +42,12 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 if (check != null)
                 {
                     if (check.RoleId != 1)
-                    {
-                        //HttpContext.Session.Clear();
+                    {                     
                         return RedirectToAction("Index", "Sales");
                     }
                     else
-                    {                     
-                        var productList = await _context.Product
-                                                .Include(s => s.Category)
-                                                .OrderBy(s =>  s.ProductId)
-                                                .ToListAsync();   
-                        
-                        var getCategoryProduct = await _context.Category.ToListAsync();
-                       
-                        ViewData["productCategory"] = getCategoryProduct;
-                        ViewData["productList"] = productList;
+                    {
+                        await GetData();
 
                         return View();
                     }
@@ -56,76 +63,98 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
 
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct(Product prod)
         {
-            //check if there's an existing product
-            var checkExisting = await _context.Product.Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId).FirstOrDefaultAsync();
 
-
-
-            if (checkExisting == null)
+            try
             {
+                //check if there's an existing product
+                var checkExisting = await _context.Product
+                                        .Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId)
+                                        .FirstOrDefaultAsync();
 
-                _context.Add(prod);
-                await _context.SaveChangesAsync();
+                if (checkExisting == null)
+                {
 
-                TempData["ProductAdded"] = "Added new product";
+                    _context.Add(prod);
+                    await _context.SaveChangesAsync();
+
+                    ViewData["ProductAdded"] = "Added new product";
+                }
+                else
+                {
+                    ViewData["ProductExist"] = "Product already exist";
+                }
             }
-            else
+            catch(Exception e)
             {
-                TempData["ProductExist"] = "Product already exist";
+                ViewData["Error"] = e.Message;
             }
-           
+            finally
+            {
+                await GetData();
+            }
 
-            return RedirectToAction("Index");
+            return View("Index");
 
         }
-
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProduct(Product prod)
         {
-          
-            var checkProduct = await _context.Product
-                                  .Where(s => s.ProductId == prod.ProductId)
-                                  .FirstOrDefaultAsync();
-
-            if (checkProduct != null)
+            try
             {
-               
-                if (checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId)
-                {
-                    TempData["NoChanges"] = "No changes detected.";
-                }
-                else
-                {
-                    
-                    var checkExisting = await _context.Product
-                        .Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId && s.ProductId != prod.ProductId)
-                        .FirstOrDefaultAsync();
+                var checkProduct = await _context.Product
+                                                 .Where(s => s.ProductId == prod.ProductId)
+                                                 .FirstOrDefaultAsync();
 
-                    if (checkExisting == null)
+                if (checkProduct != null)
+                {
+
+                    if (checkProduct.Name == prod.Name && checkProduct.Price == prod.Price && checkProduct.ProdCategoryId == prod.ProdCategoryId)
                     {
-                        
-                        checkProduct.Name = prod.Name;
-                        checkProduct.Price = prod.Price;
-                        checkProduct.ProdCategoryId = prod.ProdCategoryId;
-
-                        
-                        _context.Update(checkProduct);
-                        await _context.SaveChangesAsync();
-
-                        TempData["ProductUpdated"] = "Product updated successfully.";
+                        ViewData["NoChanges"] = "No changes detected.";
                     }
                     else
                     {
-                        TempData["ProductExist"] = "A product with the same name and category already exists.";
+
+                        var checkExisting = await _context.Product
+                                                          .Where(s => s.Name == prod.Name && s.ProdCategoryId == prod.ProdCategoryId && s.ProductId != prod.ProductId)
+                                                          .FirstOrDefaultAsync();
+
+                        if (checkExisting == null)
+                        {
+
+                            checkProduct.Name = prod.Name;
+                            checkProduct.Price = prod.Price;
+                            checkProduct.ProdCategoryId = prod.ProdCategoryId;
+
+
+                            _context.Update(checkProduct);
+                            await _context.SaveChangesAsync();
+
+                            ViewData["ProductUpdated"] = "Product updated successfully.";
+                        }
+                        else
+                        {
+                            ViewData["ProductExist"] = "A product with the same name and category already exists.";
+                        }
                     }
                 }
             }
-
+            catch(Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
+            }
+          
             return RedirectToAction("Index");
         }
 
@@ -135,41 +164,65 @@ namespace POS_CapstoneProject_.Controllers.Admin
         public async Task<IActionResult> ArchiveProduct(Product product)
         {
 
-            var checkProduct = await _context.Product
-                                    .Where(s => s.ProductId == product.ProductId)
-                                    .FirstOrDefaultAsync();
-            if (checkProduct != null)
+            try
             {
-                checkProduct.IsArchive = true;
+                var checkProduct = await _context.Product
+                                                 .Where(s => s.ProductId == product.ProductId)
+                                                 .FirstOrDefaultAsync();
+                if (checkProduct != null)
+                {
+                    checkProduct.IsArchive = true;
 
-                _context.Update(checkProduct);
-                await _context.SaveChangesAsync();
+                    _context.Update(checkProduct);
+                    await _context.SaveChangesAsync();
 
-                TempData["SuccessArchived"] = " ";
+                    ViewData["SuccessArchived"] = " ";
+                }
             }
+            catch(Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
+            }
+          
 
-            return RedirectToAction("Index");
+            await GetData();
+
+            return View("Index");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UnarchiveProduct(Product product)
         {
-            var checkProduct = await _context.Product
-                                    .Where(s => s.ProductId == product.ProductId)
-                                    .FirstOrDefaultAsync();
-
-            if (checkProduct != null)
+            try
             {
-                checkProduct.IsArchive = false;
+                var checkProduct = await _context.Product
+                                                 .Where(s => s.ProductId == product.ProductId)
+                                                 .FirstOrDefaultAsync();
 
-                _context.Update(checkProduct);
-                await _context.SaveChangesAsync();
+                if (checkProduct != null)
+                {
+                    checkProduct.IsArchive = false;
 
-                TempData["SuccessUnarchived"] = " ";
+                    _context.Update(checkProduct);
+                    await _context.SaveChangesAsync();
+
+                    ViewData["SuccessUnarchived"] = " ";
+                }
+            }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
+            finally
+            {
+                await GetData();
             }
           
-
-            return RedirectToAction("Index");
+            return View("Index");
         }
     }
 }

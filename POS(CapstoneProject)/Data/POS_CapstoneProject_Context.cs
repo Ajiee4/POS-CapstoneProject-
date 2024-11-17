@@ -19,6 +19,17 @@ namespace POS_CapstoneProject_.Data
 
                 .HasIndex(b => b.Username)
                 .IsUnique();
+            modelBuilder.Entity<Receipt>()
+        .HasOne(r => r.Orders)
+        .WithMany()
+        .HasForeignKey(r => r.OrderID)
+        .OnDelete(DeleteBehavior.Restrict); // Change this to Restrict or NoAction
+
+            modelBuilder.Entity<Receipt>()
+                .HasOne(r => r.Users)
+                .WithMany()
+                .HasForeignKey(r => r.UserID)
+                .OnDelete(DeleteBehavior.Restrict); // Change this to Restrict or NoAction
 
             // Other model configurations
         }
@@ -35,5 +46,6 @@ namespace POS_CapstoneProject_.Data
         public DbSet<POS_CapstoneProject_.Models.InventoryTransactionDetail> InventoryTransactionDetail { get; set; } = default!;
         public DbSet<POS_CapstoneProject_.Models.Request> Request { get; set; } = default!;
         public DbSet<POS_CapstoneProject_.Models.RequestDetails> RequestDetails { get; set; } = default!;
+        public DbSet<POS_CapstoneProject_.Models.Receipt> Receipt { get; set; } = default!;
     }
 }
