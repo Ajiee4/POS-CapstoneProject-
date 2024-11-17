@@ -138,7 +138,7 @@ function DisplayCheckOut() {
 
 
         `
-         <tr >
+         <tr  data-toggle="tooltip" data-placement="bottom" title="${item.prodName}" >
                
                   <td class="table-data-quantity">
                   

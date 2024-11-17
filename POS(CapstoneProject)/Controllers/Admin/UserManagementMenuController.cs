@@ -93,7 +93,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                    
                     if (role == "Admin")
                     {
-                        var adduser = new User()
+                        User adduser = new User()
                         {
                             Username = username,
                             Password = password,
@@ -102,6 +102,18 @@ namespace POS_CapstoneProject_.Controllers.Admin
                         };
 
                         await _context.User.AddAsync(adduser);
+                        await _context.SaveChangesAsync();
+
+                        var userDetails = new UserDetail()
+                        {
+                            UserId = adduser.UserId,
+                            Firstname = firstname,
+                            Lastname = lastname,
+                            EmailAddress = email,
+                            ContactNumber = cellnumber,
+                        };
+
+                        await _context.UserDetail.AddAsync(userDetails);
                         await _context.SaveChangesAsync();
 
 

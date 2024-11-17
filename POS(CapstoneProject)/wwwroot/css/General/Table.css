@@ -126,12 +126,17 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 /*Action Buttons*/
 
 .general-table .general-update-btn {
-    background-color: #1964C5;
+    background-color: transparent;
     color: white;
     display: flex;
     justify-content: center;
+    border: 1px solid black !important;
     align-items: center;
     cursor: pointer;
+}
+
+.general-table .general-update-btn:hover {
+    background-color: #693D29;
 }
 .general-table .general-details-btn {
     background-color: #6D6868;
