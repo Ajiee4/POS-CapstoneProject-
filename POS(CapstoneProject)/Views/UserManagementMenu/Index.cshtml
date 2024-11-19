@@ -57,7 +57,7 @@
                                 </form>
 
                                 <button class="btn detailsUserBtn general-details-btn" data-placement="bottom" title="Details" onclick="ViewDetails('@item.EmailAddress', '@item.ContactNumber','@item.User.Username','@item.User.Password')" data-toggle="modal" data-target="#detailsUserModal">
-                                    <img src="~/images/details.png" />
+                                    <img src="~/images/a-details.png" />
                                 </button>
                                
                                    
@@ -66,19 +66,19 @@
                                     @if (!(item.User.isArchive))
                                     {
                                         <button class="btn archiveUserBtn general-archive-btn" data-toggle="tooltip" data-placement="bottom" title="Archive" onclick="ArchiveUser(@item.UserId)">
-                                            <img src="~/images/inbox.png" />
+                                            <img src="~/images/a-archive.png" />
                                         </button>
                                     }
                                     else
                                     {
                                         <button class="btn unarchiveUserBtn general-unarchive-btn" data-toggle="tooltip" data-placement="bottom" title="Unarchive" onclick="UnarchiveUser(@item.UserId)">
-                                            <img src="~/images/outbox.png" />
+                                            <img src="~/images/a-unarchive.png" />
                                         </button>
                                     }
                                 }
 
                                 <button class="btn updateUserBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" data-target="#updateUserModal" onclick="updateUser(@item.UserId,'@item.Firstname','@item.Lastname','@item.EmailAddress','@item.ContactNumber', '@item.User.Username', '@item.User.Password')">
-                                    <img src="~/images/edit.png" />
+                                    <img src="~/images/a-edit.png" />
                                 </button>
                             </div>
                         </td>
@@ -127,7 +127,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label class="control-label general-modal-label">Cellphone No.</label>
+                                <label class="control-label general-modal-label">Cellphone Number</label>
                                 <input class="form-control inputCellphone general-modal-input" maxlength="11" oninput="validateCellNumber(this)" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label class="control-label general-modal-label">Cellphone No.</label>
+                                <label class="control-label general-modal-label">Cellphone Number</label>
                                 <input class="form-control inputCellphone general-modal-input" maxlength="11" oninput="validateCellNumber(this)" name="cellnumber" placeholder="Enter Cellphone Number" type="text" required />
                             </div>
                         </div>
@@ -255,7 +255,7 @@
 </div>
 <!--User Details Modal-->
 <div class="modal fade general-modal" id="detailsUserModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <img src="~/images/coffe-logo-light.png" class="detail-user-modal-img general-coffee-img-bottom" />
 
@@ -269,17 +269,17 @@
 
             <div class="modal-body">              
                 <div class="details-wrapper">                         
-                    <div class="detail-info">
-                        <div class="form-group">
-                            <label class="control-label general-modal-label">Email</label>
-                            <input class="form-control detailEmail general-modal-input" readonly/>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label general-modal-label">Cellphone Number</label>
-                            <input class="form-control detailCellNum general-modal-input" readonly/>
-                        </div>
+                   
+                    <div class="form-group">
+                        <label class="control-label general-modal-label">Email</label>
+                        <input class="form-control detailEmail general-modal-input" readonly/>
                     </div>
+
+                    <div class="form-group">
+                        <label class="control-label general-modal-label">Cellphone Number</label>
+                        <input class="form-control detailCellNum general-modal-input" readonly/>
+                    </div>
+                  
                            
                     <div class="form-group">
                         <label class="control-label general-modal-label">Username</label>

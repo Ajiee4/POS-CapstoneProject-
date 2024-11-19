@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $('.report-table').DataTable({
         "paging": true,
-        "searching": true,
+        "searching": false,
         "ordering": false,
         "pageLength": 5
     });

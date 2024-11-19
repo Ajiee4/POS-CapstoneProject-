@@ -257,7 +257,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: row-reverse;
     gap: 5px;
     padding: 5px;
    
@@ -278,6 +278,9 @@
     font-weight: bolder;
     flex: 1;
 }
+.payBtn {
+    background-color: #693D29 !important;
+}
 #inputDiscount {
     text-align: center
 }
@@ -294,6 +297,7 @@ Product List*/
     height: calc(100vh - 130px) !important;
     padding: 5px;
     overflow: auto;
+    scrollbar-width: none;
 }
 
 .product-list-wrapper::-webkit-scrollbar {
@@ -393,6 +397,7 @@ Product List*/
     margin-top: 10px;
     padding: 10px 30px;
     display: grid;
+  
     grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
     gap: 20px 20px; 
 }

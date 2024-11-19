@@ -109,9 +109,7 @@ function DisplayCheckOut() {
                     ${truncatedName}
                 </td>
                 
-                 <td class="table-data-coffee">
-                   <input type="checkbox"/>
-                </td>
+                
                  <td class="table-data-price">₱${item.prodPrice} &nbsp;</td>
 
 

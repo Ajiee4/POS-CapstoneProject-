@@ -22,17 +22,17 @@
 <!--Inventory Wrapper-->
 <div class="inventory-wrapper">
     <div class="inventory-button-wrapper">
-        <button type="button" class="addIngredientBtn general-button" data-toggle="modal" data-target="#addIngredientModal">
+        <button type="button" class="addIngredientBtn" data-toggle="modal" data-target="#addIngredientModal">
             <img src="~/images/add-icon-black.png" />
             <span>Add Ingredient</span>
         </button>
 
-        <button class="btn requestBtn general-button" onclick="displayModal('Request')" type="button">
+        <button class="btn requestBtn " onclick="displayModal('Request')" type="button">
             <img src="~/images/request-icon-black.png" />
             <span>Request</span>
         </button>
 
-        <button type="button" class="stockOutBtn general-button" onclick="displayModal('StockOut')">
+        <button type="button" class="stockOutBtn" onclick="displayModal('StockOut')">
             <img src="~/images/stock-out-icon-black.png" />
             <span>Stock Out</span>
         </button>
@@ -67,7 +67,7 @@
                             <div class="action-wrapper">
                                 <div class="action-button">
                                     <button class="updateIngredientBtn general-update-btn" data-placement="bottom" title="Update" onclick="DefaultUpdateIngredientModal(@item.IngredientId, '@item.Name','@item.UnitOfMeasurement', @item.LowStockThreshold)"data-toggle="modal" data-target="#updateIngredientModal">
-                                        <img src="~/images/edit.png" />
+                                        <img src="~/images/a-edit.png" />
                                     </button>
                                 </div>
 

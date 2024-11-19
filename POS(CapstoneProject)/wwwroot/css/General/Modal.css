@@ -78,10 +78,10 @@
     cursor: pointer;
     font-weight: bold;
 }
-.general-modal .general-modal-button:hover {
-    background-color: black;
-    color: white;
-}
+    .general-modal .general-modal-button:hover {
+        background-color: #1F1C1C;
+        color: white;
+    }
 
 @media( max-width: 390px) {
     .general-modal .modal-content{

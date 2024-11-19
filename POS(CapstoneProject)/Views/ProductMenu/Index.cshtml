@@ -27,6 +27,7 @@
   
     <!--Product Table-->
      <table class="product-table general-table">
+       
         <thead>
             <tr>
                 <th>ID</th>
@@ -66,18 +67,18 @@
                             @if (item.IsArchive)
                             {
                                 <button class="unarchiveBtn general-unarchive-btn" data-id="@item.ProductId" onclick="unArchiveProduct(this)" data-toggle="tooltip" data-placement="bottom" title="Unarchive">
-                                    <img src="~/images/outbox.png" />
+                                    <img src="~/images/a-unarchive.png" />
                                 </button>
                             }
                             else
                             {
                                 <button class="archiveBtn general-archive-btn" data-id="@item.ProductId" onclick="archiveProduct(this)" data-toggle="tooltip" data-placement="bottom" title="Archive">
-                                    <img src="~/images/inbox.png" />
+                                    <img src="~/images/a-archive.png" />
                                 </button>
                             }
 
                             <button class="updateProductBtn general-update-btn" data-placement="bottom" title="Update" data-toggle="modal" onclick="updateProduct(@item.ProductId ,'@item.Name' , @item.Price, @item.ProdCategoryId)" data-target="#updateProductModal">
-                                <img src="~/images/edit.png" />
+                                <img src="~/images/a-edit.png" />
                             </button>
                         </div>
                     </td>                             
@@ -107,7 +108,7 @@
                                  
                     <div class="form-group">
                         <label asp-for="Name" class="control-label general-modal-label">Product Name</label>
-                        <input asp-for="Name" maxlength="25" placeholder="Enter Product Name" oninput="validateProductName(this)" class="form-control updateProductInputName general-modal-input" required />
+                        <input asp-for="Name" maxlength="20" placeholder="Enter Product Name" oninput="validateProductName(this)" class="form-control updateProductInputName general-modal-input" required />
                     </div>
 
                     <div class="form-group">
@@ -157,7 +158,7 @@
                   
                     <div class="form-group">
                         <label asp-for="Name"  class="control-label general-modal-label">Product Name</label>
-                        <input asp-for="Name" maxlength="25" placeholder="Enter Product Name" oninput="validateProductName(this)" class="form-control addProductInputName general-modal-input" required />
+                        <input asp-for="Name" maxlength="20" placeholder="Enter Product Name" oninput="validateProductName(this)" class="form-control addProductInputName general-modal-input" required />
                     </div>
 
                     <div class="form-group">

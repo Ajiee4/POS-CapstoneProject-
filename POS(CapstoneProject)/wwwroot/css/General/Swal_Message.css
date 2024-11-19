@@ -3,13 +3,23 @@
 .general-swal-icon {
     font-size: 10px;
 }
-.general-swal-confirm-btn, .general-swal-cancel-btn {
+.general-swal-confirm-btn {
     width: 150px;
     font-weight: bold;
-  /*  font-family: "Inter" !important;*/
+    background-color: #693D29 !important;
+    border: none !important;
+    outline: none !important;
+    /*  font-family: "Inter" !important;*/
+}
+.general-swal-cancel-btn {
+    width: 150px;
+    font-weight: bold;
+    background-color: #1F1C1C !important;
+    border: none !important;
+    outline: none !important;
 }
 .general-swal-title {
-   /* font-family: "Inter" !important;*/
+    /* font-family: "Inter" !important;*/
     font-size: 25px;
     font-weight: bolder !important;
     color: black !important;

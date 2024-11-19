@@ -39,6 +39,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 var check = await _context.User
                                 .Where(s => s.UserId == UserId)
                                 .FirstOrDefaultAsync();
+                                //.OrderBy(s => s.);
                 if (check != null)
                 {
                     if (check.RoleId != 1)
@@ -155,7 +156,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 await GetData();
             }
           
-            return RedirectToAction("Index");
+            return View("Index");
         }
 
 

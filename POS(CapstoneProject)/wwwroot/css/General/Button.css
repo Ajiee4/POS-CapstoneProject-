@@ -19,6 +19,11 @@
     transition: 0.3s ease-in-out;
     cursor: pointer;
     font-family: "Inter", "Arial";
+    z-index: 100;
+   
+    position: absolute;
+    top: 0px;
+
 }
 
 .general-button:focus {

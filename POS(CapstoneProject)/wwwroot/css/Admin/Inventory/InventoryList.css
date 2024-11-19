@@ -4,13 +4,6 @@
     margin: 0;
   
 }
-/*Button Wrapper*/
-.inventory-button-wrapper{
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
 
 /*Inventory Wrapper*/
 .inventory-wrapper {
@@ -18,6 +11,58 @@
     width: 100%;
     visibility: hidden;
 }
+
+
+/*Button Wrapper*/
+.inventory-button-wrapper{
+    display: flex !important;
+    gap: 5px;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+  
+}
+.inventory-button-wrapper button {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px 10px;
+    gap: 5px;
+    font-size: 0.6rem;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 1.5px solid black;
+
+    /* font-family: "Inter" !important;*/
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    font-family: "Inter", "Arial";
+}
+
+
+.inventory-button-wrapper button img {
+    width: 25px;
+    height: 25px;
+}
+
+
+
+.inventory-button-wrapper button:focus {
+    outline: 1px solid white;
+}
+
+
+.inventory-button-wrapper button span {
+    color: black;
+}
+
+.inventory-button-wrapper button:hover {
+    transform: scale(1.03);
+}
+
+
 
 /*Inventory Table*/
 .inventory-table thead th{
@@ -43,11 +88,20 @@
 }
 
 .inventory-table .action-button button {
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    border: none;
+    border-radius: 5px;
     outline: none;
+}
+.updateIngredientBtn {
+    background-color: transparent;
+    color: white;
+    display: flex;
+    justify-content: center;
+    border: 2px solid #693D29;
+    align-items: center;
+    cursor: pointer;
 }
 
 .inventory-table .action-button button:focus {
@@ -266,15 +320,18 @@ Request & Stock Out*/
 }
 
 
+.requestSubmit, .stockOutSubmit {
+    background-color: #693D29 !important;
+}
+
 .footer-buttons-wrapper, .request-list-footer {
-    
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     gap: 5px;
-    padding:15px 5px;
+    padding: 15px 5px;
 }
 .footer-buttons-wrapper > button, .request-list-footer > button {
     padding: 10px;

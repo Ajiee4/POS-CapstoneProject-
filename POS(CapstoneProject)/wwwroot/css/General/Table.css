@@ -57,8 +57,7 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 
 /*General Table*/
 .general-table {
-   
-    border: 1px solid transparent !important;
+    
     z-index: 1 !important;
     font-family: "Inter", "Arial";
 }
@@ -72,19 +71,19 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
     text-align: center !important;
 }
 
-.general-table th:first-child {
+/*.general-table th:first-child {
     border-radius: 50px 0 0 50px !important;
 }
 
 .general-table th:last-child {
     border-radius: 0 50px 50px 0 !important;
-}
+}*/
 
-    .general-table tbody {
-        background-color: white;
-        color: black;
-        border: 1px solid rgba(0,0,0,0.2);
-    }
+.general-table tbody {
+    background-color: white;
+    color: black;
+    border: 1px solid rgba(0,0,0,0.2);
+}
 
 
 .general-table tbody tr {
@@ -108,10 +107,10 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 }
 
 .general-table .action-wrapper > button {
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    border: none;
+    border-radius: 5px;
     outline: none;
 }
 
@@ -125,26 +124,24 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 
 /*Action Buttons*/
 
-    .general-table .general-update-btn {
-        background-color: #693D29;
-        color: white;
-        display: flex;
-        justify-content: center;
-        border: 1px solid black !important;
-        align-items: center;
-        cursor: pointer;
-    }
+.general-table .general-update-btn {
+    background-color: transparent;
+    color: white;
+    display: flex;
+    justify-content: center;
+    border: 2px solid #693D29;
+    align-items: center;
+    cursor: pointer;
+}
 
-/*.general-table .general-update-btn:hover {
-    background-color: #693D29;
-}*/
 .general-table .general-details-btn {
-    background-color: #6D6868;
+    background-color: transparent;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    border: 2px solid #6D6868;
 }
 
 
@@ -152,7 +149,8 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #F71F1F;
+    background-color: transparent;
+    border: 2px solid #F71F1F;
     cursor: pointer;
 }
 
@@ -160,7 +158,8 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: green;
+    background-color: transparent;
+    border: 2px solid #059224;
     cursor: pointer;
 }
 
