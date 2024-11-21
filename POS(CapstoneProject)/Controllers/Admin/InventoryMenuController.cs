@@ -355,26 +355,52 @@ namespace POS_CapstoneProject_.Controllers.Admin
             }
 
         }
+
+        public async Task GetRequestData()
+        {
+            var requestDetails = await _context.RequestDetails
+                                                 .Include(s => s.Ingredient)
+                                                 .ToListAsync();
+
+            ViewData["RequestDetails"] = JsonConvert.SerializeObject(requestDetails);
+        }
       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> FilterRequest(string requestStatus, DateTime fromDate, DateTime toDate)
         {
-            var RequestList = await _context.Request
-                                            .Include(s => s.User)
-                                            .Where(s => s.RequestDate >= fromDate && s.RequestDate <= toDate && s.Status == requestStatus)
-                                            .ToListAsync();
+            try
+            {
+                var RequestList = await _context.Request
+                                       .Include(s => s.User)
+                                       .ToListAsync();
+
+               
 
 
-            var requestDetails = await _context.RequestDetails
-                                               .Include(s => s.Ingredient)
-                                               .ToListAsync();
+                switch (requestStatus)
+                {
+                    case "Pending":
+                        var RequestListPending = RequestList.Where(s => s.Status == "Pending").ToList();
+                        ViewData["RequestList"] = JsonConvert.SerializeObject(RequestListPending);
+                        break;
+                    case "Completed":
+                        var RequestListCompleted = RequestList.Where(s => s.CompletedDate >= fromDate && s.CompletedDate <= toDate && s.Status == "Completed").ToList();
+                        ViewData["RequestList"] = JsonConvert.SerializeObject(RequestListCompleted);
+                        break;
+                    case "Canceled":
+                        var RequestListCanceled = RequestList.Where(s => s.CanceledDate >= fromDate && s.CanceledDate <= toDate && s.Status == "Canceled").ToList();
+                        ViewData["RequestList"] = JsonConvert.SerializeObject(RequestListCanceled);
+                        break;
+                }
 
-
-
-            ViewData["RequestDetails"] = JsonConvert.SerializeObject(requestDetails);
-            ViewData["FilterType"] = requestStatus;
-            ViewData["RequestList"] = JsonConvert.SerializeObject(RequestList);
+                await GetRequestData();
+                ViewData["FilterType"] = requestStatus;
+            }
+            catch (Exception e)
+            {
+                ViewData["Error"] = e.Message;
+            }
 
             return View("RequestList");
         }
@@ -394,6 +420,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 if (checkRequest != null)
                 {
                     checkRequest.Status = "Completed";
+                    checkRequest.CompletedDate = DateTime.Now.Date;
 
                     _context.Request.Update(checkRequest);
                     await _context.SaveChangesAsync();
@@ -458,6 +485,18 @@ namespace POS_CapstoneProject_.Controllers.Admin
                     }
                     await _context.SaveChangesAsync();
                 }
+
+
+                var RequestList = await _context.Request
+                                       .Include(s => s.User)
+                                       .ToListAsync();
+
+                var RequestListPending = RequestList.Where(s => s.Status == "Pending").ToList();
+                ViewData["RequestList"] = JsonConvert.SerializeObject(RequestListPending);
+
+                await GetRequestData();
+                ViewData["FilterType"] = "Pending";
+
             }
             catch (Exception e)
             {
@@ -467,6 +506,7 @@ namespace POS_CapstoneProject_.Controllers.Admin
 
 
             ViewData["UpdateRequest"] = "Request Complete";
+          
 
             return View("RequestList");
         }
@@ -485,11 +525,22 @@ namespace POS_CapstoneProject_.Controllers.Admin
                 if (checkRequest != null)
                 {
                     checkRequest.Status = "Canceled";
-
+                    checkRequest.CanceledDate = DateTime.Now.Date;
 
                     _context.Request.Update(checkRequest);
                     await _context.SaveChangesAsync();
                 }
+
+                var RequestList = await _context.Request
+                                     .Include(s => s.User)
+                                     .ToListAsync();
+
+                var RequestListPending = RequestList.Where(s => s.Status == "Pending").ToList();
+                ViewData["RequestList"] = JsonConvert.SerializeObject(RequestListPending);
+
+                await GetRequestData();
+               
+                ViewData["FilterType"] = "Pending";
             }
             catch (Exception e)
             {

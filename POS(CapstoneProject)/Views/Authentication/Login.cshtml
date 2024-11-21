@@ -20,12 +20,12 @@
             <form asp-action="Login" id="loginForm" method="post">
                 <div class="username-wrapper">
                     <label asp-for="Username">Username:</label><br />
-                    <input asp-for="Username" type="text" class="Username" required />
+                    <input asp-for="Username" maxlength="25" type="text" class="Username" required />
                 </div>
 
                 <div class="password-wrapper">
                     <label asp-for="Password">Password:</label><br />               
-                    <input asp-for="Password" type="password" class="Password" required id="passwordInput" />                                                     
+                    <input asp-for="Password" maxlength="25" type="password" class="Password" required id="passwordInput" />                                                     
                 </div>
 
                 <div id="forgot-password-text">                  

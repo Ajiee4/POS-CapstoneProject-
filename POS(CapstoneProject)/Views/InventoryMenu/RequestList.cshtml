@@ -20,8 +20,8 @@
         <div class="request-status-wrapper">
                 <label>Status</label>
 
-                <select class="selectRequestStatus" name="requestStatus">
-                    <option selected disabled>Select a type</option>
+                <select class="selectRequestStatus" onchange="selectTypeChange(this)" name="requestStatus">
+                    <option selected disabled hidden>Select a type</option>
                     <option value="Pending">Pending</option>
                     <option value="Completed">Completed</option>
                     <option value="Canceled">Canceled</option>
@@ -52,11 +52,23 @@
         @if (ViewData["RequestList"] != null)
         {
             <script>
+               
+
                 window.addEventListener('load', function () {
                     document.querySelector('.fromDate').value = localStorage.getItem('fromDateRequest');
                     document.querySelector('.toDate').value = localStorage.getItem('toDateRequest');
                     document.querySelector('.selectRequestStatus').value = "@ViewData["FilterType"]";
                     document.querySelector('.list-request-header').textContent = "@ViewData["FilterType"]";
+
+                    if("@ViewData["FilterType"]" == "Pending") {
+                        document.querySelector('.request-fromdate-wrapper').style.display = 'none';
+                        document.querySelector('.request-todate-wrapper').style.display = 'none';
+                    }
+                    else{
+                        document.querySelector('.request-fromdate-wrapper').style.display = 'block';
+                        document.querySelector('.request-todate-wrapper').style.display = 'block';
+                    }
+                   
                 });
             </script>
 

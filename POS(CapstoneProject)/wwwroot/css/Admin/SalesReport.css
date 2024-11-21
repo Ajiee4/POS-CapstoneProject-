@@ -58,7 +58,7 @@
     visibility: hidden;
     position: relative;
     width: 100%;
-    border: 1px solid red;
+   
 }
 
 
@@ -98,7 +98,7 @@
 }*/
 .grandTotal-wrapper{
     position: absolute;
-    bottom: 0px;
+    bottom: -15px;
 }
 .grandTotal-wrapper p {
     font-family: "Inter", "Arial";

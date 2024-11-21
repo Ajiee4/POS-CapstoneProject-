@@ -10,8 +10,13 @@ namespace POS_CapstoneProject_.Models
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User? User { get; set; }
-        [Required]
+     
+        [DataType(DataType.Date)]
         public DateTime RequestDate { get; set; }
+       
+        public DateTime? CompletedDate { get; set; }
+      
+        public DateTime? CanceledDate { get; set; }
         [Required]
         public string Status { get; set; }
     }

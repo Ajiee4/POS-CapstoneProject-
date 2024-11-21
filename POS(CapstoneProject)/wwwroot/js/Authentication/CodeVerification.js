@@ -3,12 +3,12 @@
 
     inputs.forEach(item => {
         item.addEventListener('input', (event) => {
-            // Replace the value of the input element with only numeric characters
+           
             item.value = item.value.replace(/[^0-9]/g, '');
         });
     });
 }
-
+validateCodeInput();
 function confirmCode() {
     let inputs = document.querySelectorAll('.code-wrapper input');
     let code = '';

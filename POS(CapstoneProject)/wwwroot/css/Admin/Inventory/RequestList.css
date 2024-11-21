@@ -47,6 +47,10 @@
     
 }
 
+.request-fromdate-wrapper, .request-todate-wrapper{
+    display: none;
+}
+
 @media (max-width: 760px) {
     .request-filter-wrapper form {
         justify-content: center;

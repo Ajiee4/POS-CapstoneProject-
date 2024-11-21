@@ -12,34 +12,66 @@ $(document).ready(function () {
     requestListUpdate = requestDetails;
 })
 //when view button is click
-$('.viewRequestBtn').click(function () {
-   
-    if ($('.selectRequestStatus').val() == null || $('.fromDate').val() == '' ||
-        $('.toDate').val() == '') {
-        Swal.fire({
-            text: 'Fill out all information',
-            icon: 'error',
-            padding: "1em",
-            showConfirmButton: false,
-            timer: 2000
-        }).then(() => {
-            setTimeout(() => {
 
-                $('.selectRequestStatus').focus();
 
-            }, 1000); 
-        });
+function ViewRequest() {
+    document.querySelector('.viewRequestBtn').addEventListener('click', () => {
+       
+        if ($('.selectRequestStatus').val() == null) {
 
+            popUpMessage("Fill out all information", "error")
+        }
+        else {
+
+            if ($('.selectRequestStatus').val() == "Pending") {
+
+                let toDate = $('.toDate').val();
+                let fromDate = $('.fromDate').val()
+
+                localStorage.setItem('toDateRequest', toDate);
+                localStorage.setItem('fromDateRequest', fromDate);
+                $('#requestFilterForm').submit();
+
+            }
+            else {
+                if ($('.fromDate').val() == "" || $('.toDate').val() == "") {
+                    Swal.fire({
+                        text: 'Fill out all information',
+                        icon: 'error',
+                        padding: "1em",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+                else {
+                    let toDate = $('.toDate').val();
+                    let fromDate = $('.fromDate').val()
+
+                    localStorage.setItem('toDateRequest', toDate);
+                    localStorage.setItem('fromDateRequest', fromDate);
+                    $('#requestFilterForm').submit();
+                }
+            }
+                 
+        }
+    });
+}
+
+ViewRequest();
+
+
+function selectTypeChange(type) {
+    let typeValue = type.value;
+
+    if (typeValue === 'Pending') {
+        document.querySelector('.request-fromdate-wrapper').style.display = 'none';
+        document.querySelector('.request-todate-wrapper').style.display = 'none';
     }
     else {
-        let toDate = $('.toDate').val();
-        let fromDate = $('.fromDate').val()
-
-        localStorage.setItem('toDateRequest', toDate);
-        localStorage.setItem('fromDateRequest', fromDate);
-        $('#requestFilterForm').submit();
+        document.querySelector('.request-fromdate-wrapper').style.display = 'block';
+        document.querySelector('.request-todate-wrapper').style.display = 'block';
     }
-});
+}
 
 //when modal shows up
 function ShowRequestModal() {
