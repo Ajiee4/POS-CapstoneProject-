@@ -22,14 +22,19 @@
     $('.product-wrapper').css({
         "visibility": "visible"
     });
+
+    $('#addProductModal .addProductInputName').val('');
+    $('#addProductModal .addProductInputPrice').val('');
 });
+
+
 
 
 //when modal is close, it will clear the value
 $('#addProductModal').on('hidden.bs.modal', function () {
     $('#addProductModal .addProductInputName').val('');
     $('#addProductModal .addProductInputPrice').val('');
-    $('#addProductModal .inputPhoto').val('');
+    
 });
 
 /*Archive Product*/

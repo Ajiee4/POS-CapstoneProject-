@@ -27,6 +27,10 @@ $(document).ready(function () {
             return $(this).attr('data-tooltip');
         }
     });
+
+    $('#addIngredientModal .inputIngredientName').val('');
+    $('#addIngredientModal .inputMeasurement').val('');
+    $('#addIngredientModal .inputThreshold').val('');
 });
 
 

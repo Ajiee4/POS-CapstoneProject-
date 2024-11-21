@@ -26,6 +26,13 @@
             return $(this).attr('data-tooltip');
         }
     });
+
+    $('#addUserModal .inputFirstName').val('');
+    $('#addUserModal .inputLastName').val('');
+    $('#addUserModal .inputEmail').val('');
+    $('#addUserModal .inputCellphone').val('');
+    $('#addUserModal .inputUsername').val('');
+    $('#addUserModal .inputPassword').val('');
 })
 
 //empty the inputs of the add modal when is it close
