@@ -25,6 +25,7 @@
 
     $('#addProductModal .addProductInputName').val('');
     $('#addProductModal .addProductInputPrice').val('');
+
 });
 
 
@@ -180,5 +181,34 @@ function UpdateProduct() {
         popUpMessageChoice("Are you sure you want to update this product?", '', 'question', 'general-swal-icon', 'general-swal-title', () => { $("#updateProductForm").submit() });
      
     }
+
+}
+
+
+function RowClickProduct(url, row, event) {
+  
+
+    if (event.target.tagName === 'BUTTON' || event.target.closest('button')) {
+        return;
+    }
+
+    if (event.target.classList.contains('archived-product') || event.target.closest('.archived-product')) {
+        return;
+    }
+
+  
+    let category = row.querySelector('td[data-label="Category"] span');
+    let catStatus = category.dataset.categorystatus
+    let categoryName = category.textContent.trim();
+    if (catStatus == "True") {
+        popUpMessage('Category is in archived', 'error')
+    }
+    else {
+       
+        localStorage.setItem('categoryName', categoryName);
+        location.href = url;
+    }
+  
+    
 
 }

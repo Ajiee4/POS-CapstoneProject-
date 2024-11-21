@@ -42,11 +42,11 @@
         <tbody>          
             @foreach (var item in productList)
             {
-                <tr class="@(item.IsArchive == true ? "archived-product" :"")">
+                <tr class="@(item.IsArchive == true ? "archived-product" :"")" onclick="RowClickProduct('@Url.Action("Index", "SalesMenu")', this,event)">
                     <td data-label="ID">@item.ProductId</td>
                     <td data-label="Name">@item.Name</td>
                     <td data-label="Category">
-                        <span class="table-data-category">
+                        <span class="table-data-category" data-categorystatus="@item.Category.IsArchive">
                             @item.Category?.CategoryName
                         </span>
                     </td>

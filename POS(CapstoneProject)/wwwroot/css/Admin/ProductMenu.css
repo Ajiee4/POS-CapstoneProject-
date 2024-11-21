@@ -21,6 +21,25 @@
     background-color: rgba(183, 183, 183,0.5);
 }
 
+.product-table tbody tr:not(.archived-product) {
+    cursor: pointer;
+}
+
+.archived-product .table-data-category {
+    pointer-events: none;
+}
+
+.table-data-category {
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: rgba(183, 183, 183,0.5);
+    cursor: pointer;
+}
+
+.product-table tbody tr:hover:not(.archived-product) {
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.2), inset -1px 0 0 rgba(255, 255, 255, 0.2), 0 0 4px 0 rgba(95, 99, 104, .6), 0 0 6px 2px rgba(95, 99, 104, .6);
+}
+
 
 
 /*Archive Pproduct*/
