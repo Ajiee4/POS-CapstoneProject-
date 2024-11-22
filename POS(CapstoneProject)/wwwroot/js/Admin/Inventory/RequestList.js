@@ -35,13 +35,8 @@ function ViewRequest() {
             }
             else {
                 if ($('.fromDate').val() == "" || $('.toDate').val() == "") {
-                    Swal.fire({
-                        text: 'Fill out all information',
-                        icon: 'error',
-                        padding: "1em",
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
+                    popUpMessage('Fill out all information', 'error')
+                    
                 }
                 else {
                     let toDate = $('.toDate').val();
@@ -99,7 +94,7 @@ function ShowRequestModal() {
                 const truncatedName = deta.Ingredient.Name.length > 5 ? `${deta.Ingredient.Name.substring(0, 5)}...` : deta.Ingredient.Name;
                 let row = `<tr>
                                   <td>${truncatedName}</td>
-                                  <td>
+                                  <td class="input-request-qty">
                                        <input class="inputQtyRequest" maxlength="9" data-requestid="${deta.RequestId}" data-id="${deta.IngredientId}" onchange="changeQtyRequest(this)" oninput="validateQtyRequest(this)" value="${deta.Quantity}" />
                                   </td>
                           </tr>
@@ -107,7 +102,7 @@ function ShowRequestModal() {
                 tableBody.innerHTML += row;
             });
 
-            let buttons = cardModal.querySelectorAll('button');
+            let buttons = cardModal.querySelectorAll('.request-modal-buttons button');
             let inputs = cardModal.querySelectorAll('input');
             let status = card.dataset.status;
 
@@ -157,7 +152,7 @@ function changeQtyRequest(input) {
     const inputValue = input.value.trim();
 
     if (!inputValue) {
-        input.value = 0;
+        input.value = request.Quantity;
     }
     request.Quantity = Number(input.value);
    

@@ -196,24 +196,29 @@
 #requestCardModal .request-card-table tbody {
    background-color: white;
 }
-    #requestCardModal .request-card-table thead {
-        background-color: #1F1C1C;
-        color: white;
-    }
+#requestCardModal .request-card-table thead {
+    background-color: #1F1C1C;
+    color: white;
+}
 #requestCardModal .request-card-table tr {
-    border-bottom: 1px solid black;
+    border: 1px solid black;
 }
 
 #requestCardModal .request-card-table thead th{
     padding: 10px 5px;
     text-align: center;
+    width: 100%;
+  
 }
-#requestCardModal .request-card-table td{
+#requestCardModal .request-card-table td {
+    /*    padding: 5px 10px;*/
+    text-align: center;
+    border: 1px solid black;
+}
+.input-request-qty{
     padding: 5px 10px;
-    text-align:center;
 }
-.inputQtyRequest{
-    width: 50%;
+.inputQtyRequest {
     text-align: center;
 }
 

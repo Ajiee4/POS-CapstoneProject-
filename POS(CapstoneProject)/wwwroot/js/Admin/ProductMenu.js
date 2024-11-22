@@ -201,7 +201,7 @@ function RowClickProduct(url, row, event) {
     let catStatus = category.dataset.categorystatus
     let categoryName = category.textContent.trim();
     if (catStatus == "True") {
-        popUpMessage('Category is in archived', 'error')
+        popUpMessage('Category is archived', 'error')
     }
     else {
        

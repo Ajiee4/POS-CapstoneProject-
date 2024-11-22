@@ -74,14 +74,14 @@ window.addEventListener('load', () => {
 
 
 //update cart function
-function cartCount() {
-    let sum = 0;
-    checkOutList.forEach((item) => {
-        sum += item.prodQty
-    });
-    $('.cart-count').text(sum);
+//function cartCount() {
+//    let sum = 0;
+//    checkOutList.forEach((item) => {
+//        sum += item.prodQty
+//    });
+//    $('.cart-count').text(sum);
 
-}
+//}
 
 
 let selectedCategory = 'All';
@@ -165,38 +165,7 @@ function DisplayCheckOut() {
             </tr>
 
         `
-            //`
-            // <tr >
-            //        <td style="padding: 10px">
-            //                <img src="/images/delete-black.png"                         
-            //                class="delete-checkout-img"
-            //                onclick="deleteItemCheckOut(${item.prodID})"/>
-            //        </td>
-            //        <td class="table-data-name">
-            //            ${truncatedName}
-            //        </td>
-            //        <td class="table-data-quantity">
-            //            <div class="quantity-table-data">
-            //                <span class="button decrementBtn" onclick="decrementQty(${item.prodID})">
-            //                    <img src="/images/minus.png" />
-            //                </span>
-
-            //                <span class="quantity">${item.prodQty}</span>
-
-            //                <span class="button incrementBtn" onclick="incrementQty(${item.prodID})">
-            //                    <img src="/images/plus-white.png" />
-            //               </span>
-            //            </div>
-
-            //        </td>
-            //         <td class="table-data-coffee">
-            //           <input type="checkbox"/>
-            //        </td>
-
-            //        <td class="table-data-price">₱${item.prodPrice} &nbsp;</td>
-            //    </tr>
-                                 
-            //`
+         
     });
 
     tableBody.innerHTML = html;
@@ -254,29 +223,29 @@ function deleteItemCheckOut(prodid) {
 }
 
 //increment the quantity of product
-function incrementQty(id) {
-    const product = checkOutList.find((item) => item.prodID === id);
-    if (product) {
-        product.prodQty += 1;
-        DisplayCheckOut();
-        cartCount();
-    }
+//function incrementQty(id) {
+//    const product = checkOutList.find((item) => item.prodID === id);
+//    if (product) {
+//        product.prodQty += 1;
+//        DisplayCheckOut();
+//        cartCount();
+//    }
    
-    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-}
+//    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+//}
 
 //decrement the quantity of product
-function decrementQty(id) {
-    const product = checkOutList.find((item) => item.prodID === id);
-    if (product && product.prodQty > 1) {
-        product.prodQty -= 1;
-        DisplayCheckOut();
-        cartCount();
+//function decrementQty(id) {
+//    const product = checkOutList.find((item) => item.prodID === id);
+//    if (product && product.prodQty > 1) {
+//        product.prodQty -= 1;
+//        DisplayCheckOut();
+//        cartCount();
         
-    }
+//    }
   
-    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-}
+//    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
+//}
 
 //calcualte subtotal
 function CalculateSubtotal() {
@@ -442,54 +411,5 @@ $('.calculateBtn').click(function () {
  
 });
 
-
-//break the name into small
-//function truncateName() {
-//    let names = document.querySelectorAll('.product-item-name span');
-
-//    names.forEach((item) => {
-//        if (item.textContent.length > 8) {
-//            item.textContent = item.textContent.substr(0, 6) + '...';
-//        }
-//    });
-//}
-
 truncateName();
-
-//toggle checkout
-//function CheckOutToggle() {
-//    $('.checkout-wrapper').slideToggle(1000, function () {
-      
-//        const checkoutWrapper = $('.checkout-wrapper');
-//        checkoutWrapper.toggleClass('checkHide');
-
-//        if (checkoutWrapper.hasClass('checkHide')) {
-//            $('.product-list-wrapper').css({
-//                'width': '100%'
-//            })
-//            //$('.container-all').css({
-//            //    'width': "100%"
-//            //})
-
-//        } else {
-           
-//            $('.product-list-wrapper').css({
-//                'width': "calc(100% - 340px)"
-//            })
-//        }
-  
-//    });
-//}
-//When exit button is click
-//$('.exitCheckout').click(function () {
-//    CheckOutToggle();
-//})
-
-//adjusting the width of conten if sidebar was showed/hidden
-
-//$('.checkout-icon').click(function () {
-
-//    CheckOutToggle();
-
-//});
 
