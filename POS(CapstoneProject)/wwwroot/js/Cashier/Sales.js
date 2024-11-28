@@ -2,7 +2,6 @@
 //array of objects
 let checkOutListCashier = [];
 
-
 $(document).ready(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -17,30 +16,15 @@ $(document).ready(function () {
 });
 
 
-
-
-
-
-
 //get the data from the locale storage and store it in the checkoutlist array
 window.addEventListener('load', () => {
     const storedList = localStorage.getItem('checkoutListCashier');
     if (storedList) {
         checkOutListCashier = JSON.parse(storedList);
         DisplayCheckOut();
-        cartCount();
+       
     }
 });
-
-
-function cartCount() {
-    let sum = 0;
-    checkOutListCashier.forEach((item) => {
-        sum += item.prodQty
-    });
-    $('.cart-count').text(sum);
-
-}
 
 
 let selectedCategory = 'All';
@@ -51,10 +35,8 @@ function FilterProduct(category) {
     selectedCategory = category;
     updateProductList();
 
-
     $('.category-item').removeClass('active');
     $(event.target).addClass('active');
-
 
 }
 
@@ -160,10 +142,9 @@ function checkoutProduct(id, name, quantity, price) {
 
     localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
     DisplayCheckOut();
-    cartCount();
+  
 
 }
-
 
 function deleteItemCheckOut(prodid) {
 
@@ -173,39 +154,12 @@ function deleteItemCheckOut(prodid) {
     checkOutListCashier.splice(indexItem, 1);
 
     DisplayCheckOut();
-    cartCount();
+    
     popUpMessageToast("success", "Product Deleted", 250);
 
     localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
 
 }
-
-//increment the quantity of product
-function incrementQty(id) {
-    const product = checkOutListCashier.find((item) => item.prodID === id);
-    if (product) {
-        product.prodQty += 1;
-        DisplayCheckOut();
-        cartCount();
-    }
-
-    localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
-}
-
-//decrement the quantity of product
-function decrementQty(id) {
-    const product = checkOutListCashier.find((item) => item.prodID === id);
-    if (product && product.prodQty > 1) {
-        product.prodQty -= 1;
-        DisplayCheckOut();
-        cartCount();
-
-    }
-
-    localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
-}
-//delete a specific item from the checklist
-
 
 
 //discount not yet applied; subtotal
@@ -255,21 +209,20 @@ function validateInput(input) {
 $('.cancelBtn').click(function () {
 
     if (checkOutListCashier.length == 0) {
-        popUpMessageToast('error', 'Check Out List Empty', 290)
+        popUpMessageToast('error', 'Order List Empty', 290)
 
     }
     else {
         checkOutListCashier.splice(0);
 
         DisplayCheckOut();
-        cartCount();
-        popUpMessageToast('success', 'Check Out Canceled', 280);
+        
+        popUpMessageToast('success', 'Order Canceled', 280);
 
         localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
 
     }
 })
-
 
 $('.payBtn').click(function () {
 
@@ -365,8 +318,7 @@ $('.calculateBtn').click(function () {
 
         $('#formPay').submit();
 
-        checkOutListCashier.splice(0);
-        cartCount();
+        checkOutListCashier.splice(0);   
         localStorage.setItem('checkoutListCashier', JSON.stringify(checkOutListCashier));
 
     });
@@ -374,19 +326,7 @@ $('.calculateBtn').click(function () {
 });
 
 
-//break the name into small
-//function truncateName() {
-//    let names = document.querySelectorAll('.product-item-name span');
-
-//    names.forEach((item) => {
-//        if (item.textContent.length > 8) {
-//            item.textContent = item.textContent.substr(0, 6) + '...';
-//        }
-//    });
-//}
-
 truncateName();
-
 
 function CheckOutToggle() {
     $('.checkout-wrapper').slideToggle(1000, function () {

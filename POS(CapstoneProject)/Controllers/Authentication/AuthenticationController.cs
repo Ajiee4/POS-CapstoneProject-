@@ -15,9 +15,11 @@ namespace POS_CapstoneProject_.Controllers.Login
         {
             _context = context;
         }
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            HttpContext.Session.Remove("UserID");
             return View();
+           
         }
         public IActionResult ForgotPassword()
         {
@@ -130,7 +132,6 @@ namespace POS_CapstoneProject_.Controllers.Login
                         var random = new Random();
                         string resetCode = random.Next(100000, 999999).ToString();
 
-
                         HttpContext.Session.SetString("ResetEmail", email);
                         HttpContext.Session.SetString("ResetCode", resetCode);
                         HttpContext.Session.SetString("CodeExpiration", DateTime.Now.AddMinutes(1).ToString());
@@ -184,14 +185,30 @@ namespace POS_CapstoneProject_.Controllers.Login
             {
                 string verificationCode = HttpContext.Session.GetString("ResetCode");
                 string email = HttpContext.Session.GetString("ResetEmail");
+                string expirationString = HttpContext.Session.GetString("CodeExpiration");
 
-                if (code == verificationCode)
+                if (DateTime.TryParse(expirationString, out DateTime expirationTime))
                 {
-                    return RedirectToAction("CreatePassword");
+                    // Check if the code has expired
+                    if (DateTime.Now > expirationTime)
+                    {
+                        ViewData["Error"] = "The verification code has expired.";
+                        return View();
+                    }
+
+                    // Check if the code is correct
+                    if (code == verificationCode)
+                    {
+                        return RedirectToAction("CreatePassword");
+                    }
+                    else
+                    {
+                        ViewData["IncorrectCode"] = "The code you entered is incorrect.";
+                    }
                 }
                 else
                 {
-                    ViewData["IncorrectCode"] = "The code you entered is incorrect.";
+                    ViewData["Error"] = "The code you entered is expired.";
                 }
             }
             catch (Exception e)
@@ -204,8 +221,6 @@ namespace POS_CapstoneProject_.Controllers.Login
 
         }
    
-        
-
 
         [HttpPost]
         public async Task<IActionResult> CreatePassword(string password)

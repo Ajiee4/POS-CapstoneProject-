@@ -68,20 +68,11 @@ window.addEventListener('load', () => {
     if (storedList) {
         checkOutList = JSON.parse(storedList);
         DisplayCheckOut();  //call the function
-        cartCount(); //call the function
+      
     }
 });
 
 
-//update cart function
-//function cartCount() {
-//    let sum = 0;
-//    checkOutList.forEach((item) => {
-//        sum += item.prodQty
-//    });
-//    $('.cart-count').text(sum);
-
-//}
 
 
 let selectedCategory = 'All';
@@ -205,7 +196,7 @@ function checkoutProduct(id, name, quantity, price) {
 
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
     DisplayCheckOut();
-    cartCount();
+  
   
 }
 //delete items from the checkut
@@ -215,37 +206,12 @@ function deleteItemCheckOut(prodid) {
 
     checkOutList.splice(indexItem, 1);
     DisplayCheckOut();
-    cartCount();
+  
     popUpMessageToast("success","Product Deleted", 250);
 
     localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 
 }
-
-//increment the quantity of product
-//function incrementQty(id) {
-//    const product = checkOutList.find((item) => item.prodID === id);
-//    if (product) {
-//        product.prodQty += 1;
-//        DisplayCheckOut();
-//        cartCount();
-//    }
-   
-//    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-//}
-
-//decrement the quantity of product
-//function decrementQty(id) {
-//    const product = checkOutList.find((item) => item.prodID === id);
-//    if (product && product.prodQty > 1) {
-//        product.prodQty -= 1;
-//        DisplayCheckOut();
-//        cartCount();
-        
-//    }
-  
-//    localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
-//}
 
 //calcualte subtotal
 function CalculateSubtotal() {
@@ -294,15 +260,15 @@ function validateInput(input) {
 $('.cancelBtn').click(function (){
 
     if (checkOutList.length == 0) {
-        popUpMessageToast('error', 'Check Out List Empty', 290)
+        popUpMessageToast('error', 'Order List Empty', 290)
         
     }
     else {
         checkOutList.splice(0);
 
         DisplayCheckOut();
-        cartCount();
-        popUpMessageToast('success', 'Check Out Canceled', 280);
+       
+        popUpMessageToast('success', 'Order Canceled', 280);
 
         localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
      
@@ -404,7 +370,7 @@ $('.calculateBtn').click(function () {
         $('#formPay').submit();
 
         checkOutList.splice(0);
-        cartCount();
+        
         localStorage.setItem('checkoutList', JSON.stringify(checkOutList));
 
     });
